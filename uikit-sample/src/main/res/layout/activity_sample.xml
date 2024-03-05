@@ -7,9 +7,11 @@
     android:layout_height="match_parent"
     android:layout_margin="@dimen/margin_16">
 
-    <TextView
+    <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="@dimen/search_view_height"
+        android:autofillHints="name"
+        android:inputType="text"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSearch"
