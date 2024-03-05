@@ -4,17 +4,17 @@ plugins {
 }
 
 android {
-    namespace = "com.innoprog.android"
+    namespace = "com.android.application.uikit_sample"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.innoprog.android"
+        applicationId = "com.android.application.uikit_sample"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -36,13 +36,14 @@ android {
 }
 
 dependencies {
-
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation(project(":uikit"))
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:3.0.2")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation(project(":uikit"))
-    testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }
