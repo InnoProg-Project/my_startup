@@ -24,16 +24,8 @@ jobs:
       - uses: actions/setup-java@v1
         with: { java-version: 1.17 }
 
-      - name: Run detekt on app module
-        run: ./gradlew :app:detektCheck
-
-          # Шаг для запуска detekt на модуле 'uikit'
-      - name: Run detekt on uikit module
-        run: ./gradlew :uikit:detektCheck
-
-          # Шаг для запуска detekt на модуле 'ukitsample'
-      - name: Run detekt on ukitsample module
-        run: ./gradlew :ukitsample:detektCheck
+      - name: Run detekt
+        run: ./gradlew detekt
       
       # Шаг для запуска скрипта сборки проекта
       - name: Run check out script
