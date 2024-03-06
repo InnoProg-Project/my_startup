@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "innoprog"
 include(":app")
+include(":uikit-sample")
+include(":uikit")
