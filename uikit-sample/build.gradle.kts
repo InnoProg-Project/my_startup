@@ -37,6 +37,7 @@ android {
 
 dependencies {
     implementation(project(":uikit"))
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     testImplementation("junit:junit:4.13.2")
     implementation("androidx.core:core-ktx:1.12.0")
