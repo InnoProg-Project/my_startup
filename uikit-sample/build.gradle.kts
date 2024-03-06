@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.android.application.uikit_sample"
+    namespace = "com.innoprog.android.uikit_sample"
     compileSdk = 34
 
     defaultConfig {
