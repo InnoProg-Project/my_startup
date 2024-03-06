@@ -25,7 +25,7 @@ jobs:
         with: { java-version: 1.17 }
 
       - name: Run detekt
-        run: ./gradlew detekt
+        run: ./gradlew detekt --config-alias app:/home/runner/work/InnoProg/InnoProg/config/detekt/detekt.yml
       
       # Шаг для запуска скрипта сборки проекта
       - name: Run check out script
