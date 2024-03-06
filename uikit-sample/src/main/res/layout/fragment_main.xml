@@ -6,30 +6,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.innoprog.android.uikit_sample.MainFragment">
 
-    <EditText
-        android:id="@+id/et_search_view"
-        android:layout_width="match_parent"
-        android:layout_margin="@dimen/margin_16"
-        android:layout_height="@dimen/search_view_height"
-        android:autofillHints="name"
-        android:paddingHorizontal="@dimen/margin_16"
-        android:background="@drawable/et_background"
-        android:inputType="text"
-        android:hint="nane of view"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_sample_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="7"
-        tools:listitem="@layout/item_sample_view"
-        app:layout_constraintTop_toBottomOf="@id/et_search_view"
+        tools:listitem="@layout/item_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,7 @@ enum class ViewSample {
 
     MyBottom {
         override fun newInstance(): Fragment {
-            return MyBottom()
+            return MyBottomFragment()
         }
     };
 

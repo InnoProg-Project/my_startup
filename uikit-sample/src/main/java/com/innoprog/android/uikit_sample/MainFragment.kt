@@ -6,11 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.application.uikit_sample.R
 
-class MainFragment: Fragment() {
+class MainFragment : Fragment() {
+
+    private var items = ViewSample.values()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,14 +24,14 @@ class MainFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv_sample_view)
-        val adapter = ViewAdapter(ViewSample.values()){ data,position ->
+        val adapter = ViewAdapter(items) { sampleType ->
             parentFragmentManager.commit {
                 replace(
                     R.id.root_fragment_container,
-                    data.newInstance(),
-                    data.name
+                    sampleType.newInstance(),
+                    sampleType.name
                 )
-                addToBackStack(data.name)
+                addToBackStack(sampleType.name)
             }
         }
         recyclerView.adapter = adapter
