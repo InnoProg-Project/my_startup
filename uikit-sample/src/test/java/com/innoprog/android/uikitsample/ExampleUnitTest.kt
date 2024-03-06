@@ -9,6 +9,8 @@ import org.junit.Assert.assertEquals
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
+
+@Suppress("PackageNaming")
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
