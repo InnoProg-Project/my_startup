@@ -1,4 +1,4 @@
-package com.android.application.uikit_sample
+package com.innoprog.android.uikit_sample
 
 import org.junit.Test
 

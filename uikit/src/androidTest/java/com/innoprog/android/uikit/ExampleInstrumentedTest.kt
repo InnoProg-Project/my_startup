@@ -1,4 +1,4 @@
-package com.android.application.uikit_sample
+package com.innoprog.android.uikit
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.android.application.uikit_sample", appContext.packageName)
+        assertEquals("com.android.library.uikit.test", appContext.packageName)
     }
 }
