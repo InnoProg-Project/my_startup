@@ -4,8 +4,8 @@ plugins {
 }
 
 android {
-    namespace = "com.android.library.uikit"
-    compileSdk = 33
+    namespace = "com.innoprog.android.uikit"
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 26
