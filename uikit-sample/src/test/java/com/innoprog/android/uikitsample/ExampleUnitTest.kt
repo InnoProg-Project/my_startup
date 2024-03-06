@@ -1,8 +1,8 @@
-package com.innoprog.android.uikit_sample
+package com.innoprog.android.uikitsample
 
 import org.junit.Test
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 
 /**
  * Example local unit test, which will execute on the development machine (host).

@@ -10,7 +10,7 @@
         android:theme="@style/Theme.InnoProg">
         <activity
             android:exported="true"
-            android:name="com.innoprog.android.uikit_sample.SampleActivity">
+            android:name="com.innoprog.android.uikitsample.SampleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
