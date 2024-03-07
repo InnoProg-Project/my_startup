@@ -1,4 +1,4 @@
-package com.innoprog.android.uikit_sample
+package com.innoprog.android.uikitsample
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

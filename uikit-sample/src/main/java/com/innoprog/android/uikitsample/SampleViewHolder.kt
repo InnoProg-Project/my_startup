@@ -1,4 +1,4 @@
-package com.innoprog.android.uikit_sample
+package com.innoprog.android.uikitsample
 
 import android.view.View
 import android.widget.TextView

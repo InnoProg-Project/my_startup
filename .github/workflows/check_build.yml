@@ -1,10 +1,10 @@
-name: Check build 
+name: Check build
 
 on:
   # Событие "push" для веток "main" и "develop"
-  push: 
-    branches: [ main, develop ] 
-    
+  push:
+    branches: [ main, develop ]
+
   # Событие "pull_request" для веток "main" и "develop"
   pull_request:
     branches: [ main, develop ]
@@ -22,16 +22,19 @@ jobs:
       
       # Шаг для настройки окружения Java с версией 1.17
       - uses: actions/setup-java@v1
-        with: {java-version: 1.17}
+        with: { java-version: 1.17 }
+
+      - name: Run detekt
+        run: ./gradlew detekt
       
       # Шаг для запуска скрипта сборки проекта
       - name: Run check out script
-        run: ./gradlew :app:build
+        run: ./gradlew build
 
       # Шаг для проверки статуса сборки
       - name: Check status
         run: echo "Check build status"
-        
+
       # Шаг для установки статуса "failed" в случае ошибки сборки
       - name: Set failed if build failed
         if: failure()
