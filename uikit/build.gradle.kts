@@ -1,11 +1,12 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("io.gitlab.arturbosch.detekt").version("1.23.3")
 }
 
 android {
-    namespace = "com.android.library.uikit"
-    compileSdk = 33
+    namespace = "com.innoprog.android.uikit"
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 26
@@ -41,4 +42,5 @@ dependencies {
     androidTestImplementation("androidx.test:runner:1.5.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.3")
 }
