@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/authorizationFragment">
+
+    <fragment
+        android:id="@+id/authorizationFragment"
+        android:name="com.innoprog.android.AuthorizationFragment"
+        android:label="AuthorizationFragment" >
+        <action
+            android:id="@+id/action_authorizationFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_authorizationFragment_to_passwordRecoveryFragment"
+            app:destination="@id/passwordRecoveryFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/passwordRecoveryFragment"
+        android:name="com.innoprog.android.PasswordRecoveryFragment"
+        android:label="PasswordRecoveryFragment" >
+        <action
+            android:id="@+id/action_passwordRecoveryFragment_to_codeEntryFragment"
+            app:destination="@id/codeEntryFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.innoprog.android.RegistrationFragment"
+        android:label="RegistrationFragment" >
+        <action
+            android:id="@+id/action_registrationFragment_to_codeEntryFragment"
+            app:destination="@id/codeEntryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/codeEntryFragment"
+        android:name="com.innoprog.android.CodeEntryFragment"
+        android:label="fragment_code_entry"
+        tools:layout="@layout/fragment_code_entry" />
+    <fragment
+        android:id="@+id/newPasswordFragment"
+        android:name="com.innoprog.android.NewPasswordFragment"
+        android:label="fragment_new_password"
+        tools:layout="@layout/fragment_new_password" />
+</navigation>
