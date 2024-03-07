@@ -26,6 +26,5 @@ class PasswordRecoveryFragment : BindingFragment<FragmentPasswordRecoveryBinding
         binding.btnSendCode.setOnClickListener {
             findNavController().navigate(R.id.codeEntryFragment)
         }
-
     }
 }

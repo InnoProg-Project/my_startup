@@ -26,7 +26,5 @@ class RegistrationFragment : BindingFragment<FragmentRegistrationBinding>() {
         binding.btnRegistration.setOnClickListener {
             findNavController().navigate(R.id.codeEntryFragment)
         }
-
     }
-
 }

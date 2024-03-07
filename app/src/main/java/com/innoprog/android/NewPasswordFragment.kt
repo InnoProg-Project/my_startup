@@ -22,7 +22,5 @@ class NewPasswordFragment : BindingFragment<FragmentNewPasswordBinding>() {
         binding.btnBack.setOnClickListener {
             findNavController().navigate(R.id.passwordRecoveryFragment)
         }
-
     }
-
 }

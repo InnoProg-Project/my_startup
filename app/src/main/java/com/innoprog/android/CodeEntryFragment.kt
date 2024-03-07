@@ -22,7 +22,5 @@ class CodeEntryFragment : BindingFragment<FragmentCodeEntryBinding>() {
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
-
     }
-
 }
