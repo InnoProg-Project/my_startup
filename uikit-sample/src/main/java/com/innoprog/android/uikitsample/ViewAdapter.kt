@@ -3,7 +3,6 @@ package com.innoprog.android.uikitsample
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.android.application.uikit_sample.R
 
 class ViewAdapter(
     private val data: Array<ViewSample>,
