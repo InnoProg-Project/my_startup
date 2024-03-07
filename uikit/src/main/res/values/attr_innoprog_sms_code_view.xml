@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="sms_code_view">
+        <attr name="statusChecked"
+            format = "flags">
+        </attr>
+    </declare-styleable>
+</resources>
