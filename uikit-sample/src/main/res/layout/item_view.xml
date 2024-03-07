@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<TextView android:id="@+id/view_name"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="view_name"
-        android:layout_margin="@dimen/margin_16"/>
-
-</LinearLayout>
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_16"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

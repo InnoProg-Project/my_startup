@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">uikit-sample</string>
+    <string name="title">UIkit</string>
 </resources>

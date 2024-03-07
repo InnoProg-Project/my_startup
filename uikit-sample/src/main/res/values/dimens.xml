@@ -2,4 +2,5 @@
 <resources>
     <dimen name="margin_16"> 16dp</dimen>
     <dimen name="search_view_height">48dp</dimen>
+    <dimen name="search_corner_radius">8dp</dimen>
 </resources>
