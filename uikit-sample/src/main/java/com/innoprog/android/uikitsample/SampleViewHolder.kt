@@ -11,5 +11,4 @@ class SampleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(item: ViewSample) {
         name.text = item.name
     }
-
 }
