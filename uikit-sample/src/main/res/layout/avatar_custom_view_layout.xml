@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:text="@string/avatar_set_true_editable_fasle" />
 
-        <com.innoprog.android.uikit.AvatarCustomVIew
+        <com.innoprog.android.uikit.AvatarCustomView
             android:id="@+id/avatar1"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -31,7 +31,7 @@
             android:layout_marginTop="32dp"
             android:text="@string/avatar_set_false_editable_fasle" />
 
-        <com.innoprog.android.uikit.AvatarCustomVIew
+        <com.innoprog.android.uikit.AvatarCustomView
             android:id="@+id/avatar2"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -45,7 +45,7 @@
             android:layout_marginTop="32dp"
             android:text="@string/avatar_set_true_editable_true" />
 
-        <com.innoprog.android.uikit.AvatarCustomVIew
+        <com.innoprog.android.uikit.AvatarCustomView
             android:id="@+id/avatar3"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -57,7 +57,7 @@
             android:layout_marginTop="32dp"
             android:text="@string/avatar_set_false_editable_true" />
 
-        <com.innoprog.android.uikit.AvatarCustomVIew
+        <com.innoprog.android.uikit.AvatarCustomView
             android:id="@+id/avatar4"
             android:layout_width="100dp"
             android:layout_height="100dp"

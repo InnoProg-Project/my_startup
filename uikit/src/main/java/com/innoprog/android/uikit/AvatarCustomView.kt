@@ -10,7 +10,7 @@ import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.imageview.ShapeableImageView
 
-class AvatarCustomVIew @JvmOverloads constructor(
+class AvatarCustomView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
