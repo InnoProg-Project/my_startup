@@ -7,6 +7,12 @@ enum class ViewSample {
         override fun newInstance(): Fragment {
             return MyBottomFragment()
         }
+    },
+
+    AvatarCustomView {
+        override fun newInstance(): Fragment {
+            return AvatarCustomViewFragment()
+        }
     };
 
     abstract fun newInstance(): Fragment
