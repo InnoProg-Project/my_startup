@@ -18,4 +18,7 @@
     <color name="text_field_fill">#0000000A</color>
     <color name="butt_text_primary">#FFFFFF</color>
     <color name="butt_text_secondary">#1B58F1</color>
+
+    <color name="like_color">#FF3030</color>
+    <color name="like_background_color">#1FFF3030</color>
 </resources>
