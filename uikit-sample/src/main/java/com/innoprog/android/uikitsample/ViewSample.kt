@@ -11,7 +11,7 @@ enum class ViewSample {
 
     AvatarCustomView {
         override fun newInstance(): Fragment {
-            return AvatarCustomViewFragment()
+            return InnoProgAvatarViewFragment()
         }
     };
 

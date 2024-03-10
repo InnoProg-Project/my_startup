@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.innoprog.android.uikitsample.databinding.AvatarCustomViewLayoutBinding
+import com.innoprog.android.uikitsample.databinding.InnoProgAvatarViewLayoutBinding
 
-class AvatarCustomViewFragment : Fragment() {
+class InnoProgAvatarViewFragment : Fragment() {
 
-    private var _binding: AvatarCustomViewLayoutBinding? = null
+    private var _binding: InnoProgAvatarViewLayoutBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -17,7 +17,7 @@ class AvatarCustomViewFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = AvatarCustomViewLayoutBinding.inflate(inflater, container, false)
+        _binding = InnoProgAvatarViewLayoutBinding.inflate(inflater, container, false)
         return binding.root
     }
 
