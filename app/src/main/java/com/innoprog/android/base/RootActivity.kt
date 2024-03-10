@@ -2,7 +2,6 @@ package com.innoprog.android.base
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.fragment.NavHostFragment
 import com.innoprog.android.databinding.ActivityRootBinding
 
 class RootActivity : AppCompatActivity() {
