@@ -65,5 +65,4 @@ class InnoProgLikeView @JvmOverloads constructor(
             (Integer.parseInt(countOfLikesTextView.text.toString()) - 1).toString()
         liked = false
     }
-
 }
