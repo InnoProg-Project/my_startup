@@ -1,4 +1,4 @@
-package com.innoprog.android
+package com.innoprog.android.base
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,9 +12,5 @@ class RootActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRootBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.rootFragmentContainerView) as NavHostFragment
-        val navController = navHostFragment.navController
     }
 }

@@ -1,13 +1,14 @@
-package com.innoprog.android
+package com.innoprog.android.feature.auth.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.databinding.FragmentCodeEntryBinding
 
-class CodeEntryFragment : BindingFragment<FragmentCodeEntryBinding>() {
+class CodeEntryFragment : BaseFragment<FragmentCodeEntryBinding>() {
 
     override fun createBinding(
         inflater: LayoutInflater,

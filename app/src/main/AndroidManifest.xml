@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Innoprog"
         tools:targetApi="31">
         <activity
-            android:name=".RootActivity"
+            android:name=".base.RootActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
