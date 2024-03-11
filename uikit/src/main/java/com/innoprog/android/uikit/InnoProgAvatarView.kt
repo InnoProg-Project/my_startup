@@ -24,32 +24,32 @@ class InnoProgAvatarView @JvmOverloads constructor(
                 R.styleable.AvatarCustomVIew_avatarBackgroundColor,
                 context.getColor(R.color.background_secondary)
             )
-            this@InnoProgAvatarView.setBackgroundResource(R.drawable.circle)
-            this@InnoProgAvatarView.background.setTint(color)
+            setBackgroundResource(R.drawable.circle)
+            background.setTint(color)
             imageView.setImageDrawable(getDrawable(R.styleable.AvatarCustomVIew_avatarImageReference))
         }
     }
 
     fun setNonEditableAvatar(avatar: Drawable?) {
-        this@InnoProgAvatarView.background.setTint(context.getColor(R.color.background_secondary))
+        background.setTint(context.getColor(R.color.background_secondary))
         imageView.setImageDrawable(avatar)
         imageView.isClickable = false
     }
 
     fun setNonEditablePlaceholder() {
-        this@InnoProgAvatarView.background.setTint(context.getColor(R.color.background_secondary))
+        background.setTint(context.getColor(R.color.background_secondary))
         imageView.setImageDrawable(getDrawable(context, R.drawable.ic_person))
         imageView.isClickable = false
     }
 
     fun setEditableAvatar(avatar: Drawable) {
-        this@InnoProgAvatarView.background.setTint(context.getColor(R.color.text_secondary))
+        background.setTint(context.getColor(R.color.text_secondary))
         imageView.setImageDrawable(avatar)
         imageView.isClickable = true
     }
 
     fun setEditablePlaceholder() {
-        this@InnoProgAvatarView.background.setTint(context.getColor(R.color.text_secondary))
+        background.setTint(context.getColor(R.color.text_secondary))
         imageView.setImageDrawable(getDrawable(context, R.drawable.ic_camera))
         imageView.isClickable = true
     }
