@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="InnoProgInputView">
+        <attr name="type">
+            <enum name="input" value="0" />
+            <enum name="text_area" value="1" />
+        </attr>
+
+        <attr name="state">
+            <flag name="inactive" value="0" />
+            <flag name="disabled" value="1" />
+            <flag name="error" value="2" />
+            <flag name="focused" value="3" />
+            <flag name="empty" value="4" />
+            <flag name="filled" value="5" />
+        </attr>
+
+        <attr name="text" format="string" />
+        <attr name="label" format="string" />
+        <attr name="caption" format="string" />
+        <attr name="left_icon" format="reference" />
+        <attr name="right_icon" format="reference" />
+    </declare-styleable>
+</resources>
