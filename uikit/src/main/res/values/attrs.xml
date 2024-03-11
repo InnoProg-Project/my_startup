@@ -3,5 +3,9 @@
     <declare-styleable name="LikeCustomView">
         <attr name="likeCount" format="integer" />
         <attr name="liked" format="boolean" />
+      
+    <declare-styleable name="AvatarCustomVIew">
+        <attr name="avatarBackgroundColor" format="color" />
+        <attr name="avatarImageReference" format="reference" />
     </declare-styleable>
 </resources>

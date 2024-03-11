@@ -3,4 +3,8 @@
     <string name="title">UIkit</string>
     <string name="likecount_24_liked_false">likeCount = 24, liked = false</string>
     <string name="likecount_24_liked_true">likeCount = 24, liked = true</string>
+    <string name="avatar_set_true_editable_fasle">Avatar set = true, Editable = fasle</string>
+    <string name="avatar_set_false_editable_fasle">Avatar set = false, Editable = fasle</string>
+    <string name="avatar_set_true_editable_true">Avatar set = true, Editable = true</string>
+    <string name="avatar_set_false_editable_true">Avatar set = false, Editable = true</string>
 </resources>
