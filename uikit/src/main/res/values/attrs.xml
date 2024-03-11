@@ -3,6 +3,7 @@
     <declare-styleable name="LikeCustomView">
         <attr name="likeCount" format="integer" />
         <attr name="liked" format="boolean" />
+    </declare-styleable>
       
     <declare-styleable name="AvatarCustomVIew">
         <attr name="avatarBackgroundColor" format="color" />
