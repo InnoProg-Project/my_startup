@@ -8,7 +8,7 @@ plugins {
 
 detekt {
     toolVersion = "1.23.3"
-    config = files("config/detekt/detekt.yml")
+    config.from(files("config/detekt/detekt.yml"))
     buildUponDefaultConfig = true
 }
 

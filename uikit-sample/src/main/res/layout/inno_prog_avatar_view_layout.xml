@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/avatar_set_true_editable_fasle" />
+
+        <com.innoprog.android.uikit.InnoProgAvatarView
+            android:id="@+id/avatar1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            app:avatarBackgroundColor="@color/background_secondary"
+            app:avatarImageReference="@drawable/avatar_test_img" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/avatar_set_false_editable_fasle" />
+
+        <com.innoprog.android.uikit.InnoProgAvatarView
+            android:id="@+id/avatar2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            app:avatarBackgroundColor="@color/background_secondary"
+            app:avatarImageReference="@drawable/ic_person" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/avatar_set_true_editable_true" />
+
+        <com.innoprog.android.uikit.InnoProgAvatarView
+            android:id="@+id/avatar3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/avatar_set_false_editable_true" />
+
+        <com.innoprog.android.uikit.InnoProgAvatarView
+            android:id="@+id/avatar4"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
+
+
+</ScrollView>
