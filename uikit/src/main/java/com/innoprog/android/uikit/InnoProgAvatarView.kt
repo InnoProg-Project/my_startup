@@ -15,7 +15,6 @@ class InnoProgAvatarView @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
     private val imageView by lazy { findViewById<ShapeableImageView>(R.id.avatar_image) }
-    private val frameLayout by lazy { findViewById<FrameLayout>(R.id.avatar_frame_layout) }
 
     init {
         inflate(context, R.layout.innno_prog_avatar_view, this)
@@ -25,31 +24,32 @@ class InnoProgAvatarView @JvmOverloads constructor(
                 R.styleable.AvatarCustomVIew_avatarBackgroundColor,
                 context.getColor(R.color.background_secondary)
             )
-            frameLayout.background.setTint(color)
+            this@InnoProgAvatarView.setBackgroundResource(R.drawable.circle)
+            this@InnoProgAvatarView.background.setTint(color)
             imageView.setImageDrawable(getDrawable(R.styleable.AvatarCustomVIew_avatarImageReference))
         }
     }
 
     fun setNonEditableAvatar(avatar: Drawable?) {
-        frameLayout.background.setTint(context.getColor(R.color.background_secondary))
+        this@InnoProgAvatarView.background.setTint(context.getColor(R.color.background_secondary))
         imageView.setImageDrawable(avatar)
         imageView.isClickable = false
     }
 
     fun setNonEditablePlaceholder() {
-        frameLayout.background.setTint(context.getColor(R.color.background_secondary))
+        this@InnoProgAvatarView.background.setTint(context.getColor(R.color.background_secondary))
         imageView.setImageDrawable(getDrawable(context, R.drawable.ic_person))
         imageView.isClickable = false
     }
 
     fun setEditableAvatar(avatar: Drawable) {
-        frameLayout.background.setTint(context.getColor(R.color.text_secondary))
+        this@InnoProgAvatarView.background.setTint(context.getColor(R.color.text_secondary))
         imageView.setImageDrawable(avatar)
         imageView.isClickable = true
     }
 
     fun setEditablePlaceholder() {
-        frameLayout.background.setTint(context.getColor(R.color.text_secondary))
+        this@InnoProgAvatarView.background.setTint(context.getColor(R.color.text_secondary))
         imageView.setImageDrawable(getDrawable(context, R.drawable.ic_camera))
         imageView.isClickable = true
     }
