@@ -1,20 +1,25 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("io.gitlab.arturbosch.detekt").version("1.23.3")
 }
 
 android {
-    namespace = "com.innoprog.android.uikit_sample"
+    namespace = "com.innoprog.android.uikitsample"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.android.application.uikit_sample"
+        applicationId = "com.android.application.uikitsample"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    viewBinding {
+        enable = true
     }
 
     buildTypes {
@@ -37,6 +42,7 @@ android {
 
 dependencies {
     implementation(project(":uikit"))
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     testImplementation("junit:junit:4.13.2")
     implementation("androidx.core:core-ktx:1.12.0")
@@ -45,4 +51,6 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.3")
+
 }

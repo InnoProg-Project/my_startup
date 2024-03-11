@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AvatarCustomVIew">
+        <attr name="avatarBackgroundColor" format="color" />
+        <attr name="avatarImageReference" format="reference" />
+    </declare-styleable>
+</resources>

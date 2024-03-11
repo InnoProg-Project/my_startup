@@ -1,4 +1,4 @@
-package com.innoprog.android.uikit_sample
+package com.innoprog.android.uikitsample
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

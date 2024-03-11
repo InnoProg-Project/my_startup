@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="outline">#FFFFFF1F</color>
-    <color name="overlay">#FFFFFF14</color>
+    <color name="outline">#1FFFFFFF</color>
+    <color name="overlay">#14FFFFFF</color>
     <color name="dark">#FF3B30</color>
-    <color name="modal_overlay">#00000080</color>
+    <color name="modal_overlay">#80000000</color>
     <color name="background_primary">#121212</color>
     <color name="background_secondary">#222222</color>
     <color name="accent_default">#A4E64E</color>
     <color name="accent_light">#C8F095</color>
     <color name="accent_dark">#658E30</color>
-    <color name="text_primary">#FFFFFFF0</color>
-    <color name="text_secondary">#FFFFFF99</color>
-    <color name="text_tertiary">#FFFFFF52</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#99FFFFFF</color>
+    <color name="text_tertiary">#52FFFFFF</color>
     <color name="text_white_primary">#000000</color>
-    <color name="text_white_secondary">#000000AB</color>
-    <color name="text_white_tertiary">#00000052</color>
-    <color name="text_field_fill">#FFFFFF0A</color>
+    <color name="text_white_secondary">#A6000000</color>
+    <color name="text_white_tertiary">#52000000</color>
+    <color name="text_field_fill">#0AFFFFFF</color>
     <color name="butt_text_primary">#FFFFFF</color>
     <color name="butt_text_secondary">#FFFFFF</color>
 </resources>

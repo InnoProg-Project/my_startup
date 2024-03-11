@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="outline">#0000001F</color>
-    <color name="overlay">#21212114</color>
+    <color name="outline">#1F000000</color>
+    <color name="overlay">#14212121</color>
     <color name="dark">#FF3B30</color>
-    <color name="modal_overlay">#00000080</color>
+    <color name="modal_overlay">#80000000</color>
     <color name="background_primary">#FFFFFF</color>
     <color name="background_secondary">#F0F0F0</color>
     <color name="accent_default">#A4E64E</color>
@@ -13,9 +13,9 @@
     <color name="text_secondary">#637083</color>
     <color name="text_tertiary">#97A1AF</color>
     <color name="text_white_primary">#FFFFFF</color>
-    <color name="text_white_secondary">#FFFFFFAB</color>
-    <color name="text_white_tertiary">#FFFFFF52</color>
-    <color name="text_field_fill">#0000000A</color>
+    <color name="text_white_secondary">#ABFFFFFF</color>
+    <color name="text_white_tertiary">#52FFFFFF</color>
+    <color name="text_field_fill">#0A000000</color>
     <color name="butt_text_primary">#FFFFFF</color>
     <color name="butt_text_secondary">#1B58F1</color>
 </resources>
