@@ -21,4 +21,6 @@
 
     <color name="like_color">#FF3030</color>
     <color name="like_background_color">#1FFF3030</color>
+
+    <color name="accent_secondary">#5A45FE</color>
 </resources>
