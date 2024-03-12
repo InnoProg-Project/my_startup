@@ -7,6 +7,11 @@ enum class ViewSample {
         override fun newInstance(): Fragment {
             return MyBottomFragment()
         }
+    },
+    InputView {
+        override fun newInstance(): Fragment {
+            return InnoProgInputViewFragment()
+        }
     };
 
     abstract fun newInstance(): Fragment
