@@ -49,4 +49,28 @@
         android:name="com.innoprog.android.feature.auth.presentation.NewPasswordFragment"
         android:label="fragment_new_password"
         tools:layout="@layout/fragment_new_password" />
+
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="com.innoprog.android.feature.feed.presentation.FeedFragment"
+        android:label="fragment_feed"
+        tools:layout="@layout/fragment_feed" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.innoprog.android.feature.profile.presentation.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/projectsFragment"
+        android:name="com.innoprog.android.feature.projects.presentation.ProjectsFragment"
+        android:label="fragment_projects"
+        tools:layout="@layout/fragment_projects" />
+
+    <fragment
+        android:id="@+id/trainingFragment"
+        android:name="com.innoprog.android.feature.training.presentation.TrainingFragment"
+        android:label="fragment_training"
+        tools:layout="@layout/fragment_training" />
 </navigation>
