@@ -6,96 +6,86 @@
     android:layout_height="wrap_content"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
-    <FrameLayout
-        android:id="@+id/stroke_edit_text_view"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/background_edit_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rectangle_with_stroke"
+        android:background="@drawable/rectangle_with_stroke_test"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/background_edit_text_view"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/left_icon"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/rectangle_with_corners_8dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_placeholder" />
 
-            <ImageView
-                android:id="@+id/left_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/ic_placeholder" />
+        <TextView
+            android:id="@+id/hint_empty"
+            style="@style/TextBody_1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@android:color/transparent"
+            android:singleLine="true"
+            android:textColor="@color/text_secondary"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/right_icon"
+            app:layout_constraintStart_toEndOf="@+id/left_icon"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/hint_empty"
-                style="@style/TextBody_1"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
-                android:backgroundTint="@android:color/transparent"
-                android:singleLine="true"
-                android:textColor="@color/text_secondary"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/right_icon"
-                app:layout_constraintStart_toEndOf="@+id/left_icon"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/hint_filled"
+            style="@style/TextCaption_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/text_secondary"
+            app:layout_constraintBottom_toTopOf="@id/edit_text"
+            app:layout_constraintEnd_toStartOf="@+id/right_icon"
+            app:layout_constraintStart_toEndOf="@id/left_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Label" />
 
-            <TextView
-                android:id="@+id/hint_filled"
-                style="@style/TextCaption_1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/text_secondary"
-                app:layout_constraintBottom_toTopOf="@id/edit_text"
-                app:layout_constraintEnd_toStartOf="@+id/right_icon"
-                app:layout_constraintStart_toEndOf="@id/left_icon"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Label" />
+        <EditText
+            android:id="@+id/edit_text"
+            style="@style/TextBody_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@android:color/transparent"
+            android:singleLine="true"
+            android:textColor="@color/text_primary"
+            android:textCursorDrawable="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/right_icon"
+            app:layout_constraintStart_toEndOf="@id/left_icon"
+            app:layout_constraintTop_toBottomOf="@id/hint_filled"
+            tools:text="Filled text" />
 
-            <EditText
-                android:id="@+id/edit_text"
-                style="@style/TextBody_1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@android:color/transparent"
-                android:singleLine="true"
-                android:textColor="@color/text_primary"
-                android:textCursorDrawable="@null"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/right_icon"
-                app:layout_constraintStart_toEndOf="@id/left_icon"
-                app:layout_constraintTop_toBottomOf="@id/hint_filled"
-                tools:text="Filled text" />
+        <ImageView
+            android:id="@+id/right_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_placeholder" />
 
-            <ImageView
-                android:id="@+id/right_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/ic_placeholder" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </FrameLayout>
 
     <TextView
         android:id="@+id/caption"
@@ -103,8 +93,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        app:layout_constraintStart_toStartOf="@id/stroke_edit_text_view"
-        app:layout_constraintTop_toBottomOf="@id/stroke_edit_text_view"
+        app:layout_constraintStart_toStartOf="@id/background_edit_text_view"
+        app:layout_constraintTop_toBottomOf="@id/background_edit_text_view"
         tools:text="Caption" />
 
 </merge>

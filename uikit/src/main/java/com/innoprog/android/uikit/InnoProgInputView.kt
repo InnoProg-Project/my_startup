@@ -1,19 +1,19 @@
 package com.innoprog.android.uikit
 
 import android.content.Context
-import android.content.res.TypedArray
 import android.graphics.Color
+import android.graphics.drawable.LayerDrawable
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.StyleableRes
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.innoprog.android.uikit.ext.applyStyleable
 
 
 class InnoProgInputView @JvmOverloads constructor(
@@ -31,7 +31,8 @@ class InnoProgInputView @JvmOverloads constructor(
     private val leftIcon by lazy { findViewById<ImageView>(R.id.left_icon) }
     private val rightIcon by lazy { findViewById<ImageView>(R.id.right_icon) }
     private val backgroundEditTextView by lazy { findViewById<ConstraintLayout>(R.id.background_edit_text_view) }
-    private val strokeEditTextView by lazy { findViewById<FrameLayout>(R.id.stroke_edit_text_view) }
+
+    private lateinit var layerDrawable: LayerDrawable
 
     private val textWatcher by lazy {
         object : TextWatcher {
@@ -54,9 +55,7 @@ class InnoProgInputView @JvmOverloads constructor(
             if (hasFocus && state != InnoProgInputViewState.DISABLED) {
                 renderState(InnoProgInputViewState.FOCUSED)
                 editTextView.requestFocus()
-                val imm =
-                    context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.showSoftInput(editTextView, 0)
+                showKeyboard()
             } else {
                 renderState(state)
             }
@@ -66,6 +65,13 @@ class InnoProgInputView @JvmOverloads constructor(
     init {
         inflate(context, R.layout.inno_prog_input_view, this)
         attrs?.applyStyleable(context, R.styleable.InnoProgInputView) {
+
+            layerDrawable = AppCompatResources
+                .getDrawable(context, R.drawable.rectangle_with_stroke_test) as LayerDrawable
+            layerDrawable.findDrawableByLayerId(R.id.rectangle_background)
+                .setTint(context.getColor(R.color.text_field_fill))
+            backgroundEditTextView.background = layerDrawable
+
             when (getInt(
                 R.styleable.InnoProgInputView_state,
                 InnoProgInputViewState.INACTIVE.value
@@ -76,9 +82,6 @@ class InnoProgInputView @JvmOverloads constructor(
                 else -> { state = InnoProgInputViewState.INACTIVE }
             }
             renderState(state)
-
-            backgroundEditTextView.setBackgroundResource(R.drawable.rectangle_with_corners_8dp)
-            strokeEditTextView.setBackgroundResource(R.drawable.rectangle_with_stroke)
 
             editTextView.setText(getString(R.styleable.InnoProgInputView_text))
             emptyHintTextView.text = getString(R.styleable.InnoProgInputView_label)
@@ -97,7 +100,7 @@ class InnoProgInputView @JvmOverloads constructor(
         isFocusable = true
         setFocusableInTouchMode(true)
         isClickable = true
-        onFocusChangeListener = focusChangeListener
+        this@InnoProgInputView.onFocusChangeListener = focusChangeListener
 
         editTextView.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
@@ -112,49 +115,42 @@ class InnoProgInputView @JvmOverloads constructor(
     fun renderState(state: InnoProgInputViewState) {
         when (state) {
             InnoProgInputViewState.INACTIVE -> {
-                backgroundEditTextView.background.setTint(context.getColor(R.color.text_field_fill))
-                strokeEditTextView.background.setTint(Color.TRANSPARENT)
+                layerDrawable.findDrawableByLayerId(R.id.rectangle_stroke)
+                    .setTint(Color.TRANSPARENT)
                 captionTextView.setTextColor(context.getColor(R.color.text_primary))
-                emptyHintTextView.setTextColor(context.getColor(R.color.text_secondary))
-                filledHintTextView.setTextColor(context.getColor(R.color.text_secondary))
-                editTextView.setTextColor(context.getColor(R.color.text_primary))
                 editTextView.isEnabled = true
                 this.alpha = 1f
             }
 
             InnoProgInputViewState.DISABLED -> {
-                backgroundEditTextView.background.setTint(context.getColor(R.color.text_field_fill))
-                strokeEditTextView.background.setTint(Color.TRANSPARENT)
+                layerDrawable.findDrawableByLayerId(R.id.rectangle_stroke)
+                    .setTint(Color.TRANSPARENT)
                 captionTextView.setTextColor(context.getColor(R.color.text_primary))
-                emptyHintTextView.setTextColor(context.getColor(R.color.text_secondary))
-                filledHintTextView.setTextColor(context.getColor(R.color.text_secondary))
-                editTextView.setTextColor(context.getColor(R.color.text_primary))
                 editTextView.isEnabled = false
                 this.alpha = 0.4f
             }
 
             InnoProgInputViewState.ERROR -> {
-                backgroundEditTextView.background.setTint(context.getColor(R.color.text_field_fill))
-                strokeEditTextView.background.setTint(context.getColor(R.color.dark))
+                layerDrawable.findDrawableByLayerId(R.id.rectangle_stroke)
+                    .setTint(context.getColor(R.color.dark))
                 captionTextView.setTextColor(context.getColor(R.color.dark))
-                emptyHintTextView.setTextColor(context.getColor(R.color.text_secondary))
-                filledHintTextView.setTextColor(context.getColor(R.color.text_secondary))
-                editTextView.setTextColor(context.getColor(R.color.text_primary))
                 editTextView.isEnabled = true
                 this.alpha = 1f
             }
 
             InnoProgInputViewState.FOCUSED -> {
-                backgroundEditTextView.background.setTint(context.getColor(R.color.text_field_fill))
-                strokeEditTextView.background.setTint(context.getColor(R.color.stroke))
+                layerDrawable.findDrawableByLayerId(R.id.rectangle_stroke)
+                    .setTint(context.getColor(R.color.stroke))
                 captionTextView.setTextColor(context.getColor(R.color.text_primary))
-                emptyHintTextView.setTextColor(context.getColor(R.color.text_secondary))
-                filledHintTextView.setTextColor(context.getColor(R.color.text_secondary))
-                editTextView.setTextColor(context.getColor(R.color.text_primary))
                 editTextView.isEnabled = true
                 this.alpha = 1f
             }
         }
+    }
+
+    private fun showKeyboard() {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(editTextView, 0)
     }
 
     fun setLeftIconClickListener(onClickListener: OnClickListener) {
@@ -165,18 +161,11 @@ class InnoProgInputView @JvmOverloads constructor(
         rightIcon.setOnClickListener(onClickListener)
     }
 
-    fun deleteLeftIcon() { leftIcon.setImageDrawable(null) }
+    fun deleteLeftIcon() {
+        leftIcon.setImageDrawable(null)
+    }
 
-    fun deleteRightIcon() { rightIcon.setImageDrawable(null) }
-
-    inline fun AttributeSet.applyStyleable(
-        context: Context,
-        @StyleableRes styleableResId: IntArray,
-        action: TypedArray.() -> Unit
-    ) {
-
-        val typedArray = context.obtainStyledAttributes(this, styleableResId)
-        typedArray.action()
-        typedArray.recycle()
+    fun deleteRightIcon() {
+        rightIcon.setImageDrawable(null)
     }
 }
