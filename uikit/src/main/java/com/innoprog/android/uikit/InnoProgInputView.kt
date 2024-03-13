@@ -15,7 +15,6 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.innoprog.android.uikit.ext.applyStyleable
 
-
 class InnoProgInputView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -74,11 +73,11 @@ class InnoProgInputView @JvmOverloads constructor(
 
             when (getInt(
                 R.styleable.InnoProgInputView_state,
-                InnoProgInputViewState.INACTIVE.value
+                INACTIVE
             )) {
-                InnoProgInputViewState.DISABLED.value -> { state = InnoProgInputViewState.DISABLED }
-                InnoProgInputViewState.ERROR.value -> { state = InnoProgInputViewState.ERROR }
-                InnoProgInputViewState.FOCUSED.value -> { state = InnoProgInputViewState.FOCUSED }
+                DISABLED -> { state = InnoProgInputViewState.DISABLED }
+                ERROR -> { state = InnoProgInputViewState.ERROR }
+                FOCUSED -> { state = InnoProgInputViewState.FOCUSED }
                 else -> { state = InnoProgInputViewState.INACTIVE }
             }
             renderState(state)
@@ -119,7 +118,7 @@ class InnoProgInputView @JvmOverloads constructor(
                     .setTint(Color.TRANSPARENT)
                 captionTextView.setTextColor(context.getColor(R.color.text_primary))
                 editTextView.isEnabled = true
-                this.alpha = 1f
+                this.alpha = FULL_VISIBLE
             }
 
             InnoProgInputViewState.DISABLED -> {
@@ -127,7 +126,7 @@ class InnoProgInputView @JvmOverloads constructor(
                     .setTint(Color.TRANSPARENT)
                 captionTextView.setTextColor(context.getColor(R.color.text_primary))
                 editTextView.isEnabled = false
-                this.alpha = 0.4f
+                this.alpha = VISIBILITY_40_PERCENT
             }
 
             InnoProgInputViewState.ERROR -> {
@@ -135,7 +134,7 @@ class InnoProgInputView @JvmOverloads constructor(
                     .setTint(context.getColor(R.color.dark))
                 captionTextView.setTextColor(context.getColor(R.color.dark))
                 editTextView.isEnabled = true
-                this.alpha = 1f
+                this.alpha = FULL_VISIBLE
             }
 
             InnoProgInputViewState.FOCUSED -> {
@@ -143,7 +142,7 @@ class InnoProgInputView @JvmOverloads constructor(
                     .setTint(context.getColor(R.color.stroke))
                 captionTextView.setTextColor(context.getColor(R.color.text_primary))
                 editTextView.isEnabled = true
-                this.alpha = 1f
+                this.alpha = FULL_VISIBLE
             }
         }
     }
@@ -167,5 +166,15 @@ class InnoProgInputView @JvmOverloads constructor(
 
     fun deleteRightIcon() {
         rightIcon.setImageDrawable(null)
+    }
+
+    companion object{
+        const val INACTIVE = 0
+        const val DISABLED = 1
+        const val ERROR = 2
+        const val FOCUSED = 3
+
+        const val FULL_VISIBLE = 1f
+        const val VISIBILITY_40_PERCENT = 0.4f
     }
 }

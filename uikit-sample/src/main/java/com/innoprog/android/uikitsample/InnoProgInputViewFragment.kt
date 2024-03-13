@@ -26,5 +26,4 @@ class InnoProgInputViewFragment : Fragment() {
         binding.inputViewFocusedEmpty.deleteLeftIcon()
         binding.inputViewFocusedEmpty.deleteRightIcon()
     }
-
 }
