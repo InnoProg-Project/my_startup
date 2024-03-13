@@ -168,7 +168,7 @@ class InnoProgInputView @JvmOverloads constructor(
         rightIcon.setImageDrawable(null)
     }
 
-    companion object{
+    companion object {
         const val INACTIVE = 0
         const val DISABLED = 1
         const val ERROR = 2
