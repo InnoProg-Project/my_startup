@@ -55,7 +55,7 @@ class InnoProgAvatarView @JvmOverloads constructor(
         imageView.isClickable = true
     }
 
-    private fun render(imageType: ImageLoadingType) {
+    fun render(imageType: ImageLoadingType) {
         when (imageType) {
             is ImageLoadingType.ImageNetwork -> {
                 Glide.with(context)
@@ -63,6 +63,7 @@ class InnoProgAvatarView @JvmOverloads constructor(
                     .circleCrop()
                     .into(imageView)
             }
+
             is ImageLoadingType.ImageDrawable -> imageView.setImageDrawable(imageType.drawable)
         }
     }
