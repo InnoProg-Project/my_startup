@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import com.bumptech.glide.Glide
 import com.google.android.material.imageview.ShapeableImageView
 import com.innoprog.android.uikit.ext.applyStyleable
 
@@ -52,5 +53,17 @@ class InnoProgAvatarView @JvmOverloads constructor(
         background.setTint(context.getColor(R.color.text_secondary))
         imageView.setImageDrawable(getDrawable(context, R.drawable.ic_camera))
         imageView.isClickable = true
+    }
+
+    private fun render(imageType: ImageLoadingType) {
+        when (imageType) {
+            is ImageLoadingType.ImageNetwork -> {
+                Glide.with(context)
+                    .load(imageType.imageUrl)
+                    .circleCrop()
+                    .into(imageView)
+            }
+            is ImageLoadingType.ImageDrawable -> imageView.setImageDrawable(imageType.drawable)
+        }
     }
 }
