@@ -14,4 +14,14 @@
         <attr name="left_icon" format="reference" />
         <attr name="right_icon" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="LikeCustomView">
+        <attr name="likeCount" format="integer" />
+        <attr name="liked" format="boolean" />
+    </declare-styleable>
+      
+    <declare-styleable name="AvatarCustomVIew">
+        <attr name="avatarBackgroundColor" format="color" />
+        <attr name="avatarImageReference" format="reference" />
+    </declare-styleable>
 </resources>
