@@ -28,5 +28,9 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding>() {
         binding.tvPasswordRecovery.setOnClickListener {
             findNavController().navigate(R.id.passwordRecoveryFragment)
         }
+
+        binding.btnLogin.setOnClickListener {
+            findNavController().navigate(R.id.feedFragment)
+        }
     }
 }

@@ -2,18 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/feedFragment"
-
-        android:title="Лента" />
+        android:icon="@drawable/ic_home"
+        android:title="@string/feed" />
     <item
         android:id="@+id/projectsFragment"
-
-        android:title="Проекты" />
+        android:icon="@drawable/ic_projects"
+        android:title="@string/projects" />
     <item
         android:id="@+id/trainingFragment"
-
-        android:title="Обучение" />
+        android:icon="@drawable/ic_training"
+        android:title="@string/training" />
     <item
         android:id="@+id/profileFragment"
-
-        android:title="Профиль" />
+        android:icon="@drawable/ic_profile"
+        android:title="@string/profile" />
 </menu>

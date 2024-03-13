@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_authorizationFragment_to_passwordRecoveryFragment"
             app:destination="@id/passwordRecoveryFragment" />
+        <action
+            android:id="@+id/action_authorizationFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
     </fragment>
 
     <fragment
