@@ -7,6 +7,6 @@
     <string name="avatar_set_false_editable_fasle">Avatar set = false, Editable = fasle</string>
     <string name="avatar_set_true_editable_true">Avatar set = true, Editable = true</string>
     <string name="avatar_set_false_editable_true">Avatar set = false, Editable = true</string>
-    <string name="avatar_image_network">Avatar - NetworkImage</string>
+    <string name="avatar_image_network">Network avatar</string>
     <string name="avatar_drawable">Drawable avatar</string>
 </resources>
