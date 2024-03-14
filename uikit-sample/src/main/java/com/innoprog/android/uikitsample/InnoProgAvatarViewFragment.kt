@@ -34,7 +34,7 @@ class InnoProgAvatarViewFragment : Fragment() {
         val placeholderResId = com.innoprog.android.uikit.R.drawable.ic_person
 
         val imageType =
-            ImageLoadingType.ImageNetwork(url, placeholderResId)
+            ImageLoadingType.ImageNetwork(url, placeholderResId = placeholderResId)
 
         binding.avatar1.loadImage(imageType)
     }
