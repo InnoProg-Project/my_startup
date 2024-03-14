@@ -30,8 +30,5 @@ class InnoProgAvatarLoadingFragment : Fragment() {
         val imageType = ImageLoadingType.ImageNetwork("https://url_to_your_image.jpg", placeholderResId)
 
         binding.avatarNetwork.loadImage(imageType)
-
     }
-
 }
-
