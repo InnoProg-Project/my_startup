@@ -20,10 +20,4 @@ class InnoProgInputViewFragment : Fragment() {
         _binding = FragmentInnoProgInputViewBinding.inflate(layoutInflater)
         return binding.root
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.inputViewFocusedEmpty.deleteLeftIcon()
-        binding.inputViewFocusedEmpty.deleteRightIcon()
-    }
 }

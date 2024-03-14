@@ -10,7 +10,7 @@
         android:id="@+id/background_edit_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rectangle_with_stroke_test"
+        android:background="@drawable/inno_prog_input_view_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

@@ -35,8 +35,8 @@ class InnoProgInputView @JvmOverloads constructor(
 
     private val textWatcher by lazy {
         object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun afterTextChanged(s: Editable?) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+            override fun afterTextChanged(s: Editable?) = Unit
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s.isNullOrEmpty()) {
                     emptyHintTextView.visibility = VISIBLE
@@ -66,7 +66,7 @@ class InnoProgInputView @JvmOverloads constructor(
         attrs?.applyStyleable(context, R.styleable.InnoProgInputView) {
 
             layerDrawable = AppCompatResources
-                .getDrawable(context, R.drawable.rectangle_with_stroke_test) as LayerDrawable
+                .getDrawable(context, R.drawable.inno_prog_input_view_background) as LayerDrawable
             layerDrawable.findDrawableByLayerId(R.id.rectangle_background)
                 .setTint(context.getColor(R.color.text_field_fill))
             backgroundEditTextView.background = layerDrawable
@@ -148,8 +148,8 @@ class InnoProgInputView @JvmOverloads constructor(
     }
 
     private fun showKeyboard() {
-        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(editTextView, 0)
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.showSoftInput(editTextView, 0)
     }
 
     fun setLeftIconClickListener(onClickListener: OnClickListener) {
@@ -158,14 +158,6 @@ class InnoProgInputView @JvmOverloads constructor(
 
     fun setRightIconClickListener(onClickListener: OnClickListener) {
         rightIcon.setOnClickListener(onClickListener)
-    }
-
-    fun deleteLeftIcon() {
-        leftIcon.setImageDrawable(null)
-    }
-
-    fun deleteRightIcon() {
-        rightIcon.setImageDrawable(null)
     }
 
     companion object {
