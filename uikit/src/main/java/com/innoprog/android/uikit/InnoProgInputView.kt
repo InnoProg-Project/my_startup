@@ -17,7 +17,6 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.transition.TransitionManager
 import com.innoprog.android.uikit.ext.applyStyleable
 
-
 class InnoProgInputView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -57,7 +56,6 @@ class InnoProgInputView @JvmOverloads constructor(
                         ConstraintSet.TOP,
                         resources.getDimensionPixelSize(R.dimen.margin_16)
                     )
-
                 } else {
                     emptyHintTextView.textSize = SP_12
 
