@@ -29,7 +29,7 @@
             android:id="@+id/hint_empty"
             style="@style/TextBody_1"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
@@ -38,24 +38,11 @@
             android:singleLine="true"
             android:textColor="@color/text_secondary"
             android:textSize="16sp"
+            tools:text="Label"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/right_icon"
             app:layout_constraintStart_toEndOf="@+id/left_icon"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/hint_filled"
-            style="@style/TextCaption_1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/text_secondary"
-            app:layout_constraintBottom_toTopOf="@id/edit_text"
-            app:layout_constraintEnd_toStartOf="@+id/right_icon"
-            app:layout_constraintStart_toEndOf="@id/left_icon"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Label" />
 
         <EditText
             android:id="@+id/edit_text"
@@ -71,7 +58,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/right_icon"
             app:layout_constraintStart_toEndOf="@id/left_icon"
-            app:layout_constraintTop_toBottomOf="@id/hint_filled"
             tools:text="Filled text" />
 
         <ImageView
@@ -85,7 +71,6 @@
             tools:src="@drawable/ic_placeholder" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     <TextView
         android:id="@+id/caption"

@@ -13,7 +13,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.transition.TransitionManager
 import com.innoprog.android.uikit.ext.applyStyleable
+
 
 class InnoProgInputView @JvmOverloads constructor(
     context: Context,
@@ -26,25 +29,54 @@ class InnoProgInputView @JvmOverloads constructor(
     private val editTextView by lazy { findViewById<EditText>(R.id.edit_text) }
     private val captionTextView by lazy { findViewById<TextView>(R.id.caption) }
     private val emptyHintTextView by lazy { findViewById<TextView>(R.id.hint_empty) }
-    private val filledHintTextView by lazy { findViewById<TextView>(R.id.hint_filled) }
     private val leftIcon by lazy { findViewById<ImageView>(R.id.left_icon) }
     private val rightIcon by lazy { findViewById<ImageView>(R.id.right_icon) }
     private val backgroundEditTextView by lazy { findViewById<ConstraintLayout>(R.id.background_edit_text_view) }
 
     private lateinit var layerDrawable: LayerDrawable
 
+    private val constraintSet by lazy { ConstraintSet().apply { clone(backgroundEditTextView) } }
     private val textWatcher by lazy {
         object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
             override fun afterTextChanged(s: Editable?) = Unit
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s.isNullOrEmpty()) {
-                    emptyHintTextView.visibility = VISIBLE
-                    filledHintTextView.visibility = INVISIBLE
+                    emptyHintTextView.textSize = SP_16
+
+                    constraintSet.connect(
+                        R.id.hint_empty,
+                        ConstraintSet.BOTTOM,
+                        ConstraintSet.PARENT_ID,
+                        ConstraintSet.BOTTOM,
+                        resources.getDimensionPixelSize(R.dimen.margin_16)
+                    )
+
+                    constraintSet.setMargin(
+                        R.id.hint_empty,
+                        ConstraintSet.TOP,
+                        resources.getDimensionPixelSize(R.dimen.margin_16)
+                    )
+
                 } else {
-                    emptyHintTextView.visibility = INVISIBLE
-                    filledHintTextView.visibility = VISIBLE
+                    emptyHintTextView.textSize = SP_12
+
+                    constraintSet.connect(
+                        R.id.hint_empty,
+                        ConstraintSet.BOTTOM,
+                        R.id.edit_text,
+                        ConstraintSet.TOP,
+                        0
+                    )
+
+                    constraintSet.setMargin(
+                        R.id.hint_empty, ConstraintSet.TOP,
+                        resources.getDimensionPixelSize(R.dimen.margin_8)
+                    )
                 }
+
+                TransitionManager.beginDelayedTransition(backgroundEditTextView)
+                constraintSet.applyTo(backgroundEditTextView)
             }
         }
     }
@@ -73,27 +105,36 @@ class InnoProgInputView @JvmOverloads constructor(
 
             when (getInt(
                 R.styleable.InnoProgInputView_state,
-                INACTIVE
+                InnoProgInputViewState.INACTIVE.number
             )) {
-                DISABLED -> { state = InnoProgInputViewState.DISABLED }
-                ERROR -> { state = InnoProgInputViewState.ERROR }
-                FOCUSED -> { state = InnoProgInputViewState.FOCUSED }
+                InnoProgInputViewState.DISABLED.number -> { state = InnoProgInputViewState.DISABLED }
+                InnoProgInputViewState.ERROR.number -> { state = InnoProgInputViewState.ERROR }
+                InnoProgInputViewState.FOCUSED.number -> { state = InnoProgInputViewState.FOCUSED }
                 else -> { state = InnoProgInputViewState.INACTIVE }
             }
             renderState(state)
 
-            editTextView.setText(getString(R.styleable.InnoProgInputView_text))
-            emptyHintTextView.text = getString(R.styleable.InnoProgInputView_label)
-            filledHintTextView.text = getString(R.styleable.InnoProgInputView_label)
-            if (editTextView.text.isNullOrEmpty()) {
-                filledHintTextView.visibility = INVISIBLE
-            } else {
-                emptyHintTextView.visibility = INVISIBLE
-            }
-
             captionTextView.text = getString(R.styleable.InnoProgInputView_caption)
             leftIcon.setImageDrawable(getDrawable(R.styleable.InnoProgInputView_left_icon))
             rightIcon.setImageDrawable(getDrawable(R.styleable.InnoProgInputView_right_icon))
+
+            editTextView.setText(getString(R.styleable.InnoProgInputView_text))
+            emptyHintTextView.text = getString(R.styleable.InnoProgInputView_label)
+            if (editTextView.text.isNotBlank()) {
+                emptyHintTextView.textSize = SP_12
+                constraintSet.connect(
+                    R.id.hint_empty,
+                    ConstraintSet.BOTTOM,
+                    R.id.edit_text,
+                    ConstraintSet.TOP,
+                    0
+                )
+                constraintSet.setMargin(
+                    R.id.hint_empty, ConstraintSet.TOP,
+                    resources.getDimensionPixelSize(R.dimen.margin_8)
+                )
+                constraintSet.applyTo(backgroundEditTextView)
+            }
         }
 
         isFocusable = true
@@ -148,7 +189,8 @@ class InnoProgInputView @JvmOverloads constructor(
     }
 
     private fun showKeyboard() {
-        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputManager =
+            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.showSoftInput(editTextView, 0)
     }
 
@@ -161,12 +203,10 @@ class InnoProgInputView @JvmOverloads constructor(
     }
 
     companion object {
-        const val INACTIVE = 0
-        const val DISABLED = 1
-        const val ERROR = 2
-        const val FOCUSED = 3
-
         const val FULL_VISIBLE = 1f
         const val VISIBILITY_40_PERCENT = 0.4f
+
+        const val SP_12 = 12f
+        const val SP_16 = 16f
     }
 }
