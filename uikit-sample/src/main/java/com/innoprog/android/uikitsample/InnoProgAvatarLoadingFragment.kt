@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.innoprog.android.uikit.ImageLoadingType
 import com.innoprog.android.uikitsample.databinding.FragmentInnoProgAvatarLoadingBinding
 
 class InnoProgAvatarLoadingFragment : Fragment() {
@@ -23,6 +24,12 @@ class InnoProgAvatarLoadingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val placeholderResId = R.id.avatar_drawable
+
+        val imageType = ImageLoadingType.ImageNetwork("https://url_to_your_image.jpg", placeholderResId)
+
+        binding.avatarNetwork.loadImage(imageType)
 
     }
 
