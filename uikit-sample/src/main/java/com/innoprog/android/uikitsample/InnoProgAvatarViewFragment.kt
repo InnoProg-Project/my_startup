@@ -31,7 +31,7 @@ class InnoProgAvatarViewFragment : Fragment() {
 
         val url = "https://wallpapers4screen.com/Uploads/27-1-2016/18417/cat-tiger-white-cat-cats-photo.jpg"
 
-        val placeholderResId = R.id.avatar2
+        val placeholderResId = com.innoprog.android.uikit.R.drawable.ic_person
 
         val imageType =
             ImageLoadingType.ImageNetwork(url, placeholderResId)
