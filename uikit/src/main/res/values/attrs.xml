@@ -4,9 +4,16 @@
         <attr name="likeCount" format="integer" />
         <attr name="liked" format="boolean" />
     </declare-styleable>
-      
+
     <declare-styleable name="AvatarCustomVIew">
         <attr name="avatarBackgroundColor" format="color" />
         <attr name="avatarImageReference" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="ChipCustomView">
+        <attr name="chipBackgroundColor" format="color" />
+        <attr name="chipTextColor" format="color" />
+        <attr name="chipText" format="string"/>
+        <attr name="chipChecked" format="boolean"/>
     </declare-styleable>
 </resources>
