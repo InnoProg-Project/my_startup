@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import com.google.android.material.imageview.ShapeableImageView
 import com.innoprog.android.uikit.ext.applyStyleable
@@ -55,16 +56,24 @@ class InnoProgAvatarView @JvmOverloads constructor(
         imageView.isClickable = true
     }
 
-    fun render(imageType: ImageLoadingType) {
+    fun loadImage(imageType: ImageLoadingType) {
         when (imageType) {
             is ImageLoadingType.ImageNetwork -> {
-                Glide.with(context)
+                val request = Glide.with(context)
                     .load(imageType.imageUrl)
+                    .placeholder(imageType.placeholderResId ?: R.drawable.ic_person)
                     .circleCrop()
-                    .into(imageView)
+                request.into(imageView)
             }
 
-            is ImageLoadingType.ImageDrawable -> imageView.setImageDrawable(imageType.drawable)
+            is ImageLoadingType.ImageDrawable -> {
+
+                val drawable =
+                    ResourcesCompat.getDrawable(context.resources, imageType.drawableResId, null)
+                drawable?.let {
+                    imageView.setImageDrawable(it)
+                }
+            }
         }
     }
 }
