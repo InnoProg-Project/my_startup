@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.innoprog.android.uikit.ImageLoadingType
 import com.innoprog.android.uikitsample.databinding.InnoProgAvatarViewLayoutBinding
 
 class InnoProgAvatarViewFragment : Fragment() {
@@ -27,5 +28,12 @@ class InnoProgAvatarViewFragment : Fragment() {
         context?.getDrawable(R.drawable.avatar_test_img)
             ?.let { binding.avatar3.setEditableAvatar(it) }
         binding.avatar4.setEditablePlaceholder()
+
+        val placeholderResId = R.id.avatar2
+
+        val imageType =
+            ImageLoadingType.ImageNetwork("https://wallpapers4screen.com/Uploads/27-1-2016/18417/cat-tiger-white-cat-cats-photo.jpg", placeholderResId)
+
+        binding.avatar1.loadImage(imageType)
     }
 }
