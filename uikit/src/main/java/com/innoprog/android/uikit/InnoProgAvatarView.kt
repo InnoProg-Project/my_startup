@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.FrameLayout
-import android.widget.ImageView
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
@@ -65,8 +64,6 @@ class InnoProgAvatarView @JvmOverloads constructor(
                     .load(imageType.imageUrl)
                     .circleCrop()
                 request.into(imageView)
-
-                imageView.scaleType = ImageView.ScaleType.CENTER_CROP
             }
 
             is ImageLoadingType.ImageDrawable -> {
