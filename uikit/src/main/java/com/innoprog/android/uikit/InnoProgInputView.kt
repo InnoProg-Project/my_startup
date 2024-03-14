@@ -35,58 +35,12 @@ class InnoProgInputView @JvmOverloads constructor(
     private lateinit var layerDrawable: LayerDrawable
 
     private val constraintSet by lazy { ConstraintSet().apply { clone(backgroundEditTextView) } }
-    private val textWatcher by lazy {
-        object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
-            override fun afterTextChanged(s: Editable?) = Unit
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s.isNullOrEmpty()) {
-                    emptyHintTextView.textSize = SP_16
-
-                    constraintSet.connect(
-                        R.id.hint_empty,
-                        ConstraintSet.BOTTOM,
-                        ConstraintSet.PARENT_ID,
-                        ConstraintSet.BOTTOM,
-                        resources.getDimensionPixelSize(R.dimen.margin_16)
-                    )
-
-                    constraintSet.setMargin(
-                        R.id.hint_empty,
-                        ConstraintSet.TOP,
-                        resources.getDimensionPixelSize(R.dimen.margin_16)
-                    )
-                } else {
-                    emptyHintTextView.textSize = SP_12
-
-                    constraintSet.connect(
-                        R.id.hint_empty,
-                        ConstraintSet.BOTTOM,
-                        R.id.edit_text,
-                        ConstraintSet.TOP,
-                        0
-                    )
-
-                    constraintSet.setMargin(
-                        R.id.hint_empty, ConstraintSet.TOP,
-                        resources.getDimensionPixelSize(R.dimen.margin_8)
-                    )
-                }
-
-                TransitionManager.beginDelayedTransition(backgroundEditTextView)
-                constraintSet.applyTo(backgroundEditTextView)
-            }
-        }
-    }
 
     private val focusChangeListener by lazy {
         OnFocusChangeListener { _, hasFocus ->
             if (hasFocus && state != InnoProgInputViewState.DISABLED) {
-                renderState(InnoProgInputViewState.FOCUSED)
                 editTextView.requestFocus()
                 showKeyboard()
-            } else {
-                renderState(state)
             }
         }
     }
@@ -142,12 +96,15 @@ class InnoProgInputView @JvmOverloads constructor(
 
         editTextView.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
+                showHintFilled()
                 renderState(InnoProgInputViewState.FOCUSED)
             } else {
+                if (editTextView.text.isNullOrEmpty()) {
+                    showHintEmpty()
+                }
                 renderState(state)
             }
         }
-        editTextView.addTextChangedListener(textWatcher)
     }
 
     fun renderState(state: InnoProgInputViewState) {
@@ -190,6 +147,47 @@ class InnoProgInputView @JvmOverloads constructor(
         val inputManager =
             context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.showSoftInput(editTextView, 0)
+    }
+
+    private fun showHintEmpty() {
+        emptyHintTextView.textSize = SP_16
+
+        constraintSet.connect(
+            R.id.hint_empty,
+            ConstraintSet.BOTTOM,
+            ConstraintSet.PARENT_ID,
+            ConstraintSet.BOTTOM,
+            resources.getDimensionPixelSize(R.dimen.margin_16)
+        )
+
+        constraintSet.setMargin(
+            R.id.hint_empty,
+            ConstraintSet.TOP,
+            resources.getDimensionPixelSize(R.dimen.margin_16)
+        )
+
+        TransitionManager.beginDelayedTransition(backgroundEditTextView)
+        constraintSet.applyTo(backgroundEditTextView)
+    }
+
+    private fun showHintFilled() {
+        emptyHintTextView.textSize = SP_12
+
+        constraintSet.connect(
+            R.id.hint_empty,
+            ConstraintSet.BOTTOM,
+            R.id.edit_text,
+            ConstraintSet.TOP,
+            0
+        )
+
+        constraintSet.setMargin(
+            R.id.hint_empty, ConstraintSet.TOP,
+            resources.getDimensionPixelSize(R.dimen.margin_8)
+        )
+
+        TransitionManager.beginDelayedTransition(backgroundEditTextView)
+        constraintSet.applyTo(backgroundEditTextView)
     }
 
     fun setLeftIconClickListener(onClickListener: OnClickListener) {
