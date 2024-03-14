@@ -62,6 +62,7 @@ class InnoProgAvatarView @JvmOverloads constructor(
                 val request = Glide.with(context)
                     .load(imageType.imageUrl)
                     .placeholder(imageType.placeholderResId ?: R.drawable.ic_person)
+                    .circleCrop()
                 request.into(imageView)
             }
 

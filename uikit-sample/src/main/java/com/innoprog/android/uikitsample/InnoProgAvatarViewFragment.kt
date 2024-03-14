@@ -29,10 +29,12 @@ class InnoProgAvatarViewFragment : Fragment() {
             ?.let { binding.avatar3.setEditableAvatar(it) }
         binding.avatar4.setEditablePlaceholder()
 
+        val url = "https://wallpapers4screen.com/Uploads/27-1-2016/18417/cat-tiger-white-cat-cats-photo.jpg"
+
         val placeholderResId = R.id.avatar2
 
         val imageType =
-            ImageLoadingType.ImageNetwork("https://wallpapers4screen.com/Uploads/27-1-2016/18417/cat-tiger-white-cat-cats-photo.jpg", placeholderResId)
+            ImageLoadingType.ImageNetwork(url, placeholderResId)
 
         binding.avatar1.loadImage(imageType)
     }
