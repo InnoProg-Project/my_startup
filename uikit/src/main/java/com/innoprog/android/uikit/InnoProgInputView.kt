@@ -81,7 +81,7 @@ class InnoProgInputView @JvmOverloads constructor(
                 )
                 constraintSet.setMargin(
                     R.id.hint_empty, ConstraintSet.TOP,
-                    resources.getDimensionPixelSize(R.dimen.margin_8)
+                    resources.getDimensionPixelSize(R.dimen.margin_5)
                 )
                 constraintSet.applyTo(backgroundEditTextView)
             }
@@ -181,7 +181,7 @@ class InnoProgInputView @JvmOverloads constructor(
 
         constraintSet.setMargin(
             R.id.hint_empty, ConstraintSet.TOP,
-            resources.getDimensionPixelSize(R.dimen.margin_8)
+            resources.getDimensionPixelSize(R.dimen.margin_5)
         )
 
         TransitionManager.beginDelayedTransition(backgroundEditTextView)
