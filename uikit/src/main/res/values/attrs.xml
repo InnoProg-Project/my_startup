@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="InnoProgInputView">
+        <attr name="state">
+            <enum name="inactive" value="0" />
+            <enum name="disabled" value="1" />
+            <enum name="error" value="2" />
+            <enum name="focused" value="3" />
+        </attr>
+
+        <attr name="text" format="string" />
+        <attr name="label" format="string" />
+        <attr name="caption" format="string" />
+        <attr name="left_icon" format="reference" />
+        <attr name="right_icon" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="LikeCustomView">
+        <attr name="likeCount" format="integer" />
+        <attr name="liked" format="boolean" />
+    </declare-styleable>
+      
     <declare-styleable name="AvatarCustomVIew">
         <attr name="avatarBackgroundColor" format="color" />
         <attr name="avatarImageReference" format="reference" />

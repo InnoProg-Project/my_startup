@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            style="@style/TextBody_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="states = inactive, empty"
+            android:textColor="@color/text_primary" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/inputViewInactiveEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:caption="Caption"
+            app:label="Label"
+            app:left_icon="@drawable/ic_placeholder"
+            app:right_icon="@drawable/ic_placeholder"
+            app:state="inactive" />
+
+        <TextView
+            style="@style/TextBody_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="states = disabled, empty"
+            android:textColor="@color/text_primary" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/inputViewDisabledEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:caption="Caption"
+            app:label="Label"
+            app:left_icon="@drawable/ic_placeholder"
+            app:state="disabled" />
+
+        <TextView
+            style="@style/TextBody_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="states = error, empty"
+            android:textColor="@color/text_primary" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/inputViewErrorEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:caption="Caption"
+            app:label="Label"
+            app:right_icon="@drawable/ic_placeholder"
+            app:state="error" />
+
+        <TextView
+            style="@style/TextBody_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="states = focused, empty"
+            android:textColor="@color/text_primary" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/inputViewFocusedEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:caption="Caption"
+            app:label="Label"
+            app:left_icon="@drawable/ic_placeholder"
+            app:right_icon="@drawable/ic_placeholder"
+            app:state="focused" />
+
+        <TextView
+            style="@style/TextBody_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:text="states = inactive, filled"
+            android:textColor="@color/text_primary" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/inputViewInactiveFilled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:caption="Caption"
+            app:label="Label"
+            app:left_icon="@drawable/ic_placeholder"
+            app:right_icon="@drawable/ic_placeholder"
+            app:state="inactive"
+            app:text="Filled text" />
+
+        <TextView
+            style="@style/TextBody_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="states = disabled, filled"
+            android:textColor="@color/text_primary" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/inputViewDisabledFilled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:caption="Caption"
+            app:label="Label"
+            app:right_icon="@drawable/ic_placeholder"
+            app:state="disabled"
+            app:text="Value" />
+
+        <TextView
+            style="@style/TextBody_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="states = error, filled"
+            android:textColor="@color/text_primary" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/inputViewErrorFilled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:caption="Caption"
+            app:label="Label"
+            app:left_icon="@drawable/ic_placeholder"
+            app:state="error"
+            app:text="Value" />
+
+        <TextView
+            style="@style/TextBody_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="states = focused, filled"
+            android:textColor="@color/text_primary" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/inputViewFocusedFilled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:caption="Caption"
+            app:label="Label"
+            app:left_icon="@drawable/ic_placeholder"
+            app:right_icon="@drawable/ic_placeholder"
+            app:state="focused"
+            app:text="Value" />
+
+
+    </LinearLayout>
+
+</ScrollView>
