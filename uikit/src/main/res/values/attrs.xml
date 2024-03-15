@@ -21,5 +21,7 @@
             <enum name="def" value="1"/>
             <enum name="flat" value="2"/>
         </attr>
+        <attr name="rightIcon" format="reference"/>
+        <attr name="leftIcon" format="reference"/>
     </declare-styleable>
 </resources>
