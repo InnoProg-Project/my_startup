@@ -121,23 +121,23 @@ class InnoProgButtonView @JvmOverloads constructor(
         leftIcon?.let {
             it.setTint(currentHintTextColor)
             it.setBounds(
-                selectIconPadding(),
                 0,
-                selectIconSize() + selectIconPadding(),
+                0,
+                selectIconSize(),
                 selectIconSize()
             )
         }
         rightIcon?.let {
             it.setTint(currentHintTextColor)
             it.setBounds(
-                selectIconPadding(),
                 0,
-                selectIconSize() + selectIconPadding(),
+                0,
+                selectIconSize(),
                 selectIconSize()
             )
         }
-
         setCompoundDrawables(leftIcon, null, rightIcon, null)
+        compoundDrawablePadding = selectIconPadding()
 
     }
 
