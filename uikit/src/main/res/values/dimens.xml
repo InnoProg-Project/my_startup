@@ -8,4 +8,6 @@
     <dimen name="text_size_14">14sp</dimen>
     <dimen name="text_size_12">12sp</dimen>
     <dimen name="text_size_10">10sp</dimen>
+    <dimen name="input_text_size">16sp</dimen>
+    <dimen name="corner_radius_sms_cod_box">8dp</dimen>
 </resources>

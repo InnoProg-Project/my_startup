@@ -5,4 +5,11 @@
     <string name="avatar_set_false_editable_fasle">Avatar set = false, Editable = fasle</string>
     <string name="avatar_set_true_editable_true">Avatar set = true, Editable = true</string>
     <string name="avatar_set_false_editable_true">Avatar set = false, Editable = true</string>
+
+
+    <string name="sms_code_inactive">inactive</string>
+    <string name="sms_code_filled">filled</string>
+    <string name="sms_code_disabled">disabled</string>
+    <string name="sms_code_error">error</string>
+    <string name="sms_code_focused">focused</string>
 </resources>
