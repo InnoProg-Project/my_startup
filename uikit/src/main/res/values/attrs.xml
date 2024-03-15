@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="LikeCustomView">
-        <attr name="likeCount" format="integer" />
-        <attr name="liked" format="boolean" />
+        <attr name="likeCount" format="integer"/>
+        <attr name="liked" format="boolean"/>
     </declare-styleable>
-      
+
     <declare-styleable name="AvatarCustomVIew">
-        <attr name="avatarBackgroundColor" format="color" />
-        <attr name="avatarImageReference" format="reference" />
+        <attr name="avatarBackgroundColor" format="color"/>
+        <attr name="avatarImageReference" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="ButtonCustomView">
+        <attr name="buttonSize" format="enum">
+            <enum name="large" value="0"/>
+            <enum name="medium" value="1"/>
+            <enum name="small" value="2"/>
+        </attr>
+        <attr name="buttonType" format="enum">
+            <enum name="primary" value="0"/>
+            <enum name="def" value="1"/>
+            <enum name="flat" value="2"/>
+        </attr>
     </declare-styleable>
 </resources>
