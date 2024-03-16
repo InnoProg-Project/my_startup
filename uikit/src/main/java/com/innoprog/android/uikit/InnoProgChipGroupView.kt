@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import com.google.android.material.chip.Chip
+import com.innoprog.android.uikit.ext.dpToPx
 
 class InnoProgChipGroupView @JvmOverloads constructor(
     context: Context,
@@ -12,9 +13,9 @@ class InnoProgChipGroupView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
-
     private var onChipSelectListener: OnChipSelectListener? = null
     private var selectedChipIndex: Int = -1
+    private val pxValue = context.dpToPx(MARGIN_START)
 
     init {
         orientation = HORIZONTAL
@@ -34,7 +35,7 @@ class InnoProgChipGroupView @JvmOverloads constructor(
                 LayoutParams.WRAP_CONTENT
             )
             if (index > 0) {
-                params.setMargins(dpToPx(4), 0, 0, 0)
+                params.setMargins(pxValue, 0, 0, 0)
             }
 
             chip.layoutParams = params
@@ -56,7 +57,7 @@ class InnoProgChipGroupView @JvmOverloads constructor(
         for (i in 0 until childCount) {
             val child = getChildAt(i)
             if (child is Chip) {
-                child.setChipBackgroundColorResource(android.R.color.white)
+                child.setChipBackgroundColorResource(R.color.background_primary)
                 child.setTextColor(ContextCompat.getColor(context, R.color.text_secondary))
             }
         }
@@ -65,7 +66,7 @@ class InnoProgChipGroupView @JvmOverloads constructor(
             val chip = getChildAt(chipIndex) as? Chip
             chip?.let {
                 it.setChipBackgroundColorResource(R.color.accent_default)
-                it.setTextColor(ContextCompat.getColor(context, android.R.color.black))
+                it.setTextColor(ContextCompat.getColor(context, R.color.text_primary))
             }
 
             selectedChipIndex = chipIndex
@@ -73,12 +74,11 @@ class InnoProgChipGroupView @JvmOverloads constructor(
         }
     }
 
-    private fun dpToPx(dp: Int): Int {
-        val density = resources.displayMetrics.density
-        return (dp * density).toInt()
-    }
-
     interface OnChipSelectListener {
         fun onChipSelected(chipIndex: Int)
+    }
+
+    companion object {
+        private const val MARGIN_START = 4
     }
 }
