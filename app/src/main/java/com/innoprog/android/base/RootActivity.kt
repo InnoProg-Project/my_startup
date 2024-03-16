@@ -7,6 +7,7 @@ import com.innoprog.android.databinding.ActivityRootBinding
 class RootActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRootBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRootBinding.inflate(layoutInflater)

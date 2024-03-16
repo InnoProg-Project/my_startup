@@ -8,6 +8,11 @@ enum class ViewSample {
             return MyBottomFragment()
         }
     },
+    InputView {
+        override fun newInstance(): Fragment {
+            return InnoProgInputViewFragment()
+        }
+    },
     LikeView {
         override fun newInstance(): Fragment {
             return InnoProgLikeViewFragment()

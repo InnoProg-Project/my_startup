@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feed">Лента</string>
+    <string name="projects">Проекты</string>
+    <string name="training">Обучение</string>
+    <string name="profile">Профиль</string>
+</resources>

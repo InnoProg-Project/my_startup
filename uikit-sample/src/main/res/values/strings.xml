@@ -8,7 +8,7 @@
     <string name="avatar_set_true_editable_true">Avatar set = true, Editable = true</string>
     <string name="avatar_set_false_editable_true">Avatar set = false, Editable = true</string>
     <string name="selected_chip_group">Selected chip group</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="avatar_image_network">Network avatar</string>
+    <string name="avatar_drawable">Drawable avatar</string>
 </resources>
