@@ -133,7 +133,7 @@ class InnoProgInputView @JvmOverloads constructor(
 
             InnoProgInputViewState.FOCUSED -> {
                 layerDrawable.findDrawableByLayerId(R.id.rectangle_stroke)
-                    .setTint(context.getColor(R.color.stroke))
+                    .setTint(context.getColor(R.color.accent_secondary))
                 captionTextView.setTextColor(context.getColor(R.color.text_primary))
                 editTextView.isEnabled = true
                 this.alpha = FULL_VISIBLE
