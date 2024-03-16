@@ -18,9 +18,9 @@ enum class ViewSample {
             return InnoProgAvatarViewFragment()
         }
     },
-    ChipView {
+    ChipGroupView {
         override fun newInstance(): Fragment {
-            return InnoProgChipFragment()
+            return InnoProgChipGroupFragment()
         }
     };
 
