@@ -57,7 +57,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.innoprog.android.feature.MainFragment"
+        android:name="com.innoprog.android.base.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
 

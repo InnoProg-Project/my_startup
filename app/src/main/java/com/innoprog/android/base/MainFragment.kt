@@ -1,4 +1,4 @@
-package com.innoprog.android.feature
+package com.innoprog.android.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.innoprog.android.R
-import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.databinding.FragmentMainBinding
 
 class MainFragment : BaseFragment<FragmentMainBinding>() {
