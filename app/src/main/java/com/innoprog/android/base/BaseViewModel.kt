@@ -43,7 +43,6 @@ class BaseViewModel : ViewModel() {
             override fun navigate(fragment: Fragment?) {
                 if (fragment != null) {
                     findNavController(fragment).navigateUp()
-
                 }
             }
         }

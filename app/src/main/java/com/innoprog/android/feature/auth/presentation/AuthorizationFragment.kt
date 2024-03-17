@@ -24,7 +24,6 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding>() {
 
         binding.tvRegistration.setOnClickListener {
             viewModel?.navigateTo(R.id.registrationFragment)
-
         }
 
         binding.tvPasswordRecovery.setOnClickListener {
