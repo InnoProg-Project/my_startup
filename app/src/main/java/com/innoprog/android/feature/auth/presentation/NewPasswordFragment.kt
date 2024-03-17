@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.databinding.FragmentNewPasswordBinding
@@ -22,7 +21,7 @@ class NewPasswordFragment : BaseFragment<FragmentNewPasswordBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnBack.setOnClickListener {
-            findNavController().navigate(R.id.passwordRecoveryFragment)
+            viewModel?.navigateTo(R.id.passwordRecoveryFragment)
         }
     }
 }

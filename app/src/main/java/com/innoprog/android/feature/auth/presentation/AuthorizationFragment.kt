@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
@@ -24,23 +23,21 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.tvRegistration.setOnClickListener {
-            findNavController().navigate(R.id.registrationFragment)
+            viewModel?.navigateTo(R.id.registrationFragment)
+
         }
 
         binding.tvPasswordRecovery.setOnClickListener {
-            findNavController().navigate(R.id.passwordRecoveryFragment)
+            viewModel?.navigateTo(R.id.passwordRecoveryFragment)
         }
 
         binding.btnLogin.setOnClickListener {
-            findNavController().navigate(
-                R.id.mainFragment,
-                bundleOf(),
-                navOptions {
-                    launchSingleTop = true
-                    popUpTo(R.id.nav_graph) {
-                        inclusive = true
-                    }
-                })
+            viewModel?.navigateWithBundle(R.id.mainFragment, bundleOf(), navOptions {
+                launchSingleTop = true
+                popUpTo(R.id.nav_graph) {
+                    inclusive = true
+                }
+            })
         }
     }
 }
