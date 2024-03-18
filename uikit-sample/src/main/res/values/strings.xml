@@ -7,4 +7,13 @@
     <string name="avatar_set_false_editable_fasle">Avatar set = false, Editable = fasle</string>
     <string name="avatar_set_true_editable_true">Avatar set = true, Editable = true</string>
     <string name="avatar_set_false_editable_true">Avatar set = false, Editable = true</string>
+    <string name="type_flat_size_small">Type: Flat, Size: Small</string>
+    <string name="type_default_size_small">Type: Default, Size: Small</string>
+    <string name="type_primary_size_small">Type: Primary, Size: Small</string>
+    <string name="type_flat_size_medium">Type: Flat, Size: medium</string>
+    <string name="type_default_size_medium">Type: Default, Size: medium</string>
+    <string name="type_primary_size_medium">Type: Primary, Size: medium</string>
+    <string name="type_flat_size_large">Type: Flat, Size: large</string>
+    <string name="type_default_size_large">Type: Default, Size: large</string>
+    <string name="type_primary_size_large">Type: primary, Size: large</string>
 </resources>
