@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 abstract class BaseFragment<T : ViewBinding> : Fragment() {
 
-    var viewModel: BaseViewModel? = null
+    abstract val viewModel: BaseViewModel
     private var _binding: T? = null
     protected val binding get() = _binding!!
 
@@ -29,9 +29,8 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = BaseViewModel()
-        lifecycleScope.launch {
-            viewModel?.stateFlow?.collectLatest { navEvent ->
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.stateFlow.collectLatest { navEvent ->
                 navEvent?.navigate(this@BaseFragment)
             }
         }
@@ -40,6 +39,6 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        viewModel = null
+        viewModel.setState(null)
     }
 }

@@ -9,25 +9,14 @@ import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class BaseViewModel : ViewModel() {
+abstract class BaseViewModel : ViewModel() {
 
     private val _stateFlow = MutableStateFlow<NavEvent?>(null)
     val stateFlow: StateFlow<NavEvent?> = _stateFlow
 
-    fun navigateTo(@IdRes fragmentId: Int) {
-        _stateFlow.value = object : NavEvent {
-            override fun navigate(fragment: Fragment?) {
-                if (fragment != null) {
-                    findNavController(fragment).navigate(fragmentId)
-                }
-            }
-        }
-    }
-
-    fun navigateWithBundle(
-        @IdRes fragmentId: Int,
-        args: Bundle?,
-        navOptions: NavOptions?
+    fun navigateTo(
+        @IdRes fragmentId: Int, args: Bundle? = null,
+        navOptions: NavOptions? = null
     ) {
         _stateFlow.value = object : NavEvent {
             override fun navigate(fragment: Fragment?) {
@@ -36,6 +25,10 @@ class BaseViewModel : ViewModel() {
                 }
             }
         }
+    }
+
+    fun setState(state: NavEvent?) {
+        _stateFlow.value = state
     }
 
     fun navigateUp() {

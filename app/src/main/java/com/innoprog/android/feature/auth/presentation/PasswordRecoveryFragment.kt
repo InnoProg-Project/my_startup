@@ -4,11 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
+import com.innoprog.android.base.BaseViewModel
+import com.innoprog.android.base.ViewModelSample
 import com.innoprog.android.databinding.FragmentPasswordRecoveryBinding
 
 class PasswordRecoveryFragment : BaseFragment<FragmentPasswordRecoveryBinding>() {
+    override val viewModel: BaseViewModel by viewModels<ViewModelSample>()
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -21,11 +25,11 @@ class PasswordRecoveryFragment : BaseFragment<FragmentPasswordRecoveryBinding>()
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnBack.setOnClickListener {
-            viewModel?.navigateUp()
+            viewModel.navigateUp()
         }
 
         binding.btnSendCode.setOnClickListener {
-            viewModel?.navigateTo(R.id.codeEntryFragment)
+            viewModel.navigateTo(R.id.codeEntryFragment)
         }
     }
 }

@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.innoprog.android.R
 import com.innoprog.android.databinding.FragmentMainBinding
 
 class MainFragment : BaseFragment<FragmentMainBinding>() {
+    override val viewModel: BaseViewModel by viewModels<ViewModelSample>()
 
     override fun createBinding(
         inflater: LayoutInflater,
