@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="InnoProgInputView">
+        <attr name="state">
+            <enum name="inactive" value="0" />
+            <enum name="disabled" value="1" />
+            <enum name="error" value="2" />
+            <enum name="focused" value="3" />
+        </attr>
+
+        <attr name="text" format="string" />
+        <attr name="label" format="string" />
+        <attr name="caption" format="string" />
+        <attr name="left_icon" format="reference" />
+        <attr name="right_icon" format="reference" />
+    </declare-styleable>
+
     <declare-styleable name="LikeCustomView">
         <attr name="likeCount" format="integer"/>
         <attr name="liked" format="boolean"/>
@@ -28,5 +43,12 @@
             <enum name="enabled" value="0"/>
             <enum name="disabled" value="1"/>
         </attr>
+    </declare-styleable>
+
+    <declare-styleable name="ChipCustomView">
+        <attr name="chipBackgroundColor" format="color" />
+        <attr name="chipTextColor" format="color" />
+        <attr name="chipText" format="string"/>
+        <attr name="chipChecked" format="boolean"/>
     </declare-styleable>
 </resources>
