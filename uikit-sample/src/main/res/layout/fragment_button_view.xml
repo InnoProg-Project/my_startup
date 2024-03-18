@@ -16,8 +16,9 @@
     <com.innoprog.android.uikit.InnoProgButtonView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:enabled="true"
-        android:text="Button"
+        android:enabled="false"
+        app:buttonState="disabled"
+        app:text="Action"
         app:buttonSize="large"
         app:buttonType="primary"
         app:leftIcon="@drawable/ic_camera"
@@ -26,15 +27,17 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2" />
+        app:text="2" />
 
     <com.innoprog.android.uikit.InnoProgButtonView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:enabled="true"
-        android:text="Button"
+        app:buttonState="disabled"
+        app:text="Button"
         app:buttonSize="medium"
-        app:buttonType="def" />
+        app:buttonType="def"
+        app:leftIcon="@drawable/ic_camera"
+        app:rightIcon="@drawable/ic_camera"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,8 +48,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:enabled="false"
-        android:text="Button"
+        app:text="Button"
         app:buttonSize="small"
-        app:buttonType="flat" />
+        app:buttonType="flat"
+        app:leftIcon="@drawable/ic_camera"
+        app:rightIcon="@drawable/ic_heart"/>
 
 </LinearLayout>

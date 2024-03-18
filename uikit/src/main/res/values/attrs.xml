@@ -10,7 +10,7 @@
         <attr name="avatarImageReference" format="reference"/>
     </declare-styleable>
 
-    <declare-styleable name="ButtonCustomView">
+    <declare-styleable name="InnoProgButtonView">
         <attr name="buttonSize" format="enum">
             <enum name="large" value="0"/>
             <enum name="medium" value="1"/>
@@ -23,5 +23,10 @@
         </attr>
         <attr name="rightIcon" format="reference"/>
         <attr name="leftIcon" format="reference"/>
+        <attr name="text" format="string"/>
+        <attr name="buttonState" format="enum">
+            <enum name="enabled" value="0"/>
+            <enum name="disabled" value="1"/>
+        </attr>
     </declare-styleable>
 </resources>
