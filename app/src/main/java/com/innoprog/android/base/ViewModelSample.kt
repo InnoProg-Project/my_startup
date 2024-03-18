@@ -1,3 +1,5 @@
 package com.innoprog.android.base
 
-class ViewModelSample : BaseViewModel()
+import javax.inject.Inject
+
+class ViewModelSample @Inject constructor() : BaseViewModel()
