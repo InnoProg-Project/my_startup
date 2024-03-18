@@ -15,7 +15,8 @@ abstract class BaseViewModel : ViewModel() {
     val stateFlow: StateFlow<NavEvent?> = _stateFlow
 
     fun navigateTo(
-        @IdRes fragmentId: Int, args: Bundle? = null,
+        @IdRes fragmentId: Int,
+        args: Bundle? = null,
         navOptions: NavOptions? = null
     ) {
         _stateFlow.value = object : NavEvent {
