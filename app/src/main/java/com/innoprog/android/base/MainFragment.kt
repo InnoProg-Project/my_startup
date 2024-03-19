@@ -4,31 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.innoprog.android.R
 import com.innoprog.android.databinding.FragmentMainBinding
+import com.innoprog.android.di.AppComponent
 import com.innoprog.android.di.DaggerAppComponent
-import javax.inject.Inject
 
-class MainFragment : BaseFragment<FragmentMainBinding>() {
+class MainFragment : BaseFragment<FragmentMainBinding, ViewModelSample>() {
+    override fun diComponent(): AppComponent = DaggerAppComponent.builder().build()
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    override val viewModel: BaseViewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[ViewModelSample::class.java]
-    }
-
-    private val component by lazy {
-        DaggerAppComponent.builder().build().apply {
-            inject(this@MainFragment)
-        }
-    }
+    override val viewModel by injectViewModel<ViewModelSample>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        component.inject(this)
+        diComponent().inject(this@MainFragment)
         super.onCreate(savedInstanceState)
     }
 
