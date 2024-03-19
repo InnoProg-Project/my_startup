@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ButtonViewFragment">
+    tools:context=".InnoProgButtonViewFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -33,9 +33,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/innoProgButtonView1"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:leftIcon="@drawable/ic_camera"
-            app:rightIcon="@drawable/ic_camera"
-            app:text="Disabled" />
+            app:buttonLeftIcon="@drawable/ic_camera"
+            app:buttonRightIcon="@drawable/ic_camera"
+            app:buttonText="Disabled" />
 
         <com.innoprog.android.uikit.InnoProgButtonView
             android:id="@+id/innoProgButtonView1"
@@ -49,9 +49,9 @@
             app:layout_constraintEnd_toStartOf="@+id/innoProgButtonView2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:leftIcon="@drawable/ic_camera"
-            app:rightIcon="@drawable/ic_camera"
-            app:text="Enabled" />
+            app:buttonLeftIcon="@drawable/ic_camera"
+            app:buttonRightIcon="@drawable/ic_camera"
+            app:buttonText="Enabled" />
 
         <TextView
             android:id="@+id/textView2"
@@ -75,9 +75,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/innoProgButtonView4"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:leftIcon="@drawable/ic_camera"
-            app:rightIcon="@drawable/ic_camera"
-            app:text="Disabled" />
+            app:buttonLeftIcon="@drawable/ic_camera"
+            app:buttonRightIcon="@drawable/ic_camera"
+            app:buttonText="Disabled" />
 
         <com.innoprog.android.uikit.InnoProgButtonView
             android:id="@+id/innoProgButtonView4"
@@ -91,9 +91,9 @@
             app:layout_constraintEnd_toStartOf="@+id/innoProgButtonView3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:leftIcon="@drawable/ic_camera"
-            app:rightIcon="@drawable/ic_camera"
-            app:text="Enabled" />
+            app:buttonLeftIcon="@drawable/ic_camera"
+            app:buttonRightIcon="@drawable/ic_camera"
+            app:buttonText="Enabled" />
 
         <TextView
             android:id="@+id/textView4"
@@ -116,9 +116,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/innoProgButtonView4"
             app:layout_constraintTop_toBottomOf="@+id/textView4"
-            app:leftIcon="@drawable/ic_camera"
-            app:rightIcon="@drawable/ic_camera"
-            app:text="Disabled" />
+            app:buttonLeftIcon="@drawable/ic_camera"
+            app:buttonRightIcon="@drawable/ic_camera"
+            app:buttonText="Disabled" />
 
         <com.innoprog.android.uikit.InnoProgButtonView
             android:id="@+id/innoProgButtonView6"
@@ -131,9 +131,9 @@
             app:layout_constraintEnd_toStartOf="@+id/innoProgButtonView3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4"
-            app:leftIcon="@drawable/ic_camera"
-            app:rightIcon="@drawable/ic_camera"
-            app:text="Enabled" />
+            app:buttonLeftIcon="@drawable/ic_camera"
+            app:buttonRightIcon="@drawable/ic_camera"
+            app:buttonText="Enabled" />
 
         <TextView
             android:id="@+id/textView5"
@@ -156,9 +156,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/innoProgButtonView8"
             app:layout_constraintTop_toBottomOf="@+id/textView5"
-            app:leftIcon="@drawable/ic_camera"
-            app:rightIcon="@drawable/ic_camera"
-            app:text="Disabled" />
+            app:buttonLeftIcon="@drawable/ic_camera"
+            app:buttonRightIcon="@drawable/ic_camera"
+            app:buttonText="Disabled" />
 
         <com.innoprog.android.uikit.InnoProgButtonView
             android:id="@+id/innoProgButtonView8"
@@ -171,9 +171,9 @@
             app:layout_constraintEnd_toStartOf="@+id/innoProgButtonView7"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5"
-            app:leftIcon="@drawable/ic_camera"
-            app:rightIcon="@drawable/ic_camera"
-            app:text="Enabled" />
+            app:buttonLeftIcon="@drawable/ic_camera"
+            app:buttonRightIcon="@drawable/ic_camera"
+            app:buttonText="Enabled" />
 
         <TextView
             android:id="@+id/textView6"
@@ -196,9 +196,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/innoProgButtonView10"
             app:layout_constraintTop_toBottomOf="@+id/textView6"
-            app:leftIcon="@drawable/ic_camera"
-            app:rightIcon="@drawable/ic_camera"
-            app:text="Disabled" />
+            app:buttonLeftIcon="@drawable/ic_camera"
+            app:buttonRightIcon="@drawable/ic_camera"
+            app:buttonText="Disabled" />
 
         <com.innoprog.android.uikit.InnoProgButtonView
             android:id="@+id/innoProgButtonView10"
@@ -211,9 +211,9 @@
             app:layout_constraintEnd_toStartOf="@+id/innoProgButtonView9"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6"
-            app:leftIcon="@drawable/ic_camera"
-            app:rightIcon="@drawable/ic_camera"
-            app:text="Enabled" />
+            app:buttonLeftIcon="@drawable/ic_camera"
+            app:buttonRightIcon="@drawable/ic_camera"
+            app:buttonText="Enabled" />
 
         <TextView
             android:id="@+id/textView7"
@@ -236,9 +236,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/innoProgButtonView8"
             app:layout_constraintTop_toBottomOf="@+id/textView7"
-            app:leftIcon="@drawable/ic_camera"
-            app:rightIcon="@drawable/ic_camera"
-            app:text="Disabled" />
+            app:buttonLeftIcon="@drawable/ic_camera"
+            app:buttonRightIcon="@drawable/ic_camera"
+            app:buttonText="Disabled" />
 
         <com.innoprog.android.uikit.InnoProgButtonView
             android:id="@+id/innoProgButtonView12"
@@ -251,9 +251,9 @@
             app:layout_constraintEnd_toStartOf="@+id/innoProgButtonView7"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7"
-            app:leftIcon="@drawable/ic_camera"
-            app:rightIcon="@drawable/ic_camera"
-            app:text="Enabled" />
+            app:buttonLeftIcon="@drawable/ic_camera"
+            app:buttonRightIcon="@drawable/ic_camera"
+            app:buttonText="Enabled" />
 
         <TextView
             android:id="@+id/textView8"
@@ -276,9 +276,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/innoProgButtonView14"
             app:layout_constraintTop_toBottomOf="@+id/textView8"
-            app:leftIcon="@drawable/ic_camera"
-            app:rightIcon="@drawable/ic_camera"
-            app:text="Disabled" />
+            app:buttonLeftIcon="@drawable/ic_camera"
+            app:buttonRightIcon="@drawable/ic_camera"
+            app:buttonText="Disabled" />
 
         <com.innoprog.android.uikit.InnoProgButtonView
             android:id="@+id/innoProgButtonView14"
@@ -291,9 +291,9 @@
             app:layout_constraintEnd_toStartOf="@+id/innoProgButtonView13"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8"
-            app:leftIcon="@drawable/ic_camera"
-            app:rightIcon="@drawable/ic_camera"
-            app:text="Enabled" />
+            app:buttonLeftIcon="@drawable/ic_camera"
+            app:buttonRightIcon="@drawable/ic_camera"
+            app:buttonText="Enabled" />
 
         <TextView
             android:id="@+id/textView9"
@@ -316,9 +316,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/innoProgButtonView15"
             app:layout_constraintTop_toBottomOf="@+id/textView9"
-            app:leftIcon="@drawable/ic_camera"
-            app:rightIcon="@drawable/ic_camera"
-            app:text="Disabled" />
+            app:buttonLeftIcon="@drawable/ic_camera"
+            app:buttonRightIcon="@drawable/ic_camera"
+            app:buttonText="Disabled" />
 
         <com.innoprog.android.uikit.InnoProgButtonView
             android:id="@+id/innoProgButtonView15"
@@ -331,9 +331,9 @@
             app:layout_constraintEnd_toStartOf="@+id/innoProgButtonView16"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView9"
-            app:leftIcon="@drawable/ic_camera"
-            app:rightIcon="@drawable/ic_camera"
-            app:text="Enabled" />
+            app:buttonLeftIcon="@drawable/ic_camera"
+            app:buttonRightIcon="@drawable/ic_camera"
+            app:buttonText="Enabled" />
 
         <TextView
             android:id="@+id/textView10"
@@ -356,9 +356,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/innoProgButtonView17"
             app:layout_constraintTop_toBottomOf="@+id/textView10"
-            app:leftIcon="@drawable/ic_camera"
-            app:rightIcon="@drawable/ic_camera"
-            app:text="Disabled" />
+            app:buttonLeftIcon="@drawable/ic_camera"
+            app:buttonRightIcon="@drawable/ic_camera"
+            app:buttonText="Disabled" />
 
         <com.innoprog.android.uikit.InnoProgButtonView
             android:id="@+id/innoProgButtonView17"
@@ -373,8 +373,8 @@
             app:layout_constraintEnd_toStartOf="@+id/innoProgButtonView18"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView10"
-            app:leftIcon="@drawable/ic_camera"
-            app:rightIcon="@drawable/ic_camera"
-            app:text="Enabled" />
+            app:buttonLeftIcon="@drawable/ic_camera"
+            app:buttonRightIcon="@drawable/ic_camera"
+            app:buttonText="Enabled" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

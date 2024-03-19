@@ -31,7 +31,7 @@ enum class ViewSample {
 
     ButtonView{
         override fun newInstance(): Fragment {
-            return ButtonViewFragment()
+            return InnoProgButtonViewFragment()
         }
     };
 

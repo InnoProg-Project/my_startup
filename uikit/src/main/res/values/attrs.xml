@@ -36,9 +36,9 @@
             <enum name="def" value="1"/>
             <enum name="flat" value="2"/>
         </attr>
-        <attr name="rightIcon" format="reference"/>
-        <attr name="leftIcon" format="reference"/>
-        <attr name="text" format="string"/>
+        <attr name="buttonRightIcon" format="reference"/>
+        <attr name="buttonLeftIcon" format="reference"/>
+        <attr name="buttonText" format="string"/>
         <attr name="buttonState" format="enum">
             <enum name="enabled" value="0"/>
             <enum name="disabled" value="1"/>
