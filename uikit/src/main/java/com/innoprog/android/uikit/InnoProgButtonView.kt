@@ -55,24 +55,24 @@ class InnoProgButtonView @JvmOverloads constructor(
         typedArray.recycle()
     }
 
-    fun stateIsEnabled(isEnabled : Boolean){
-        state = if(isEnabled) ButtonState.ENABLED else ButtonState.DISABLED
+    fun stateIsEnabled(isEnabled: Boolean) {
+        state = if (isEnabled) ButtonState.ENABLED else ButtonState.DISABLED
         setType()
         invalidate()
     }
 
-    fun setText(text:String){
+    fun setText(text: String) {
         textTV.text = text
         invalidate()
     }
 
-    fun setRightIcon(drawable: Drawable){
+    fun setRightIcon(drawable: Drawable) {
         rightIconDrawable = drawable
         setIcons()
         requestLayout()
     }
 
-    fun setLeftIcon(drawable: Drawable){
+    fun setLeftIcon(drawable: Drawable) {
         leftIconDrawable = drawable
         setIcons()
         requestLayout()
