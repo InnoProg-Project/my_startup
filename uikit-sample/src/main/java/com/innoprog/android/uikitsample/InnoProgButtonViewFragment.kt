@@ -17,7 +17,7 @@ class InnoProgButtonViewFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentInnoProgButtonViewBinding.inflate(inflater,container,false)
+        _binding = FragmentInnoProgButtonViewBinding.inflate(inflater, container, false)
         return binding.root
     }
 }
