@@ -2,51 +2,30 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/authorizationFragment">
+    android:id="@+id/internal_nav_graph"
+    app:startDestination="@id/feedFragment">
 
     <fragment
-        android:id="@+id/authorizationFragment"
-        android:name="com.innoprog.android.feature.auth.presentation.AuthorizationFragment"
-        android:label="AuthorizationFragment"
-        tools:layout="@layout/fragment_authorization">
-        <action
-            android:id="@+id/action_authorizationFragment_to_registrationFragment"
-            app:destination="@id/registrationFragment" />
-        <action
-            android:id="@+id/action_authorizationFragment_to_passwordRecoveryFragment"
-            app:destination="@id/passwordRecoveryFragment" />
-    </fragment>
+        android:id="@+id/feedFragment"
+        android:name="com.innoprog.android.feature.feed.presentation.FeedFragment"
+        android:label="fragment_feed"
+        tools:layout="@layout/fragment_feed" />
 
     <fragment
-        android:id="@+id/passwordRecoveryFragment"
-        android:name="com.innoprog.android.feature.auth.presentation.PasswordRecoveryFragment"
-        android:label="PasswordRecoveryFragment"
-        tools:layout="@layout/fragment_password_recovery">
-        <action
-            android:id="@+id/action_passwordRecoveryFragment_to_codeEntryFragment"
-            app:destination="@id/codeEntryFragment" />
-    </fragment>
+        android:id="@+id/projectsFragment"
+        android:name="com.innoprog.android.feature.projects.presentation.ProjectsFragment"
+        android:label="fragment_projects"
+        tools:layout="@layout/fragment_projects" />
 
     <fragment
-        android:id="@+id/registrationFragment"
-        android:name="com.innoprog.android.feature.auth.presentation.RegistrationFragment"
-        android:label="RegistrationFragment"
-        tools:layout="@layout/fragment_registration">
-        <action
-            android:id="@+id/action_registrationFragment_to_codeEntryFragment"
-            app:destination="@id/codeEntryFragment" />
-    </fragment>
+        android:id="@+id/trainingFragment"
+        android:name="com.innoprog.android.feature.training.presentation.TrainingFragment"
+        android:label="fragment_training"
+        tools:layout="@layout/fragment_training" />
 
     <fragment
-        android:id="@+id/codeEntryFragment"
-        android:name="com.innoprog.android.feature.auth.presentation.CodeEntryFragment"
-        android:label="fragment_code_entry"
-        tools:layout="@layout/fragment_code_entry" />
-
-    <fragment
-        android:id="@+id/newPasswordFragment"
-        android:name="com.innoprog.android.feature.auth.presentation.NewPasswordFragment"
-        android:label="fragment_new_password"
-        tools:layout="@layout/fragment_new_password" />
+        android:id="@+id/profileFragment"
+        android:name="com.innoprog.android.feature.profile.presentation.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
