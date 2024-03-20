@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
-import com.innoprog.android.di.AppComponent
+import com.innoprog.android.di.ScreenComponent
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -25,7 +25,7 @@ abstract class BaseFragment<T : ViewBinding, VM : BaseViewModel> : Fragment() {
         }
     }
 
-    protected abstract fun diComponent(): AppComponent
+    protected abstract fun diComponent(): ScreenComponent
 
     inline fun <reified VM : BaseViewModel> injectViewModel() = viewModels<VM>(
         factoryProducer = { viewModelFactory }

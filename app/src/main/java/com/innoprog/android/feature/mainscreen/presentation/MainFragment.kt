@@ -1,4 +1,4 @@
-package com.innoprog.android.base
+package com.innoprog.android.feature.mainscreen.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,19 +7,17 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.innoprog.android.R
+import com.innoprog.android.base.BaseFragment
+import com.innoprog.android.base.ViewModelSample
 import com.innoprog.android.databinding.FragmentMainBinding
-import com.innoprog.android.di.AppComponent
-import com.innoprog.android.di.DaggerAppComponent
+import com.innoprog.android.di.ScreenComponent
+import com.innoprog.android.feature.mainscreen.di.DaggerMainScreenComponent
 
 class MainFragment : BaseFragment<FragmentMainBinding, ViewModelSample>() {
-    override fun diComponent(): AppComponent = DaggerAppComponent.builder().build()
+
+    override fun diComponent(): ScreenComponent = DaggerMainScreenComponent.builder().build()
 
     override val viewModel by injectViewModel<ViewModelSample>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        diComponent().inject(this@MainFragment)
-        super.onCreate(savedInstanceState)
-    }
 
     override fun createBinding(
         inflater: LayoutInflater,

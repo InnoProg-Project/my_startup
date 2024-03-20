@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentTrainingBinding
-import com.innoprog.android.di.AppComponent
 import com.innoprog.android.di.DaggerAppComponent
 
 class TrainingFragment : BaseFragment<FragmentTrainingBinding, BaseViewModel>() {

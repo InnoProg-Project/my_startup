@@ -8,7 +8,6 @@ import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentRegistrationBinding
-import com.innoprog.android.di.AppComponent
 import com.innoprog.android.di.DaggerAppComponent
 import com.innoprog.android.feature.auth.presentation.viewmodel.RegistrationViewModel
 

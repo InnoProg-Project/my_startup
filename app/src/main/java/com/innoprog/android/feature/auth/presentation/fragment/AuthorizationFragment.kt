@@ -10,7 +10,6 @@ import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentAuthorizationBinding
-import com.innoprog.android.di.AppComponent
 import com.innoprog.android.di.DaggerAppComponent
 import com.innoprog.android.feature.auth.presentation.viewmodel.AuthorizationViewModel
 
