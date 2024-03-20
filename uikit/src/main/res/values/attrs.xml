@@ -31,4 +31,10 @@
         <attr name="chipText" format="string"/>
         <attr name="chipChecked" format="boolean"/>
     </declare-styleable>
+
+    <declare-styleable name="InnoProgTopBarView">
+        <attr name="topBar_title" format="string" />
+        <attr name="topBar_left_icon" format="reference" />
+        <attr name="topBar_right_icon" format="reference" />
+    </declare-styleable>
 </resources>
