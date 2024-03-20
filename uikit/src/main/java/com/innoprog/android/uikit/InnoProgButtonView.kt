@@ -15,9 +15,9 @@ class InnoProgButtonView @JvmOverloads constructor(
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
     private val typedArray = context.obtainStyledAttributes(attrs, R.styleable.InnoProgButtonView)
-    private val size =
+    private var size =
         ButtonSize.entries[typedArray.getInt(R.styleable.InnoProgButtonView_buttonSize, 0)]
-    private val type =
+    private var type =
         ButtonType.entries[typedArray.getInt(R.styleable.InnoProgButtonView_buttonType, 0)]
     private var state =
         ButtonState.entries[typedArray.getInt(R.styleable.InnoProgButtonView_buttonState, 0)]
@@ -48,16 +48,16 @@ class InnoProgButtonView @JvmOverloads constructor(
     init {
         inflate(context, R.layout.inno_prog_button_view, this)
         setBackgroundResource(R.drawable.button_shape)
-        setType()
-        setSize()
-        setIcons()
+        setType(type)
+        setSize(size)
+        updateIconsSize(size)
         textTV.text = text
         typedArray.recycle()
     }
 
     fun stateIsEnabled(isEnabled: Boolean) {
         state = if (isEnabled) ButtonState.ENABLED else ButtonState.DISABLED
-        setType()
+        setType(type)
         invalidate()
     }
 
@@ -66,19 +66,20 @@ class InnoProgButtonView @JvmOverloads constructor(
         invalidate()
     }
 
-    fun setRightIcon(drawable: Drawable) {
+    fun setRightIcon(drawable: Drawable?) {
         rightIconDrawable = drawable
-        setIcons()
+        updateIconsSize(size)
         requestLayout()
     }
 
-    fun setLeftIcon(drawable: Drawable) {
+    fun setLeftIcon(drawable: Drawable?) {
         leftIconDrawable = drawable
-        setIcons()
+        updateIconsSize(size)
         requestLayout()
     }
 
-    private fun setType() {
+    fun setType(type: ButtonType) {
+        this.type = type
         when (type) {
             ButtonType.PRIMARY -> if (state == ButtonState.ENABLED) {
                 background.setTint(context.getColor(R.color.accent_default))
@@ -100,9 +101,13 @@ class InnoProgButtonView @JvmOverloads constructor(
                 alpha = if (state == ButtonState.ENABLED) NOT_TRANSPARENT else HALF_TRANSPARENT
             }
         }
+        leftIconIV.drawable?.setTint(textTV.currentTextColor)
+        rightIconIV.drawable?.setTint(textTV.currentTextColor)
+        invalidate()
     }
 
-    private fun setSize() {
+    fun setSize(size: ButtonSize) {
+        this.size = size
         when (size) {
             ButtonSize.LARGE -> {
                 textTV.setTextAppearance(R.style.TextButtonLarge)
@@ -138,10 +143,11 @@ class InnoProgButtonView @JvmOverloads constructor(
                 )
             }
         }
-        setIcons()
+        updateIconsSize(size)
+        requestLayout()
     }
 
-    private fun setIcons() {
+    private fun updateIconsSize(size: ButtonSize) {
         val iconSize =
             if (size == ButtonSize.SMALL) resources.getDimensionPixelSize(R.dimen.button_icon_size_16)
             else resources.getDimensionPixelSize(R.dimen.button_icon_size_20)
@@ -151,8 +157,8 @@ class InnoProgButtonView @JvmOverloads constructor(
             ButtonSize.SMALL -> resources.getDimensionPixelSize(R.dimen.button_padding_10)
         }
 
-        leftIconDrawable?.let {
-            it.setTint(textTV.currentTextColor)
+        if (leftIconDrawable != null) {
+            leftIconDrawable?.setTint(textTV.currentTextColor)
             val marginParam = textTV.layoutParams as MarginLayoutParams
             marginParam.marginStart = iconMargin
             textTV.layoutParams = marginParam
@@ -160,10 +166,19 @@ class InnoProgButtonView @JvmOverloads constructor(
                 height = iconSize
                 width = iconSize
             }
-            leftIconIV.setImageDrawable(it)
+            leftIconIV.setImageDrawable(leftIconDrawable)
+        } else {
+            val marginParam = textTV.layoutParams as MarginLayoutParams
+            marginParam.marginStart = 0
+            textTV.layoutParams = marginParam
+            leftIconIV.layoutParams.apply {
+                height = 0
+                width = 0
+            }
         }
-        rightIconDrawable?.let {
-            it.setTint(textTV.currentTextColor)
+
+        if (rightIconDrawable != null) {
+            rightIconDrawable?.setTint(textTV.currentTextColor)
             val marginParam = textTV.layoutParams as MarginLayoutParams
             marginParam.marginEnd = iconMargin
             textTV.layoutParams = marginParam
@@ -171,7 +186,15 @@ class InnoProgButtonView @JvmOverloads constructor(
                 height = iconSize
                 width = iconSize
             }
-            rightIconIV.setImageDrawable(it)
+            rightIconIV.setImageDrawable(rightIconDrawable)
+        } else {
+            val marginParam = textTV.layoutParams as MarginLayoutParams
+            marginParam.marginEnd = 0
+            textTV.layoutParams = marginParam
+            rightIconIV.layoutParams.apply {
+                height = 0
+                width = 0
+            }
         }
     }
 
