@@ -13,5 +13,5 @@ interface MainScreenModule {
     @IntoMap
     @ViewModelKey(MainScreenViewModel::class)
     @Binds
-    fun bindSampleViewModel(impl: MainScreenViewModel): ViewModel
+    fun bindMainScreenViewModel(impl: MainScreenViewModel): ViewModel
 }

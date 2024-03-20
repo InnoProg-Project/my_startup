@@ -8,17 +8,15 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
-import com.innoprog.android.base.ViewModelSample
+import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentMainBinding
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.mainscreen.di.DaggerMainScreenComponent
 
-class MainFragment : BaseFragment<FragmentMainBinding, ViewModelSample>() {
+class MainFragment : BaseFragment<FragmentMainBinding, BaseViewModel>() {
 
+    override val viewModel by injectViewModel<MainScreenViewModel>()
     override fun diComponent(): ScreenComponent = DaggerMainScreenComponent.builder().build()
-
-    override val viewModel by injectViewModel<ViewModelSample>()
-
     override fun createBinding(
         inflater: LayoutInflater,
         container: ViewGroup?

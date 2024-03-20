@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.auth.presentation.fragment
+package com.innoprog.android.feature.auth.authorization.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,25 +10,19 @@ import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentAuthorizationBinding
-import com.innoprog.android.di.DaggerAppComponent
-import com.innoprog.android.feature.auth.presentation.viewmodel.AuthorizationViewModel
+import com.innoprog.android.di.ScreenComponent
+import com.innoprog.android.feature.auth.authorization.di.DaggerAuthorizationComponent
 
 class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseViewModel>() {
 
     override val viewModel by injectViewModel<AuthorizationViewModel>()
-
-    override fun diComponent(): AppComponent = DaggerAppComponent.builder().build()
+    override fun diComponent(): ScreenComponent = DaggerAuthorizationComponent.builder().build()
 
     override fun createBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentAuthorizationBinding {
         return FragmentAuthorizationBinding.inflate(inflater, container, false)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        diComponent().inject(this@AuthorizationFragment)
-        super.onCreate(savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
