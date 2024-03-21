@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("io.gitlab.arturbosch.detekt").version("1.23.3")
+    id("kotlin-kapt")
 }
 
 android {
@@ -56,4 +57,8 @@ dependencies {
     implementation ("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation ("androidx.navigation:navigation-ui-ktx:2.7.7")
     implementation ("androidx.fragment:fragment-ktx:1.6.2")
+
+    //Dagger2
+    implementation ("com.google.dagger:dagger:2.50")
+    kapt ("com.google.dagger:dagger-compiler:2.50")
 }
