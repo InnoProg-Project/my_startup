@@ -26,7 +26,7 @@ internal class SmsCodeSymbolView(context: Context, private val symbolStyle: Symb
         }
     private val itemWidth: Int = resources.getDimensionPixelSize(R.dimen.sms_item_size)
     private val itemHeight: Int = resources.getDimensionPixelSize(R.dimen.sms_item_size)
-    private val cornerRadius: Float = 8.0F
+    private val cornerRadius: Float = resources.getDimensionPixelSize(R.dimen.corner_radius_sms_cod_box).toFloat()
 
     private val backgroundPaint: Paint = Paint().apply {
         color = symbolStyle.backgroundColor
@@ -36,7 +36,7 @@ internal class SmsCodeSymbolView(context: Context, private val symbolStyle: Symb
         isAntiAlias = true
         color = symbolStyle.borderColor
         style = Paint.Style.STROKE
-        strokeWidth = 2.0F
+        strokeWidth = resources.getDimensionPixelSize(R.dimen.sms_item_border_width).toFloat()
     }
 
     private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -80,12 +80,12 @@ internal class SmsCodeSymbolView(context: Context, private val symbolStyle: Symb
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        backgroundRect.left = 0f
-        backgroundRect.top = 0F
+        backgroundRect.left = zeroPoint
+        backgroundRect.top = zeroPoint
         backgroundRect.right = measuredWidth.toFloat() + borderPaint.strokeWidth / 2
         backgroundRect.bottom = measuredHeight.toFloat() + borderPaint.strokeWidth / 2
-        borderRect.left = 0f
-        borderRect.top = 0F
+        borderRect.left = zeroPoint
+        borderRect.top = zeroPoint
         borderRect.right = measuredWidth.toFloat()
         borderRect.bottom = measuredHeight.toFloat()
     }
@@ -130,6 +130,7 @@ internal class SmsCodeSymbolView(context: Context, private val symbolStyle: Symb
         const val cursorAlphaAnimDuration = 500L
         const val cursorAlphaAnimStartDelay = 200L
         const val cursorSymbol = "|"
+        const val zeroPoint = 0f
     }
 }
 

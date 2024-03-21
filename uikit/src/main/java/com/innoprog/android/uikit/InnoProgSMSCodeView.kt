@@ -86,6 +86,9 @@ class InnoProgSMSCodeView @JvmOverloads constructor(
 
     private fun setupSymbolSubviews() {
         val isDisable = inputState == InnoProgInputViewState.DISABLED
+        if (isDisable) {
+            setOnClickListener(null)
+        }
         removeAllViews()
         for (i in 0 until codeLength) {
             val symbolView = SmsCodeSymbolView(context, setStyle(inputState))
@@ -161,9 +164,9 @@ class InnoProgSMSCodeView @JvmOverloads constructor(
     }
 
     private fun setStyle(state: InnoProgInputViewState): SymbolStyle {
-        when (state) {
+        return when (state) {
             InnoProgInputViewState.INACTIVE -> {
-                return SymbolStyle(
+                SymbolStyle(
                     false,
                     context.getColor(R.color.text_field_fill),
                     Color.TRANSPARENT,
@@ -172,8 +175,7 @@ class InnoProgSMSCodeView @JvmOverloads constructor(
             }
 
             InnoProgInputViewState.DISABLED -> {
-                setOnClickListener(null)
-                return SymbolStyle(
+                SymbolStyle(
                     false,
                     context.getColor(R.color.text_field_fill),
                     Color.TRANSPARENT,
@@ -182,7 +184,7 @@ class InnoProgSMSCodeView @JvmOverloads constructor(
             }
 
             InnoProgInputViewState.ERROR -> {
-                return SymbolStyle(
+                SymbolStyle(
                     false,
                     context.getColor(R.color.text_field_fill),
                     context.getColor(R.color.dark),
@@ -191,7 +193,7 @@ class InnoProgSMSCodeView @JvmOverloads constructor(
             }
 
             InnoProgInputViewState.FOCUSED -> {
-                return SymbolStyle(
+                SymbolStyle(
                     true,
                     context.getColor(R.color.text_field_fill),
                     context.getColor(R.color.accent_default),

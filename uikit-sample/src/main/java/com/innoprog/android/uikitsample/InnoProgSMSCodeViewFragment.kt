@@ -28,6 +28,5 @@ class InnoProgSMSCodeViewFragment : Fragment() {
         binding.codeBox2.setState(InnoProgInputViewState.DISABLED)
         binding.codeBox3.setState(InnoProgInputViewState.ERROR)
         binding.codeBox4.setState(InnoProgInputViewState.FOCUSED)
-
     }
 }
