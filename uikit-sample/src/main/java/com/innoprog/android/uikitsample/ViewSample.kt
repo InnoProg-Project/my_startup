@@ -27,6 +27,12 @@ enum class ViewSample {
         override fun newInstance(): Fragment {
             return InnoProgChipGroupFragment()
         }
+    },
+
+    ButtonView {
+        override fun newInstance(): Fragment {
+            return InnoProgButtonViewFragment()
+        }
     };
 
     abstract fun newInstance(): Fragment
