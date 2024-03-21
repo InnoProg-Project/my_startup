@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="SMSCodeView">
-        <attr name="boxBackgroundColor" format="color"/>
-        <attr name="maxLine" format="float"/>
+        <attr name="maxLine" format="integer"/>
         <attr name="statusChecked"
             format="enum">
             <enum name="inactive"

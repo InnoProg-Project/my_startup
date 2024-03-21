@@ -23,7 +23,6 @@ inline fun Context.dpToPx(dp: Int): Int {
     return (dp * density).toInt()
 }
 
-
 internal fun View.showKeyboard() {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.showSoftInput(this, 0)
