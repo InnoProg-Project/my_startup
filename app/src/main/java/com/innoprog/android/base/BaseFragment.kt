@@ -5,16 +5,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
+import com.innoprog.android.di.ScreenComponent
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-abstract class BaseFragment<T : ViewBinding> : Fragment() {
+abstract class BaseFragment<T : ViewBinding, VM : BaseViewModel> : Fragment() {
 
-    abstract val viewModel: BaseViewModel
+    abstract val viewModel: VM
     private var _binding: T? = null
     protected val binding get() = _binding!!
+
+    open val viewModelFactory: ViewModelProvider.Factory by lazy {
+        with(diComponent()) {
+            return@with viewModelFactory
+        }
+    }
+
+    protected abstract fun diComponent(): ScreenComponent
+
+    inline fun <reified VM : BaseViewModel> injectViewModel() = viewModels<VM>(
+        factoryProducer = { viewModelFactory }
+    )
 
     abstract fun createBinding(inflater: LayoutInflater, container: ViewGroup?): T
 

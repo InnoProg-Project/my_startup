@@ -1,18 +1,19 @@
-package com.innoprog.android.feature.auth.presentation
+package com.innoprog.android.feature.auth.registration.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
-import com.innoprog.android.base.ViewModelSample
 import com.innoprog.android.databinding.FragmentRegistrationBinding
+import com.innoprog.android.di.ScreenComponent
+import com.innoprog.android.feature.auth.registration.di.DaggerRegistrationComponent
 
-class RegistrationFragment : BaseFragment<FragmentRegistrationBinding>() {
-    override val viewModel: BaseViewModel by viewModels<ViewModelSample>()
+class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewModel>() {
+    override val viewModel by injectViewModel<RegistrationViewModel>()
+    override fun diComponent(): ScreenComponent = DaggerRegistrationComponent.builder().build()
 
     override fun createBinding(
         inflater: LayoutInflater,

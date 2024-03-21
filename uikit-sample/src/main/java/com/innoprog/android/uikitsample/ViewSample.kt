@@ -29,6 +29,12 @@ enum class ViewSample {
         }
     },
 
+    ButtonView {
+        override fun newInstance(): Fragment {
+            return InnoProgButtonViewFragment()
+        }
+    },
+
     SMSCodeCustomView {
         override fun newInstance(): Fragment {
             return InnoProgSMSCodeViewFragment()

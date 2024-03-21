@@ -11,6 +11,15 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="avatar_image_network">Network avatar</string>
     <string name="avatar_drawable">Drawable avatar</string>
+    <string name="type_flat_size_small">Type: Flat, Size: Small</string>
+    <string name="type_default_size_small">Type: Default, Size: Small</string>
+    <string name="type_primary_size_small">Type: Primary, Size: Small</string>
+    <string name="type_flat_size_medium">Type: Flat, Size: medium</string>
+    <string name="type_default_size_medium">Type: Default, Size: medium</string>
+    <string name="type_primary_size_medium">Type: Primary, Size: medium</string>
+    <string name="type_flat_size_large">Type: Flat, Size: large</string>
+    <string name="type_default_size_large">Type: Default, Size: large</string>
+    <string name="type_primary_size_large">Type: primary, Size: large</string>
 
     <string name="sms_code_inactive">inactive</string>
     <string name="sms_code_disabled">disabled</string>
