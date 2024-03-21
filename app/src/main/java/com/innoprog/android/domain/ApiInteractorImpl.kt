@@ -7,7 +7,7 @@ import retrofit2.Call
 
 class ApiInteractorImpl(
     apiMethodsProvider: Provider<ApiService>,
-): ApiInteractor {
+) : ApiInteractor {
 
     private val apiMethods = apiMethodsProvider.provide()
 
@@ -18,7 +18,6 @@ class ApiInteractorImpl(
         }.execute()
 
         return response
-
     }
 
     override fun get(url: String, headers: Map<String, String>): Call<ResponseBody> {
