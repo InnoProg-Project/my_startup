@@ -3,15 +3,22 @@ package com.innoprog.android.uikit
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.text.InputType
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.ViewGroup
+import android.view.inputmethod.BaseInputConnection
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputConnection
+import android.view.inputmethod.InputConnectionWrapper
 import android.widget.LinearLayout
 import android.widget.Space
 import androidx.annotation.AttrRes
 import androidx.annotation.StyleRes
 import androidx.core.view.children
 import androidx.core.view.postDelayed
+import com.innoprog.android.uikit.ext.hideKeyboard
+import com.innoprog.android.uikit.ext.showKeyboard
 
 @SuppressLint("ResourceType")
 class InnoProgSMSCodeView @JvmOverloads constructor(
@@ -49,6 +56,7 @@ class InnoProgSMSCodeView @JvmOverloads constructor(
                 setOnClickListener {
                     if (requestFocus()) {
                         showKeyboard()
+                        setState(InnoProgInputViewState.FOCUSED)
                     }
                 }
             } finally {
@@ -57,16 +65,11 @@ class InnoProgSMSCodeView @JvmOverloads constructor(
         }
     }
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-    }
-
     private fun updateState() {
         val codeLengthChanged = codeLength != symbolSubviews.count()
         if (codeLengthChanged) {
             setupSymbolSubviews()
         }
-
         val viewCode = symbolSubviews.map { it.state.symbol }
             .filterNotNull()
             .joinToString(separator = "")
@@ -82,13 +85,12 @@ class InnoProgSMSCodeView @JvmOverloads constructor(
     }
 
     private fun setupSymbolSubviews() {
+        val isDisable = inputState == InnoProgInputViewState.DISABLED
         removeAllViews()
-        val symbolStyle = getStyle(inputState)
         for (i in 0 until codeLength) {
-            val symbolView = SmsCodeSymbolView(context, symbolStyle)
-            symbolView.state = SmsCodeSymbolView.State(isActive = (i == enteredCode.length))
+            val symbolView = SmsCodeSymbolView(context, setStyle(inputState))
+            symbolView.state = SmsCodeSymbolView.State(isActive = (i == enteredCode.length && !isDisable))
             addView(symbolView)
-
             if (i < codeLength.dec()) {
                 val space = Space(context).apply {
                     layoutParams = ViewGroup.LayoutParams(
@@ -97,46 +99,6 @@ class InnoProgSMSCodeView @JvmOverloads constructor(
                     )
                 }
                 addView(space)
-            }
-        }
-    }
-
-    private fun getStyle(state: InnoProgInputViewState): SymbolStyle {
-        when (state) {
-            InnoProgInputViewState.INACTIVE -> {
-                return SymbolStyle(
-                    false,
-                    context.getColor(R.color.text_field_fill),
-                    Color.TRANSPARENT,
-                    context.getColor(R.color.text_tertiary)
-                )
-            }
-
-            InnoProgInputViewState.DISABLED -> {
-                return SymbolStyle(
-                    false,
-                    context.getColor(R.color.text_field_fill),
-                    Color.TRANSPARENT,
-                    context.getColor(R.color.text_tertiary)
-                )
-            }
-
-            InnoProgInputViewState.ERROR -> {
-                return SymbolStyle(
-                    false,
-                    context.getColor(R.color.text_field_fill),
-                    context.getColor(R.color.dark),
-                    context.getColor(R.color.text_primary)
-                )
-            }
-
-            InnoProgInputViewState.FOCUSED -> {
-                return SymbolStyle(
-                    true,
-                    context.getColor(R.color.text_field_fill),
-                    context.getColor(R.color.accent_default),
-                    context.getColor(R.color.text_primary)
-                )
             }
         }
     }
@@ -168,18 +130,81 @@ class InnoProgSMSCodeView @JvmOverloads constructor(
         }
         this.enteredCode = enteredCode + symbol
     }
+
     private fun removeLastSymbol() {
         if (enteredCode.isEmpty()) {
             return
         }
+        this.enteredCode = enteredCode.substring(0, enteredCode.length - 1)
     }
+
+    override fun onCheckIsTextEditor(): Boolean = true
+
     private fun KeyEvent.isDigitKey(): Boolean {
         return keyCode in KeyEvent.KEYCODE_0..KeyEvent.KEYCODE_9
     }
+
+    override fun onCreateInputConnection(outAttrs: EditorInfo): InputConnection {
+        with(outAttrs) {
+            inputType = InputType.TYPE_CLASS_NUMBER
+            imeOptions = EditorInfo.IME_ACTION_DONE
+        }
+        return object : InputConnectionWrapper(BaseInputConnection(this, false), true) {
+
+            override fun deleteSurroundingText(beforeLength: Int, afterLength: Int): Boolean {
+                return if (beforeLength == 1 && afterLength == 0) {
+                    sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL))
+                            && sendKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL))
+                } else super.deleteSurroundingText(beforeLength, afterLength)
+            }
+        }
+    }
+
+    private fun setStyle(state: InnoProgInputViewState): SymbolStyle {
+        when (state) {
+            InnoProgInputViewState.INACTIVE -> {
+                return SymbolStyle(
+                    false,
+                    context.getColor(R.color.text_field_fill),
+                    Color.TRANSPARENT,
+                    context.getColor(R.color.text_tertiary)
+                )
+            }
+
+            InnoProgInputViewState.DISABLED -> {
+                setOnClickListener(null)
+                return SymbolStyle(
+                    false,
+                    context.getColor(R.color.text_field_fill),
+                    Color.TRANSPARENT,
+                    context.getColor(R.color.text_tertiary)
+                )
+            }
+
+            InnoProgInputViewState.ERROR -> {
+                return SymbolStyle(
+                    false,
+                    context.getColor(R.color.text_field_fill),
+                    context.getColor(R.color.dark),
+                    context.getColor(R.color.text_primary)
+                )
+            }
+
+            InnoProgInputViewState.FOCUSED -> {
+                return SymbolStyle(
+                    true,
+                    context.getColor(R.color.text_field_fill),
+                    context.getColor(R.color.accent_default),
+                    context.getColor(R.color.text_primary)
+                )
+            }
+        }
+    }
+
     fun setState(state: InnoProgInputViewState) {
         inputState = state
         setupSymbolSubviews()
-        if (state == InnoProgInputViewState.FOCUSED){
+        if (state == InnoProgInputViewState.FOCUSED) {
             setOnKeyListener { _, keyCode, event -> handleKeyEvent(keyCode, event) }
             postDelayed(KEYBOARD_AUTO_SHOW_DELAY) {
                 requestFocus()

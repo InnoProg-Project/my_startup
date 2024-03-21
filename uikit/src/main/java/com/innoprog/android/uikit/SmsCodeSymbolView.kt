@@ -10,7 +10,6 @@ import android.graphics.RectF
 import android.view.View
 import androidx.annotation.ColorInt
 
-
 @SuppressLint("ViewConstructor")
 internal class SmsCodeSymbolView(context: Context, private val symbolStyle: SymbolStyle) :
     View(context) {
@@ -25,11 +24,9 @@ internal class SmsCodeSymbolView(context: Context, private val symbolStyle: Symb
             field = value
             updateState(state)
         }
-
     private val itemWidth: Int = resources.getDimensionPixelSize(R.dimen.sms_item_size)
     private val itemHeight: Int = resources.getDimensionPixelSize(R.dimen.sms_item_size)
     private val cornerRadius: Float = 8.0F
-
 
     private val backgroundPaint: Paint = Paint().apply {
         color = symbolStyle.backgroundColor
@@ -41,7 +38,6 @@ internal class SmsCodeSymbolView(context: Context, private val symbolStyle: Symb
         style = Paint.Style.STROKE
         strokeWidth = 2.0F
     }
-
 
     private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         textSize = resources.getDimension(R.dimen.text_size_16)
@@ -79,9 +75,7 @@ internal class SmsCodeSymbolView(context: Context, private val symbolStyle: Symb
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val w = resolveSizeAndState(itemWidth, widthMeasureSpec, 0)
-        val h = resolveSizeAndState(itemHeight, heightMeasureSpec, 0)
-        setMeasuredDimension(w, h)
+        setMeasuredDimension(itemWidth, itemHeight)
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
