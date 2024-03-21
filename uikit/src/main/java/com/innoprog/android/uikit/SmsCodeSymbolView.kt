@@ -26,7 +26,8 @@ internal class SmsCodeSymbolView(context: Context, private val symbolStyle: Symb
         }
     private val itemWidth: Int = resources.getDimensionPixelSize(R.dimen.sms_item_size)
     private val itemHeight: Int = resources.getDimensionPixelSize(R.dimen.sms_item_size)
-    private val cornerRadius: Float = resources.getDimensionPixelSize(R.dimen.corner_radius_sms_cod_box).toFloat()
+    private val cornerRadius: Float =
+        resources.getDimensionPixelSize(R.dimen.corner_radius_sms_cod_box).toFloat()
 
     private val backgroundPaint: Paint = Paint().apply {
         color = symbolStyle.backgroundColor
@@ -47,13 +48,12 @@ internal class SmsCodeSymbolView(context: Context, private val symbolStyle: Symb
 
     private val backgroundRect = RectF()
     private val borderRect = RectF()
-
     private var textAnimator: Animator? = null
 
     private fun updateState(state: State) = with(state) {
         textAnimator?.cancel()
         if (symbol == null && isActive && symbolStyle.showCursor) {
-            textAnimator = ObjectAnimator.ofInt(textPaint, "alpha", 255, 255, 0, 0)
+            textAnimator = ObjectAnimator.ofInt(textPaint, "alpha", FULL, FULL, ZERO, ZERO)
                 .apply {
                     duration = cursorAlphaAnimDuration
                     startDelay = cursorAlphaAnimStartDelay
@@ -62,8 +62,8 @@ internal class SmsCodeSymbolView(context: Context, private val symbolStyle: Symb
                     addUpdateListener { invalidate() }
                 }
         } else {
-            val startAlpha = if (symbol == null) 255 else 127
-            val endAlpha = if (symbol == null) 0 else 255
+            val startAlpha = if (symbol == null) FULL else ZERO
+            val endAlpha = if (symbol == null) ZERO else FULL
             textAnimator = ObjectAnimator.ofInt(textPaint, "alpha", startAlpha, endAlpha)
                 .apply {
                     duration = textPaintAlphaAnimDuration
@@ -131,6 +131,8 @@ internal class SmsCodeSymbolView(context: Context, private val symbolStyle: Symb
         const val cursorAlphaAnimStartDelay = 200L
         const val cursorSymbol = "|"
         const val zeroPoint = 0f
+        const val ZERO = 0
+        const val FULL = 255
     }
 }
 
