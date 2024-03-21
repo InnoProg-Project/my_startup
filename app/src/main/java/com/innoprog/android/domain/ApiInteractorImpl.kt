@@ -1,12 +1,12 @@
 package com.innoprog.android.domain
 
 import com.innoprog.android.data.network.ApiService
-import dagger.internal.Provider
 import okhttp3.ResponseBody
 import retrofit2.Call
+import javax.inject.Inject
 
-class ApiInteractorImpl(
-    apiMethodsProvider: Provider<ApiService>,
+class ApiInteractorImpl @Inject constructor(
+    apiMethodsProvider: ApiService,
 ) : ApiInteractor {
 
     private val apiMethods = apiMethodsProvider.provide()

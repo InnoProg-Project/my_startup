@@ -5,13 +5,12 @@ import com.innoprog.android.domain.ApiInteractor
 import com.innoprog.android.domain.ApiInteractorImpl
 import dagger.Module
 import dagger.Provides
-import dagger.internal.Provider
 
 @Module
 class ApiModule {
 
     @Provides
-    fun provideApiInteractor(apiService: Provider<ApiService>): ApiInteractor {
+    fun provideApiInteractor(apiService: ApiService): ApiInteractor {
         return ApiInteractorImpl(apiService)
     }
 }
