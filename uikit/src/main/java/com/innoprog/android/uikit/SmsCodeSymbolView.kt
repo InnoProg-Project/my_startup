@@ -31,7 +31,8 @@ internal class SmsCodeSymbolView(context: Context) :
         Color.TRANSPARENT,
         context.getColor(R.color.text_tertiary)
     )
-    fun updateStyle(style: SymbolStyle){
+
+    fun updateStyle(style: SymbolStyle) {
         showCursor = style.showCursor
         backgroundPaint.color = style.backgroundColor
         borderPaint.color = style.borderColor
