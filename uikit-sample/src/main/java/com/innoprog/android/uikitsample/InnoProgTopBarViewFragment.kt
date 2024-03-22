@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.innoprog.android.uikitsample.databinding.FragmentInnoProgTopBarViewBinding
 
-
 class InnoProgTopBarViewFragment : Fragment() {
     private var _binding: FragmentInnoProgTopBarViewBinding? = null
     private val binding get() = _binding!!
