@@ -91,7 +91,8 @@ class InnoProgSMSCodeView @JvmOverloads constructor(
         }
         removeAllViews()
         for (i in 0 until codeLength) {
-            val symbolView = SmsCodeSymbolView(context, setStyle(inputState))
+            val symbolView = SmsCodeSymbolView(context)
+            symbolView.updateStyle(setStyle(inputState))
             symbolView.state =
                 SmsCodeSymbolView.State(isActive = (i == enteredCode.length && !isDisable))
             addView(symbolView)
@@ -157,7 +158,8 @@ class InnoProgSMSCodeView @JvmOverloads constructor(
 
             override fun deleteSurroundingText(beforeLength: Int, afterLength: Int): Boolean {
                 return if (beforeLength == 1 && afterLength == 0) {
-                    sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL)) && sendKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL))
+                    sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL)) &&
+                            sendKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL))
                 } else super.deleteSurroundingText(beforeLength, afterLength)
             }
         }

@@ -5,13 +5,14 @@ import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.view.View
 import androidx.annotation.ColorInt
 
 @SuppressLint("ViewConstructor")
-internal class SmsCodeSymbolView(context: Context, private val symbolStyle: SymbolStyle) :
+internal class SmsCodeSymbolView(context: Context) :
     View(context) {
     data class State(
         val symbol: Char? = null,
@@ -24,10 +25,23 @@ internal class SmsCodeSymbolView(context: Context, private val symbolStyle: Symb
             field = value
             updateState(state)
         }
+    private var symbolStyle: SymbolStyle = SymbolStyle(
+        false,
+        context.getColor(R.color.text_field_fill),
+        Color.TRANSPARENT,
+        context.getColor(R.color.text_tertiary)
+    )
+    fun updateStyle(style: SymbolStyle){
+        showCursor = style.showCursor
+        backgroundPaint.color = style.backgroundColor
+        borderPaint.color = style.borderColor
+        textPaint.color = style.textColor
+    }
+
     private val itemWidth: Int = resources.getDimensionPixelSize(R.dimen.sms_item_size)
     private val itemHeight: Int = resources.getDimensionPixelSize(R.dimen.sms_item_size)
-    private val cornerRadius: Float =
-        resources.getDimensionPixelSize(R.dimen.corner_radius_sms_cod_box).toFloat()
+    private val cornerRadius: Float = resources.getDimension(R.dimen.corner_radius_sms_cod_box)
+    private var showCursor = false
 
     private val backgroundPaint: Paint = Paint().apply {
         color = symbolStyle.backgroundColor
@@ -52,7 +66,7 @@ internal class SmsCodeSymbolView(context: Context, private val symbolStyle: Symb
 
     private fun updateState(state: State) = with(state) {
         textAnimator?.cancel()
-        if (symbol == null && isActive && symbolStyle.showCursor) {
+        if (symbol == null && isActive && showCursor) {
             textAnimator = ObjectAnimator.ofInt(textPaint, "alpha", FULL, FULL, ZERO, ZERO)
                 .apply {
                     duration = cursorAlphaAnimDuration
@@ -117,7 +131,7 @@ internal class SmsCodeSymbolView(context: Context, private val symbolStyle: Symb
     private val y = itemWidth / 2 + textPaint.textSize / 2 - textPaint.descent()
     private fun Canvas.drawInputText() {
         drawText(
-            if (state.isActive && symbolStyle.showCursor) cursorSymbol else state.symbol?.toString()
+            if (state.isActive && showCursor) cursorSymbol else state.symbol?.toString()
                 ?: "",
             backgroundRect.width() / 2 + borderPaint.strokeWidth / 2,
             y,
