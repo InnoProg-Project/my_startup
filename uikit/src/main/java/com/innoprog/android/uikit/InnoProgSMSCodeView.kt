@@ -159,7 +159,7 @@ class InnoProgSMSCodeView @JvmOverloads constructor(
             override fun deleteSurroundingText(beforeLength: Int, afterLength: Int): Boolean {
                 return if (beforeLength == 1 && afterLength == 0) {
                     sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL)) &&
-                    sendKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL))
+                        sendKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL))
                 } else super.deleteSurroundingText(beforeLength, afterLength)
             }
         }
