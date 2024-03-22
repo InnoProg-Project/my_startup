@@ -9,8 +9,8 @@ import com.innoprog.android.feature.training.presentation.model.TrainingState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class TrainingViewModel @Inject constructor(private val getTrainingListUseCase: GetTrainingListUseCase)
-    : BaseViewModel() {
+class TrainingViewModel @Inject constructor(private val getTrainingListUseCase: GetTrainingListUseCase) :
+    BaseViewModel() {
 
     private val _state = MutableLiveData<TrainingState>()
     val state: LiveData<TrainingState> = _state

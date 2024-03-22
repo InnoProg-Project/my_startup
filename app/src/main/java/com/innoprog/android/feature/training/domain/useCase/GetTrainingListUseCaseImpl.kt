@@ -6,8 +6,8 @@ import com.innoprog.android.feature.training.presentation.model.TrainingModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetTrainingListUseCaseImpl @Inject constructor(private val repository: TrainingRepository)
-    : GetTrainingListUseCase {
+class GetTrainingListUseCaseImpl @Inject constructor(private val repository: TrainingRepository) :
+    GetTrainingListUseCase {
 
     override fun execute(): Flow<Pair<List<TrainingModel>?, ErrorStatus?>> {
         return repository.getTrainingList()
