@@ -47,12 +47,17 @@ class TrainingFragment : BaseFragment<FragmentTrainingBinding, BaseViewModel>() 
 
     private fun render(state: TrainingState) {
         when (state) {
-            is TrainingState.Load -> Unit
+            is TrainingState.Load, TrainingState.Error -> {
+                binding.trainingRecyclerView.visibility = View.INVISIBLE
+                binding.trainingNoCoursesPlaceholderIcon.visibility = View.VISIBLE
+                binding.trainingNoCoursesPlaceholderTV.visibility = View.VISIBLE
+            }
             is TrainingState.Content -> {
                 trainingAdapter?.items = state.trainingList
+                binding.trainingRecyclerView.visibility = View.VISIBLE
+                binding.trainingNoCoursesPlaceholderIcon.visibility = View.INVISIBLE
+                binding.trainingNoCoursesPlaceholderTV.visibility = View.INVISIBLE
             }
-
-            is TrainingState.Error -> Unit
         }
     }
 }

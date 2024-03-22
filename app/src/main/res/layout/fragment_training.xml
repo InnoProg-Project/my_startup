@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:text="@string/Training"
         android:textColor="@color/text_primary"
+        android:textFontWeight="400"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,5 +29,32 @@
         app:layout_constraintTop_toBottomOf="@id/tvTraining"
         tools:itemCount="4"
         tools:listitem="@layout/item_training" />
+
+    <ImageView
+        android:id="@+id/trainingNoCoursesPlaceholderIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_placeholer_no_courses"
+        app:layout_constraintBottom_toTopOf="@+id/trainingNoCoursesPlaceholderTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/trainingNoCoursesPlaceholderTV"
+        style="@style/TextHeadline_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:gravity="center"
+        android:text="@string/no_courses"
+        android:textColor="@color/text_primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/trainingNoCoursesPlaceholderIcon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
