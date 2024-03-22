@@ -1,7 +1,4 @@
-package com.innoprog.android.di
-
-import com.innoprog.android.data.network.ApiConstants
-import com.innoprog.android.data.network.ApiService
+package com.innoprog.android.network.data
 
 import dagger.Module
 import dagger.Provides

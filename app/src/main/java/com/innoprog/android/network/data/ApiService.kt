@@ -1,4 +1,4 @@
-package com.innoprog.android.data.network
+package com.innoprog.android.network.data
 
 import okhttp3.ResponseBody
 import retrofit2.Call

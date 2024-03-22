@@ -1,6 +1,6 @@
-package com.innoprog.android.domain
+package com.innoprog.android.network.domain
 
-import com.innoprog.android.data.network.ApiService
+import com.innoprog.android.network.data.ApiService
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
