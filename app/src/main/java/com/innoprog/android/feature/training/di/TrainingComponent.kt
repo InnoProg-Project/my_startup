@@ -4,6 +4,6 @@ import com.innoprog.android.di.ScreenComponent
 import dagger.Component
 
 @Component(
-    modules = [TrainingModule::class]
+    modules = [TrainingModule::class, AbstractTrainingModule::class]
 )
 interface TrainingComponent : ScreenComponent
