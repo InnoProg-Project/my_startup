@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/authorizationFragment"
-        android:name="com.innoprog.android.feature.auth.presentation.AuthorizationFragment"
+        android:name="com.innoprog.android.feature.auth.authorization.presentation.AuthorizationFragment"
         android:label="AuthorizationFragment"
         tools:layout="@layout/fragment_authorization">
         <action
@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/passwordRecoveryFragment"
-        android:name="com.innoprog.android.feature.auth.presentation.PasswordRecoveryFragment"
+        android:name="com.innoprog.android.feature.auth.passwordrecovery.presentation.PasswordRecoveryFragment"
         android:label="PasswordRecoveryFragment"
         tools:layout="@layout/fragment_password_recovery">
         <action
@@ -35,7 +35,7 @@
 
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.innoprog.android.feature.auth.presentation.RegistrationFragment"
+        android:name="com.innoprog.android.feature.auth.registration.presentation.RegistrationFragment"
         android:label="RegistrationFragment"
         tools:layout="@layout/fragment_registration">
         <action
@@ -45,19 +45,19 @@
 
     <fragment
         android:id="@+id/codeEntryFragment"
-        android:name="com.innoprog.android.feature.auth.presentation.CodeEntryFragment"
+        android:name="com.innoprog.android.feature.auth.codeentry.presentation.CodeEntryFragment"
         android:label="fragment_code_entry"
         tools:layout="@layout/fragment_code_entry" />
 
     <fragment
         android:id="@+id/newPasswordFragment"
-        android:name="com.innoprog.android.feature.auth.presentation.NewPasswordFragment"
+        android:name="com.innoprog.android.feature.auth.newpassword.presentation.NewPasswordFragment"
         android:label="fragment_new_password"
         tools:layout="@layout/fragment_new_password" />
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.innoprog.android.base.MainFragment"
+        android:name="com.innoprog.android.feature.mainscreen.presentation.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
 
