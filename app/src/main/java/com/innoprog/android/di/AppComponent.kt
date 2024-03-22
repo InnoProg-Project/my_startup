@@ -12,6 +12,6 @@ interface AppComponent : DIComponent
 interface DIComponent
 
 // Эта сущность нужна чтобы хранить AppComponent в памяти и подсовывать в наши ScreenComponent'ы
-object AppComponentHolder: ComponentHolder<AppComponent>() {
+object AppComponentHolder : ComponentHolder<AppComponent>() {
     override fun buildComponent(): AppComponent = DaggerAppComponent.builder().build()
 }
