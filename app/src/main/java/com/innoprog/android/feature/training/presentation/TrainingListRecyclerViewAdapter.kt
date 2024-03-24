@@ -1,33 +1,33 @@
-package com.innoprog.android.feature.training
+package com.innoprog.android.feature.training.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.innoprog.android.databinding.ItemTrainingBinding
-import com.innoprog.android.feature.training.presentation.model.TrainingModel
+import com.innoprog.android.feature.training.presentation.model.TrainingListModel
 import com.innoprog.android.uikit.ImageLoadingType
 
-class TrainingRecyclerViewAdapter : RecyclerView.Adapter<TrainingViewHolder>() {
+class TrainingRecyclerViewAdapter : RecyclerView.Adapter<TrainingListViewHolder>() {
 
-    var items = listOf<TrainingModel>()
+    var items = listOf<TrainingListModel>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrainingViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrainingListViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return TrainingViewHolder(ItemTrainingBinding.inflate(layoutInflater, parent, false))
+        return TrainingListViewHolder(ItemTrainingBinding.inflate(layoutInflater, parent, false))
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
 
-    override fun onBindViewHolder(holder: TrainingViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TrainingListViewHolder, position: Int) {
         holder.bind(items[position])
     }
 }
 
-class TrainingViewHolder(private val binding: ItemTrainingBinding) : RecyclerView.ViewHolder(binding.root) {
+class TrainingListViewHolder(private val binding: ItemTrainingBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: TrainingModel) {
+    fun bind(item: TrainingListModel) {
         binding.trainingDirection.text = item.trainingDirection
         binding.trainingTitle.text = item.trainingTitle
         binding.trainingDescription.text = item.trainingDescription

@@ -1,15 +1,15 @@
 package com.innoprog.android.feature.training.data
 
 import com.innoprog.android.feature.training.domain.ErrorStatus
-import com.innoprog.android.feature.training.domain.TrainingRepository
-import com.innoprog.android.feature.training.presentation.model.TrainingModel
+import com.innoprog.android.feature.training.domain.TrainingListRepository
+import com.innoprog.android.feature.training.presentation.model.TrainingListModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class TrainingRepositoryImpl @Inject constructor() : TrainingRepository {
+class TrainingListRepositoryImpl @Inject constructor() : TrainingListRepository {
 
-    private val trainingModel: TrainingModel = TrainingModel(
+    private val trainingListModel: TrainingListModel = TrainingListModel(
         TRAINING_DIRECTION,
         TRAINING_TITLE,
         TRAINING_DESCRIPTION,
@@ -18,9 +18,9 @@ class TrainingRepositoryImpl @Inject constructor() : TrainingRepository {
         TRAINING_AUTHOR_POSITION,
         TRAINING_DATE
     )
-    private val models = listOf(trainingModel, trainingModel, trainingModel, trainingModel)
+    private val models = listOf(trainingListModel, trainingListModel, trainingListModel, trainingListModel)
 
-    override fun getTrainingList(): Flow<Pair<List<TrainingModel>?, ErrorStatus?>> = flow {
+    override fun getTrainingList(): Flow<Pair<List<TrainingListModel>?, ErrorStatus?>> = flow {
         emit(Pair(models, null))
     }
 

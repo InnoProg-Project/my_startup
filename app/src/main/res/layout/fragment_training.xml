@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.training.presentation.TrainingFragment">
+    tools:context=".feature.training.presentation.TrainingListFragment">
 
     <TextView
         android:id="@+id/tvTraining"
@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:text="@string/Training"
         android:textColor="@color/text_primary"
-        android:textFontWeight="400"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
