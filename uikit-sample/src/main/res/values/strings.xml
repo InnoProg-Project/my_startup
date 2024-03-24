@@ -21,4 +21,8 @@
     <string name="type_default_size_large">Type: Default, Size: large</string>
     <string name="type_primary_size_large">Type: primary, Size: large</string>
     <string name="params_sample_top_bar">app:topBar_left_icon=\"@drawable/ic_heart\"\n        app:topBar_right_icon=\"@drawable/ic_heart\"\n        app:topBar_title=\"@string/title\"</string>
+    <string name="sms_code_inactive">inactive</string>
+    <string name="sms_code_disabled">disabled</string>
+    <string name="sms_code_error">error</string>
+    <string name="sms_code_focused">focused</string>
 </resources>
