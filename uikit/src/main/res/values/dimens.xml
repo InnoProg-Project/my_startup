@@ -25,4 +25,10 @@
     <dimen name="button_padding_6">6dp</dimen>
     <dimen name="button_icon_size_20">20dp</dimen>
     <dimen name="button_icon_size_16">16dp</dimen>
+
+    <dimen name="sms_item_size">48dp</dimen>
+    <dimen name="sms_item_indent">24dp</dimen>
+    <dimen name="corner_radius_sms_cod_box">8dp</dimen>
+    <dimen name="sms_item_border_width">1dp</dimen>
+
 </resources>

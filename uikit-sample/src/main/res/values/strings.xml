@@ -20,4 +20,9 @@
     <string name="type_flat_size_large">Type: Flat, Size: large</string>
     <string name="type_default_size_large">Type: Default, Size: large</string>
     <string name="type_primary_size_large">Type: primary, Size: large</string>
+
+    <string name="sms_code_inactive">inactive</string>
+    <string name="sms_code_disabled">disabled</string>
+    <string name="sms_code_error">error</string>
+    <string name="sms_code_focused">focused</string>
 </resources>
