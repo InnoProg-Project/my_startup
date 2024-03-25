@@ -2,12 +2,15 @@ package com.innoprog.android.di
 
 import com.innoprog.android.network.data.ApiModule
 import com.innoprog.android.network.data.NetworkModule
+import com.innoprog.android.network.domain.ApiInteractor
 import dagger.Component
 
 @Component(
     modules = [NetworkModule::class, ApiModule::class]
 )
-interface AppComponent : DIComponent
+interface AppComponent : DIComponent {
+    val apiInteractor: ApiInteractor
+}
 
 interface DIComponent
 
