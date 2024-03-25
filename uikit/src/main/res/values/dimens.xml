@@ -10,8 +10,14 @@
     <dimen name="text_size_10">10sp</dimen>
 
     <dimen name="padding_bottom_30">30dp</dimen>
+    <dimen name="padding_18">18dp</dimen>
+    <dimen name="padding_12">12dp</dimen>
+    <dimen name="top_bar_min_height_44">44dp</dimen>
+    <dimen name="top_bar_icon_size_20">20dp</dimen>
 
+    <dimen name="margin_2">2dp</dimen>
     <dimen name="margin_5">5dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
     <dimen name="margin_16">16dp</dimen>
     <dimen name="button_radius_24">24dp</dimen>
     <dimen name="button_height_48">48dp</dimen>
@@ -25,4 +31,10 @@
     <dimen name="button_padding_6">6dp</dimen>
     <dimen name="button_icon_size_20">20dp</dimen>
     <dimen name="button_icon_size_16">16dp</dimen>
+
+    <dimen name="sms_item_size">48dp</dimen>
+    <dimen name="sms_item_indent">24dp</dimen>
+    <dimen name="corner_radius_sms_cod_box">8dp</dimen>
+    <dimen name="sms_item_border_width">1dp</dimen>
+
 </resources>
