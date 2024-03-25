@@ -5,13 +5,18 @@ import android.view.ViewGroup
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentProfileBinding
+import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.profile.di.DaggerProfileComponent
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
     override val viewModel by injectViewModel<ProfileViewModel>()
-    override fun diComponent(): ScreenComponent = DaggerProfileComponent.builder().build()
-
+    override fun diComponent(): ScreenComponent {
+        val appComponent = AppComponentHolder.getComponent() 
+        return DaggerProfileComponent.builder()
+            .appComponent(appComponent)
+            .build()
+    }
     override fun createBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
