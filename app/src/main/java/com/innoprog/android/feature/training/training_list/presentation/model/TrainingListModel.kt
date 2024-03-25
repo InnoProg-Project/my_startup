@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.training.presentation.model
+package com.innoprog.android.feature.training.training_list.presentation.model
 
 data class TrainingListModel(
     val trainingDirection: String,

@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.training.presentation
+package com.innoprog.android.feature.training.training_list.presentation
 
 import android.graphics.Rect
 import android.view.View

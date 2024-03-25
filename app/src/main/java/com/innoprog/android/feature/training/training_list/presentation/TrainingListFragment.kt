@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.training.presentation
+package com.innoprog.android.feature.training.training_list.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
-import com.innoprog.android.databinding.FragmentTrainingBinding
+import com.innoprog.android.databinding.FragmentTrainingListBinding
 import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.feature.training.di.DaggerTrainingListComponent
-import com.innoprog.android.feature.training.presentation.model.TrainingListState
+import com.innoprog.android.feature.training.training_list.di.DaggerTrainingListComponent
+import com.innoprog.android.feature.training.training_list.presentation.model.TrainingListState
 import com.innoprog.android.uikit.R
 
-class TrainingListFragment : BaseFragment<FragmentTrainingBinding, BaseViewModel>() {
+class TrainingListFragment : BaseFragment<FragmentTrainingListBinding, BaseViewModel>() {
 
     override val viewModel by injectViewModel<TrainingListViewModel>()
     private var trainingAdapter: TrainingRecyclerViewAdapter? = null
@@ -22,8 +22,8 @@ class TrainingListFragment : BaseFragment<FragmentTrainingBinding, BaseViewModel
     override fun createBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentTrainingBinding {
-        return FragmentTrainingBinding.inflate(inflater, container, false)
+    ): FragmentTrainingListBinding {
+        return FragmentTrainingListBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
