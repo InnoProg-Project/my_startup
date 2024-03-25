@@ -12,7 +12,7 @@ import com.innoprog.android.feature.profile.di.DaggerProfileComponent
 class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
     override val viewModel by injectViewModel<ProfileViewModel>()
     override fun diComponent(): ScreenComponent {
-        val appComponent = AppComponentHolder.getComponent() 
+        val appComponent = AppComponentHolder.getComponent()
         return DaggerProfileComponent.builder()
             .appComponent(appComponent)
             .build()
