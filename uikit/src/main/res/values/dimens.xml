@@ -15,7 +15,9 @@
     <dimen name="top_bar_min_height_44">44dp</dimen>
     <dimen name="top_bar_icon_size_20">20dp</dimen>
 
+    <dimen name="margin_2">2dp</dimen>
     <dimen name="margin_5">5dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
     <dimen name="margin_16">16dp</dimen>
     <dimen name="button_radius_24">24dp</dimen>
     <dimen name="button_height_48">48dp</dimen>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/training_shape"
+    android:backgroundTint="@color/background_primary">
+
+    <TextView
+        android:id="@+id/trainingDirection"
+        style="@style/TextSubtitle_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_16"
+        android:background="@drawable/rectangle_with_corners"
+        android:backgroundTint="@color/accent_secondary"
+        android:paddingStart="@dimen/margin_8"
+        android:paddingEnd="@dimen/margin_8"
+        android:paddingBottom="@dimen/margin_2"
+        android:textColor="@color/text_white_primary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Дизайн" />
+
+    <TextView
+        android:id="@+id/trainingTitle"
+        style="@style/TextHeadline_3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:textColor="@color/text_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/trainingDirection"
+        app:layout_constraintTop_toBottomOf="@+id/trainingDirection"
+        tools:text="Интеграция сервисов" />
+
+    <TextView
+        android:id="@+id/trainingDescription"
+        style="@style/TextBody_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:textColor="@color/text_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/trainingTitle"
+        app:layout_constraintTop_toBottomOf="@+id/trainingTitle"
+        tools:text="Небольшой курс о том, как интегрировать сервисы в ваше приложение или сайт без участия разработчика" />
+
+    <com.innoprog.android.uikit.InnoProgAvatarView
+        android:id="@+id/trainingAuthorAvatar"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/trainingAuthorPosition"
+        app:layout_constraintStart_toStartOf="@+id/trainingDescription"
+        app:layout_constraintTop_toTopOf="@+id/trainingAuthorName" />
+
+    <TextView
+        android:id="@+id/trainingAuthorName"
+        style="@style/TextSubtitle_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8"
+        android:layout_marginTop="@dimen/margin_8"
+        android:textColor="@color/text_primary"
+        app:layout_constraintEnd_toStartOf="@+id/trainingDate"
+        app:layout_constraintStart_toEndOf="@+id/trainingAuthorAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/trainingDescription"
+        tools:text="Унтура Михаил" />
+
+    <TextView
+        android:id="@+id/trainingAuthorPosition"
+        style="@style/TextCaption_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_16"
+        android:textColor="@color/text_secondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/trainingDate"
+        app:layout_constraintStart_toStartOf="@+id/trainingAuthorName"
+        app:layout_constraintTop_toBottomOf="@+id/trainingAuthorName"
+        tools:text="СЕО в Мой Стартап" />
+
+    <TextView
+        android:id="@+id/trainingDate"
+        style="@style/TextBody_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:textColor="@color/text_secondary"
+        app:layout_constraintBottom_toBottomOf="@+id/trainingAuthorPosition"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="20 мая" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
