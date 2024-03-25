@@ -9,35 +9,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.innoprog.android.R
+import com.innoprog.android.base.BaseFragment
+import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentEditingProfileBinding
+import com.innoprog.android.di.ScreenComponent
+import com.innoprog.android.feature.editingprofile.di.DaggerEditingProfileComponent
 import com.innoprog.android.uikit.InnoProgButtonView
 
-class EditingProfileFragment : Fragment() {
+class EditingProfileFragment : BaseFragment<FragmentEditingProfileBinding, BaseViewModel>() {
 
-    private var _binding: FragmentEditingProfileBinding? = null
-    private val binding get() = _binding!!
+    override val viewModel by injectViewModel<EditingProfileViewModel>()
+    override fun diComponent(): ScreenComponent = DaggerEditingProfileComponent.builder().build()
 
-    override fun onCreateView(
+    override fun createBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentEditingProfileBinding.inflate(inflater, container, false)
-        return binding.root
+        container: ViewGroup?
+    ): FragmentEditingProfileBinding {
+        return FragmentEditingProfileBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initButton()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 
     private fun initButton() {
