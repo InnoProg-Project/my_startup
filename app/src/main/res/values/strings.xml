@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">innoprog</string>
+    <string name="Training">Обучение</string>
+    <string name="no_courses">Доступных курсов пока нет</string>
 </resources>
