@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/authorizationFragment">
+    app:startDestination="@id/editingProfileFragment">
 
     <fragment
         android:id="@+id/authorizationFragment"
@@ -60,5 +60,23 @@
         android:name="com.innoprog.android.feature.mainscreen.presentation.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
+    <fragment
+        android:id="@+id/editingProfileFragment"
+        android:name="com.innoprog.android.feature.editingprofile.presentation.EditingProfileFragment"
+        android:label="fragment_editing_profile"
+        tools:layout="@layout/fragment_editing_profile" >
+        <action
+            android:id="@+id/action_editingProfileFragment_to_bottomSheetFragment"
+            app:destination="@id/bottomSheetFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/bottomSheetFragment"
+        android:name="com.innoprog.android.feature.editingprofile.presentation.BottomSheetFragment"
+        android:label="fragment_bottom_sheet"
+        tools:layout="@layout/fragment_bottom_sheet" >
+        <action
+            android:id="@+id/action_bottomSheetFragment_to_editingProfileFragment"
+            app:destination="@id/editingProfileFragment" />
+    </dialog>
 
 </navigation>

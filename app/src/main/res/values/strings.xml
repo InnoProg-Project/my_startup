@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">innoprog</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="log_out_of_your_profile">Выйти из профиля?</string>
+    <string name="delete_account">Удалить аккаунт?</string>
+    <string name="cancel">Отменить</string>
+    <string name="delete_photo">Удалить фото</string>
+    <string name="make_photo">Сделать фото</string>
+    <string name="choose_from_gallery">Выбрать из галереи</string>
 </resources>
