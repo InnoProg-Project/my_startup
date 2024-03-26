@@ -84,8 +84,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:gravity="center"
                 android:layout_marginHorizontal="@dimen/margin_4"
+                android:gravity="center"
                 android:text="@string/in"
                 android:textColor="@color/text_secondary" />
 
@@ -113,18 +113,14 @@
 
     </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/chips_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/padding_8"
-        android:paddingTop="@dimen/padding_12"
-        android:paddingBottom="@dimen/padding_8"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_container">
+        <com.innoprog.android.uikit.InnoProgChipGroupView
+            android:id="@+id/chips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profile_container">
 
-    </ScrollView>
+        </com.innoprog.android.uikit.InnoProgChipGroupView>
 
     <TextView
         android:id="@+id/placeholder_text"
@@ -137,6 +133,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chips_container" />
+        app:layout_constraintTop_toBottomOf="@+id/chips" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
