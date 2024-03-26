@@ -25,7 +25,6 @@ class BottomSheetProfile : BottomSheetDialogFragment() {
     ): View {
         _binding = BottomSheetProfileBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,5 +54,4 @@ class BottomSheetProfile : BottomSheetDialogFragment() {
         super.onDestroy()
         _binding = null
     }
-
 }
