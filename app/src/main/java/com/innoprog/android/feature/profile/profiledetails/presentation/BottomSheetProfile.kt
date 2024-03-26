@@ -10,22 +10,17 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.innoprog.android.base.BaseBottomSheetFragment
 import com.innoprog.android.databinding.BottomSheetProfileBinding
 import com.innoprog.android.uikit.R
 
-class BottomSheetProfile : BottomSheetDialogFragment() {
+class BottomSheetProfile : BaseBottomSheetFragment<BottomSheetProfileBinding>() {
 
-    private var _binding: BottomSheetProfileBinding? = null
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
+    override fun createBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = BottomSheetProfileBinding.inflate(inflater, container, false)
-        return binding.root
+        container: ViewGroup?
+    ): BottomSheetProfileBinding {
+        return BottomSheetProfileBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,10 +53,5 @@ class BottomSheetProfile : BottomSheetDialogFragment() {
             findNavController().navigate(com.innoprog.android
                 .R.id.action_profile_bottom_sheet_to_editingProfileFragment)
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 }

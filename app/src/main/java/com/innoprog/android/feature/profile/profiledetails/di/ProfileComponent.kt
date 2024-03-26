@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.profile.di
+package com.innoprog.android.feature.profile.profiledetails.di
 
 import com.innoprog.android.di.AppComponent
 import com.innoprog.android.di.ScreenComponent

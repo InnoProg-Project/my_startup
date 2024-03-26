@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.profile.di
+package com.innoprog.android.feature.profile.profiledetails.di
 
 import androidx.lifecycle.ViewModel
 import com.innoprog.android.di.ViewModelKey
