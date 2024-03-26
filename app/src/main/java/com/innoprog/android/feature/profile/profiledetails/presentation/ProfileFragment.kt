@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.profile.presentation.profiledetails
+package com.innoprog.android.feature.profile.profiledetails.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater

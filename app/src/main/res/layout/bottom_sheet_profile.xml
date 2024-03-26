@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".feature.profile.presentation.profiledetails.BottomSheetProfile">
+    tools:context=".feature.profile.profiledetails.presentation.BottomSheetProfile">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

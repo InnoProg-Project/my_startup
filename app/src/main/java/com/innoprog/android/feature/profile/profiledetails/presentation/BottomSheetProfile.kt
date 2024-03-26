@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.profile.presentation.profiledetails
+package com.innoprog.android.feature.profile.profiledetails.presentation
 
 import android.app.Dialog
 import android.graphics.Color
@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.innoprog.android.databinding.BottomSheetProfileBinding
@@ -31,6 +32,8 @@ class BottomSheetProfile : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initButton()
+
+        navigateTo()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -48,6 +51,13 @@ class BottomSheetProfile : BottomSheetDialogFragment() {
         binding.buttonCancel.setOnClickListener {
             dismiss()
         }
+    }
+
+    private fun navigateTo() {
+        binding.editText.setOnClickListener {
+            findNavController().navigate(com.innoprog.android.R.id.action_profile_bottom_sheet_to_editingProfileFragment)
+        }
+
     }
 
     override fun onDestroy() {
