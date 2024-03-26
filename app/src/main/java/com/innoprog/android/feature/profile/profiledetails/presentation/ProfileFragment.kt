@@ -13,7 +13,7 @@ import com.innoprog.android.di.ScreenComponent
 import android.view.animation.AnimationUtils
 import androidx.navigation.fragment.findNavController
 import com.innoprog.android.R
-import com.innoprog.android.feature.profile.di.DaggerProfileComponent
+import com.innoprog.android.feature.profile.profiledetails.di.DaggerProfileComponent
 import com.innoprog.android.uikit.InnoProgChipGroupView
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
