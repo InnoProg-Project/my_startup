@@ -48,6 +48,7 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation(project(":uikit"))
+    implementation("androidx.compose.ui:ui-desktop:1.6.3")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -61,6 +62,12 @@ dependencies {
     //Dagger2
     implementation ("com.google.dagger:dagger:2.50")
     kapt ("com.google.dagger:dagger-compiler:2.50")
+
+    //Retrofit & Interceptor
+    implementation ("com.squareup.retrofit2:retrofit:2.10.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.10.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.7.2")
+
 
     //Room
     implementation("androidx.room:room-runtime:2.6.1")

@@ -1,17 +1,15 @@
 package com.innoprog.android.di
 
-import com.innoprog.android.db.RoomDBModule
-import com.innoprog.android.feature.feed.domain.models.FavoritesInteractor
-import com.innoprog.android.feature.feed.domain.models.FavoritesRepository
+import com.innoprog.android.network.data.ApiModule
+import com.innoprog.android.network.data.NetworkModule
+import com.innoprog.android.network.domain.ApiInteractor
 import dagger.Component
 
 @Component(
-    modules = [RoomDBModule::class]
+    modules = [NetworkModule::class, ApiModule::class]
 )
-
 interface AppComponent : DIComponent {
-    fun favoritesRepository(): FavoritesRepository
-    fun favoritesInteractor(): FavoritesInteractor
+    val apiInteractor: ApiInteractor
 }
 
 interface DIComponent
