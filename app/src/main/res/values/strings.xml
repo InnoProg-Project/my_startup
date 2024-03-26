@@ -2,4 +2,11 @@
     <string name="app_name">innoprog</string>
     <string name="Training">Обучение</string>
     <string name="no_courses">Доступных курсов пока нет</string>
+    <string name="profile">Профиль</string>
+    <string name="name">Анна Михайлова</string>
+    <string name="ceo">CEO</string>
+    <string name="company_name">HighTechCorp</string>
+    <string name="description">"Образовательный уровень родителей зачастую влияет на будущее детей больше, чем их успеваемость в школе. "</string>
+    <string name="empty">Пока тут пусто</string>
+    <string name="in">в</string>
 </resources>
