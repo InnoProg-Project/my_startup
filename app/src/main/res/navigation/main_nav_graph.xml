@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.innoprog.android.feature.profile.presentation.ProfileFragment"
+        android:name="com.innoprog.android.feature.profile.profiledeteils.presentation.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

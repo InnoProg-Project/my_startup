@@ -1,8 +1,8 @@
-package com.innoprog.android.feature.editingprofile.di
+package com.innoprog.android.feature.profile.editingprofile.di
 
 import androidx.lifecycle.ViewModel
 import com.innoprog.android.di.ViewModelKey
-import com.innoprog.android.feature.editingprofile.presentation.EditingProfileViewModel
+import com.innoprog.android.feature.profile.editingprofile.presentation.EditingProfileViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

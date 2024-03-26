@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.editingprofile.presentation
+package com.innoprog.android.feature.profile.editingprofile.presentation
 
 import android.app.Dialog
 import android.graphics.Color
@@ -9,36 +9,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.innoprog.android.databinding.FragmentBottomSheetBinding
+import com.innoprog.android.base.BaseBottomSheetFragment
+import com.innoprog.android.databinding.FragmentEditingProfileBottomSheetBinding
+import com.innoprog.android.uikit.R
 
-class BottomSheetFragment : BottomSheetDialogFragment() {
+class EditingProfileBottomSheetFragment :
+    BaseBottomSheetFragment<FragmentEditingProfileBottomSheetBinding>() {
 
-    private var _binding: FragmentBottomSheetBinding? = null
-    private val binding get() = _binding!!
-    override fun onCreateView(
+    override fun createBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentBottomSheetBinding.inflate(inflater, container, false)
-        return binding.root
+        container: ViewGroup?
+    ): FragmentEditingProfileBottomSheetBinding {
+        return FragmentEditingProfileBottomSheetBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initButton()
-    }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+        initButton()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = BottomSheetDialog(
             requireContext(),
-            com.innoprog.android.uikit.R.style.TransparentDialog
+            R.style.TransparentDialog
         )
         dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog.setCanceledOnTouchOutside(true)

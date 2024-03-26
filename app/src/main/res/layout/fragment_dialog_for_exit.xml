@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="270dp"
-    android:layout_height="116dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     app:cardBackgroundColor="@color/background_secondary"
     app:cardCornerRadius="@dimen/corner_radius_16">
 
@@ -10,6 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_3"
+        android:paddingHorizontal="@dimen/text_size_16"
+        android:paddingVertical="@dimen/padding_16"
         android:orientation="vertical">
 
         <TextView
@@ -25,26 +28,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginTop="19dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <com.innoprog.android.uikit.InnoProgButtonView
                 android:id="@+id/buttonCancel"
                 android:layout_width="115dp"
-                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margin_8"
+                android:gravity="center"
                 app:buttonSize="medium"
                 app:buttonState="enabled"
                 app:buttonText="@string/cancellation"
-                app:buttonType="def"/>
+                app:buttonType="def" />
 
             <com.innoprog.android.uikit.InnoProgButtonView
                 android:id="@+id/buttonExit"
                 android:layout_width="115dp"
-                android:gravity="center"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 app:buttonSize="medium"
                 app:buttonState="enabled"
                 app:buttonText="@string/go_out"
@@ -52,8 +55,6 @@
 
         </LinearLayout>
 
-
     </LinearLayout>
-
 
 </androidx.cardview.widget.CardView>

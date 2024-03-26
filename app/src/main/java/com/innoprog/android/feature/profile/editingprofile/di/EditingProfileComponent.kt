@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.editingprofile.di
+package com.innoprog.android.feature.profile.editingprofile.di
 
 import com.innoprog.android.di.ScreenComponent
 import dagger.Component

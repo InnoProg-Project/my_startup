@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delete_account">Удалить аккаунт?</string>
+    <string name="cancel">Отменить</string>
+    <string name="delete_photo">Удалить фото</string>
+    <string name="make_photo">Сделать фото</string>
+    <string name="choose_from_gallery">Выбрать из галереи</string>
+    <string name="personal_data">Личные данные</string>
+    <string name="change_photo">Изменить фотографию</string>
+    <string name="phone_number">Номер телефона</string>
+    <string name="full_name">ФИО</string>
+    <string name="email">Email</string>
+    <string name="job_title">Должность</string>
+    <string name="company_name">Имя компании</string>
+    <string name="link_to_web_site">Ссылка на сайт компании</string>
+    <string name="about_me">Обо мне</string>
+    <string name="save">Сохранить</string>
+    <string name="exit">Выход</string>
+    <string name="cancellation">Отмена</string>
+    <string name="go_out">Выйти</string>
+    <string name="delete">Удалить</string>
+    <string name="all_your_data_will_be_deleted">Все ваши данные будут удалены\n полностью и необратимо</string>
+    <string name="log_out_of_your_profile">Выйти из профиля?</string>
+</resources>

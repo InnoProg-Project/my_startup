@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.editingprofile.presentation.EditingProfileFragment">
-
+    tools:context=".feature.profile.editingprofile.presentation.EditingProfileFragment">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -74,8 +73,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_end="16dp"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_end="16dp" />
 
 
         <com.innoprog.android.uikit.InnoProgInputView
@@ -160,18 +159,18 @@
             android:id="@+id/buttonSave"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8"
             android:layout_marginTop="@dimen/margin_8"
-            app:buttonSize="large"
-            app:buttonState="enabled"
-            app:buttonType="primary"
-            app:buttonText="@string/save"
+            android:layout_marginEnd="@dimen/margin_8"
             android:clickable="true"
             android:gravity="center"
-            android:layout_marginStart="@dimen/margin_8"
-            android:layout_marginEnd="@dimen/margin_8"
-            app:layout_constraintStart_toStartOf="parent"
+            app:buttonSize="large"
+            app:buttonState="enabled"
+            app:buttonText="@string/save"
+            app:buttonType="primary"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/inputAboutMe"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inputAboutMe" />
 
         <com.innoprog.android.uikit.InnoProgButtonView
             android:id="@+id/buttonExit"
@@ -193,18 +192,25 @@
             android:id="@+id/buttonDelete"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:buttonSize="medium"
-            app:buttonState="enabled"
-            android:clickable="true"
             android:layout_marginTop="@dimen/margin_16"
             android:layout_marginBottom="@dimen/margin_30"
+            android:clickable="true"
             android:gravity="center"
-            app:buttonType="def"
+            app:buttonSize="medium"
+            app:buttonState="enabled"
+            app:buttonText="@string/delete_account"
+            app:buttonType="delete"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
-            app:layout_constraintTop_toBottomOf="@id/buttonExit"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:buttonText="@string/delete_account" />
+            app:layout_constraintTop_toBottomOf="@id/buttonExit" />
+
+        <com.innoprog.android.uikit.InnoProgChipGroupView
+            android:id="@+id/chip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/buttonDelete"
+            app:layout_constraintStart_toStartOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
