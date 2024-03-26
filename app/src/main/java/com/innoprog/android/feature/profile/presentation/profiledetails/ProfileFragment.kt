@@ -14,6 +14,7 @@ import android.view.animation.AnimationUtils
 import androidx.navigation.fragment.findNavController
 import com.innoprog.android.R
 import com.innoprog.android.feature.profile.di.DaggerProfileComponent
+import com.innoprog.android.uikit.InnoProgChipGroupView
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
 
@@ -36,10 +37,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val chipTitles = listOf(ALL_CONTENT, PROJECT, IDEAS, LIKES, FAVORITES)
-                binding.chips.setChips(chipTitles)
-
         initMoreButton()
+
+        initChips()
     }
 
     private fun initMoreButton() {
@@ -56,6 +56,17 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
                 R.anim.scale
             )
         )
+    }
+
+    private fun initChips() {
+        val chipTitles = listOf(ALL_CONTENT, PROJECT, IDEAS, LIKES, FAVORITES)
+        binding.chips.setChips(chipTitles)
+        binding.chips.setOnChipSelectListener(object :
+            InnoProgChipGroupView.OnChipSelectListener {
+            override fun onChipSelected(chipIndex: Int) {
+                // Если нужно обработать чип
+            }
+        })
     }
 
     companion object {
