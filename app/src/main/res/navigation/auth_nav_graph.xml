@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/editingProfileFragment">
+    app:startDestination="@id/authorizationFragment">
 
     <fragment
         android:id="@+id/authorizationFragment"
@@ -78,7 +78,8 @@
     <dialog
         android:id="@+id/editingProfileBottomSheetFragment"
         android:name="com.innoprog.android.feature.profile.editingprofile.presentation.EditingProfileBottomSheetFragment"
-        android:label="EditingProfileBottomSheetFragment" >
+        android:label="EditingProfileBottomSheetFragment"
+        tools:layout="@layout/fragment_editing_profile_bottom_sheet">
         <action
             android:id="@+id/action_editingProfileBottomSheetFragment_to_editingProfileFragment"
             app:destination="@id/editingProfileFragment" />
@@ -86,7 +87,8 @@
     <dialog
         android:id="@+id/dialogForDeleteAccountFragment"
         android:name="com.innoprog.android.feature.profile.editingprofile.presentation.DialogForDeleteAccountFragment"
-        android:label="DialogForDeleteAccountFragment" >
+        android:label="DialogForDeleteAccountFragment"
+        tools:layout="@layout/fragment_dialog_for_delete_account">
         <action
             android:id="@+id/action_dialogForDeleteAccountFragment_to_editingProfileFragment"
             app:destination="@id/editingProfileFragment" />
@@ -94,7 +96,8 @@
     <dialog
         android:id="@+id/dialogForExitFragment"
         android:name="com.innoprog.android.feature.profile.editingprofile.presentation.DialogForExitFragment"
-        android:label="DialogForExitFragment" >
+        android:label="DialogForExitFragment"
+        tools:layout="@layout/fragment_dialog_for_exit">
         <action
             android:id="@+id/action_dialogForExitFragment_to_editingProfileFragment"
             app:destination="@id/editingProfileFragment" />
