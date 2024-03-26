@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/training_shape"
+    android:backgroundTint="@color/background_secondary">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/videoPlaceholderIV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/courseVideoStyle"
+        tools:src="@drawable/video_sample" />
+
+    <TextView
+        android:id="@+id/videoDescriptionTV"
+        style="@style/TextBody_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_8"
+        android:textColor="@color/text_primary"
+        app:layout_constraintTop_toBottomOf="@+id/videoPlaceholderIV"
+        tools:text="Вебинар. Как интегрировать сервисы в ваше приложение или сайт без участия разработчика" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,4 +2,7 @@
     <string name="app_name">innoprog</string>
     <string name="Training">Обучение</string>
     <string name="no_courses">Доступных курсов пока нет</string>
+    <string name="course_direction">Направление курса</string>
+    <string name="video">Видео</string>
+    <string name="documents">Документы</string>
 </resources>
