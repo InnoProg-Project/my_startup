@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">innoprog</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="Training">Обучение</string>
+    <string name="no_courses">Доступных курсов пока нет</string>
 </resources>
