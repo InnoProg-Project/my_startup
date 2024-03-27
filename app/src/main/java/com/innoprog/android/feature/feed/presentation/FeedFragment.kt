@@ -58,7 +58,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
             commentsCount = 24,
         )
 
-
         binding.tvFeed.setOnClickListener {
             viewModel.onFavoriteClicked(news)
         }

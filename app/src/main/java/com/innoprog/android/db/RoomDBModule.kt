@@ -2,10 +2,6 @@ package com.innoprog.android.db
 
 import android.app.Application
 import androidx.room.Room
-import com.innoprog.android.feature.feed.data.db.FavoritesRepositoryImpl
-import com.innoprog.android.feature.feed.domain.models.FavoritesInteractorImpl
-import com.innoprog.android.feature.feed.domain.models.FavoritesRepository
-import com.innoprog.android.feature.feed.utils.NewsEntityMapper
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
