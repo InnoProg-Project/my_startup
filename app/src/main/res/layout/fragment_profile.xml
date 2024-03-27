@@ -13,12 +13,12 @@
         android:layout_height="wrap_content"
         android:background="@color/background_primary"
         android:gravity="center_horizontal"
-        app:topBar_left_icon="@drawable/ic_more"
-        app:topBar_right_icon="@drawable/ic_more"
-        app:topBar_title="@string/profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:topBar_left_icon="@drawable/ic_more"
+        app:topBar_right_icon="@drawable/ic_more"
+        app:topBar_title="@string/profile" />
 
     <LinearLayout
         android:id="@+id/profile_container"
@@ -114,7 +114,8 @@
         <com.innoprog.android.uikit.InnoProgChipGroupView
             android:id="@+id/chips"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:theme="@style/CustomChips" />
 
     </HorizontalScrollView>
 
