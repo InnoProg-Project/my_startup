@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
@@ -37,7 +38,12 @@ class TrainingListFragment : BaseFragment<FragmentTrainingListBinding, BaseViewM
     private fun initRecyclerView() {
         binding.trainingRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        trainingAdapter = TrainingRecyclerViewAdapter()
+        trainingAdapter = TrainingRecyclerViewAdapter { courseId ->
+            viewModel.navigateTo(
+                com.innoprog.android.R.id.courseInformationFragment,
+                bundleOf(COURSE_KEY to courseId)
+            )
+        }
         val decorator =
             TrainingListAdapterDecorator(resources.getDimensionPixelSize(R.dimen.margin_8))
         binding.trainingRecyclerView.addItemDecoration(decorator)
@@ -51,6 +57,7 @@ class TrainingListFragment : BaseFragment<FragmentTrainingListBinding, BaseViewM
                 binding.trainingNoCoursesPlaceholderIcon.visibility = View.VISIBLE
                 binding.trainingNoCoursesPlaceholderTV.visibility = View.VISIBLE
             }
+
             is TrainingListState.Content -> {
                 trainingAdapter?.items = state.trainingList
                 binding.trainingRecyclerView.visibility = View.VISIBLE
@@ -58,5 +65,10 @@ class TrainingListFragment : BaseFragment<FragmentTrainingListBinding, BaseViewM
                 binding.trainingNoCoursesPlaceholderTV.visibility = View.INVISIBLE
             }
         }
+    }
+
+    companion object {
+
+        const val COURSE_KEY = "COURSE_KEY"
     }
 }

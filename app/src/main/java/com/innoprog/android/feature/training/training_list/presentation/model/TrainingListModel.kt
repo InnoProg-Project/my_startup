@@ -1,6 +1,7 @@
 package com.innoprog.android.feature.training.training_list.presentation.model
 
 data class TrainingListModel(
+    val trainingId: Int,
     val trainingDirection: String,
     val trainingTitle: String,
     val trainingDescription: String,

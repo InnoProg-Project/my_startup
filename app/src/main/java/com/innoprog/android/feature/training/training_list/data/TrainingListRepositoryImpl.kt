@@ -10,6 +10,7 @@ import javax.inject.Inject
 class TrainingListRepositoryImpl @Inject constructor() : TrainingListRepository {
 
     private val trainingListModel: TrainingListModel = TrainingListModel(
+        TRAINING_ID,
         TRAINING_DIRECTION,
         TRAINING_TITLE,
         TRAINING_DESCRIPTION,
@@ -26,6 +27,7 @@ class TrainingListRepositoryImpl @Inject constructor() : TrainingListRepository 
 
     companion object {
 
+        const val TRAINING_ID = 123
         const val TRAINING_DIRECTION = "Управление"
         const val TRAINING_TITLE = "Интеграция сервисов"
         const val TRAINING_DESCRIPTION =

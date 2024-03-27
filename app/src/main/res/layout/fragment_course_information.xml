@@ -147,7 +147,9 @@
                 android:id="@+id/courseInformationVideoRV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
                 app:layout_constraintTop_toBottomOf="@+id/courseInformationVideoTitle"
                 tools:itemCount="2"
                 tools:listitem="@layout/item_training_video" />
@@ -168,7 +170,9 @@
                 android:id="@+id/courseInformationDocumentsRV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
                 app:layout_constraintTop_toBottomOf="@+id/courseInformationDocumentsTitle"
                 tools:itemCount="2"
                 tools:listitem="@layout/item_training_document" />

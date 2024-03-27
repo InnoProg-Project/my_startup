@@ -21,11 +21,19 @@
         android:id="@+id/trainingFragment"
         android:name="com.innoprog.android.feature.training.training_list.presentation.TrainingListFragment"
         android:label="fragment_training"
-        tools:layout="@layout/fragment_training_list" />
+        tools:layout="@layout/fragment_training_list" >
+        <action
+            android:id="@+id/action_trainingFragment_to_courseInformationFragment"
+            app:destination="@id/courseInformationFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.innoprog.android.feature.profile.presentation.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/courseInformationFragment"
+        android:name="com.innoprog.android.feature.training.course_information.presentation.CourseInformationFragment"
+        android:label="CourseInformationFragment" />
 </navigation>
