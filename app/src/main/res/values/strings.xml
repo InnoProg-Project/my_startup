@@ -2,4 +2,9 @@
     <string name="app_name">innoprog</string>
     <string name="Training">Обучение</string>
     <string name="no_courses">Доступных курсов пока нет</string>
+<!--    EditContent-->
+    <string name="load_info">Картинки загружаются в форматах: png, jpg, jpeg. Размер одной картинки не более 3Мб.\nВидео загружаются в форматах: mp4, mov. Размер одного видео не более 10Мб.\n</string>
+    <string name="load_media">Загрузить фото/видео</string>
+    <string name="create_idea">Создать идею</string>
+    <string name="publish">Опубликовать</string>
 </resources>
