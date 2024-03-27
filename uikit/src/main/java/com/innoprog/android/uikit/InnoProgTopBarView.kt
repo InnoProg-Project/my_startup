@@ -3,6 +3,7 @@ package com.innoprog.android.uikit
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -46,11 +47,11 @@ class InnoProgTopBarView @JvmOverloads constructor(
     }
 
     fun setLeftIconVisibility() {
-        leftIconIV.visibility = INVISIBLE
+        leftIconIV.visibility = View.INVISIBLE
     }
 
     fun setRightIconVisibility() {
-        rightIconIV.visibility = INVISIBLE
+        rightIconIV.visibility = View.INVISIBLE
     }
 
     fun setLeftIconClickListener(click: () -> Unit) {
