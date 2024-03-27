@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.training.training_list.domain
+package com.innoprog.android.feature.training.trainingList.domain
 
 enum class ErrorStatus {
     NO_CONNECTION,

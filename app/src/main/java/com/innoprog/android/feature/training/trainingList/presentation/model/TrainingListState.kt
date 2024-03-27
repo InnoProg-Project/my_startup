@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.training.training_list.presentation.model
+package com.innoprog.android.feature.training.trainingList.presentation.model
 
 sealed interface TrainingListState {
     data object Load : TrainingListState

@@ -20,8 +20,12 @@ interface CourseInformationModule {
     fun bindCourseInformationViewModel(impl: CourseInformationViewModel): ViewModel
 
     @Binds
-    fun provideCourseInformationRepository(courseInformationRepositoryImpl: CourseInformationRepositoryImpl): CourseInformationRepository
+    fun provideCourseInformationRepository(
+        courseInformationRepositoryImpl: CourseInformationRepositoryImpl
+    ): CourseInformationRepository
 
     @Binds
-    fun provideGetCourseInformationUseCase(getCourseInformationUseCaseImpl: GetCourseInformationUseCaseImpl): GetCourseInformationUseCase
+    fun provideGetCourseInformationUseCase(
+        getCourseInformationUseCaseImpl: GetCourseInformationUseCaseImpl
+    ): GetCourseInformationUseCase
 }

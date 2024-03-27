@@ -1,10 +1,10 @@
-package com.innoprog.android.feature.training.training_list.presentation
+package com.innoprog.android.feature.training.trainingList.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.innoprog.android.databinding.ItemTrainingBinding
-import com.innoprog.android.feature.training.training_list.presentation.model.TrainingListModel
+import com.innoprog.android.feature.training.trainingList.presentation.model.TrainingListModel
 import com.innoprog.android.uikit.ImageLoadingType
 
 class TrainingRecyclerViewAdapter(private val onItemClickListener: (courseId: Int) -> Unit = {}) : RecyclerView.Adapter<TrainingListViewHolder>() {

@@ -15,7 +15,7 @@ import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.training.common.VerticalSpaceDecorator
 import com.innoprog.android.feature.training.course_information.di.DaggerCourseInformationComponent
 import com.innoprog.android.feature.training.course_information.presentation.model.CourseInformationState
-import com.innoprog.android.feature.training.training_list.presentation.TrainingListFragment.Companion.COURSE_KEY
+import com.innoprog.android.feature.training.trainingList.presentation.TrainingListFragment.Companion.COURSE_KEY
 import com.innoprog.android.uikit.ImageLoadingType
 import com.innoprog.android.uikit.R
 
@@ -54,8 +54,7 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
     private fun initVideoRecyclerView() {
         binding.courseInformationVideoRV.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        //TODO
-        // Добавить onClickListener
+        // TODO Добавить onClickListener
         videoAdapter = VideoAdapter {}
         binding.courseInformationVideoRV.addItemDecoration(decorator)
         binding.courseInformationVideoRV.adapter = videoAdapter

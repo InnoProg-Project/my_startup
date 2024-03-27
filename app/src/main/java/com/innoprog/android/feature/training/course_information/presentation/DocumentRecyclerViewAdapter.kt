@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.innoprog.android.databinding.ItemTrainingDocumentBinding
 import com.innoprog.android.feature.training.course_information.presentation.model.CourseInformationDocumentModel
 
-class DocumentRecyclerViewAdapter(private val onDocumentClickListener: (url: String) -> Unit) : Adapter<DocumentViewHolder>() {
+class DocumentRecyclerViewAdapter(private val onDocumentClickListener: (url: String) -> Unit) :
+    Adapter<DocumentViewHolder>() {
 
     var items = listOf<CourseInformationDocumentModel>()
 

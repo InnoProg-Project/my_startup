@@ -1,8 +1,8 @@
-package com.innoprog.android.feature.training.training_list.data
+package com.innoprog.android.feature.training.trainingList.data
 
-import com.innoprog.android.feature.training.training_list.domain.ErrorStatus
-import com.innoprog.android.feature.training.training_list.domain.TrainingListRepository
-import com.innoprog.android.feature.training.training_list.presentation.model.TrainingListModel
+import com.innoprog.android.feature.training.trainingList.domain.ErrorStatus
+import com.innoprog.android.feature.training.trainingList.domain.TrainingListRepository
+import com.innoprog.android.feature.training.trainingList.presentation.model.TrainingListModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

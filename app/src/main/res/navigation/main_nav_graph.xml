@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/trainingFragment"
-        android:name="com.innoprog.android.feature.training.training_list.presentation.TrainingListFragment"
+        android:name="com.innoprog.android.feature.training.trainingList.presentation.TrainingListFragment"
         android:label="fragment_training"
         tools:layout="@layout/fragment_training_list" >
         <action

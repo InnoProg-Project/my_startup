@@ -1,11 +1,11 @@
-package com.innoprog.android.feature.training.training_list.presentation
+package com.innoprog.android.feature.training.trainingList.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.innoprog.android.base.BaseViewModel
-import com.innoprog.android.feature.training.training_list.domain.useCase.GetTrainingListUseCase
-import com.innoprog.android.feature.training.training_list.presentation.model.TrainingListState
+import com.innoprog.android.feature.training.trainingList.domain.useCase.GetTrainingListUseCase
+import com.innoprog.android.feature.training.trainingList.presentation.model.TrainingListState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

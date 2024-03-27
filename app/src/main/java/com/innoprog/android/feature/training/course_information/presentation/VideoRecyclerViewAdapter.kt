@@ -24,8 +24,10 @@ class VideoAdapter(private val onVideoClickListener: () -> Unit) : Adapter<Video
     }
 }
 
-class VideoViewHolder(private val binding: ItemTrainingVideoBinding,
-                      private val onVideoClickListener: () -> Unit) : ViewHolder(binding.root) {
+class VideoViewHolder(
+    private val binding: ItemTrainingVideoBinding,
+    private val onVideoClickListener: () -> Unit
+) : ViewHolder(binding.root) {
 
     fun bind(item: CourseInformationVideoModel) {
         binding.videoPlaceholderIV.setOnClickListener {

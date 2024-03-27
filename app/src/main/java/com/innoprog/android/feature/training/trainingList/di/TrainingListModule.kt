@@ -1,12 +1,12 @@
-package com.innoprog.android.feature.training.training_list.di
+package com.innoprog.android.feature.training.trainingList.di
 
 import androidx.lifecycle.ViewModel
 import com.innoprog.android.di.ViewModelKey
-import com.innoprog.android.feature.training.training_list.data.TrainingListRepositoryImpl
-import com.innoprog.android.feature.training.training_list.domain.TrainingListRepository
-import com.innoprog.android.feature.training.training_list.domain.useCase.GetTrainingListUseCase
-import com.innoprog.android.feature.training.training_list.domain.useCase.GetTrainingListUseCaseImpl
-import com.innoprog.android.feature.training.training_list.presentation.TrainingListViewModel
+import com.innoprog.android.feature.training.trainingList.data.TrainingListRepositoryImpl
+import com.innoprog.android.feature.training.trainingList.domain.TrainingListRepository
+import com.innoprog.android.feature.training.trainingList.domain.useCase.GetTrainingListUseCase
+import com.innoprog.android.feature.training.trainingList.domain.useCase.GetTrainingListUseCaseImpl
+import com.innoprog.android.feature.training.trainingList.presentation.TrainingListViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
