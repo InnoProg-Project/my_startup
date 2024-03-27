@@ -7,32 +7,18 @@
     android:background="@color/background_secondary"
     tools:context=".feature.profile.profiledetails.presentation.ProfileFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_profile"
+    <com.innoprog.android.uikit.InnoProgTopBarView
+        android:id="@+id/topbar_profile"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/top_bar_min_height_44"
+        android:layout_height="wrap_content"
         android:background="@color/background_primary"
+        android:gravity="center_horizontal"
+        app:topBar_left_icon="@drawable/ic_more"
+        app:topBar_right_icon="@drawable/ic_more"
+        app:topBar_title="@string/profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/button_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:paddingEnd="@dimen/padding_6"
-            android:src="@drawable/ic_more" />
-
-        <TextView
-            style="@style/TextHeadline_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/profile"
-            android:textColor="@color/text_primary" />
-
-    </androidx.appcompat.widget.Toolbar>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/profile_container"
@@ -41,7 +27,7 @@
         android:background="@drawable/profile_block"
         android:orientation="vertical"
         android:padding="@dimen/padding_16"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_profile">
+        app:layout_constraintTop_toBottomOf="@id/topbar_profile">
 
         <com.innoprog.android.uikit.InnoProgAvatarView
             android:id="@+id/avatar"
@@ -117,18 +103,18 @@
         android:id="@+id/chips_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="@dimen/margin_8"
         android:layout_marginTop="@dimen/margin_12"
         android:layout_marginBottom="@dimen/margin_8"
-        android:scrollbars="none"
         android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/padding_8"
+        android:scrollbars="none"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_container">
 
         <com.innoprog.android.uikit.InnoProgChipGroupView
             android:id="@+id/chips"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </HorizontalScrollView>
 

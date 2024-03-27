@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import androidx.navigation.fragment.findNavController
+import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentProfileBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
-import android.view.animation.AnimationUtils
-import androidx.navigation.fragment.findNavController
-import com.innoprog.android.R
 import com.innoprog.android.feature.profile.profiledetails.di.DaggerProfileComponent
 import com.innoprog.android.uikit.InnoProgChipGroupView
 
@@ -37,23 +37,16 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initMoreButton()
+        initTopBar()
 
         initChips()
-    }
-
-    private fun initMoreButton() {
-        binding.buttonMore.setOnClickListener { button ->
-            (button as? ImageView)?.let { startAnimation(it) }
-            findNavController().navigate(R.id.action_profileFragment_to_profile_bottom_sheet)
-        }
     }
 
     private fun startAnimation(button: ImageView) {
         button.startAnimation(
             AnimationUtils.loadAnimation(
-                requireContext(),
-                R.anim.scale
+                button.context,
+                R.anim.open_bottom_sheet
             )
         )
     }
@@ -69,8 +62,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
         })
     }
 
-    companion object {
+    private fun initTopBar() {
+        binding.topbarProfile.setLeftIconVisibility()
+        binding.topbarProfile.setRightIconClickListener {
+            startAnimation(binding.topbarProfile.rightIconIV)
+            findNavController().navigate(R.id.action_profileFragment_to_profile_bottom_sheet)
+        }
+    }
 
+    companion object {
         private const val ALL_CONTENT = "Всё"
         private const val PROJECT = "Проекты"
         private const val IDEAS = "Идеи"
