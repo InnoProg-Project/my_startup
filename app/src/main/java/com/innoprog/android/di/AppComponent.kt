@@ -1,12 +1,13 @@
 package com.innoprog.android.di
 
+import com.innoprog.android.db.RoomDBModule
 import com.innoprog.android.network.data.ApiModule
 import com.innoprog.android.network.data.NetworkModule
 import com.innoprog.android.network.domain.ApiInteractor
 import dagger.Component
 
 @Component(
-    modules = [NetworkModule::class, ApiModule::class]
+    modules = [NetworkModule::class, ApiModule::class, RoomDBModule::class]
 )
 interface AppComponent : DIComponent {
     val apiInteractor: ApiInteractor

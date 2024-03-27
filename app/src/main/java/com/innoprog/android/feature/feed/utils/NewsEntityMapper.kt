@@ -1,19 +1,19 @@
-package com.innoprog.android.utils
+package com.innoprog.android.feature.feed.utils
 
-// import com.innoprog.android.feature.feed.data.db.AuthorEntity
-//  import com.innoprog.android.feature.feed.data.db.CompanyEntity
+import com.innoprog.android.feature.feed.data.db.AuthorEntity
+import com.innoprog.android.feature.feed.data.db.CompanyEntity
 import com.innoprog.android.feature.feed.data.db.NewsEntity
-// import com.innoprog.android.feature.feed.domain.models.Author
-// import com.innoprog.android.feature.feed.domain.models.Company
+import com.innoprog.android.feature.feed.domain.models.Author
+import com.innoprog.android.feature.feed.domain.models.Company
 import com.innoprog.android.feature.feed.domain.models.News
+import javax.inject.Inject
 
-class NewsEntityMapper {
+class NewsEntityMapper @Inject constructor() {
     fun mapNewsEntityToNews(newsEntity: NewsEntity): News {
         return News(
             id = newsEntity.id,
             type = newsEntity.type,
-            author = newsEntity.author,
-            // author = createAuthor(newsEntity.author),
+            author = createAuthor(newsEntity.author),
             projectId = newsEntity.projectId,
             title = newsEntity.title,
             content = newsEntity.content,
@@ -23,7 +23,7 @@ class NewsEntityMapper {
         )
     }
 
-    /*private fun createAuthor(authorEntity: AuthorEntity): Author {
+    private fun createAuthor(authorEntity: AuthorEntity): Author {
         return Author(
             authorId = authorEntity.authorId,
             authorName = authorEntity.authorName,
@@ -36,14 +36,13 @@ class NewsEntityMapper {
             companyName = companyEntity.companyName,
             role = companyEntity.role
         )
-    }*/
+    }
 
     fun mapNewsToNewsEntity(news: News): NewsEntity {
         return NewsEntity(
             id = news.id,
             type = news.type,
-            // author = createAuthorEntity(news.author),
-            author = news.author,
+            author = createAuthorEntity(news.author),
             projectId = news.projectId,
             title = news.title,
             content = news.content,
@@ -53,7 +52,7 @@ class NewsEntityMapper {
         )
     }
 
-    /*private fun createAuthorEntity(author: Author): AuthorEntity {
+    private fun createAuthorEntity(author: Author): AuthorEntity {
         return AuthorEntity(
             authorId = author.authorId,
             authorName = author.authorName,
@@ -66,5 +65,5 @@ class NewsEntityMapper {
             companyName = company.companyName,
             role = company.role
         )
-    }*/
+    }
 }

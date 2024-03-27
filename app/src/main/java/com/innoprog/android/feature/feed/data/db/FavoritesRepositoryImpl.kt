@@ -3,7 +3,7 @@ package com.innoprog.android.feature.feed.data.db
 import com.innoprog.android.db.RoomDB
 import com.innoprog.android.feature.feed.domain.models.FavoritesRepository
 import com.innoprog.android.feature.feed.domain.models.News
-import com.innoprog.android.utils.NewsEntityMapper
+import com.innoprog.android.feature.feed.utils.NewsEntityMapper
 import javax.inject.Inject
 import javax.inject.Singleton
 

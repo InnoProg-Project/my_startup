@@ -5,7 +5,7 @@ import androidx.room.Room
 import com.innoprog.android.feature.feed.data.db.FavoritesRepositoryImpl
 import com.innoprog.android.feature.feed.domain.models.FavoritesInteractorImpl
 import com.innoprog.android.feature.feed.domain.models.FavoritesRepository
-import com.innoprog.android.utils.NewsEntityMapper
+import com.innoprog.android.feature.feed.utils.NewsEntityMapper
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -27,24 +27,4 @@ object RoomDBModule {
     @Provides
     @Singleton
     fun providesNewsDao(appDatabase: RoomDB) = appDatabase.newsDao()
-
-    @Provides
-    fun provideNewsConverter(): NewsEntityMapper {
-        return NewsEntityMapper()
-    }
-
-    @Provides
-    @Singleton
-    fun provideFavoritesRepository(
-        appDatabase: RoomDB,
-        newsConverter: NewsEntityMapper
-    ): FavoritesRepositoryImpl {
-        return FavoritesRepositoryImpl(appDatabase, newsConverter)
-    }
-
-    @Provides
-    @Singleton
-    fun provideFavoritesInteractor(favoritesRepository: FavoritesRepository): FavoritesInteractorImpl {
-        return FavoritesInteractorImpl(favoritesRepository)
-    }
 }
