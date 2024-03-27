@@ -10,6 +10,7 @@ import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentTrainingListBinding
 import com.innoprog.android.di.ScreenComponent
+import com.innoprog.android.feature.training.common.VerticalSpaceDecorator
 import com.innoprog.android.feature.training.training_list.di.DaggerTrainingListComponent
 import com.innoprog.android.feature.training.training_list.presentation.model.TrainingListState
 import com.innoprog.android.uikit.R
@@ -45,7 +46,7 @@ class TrainingListFragment : BaseFragment<FragmentTrainingListBinding, BaseViewM
             )
         }
         val decorator =
-            TrainingListAdapterDecorator(resources.getDimensionPixelSize(R.dimen.margin_8))
+            VerticalSpaceDecorator(resources.getDimensionPixelSize(R.dimen.margin_8))
         binding.trainingRecyclerView.addItemDecoration(decorator)
         binding.trainingRecyclerView.adapter = trainingAdapter
     }

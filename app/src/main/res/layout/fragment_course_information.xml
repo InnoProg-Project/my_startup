@@ -25,7 +25,7 @@
             <ImageView
                 android:id="@+id/courseLogo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/course_logo_sample" />
@@ -173,6 +173,8 @@
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_16"
                 android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginBottom="56dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/courseInformationDocumentsTitle"
                 tools:itemCount="2"
                 tools:listitem="@layout/item_training_document" />
