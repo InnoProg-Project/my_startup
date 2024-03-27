@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.training.course_information.presentation
+package com.innoprog.android.feature.training.courseInformation.presentation
 
 import android.content.Intent
 import android.net.Uri
@@ -13,8 +13,8 @@ import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentCourseInformationBinding
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.training.common.VerticalSpaceDecorator
-import com.innoprog.android.feature.training.course_information.di.DaggerCourseInformationComponent
-import com.innoprog.android.feature.training.course_information.presentation.model.CourseInformationState
+import com.innoprog.android.feature.training.courseInformation.di.DaggerCourseInformationComponent
+import com.innoprog.android.feature.training.courseInformation.presentation.model.CourseInformationState
 import com.innoprog.android.feature.training.trainingList.presentation.TrainingListFragment.Companion.COURSE_KEY
 import com.innoprog.android.uikit.ImageLoadingType
 import com.innoprog.android.uikit.R

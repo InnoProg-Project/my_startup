@@ -1,11 +1,11 @@
-package com.innoprog.android.feature.training.course_information.presentation
+package com.innoprog.android.feature.training.courseInformation.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.innoprog.android.databinding.ItemTrainingVideoBinding
-import com.innoprog.android.feature.training.course_information.presentation.model.CourseInformationVideoModel
+import com.innoprog.android.feature.training.courseInformation.presentation.model.CourseInformationVideoModel
 
 class VideoAdapter(private val onVideoClickListener: () -> Unit) : Adapter<VideoViewHolder>() {
 

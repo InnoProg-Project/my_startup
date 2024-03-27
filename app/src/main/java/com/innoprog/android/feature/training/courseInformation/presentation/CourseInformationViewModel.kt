@@ -1,11 +1,11 @@
-package com.innoprog.android.feature.training.course_information.presentation
+package com.innoprog.android.feature.training.courseInformation.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.innoprog.android.base.BaseViewModel
-import com.innoprog.android.feature.training.course_information.domain.useCase.GetCourseInformationUseCase
-import com.innoprog.android.feature.training.course_information.presentation.model.CourseInformationState
+import com.innoprog.android.feature.training.courseInformation.domain.useCase.GetCourseInformationUseCase
+import com.innoprog.android.feature.training.courseInformation.presentation.model.CourseInformationState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

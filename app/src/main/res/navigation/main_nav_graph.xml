@@ -34,6 +34,6 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/courseInformationFragment"
-        android:name="com.innoprog.android.feature.training.course_information.presentation.CourseInformationFragment"
+        android:name="com.innoprog.android.feature.training.courseInformation.presentation.CourseInformationFragment"
         android:label="CourseInformationFragment" />
 </navigation>

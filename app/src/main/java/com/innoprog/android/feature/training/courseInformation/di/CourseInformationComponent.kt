@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.training.course_information.di
+package com.innoprog.android.feature.training.courseInformation.di
 
 import com.innoprog.android.di.ScreenComponent
 import dagger.Component

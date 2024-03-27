@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.training.course_information.presentation.model
+package com.innoprog.android.feature.training.courseInformation.presentation.model
 
 data class CourseInformationModel(
     val courseId: Int,

@@ -1,11 +1,11 @@
-package com.innoprog.android.feature.training.course_information.presentation
+package com.innoprog.android.feature.training.courseInformation.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.innoprog.android.databinding.ItemTrainingDocumentBinding
-import com.innoprog.android.feature.training.course_information.presentation.model.CourseInformationDocumentModel
+import com.innoprog.android.feature.training.courseInformation.presentation.model.CourseInformationDocumentModel
 
 class DocumentRecyclerViewAdapter(private val onDocumentClickListener: (url: String) -> Unit) :
     Adapter<DocumentViewHolder>() {

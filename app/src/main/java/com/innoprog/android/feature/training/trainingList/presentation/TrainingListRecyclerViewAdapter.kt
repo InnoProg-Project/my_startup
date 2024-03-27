@@ -7,7 +7,9 @@ import com.innoprog.android.databinding.ItemTrainingBinding
 import com.innoprog.android.feature.training.trainingList.presentation.model.TrainingListModel
 import com.innoprog.android.uikit.ImageLoadingType
 
-class TrainingRecyclerViewAdapter(private val onItemClickListener: (courseId: Int) -> Unit = {}) : RecyclerView.Adapter<TrainingListViewHolder>() {
+class TrainingRecyclerViewAdapter(
+    private val onItemClickListener: (courseId: Int) -> Unit = {}
+) : RecyclerView.Adapter<TrainingListViewHolder>() {
 
     var items = listOf<TrainingListModel>()
 
