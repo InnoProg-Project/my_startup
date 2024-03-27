@@ -10,7 +10,6 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CourseInformationViewModel @Inject constructor(
-    //@Assisted("courseId") private val courseId: Int,
     private val getCourseInformationUseCase: GetCourseInformationUseCase
 ) : BaseViewModel() {
 
@@ -19,11 +18,6 @@ class CourseInformationViewModel @Inject constructor(
 
     init {
         setState(CourseInformationState.Load)
-//        viewModelScope.launch {
-//            getCourseInformationUseCase.execute().collect{
-//
-//            }
-//        }
     }
 
     fun getCourseInformation(courseId: Int) {
