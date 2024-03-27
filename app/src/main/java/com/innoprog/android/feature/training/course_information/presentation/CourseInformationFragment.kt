@@ -1,5 +1,7 @@
 package com.innoprog.android.feature.training.course_information.presentation
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +41,11 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
         viewModel.state.observe(viewLifecycleOwner) {
             render(it)
         }
+
+        binding.courseInformationTopBar.setLeftIconClickListener {
+            viewModel.navigateUp()
+        }
+
         initVideoRecyclerView()
         initDocumentsRecyclerView()
         courseId?.let { viewModel.getCourseInformation(it) }
@@ -47,6 +54,8 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
     private fun initVideoRecyclerView() {
         binding.courseInformationVideoRV.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        //TODO
+        // Добавить onClickListener
         videoAdapter = VideoAdapter {}
         binding.courseInformationVideoRV.addItemDecoration(decorator)
         binding.courseInformationVideoRV.adapter = videoAdapter
@@ -55,7 +64,9 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
     private fun initDocumentsRecyclerView() {
         binding.courseInformationDocumentsRV.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        documentAdapter = DocumentRecyclerViewAdapter()
+        documentAdapter = DocumentRecyclerViewAdapter { url ->
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+        }
         binding.courseInformationDocumentsRV.addItemDecoration(decorator)
         binding.courseInformationDocumentsRV.adapter = documentAdapter
     }
@@ -85,7 +96,6 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
                     binding.courseInformationVideoTitle.visibility = View.VISIBLE
                     binding.courseInformationVideoRV.visibility = View.VISIBLE
                     videoAdapter?.items = state.courseInformation.videos
-                    //Log.e("MyTag", state.courseInformation.videos.toString())
                 } else {
                     binding.courseInformationVideoTitle.visibility = View.INVISIBLE
                     binding.courseInformationVideoRV.visibility = View.INVISIBLE

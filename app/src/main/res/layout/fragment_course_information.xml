@@ -127,8 +127,8 @@
                 android:id="@+id/courseInformationSeparator"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="@dimen/margin_8"
-                android:background="@color/text_tertiary"
+                android:layout_marginTop="@dimen/margin_16"
+                android:background="@color/text_field_fill"
                 app:layout_constraintTop_toBottomOf="@+id/courseInformationDirectionHint" />
 
             <TextView

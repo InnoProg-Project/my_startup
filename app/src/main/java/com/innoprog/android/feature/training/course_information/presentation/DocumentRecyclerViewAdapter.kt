@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.innoprog.android.databinding.ItemTrainingDocumentBinding
 import com.innoprog.android.feature.training.course_information.presentation.model.CourseInformationDocumentModel
 
-class DocumentRecyclerViewAdapter : Adapter<DocumentViewHolder>() {
+class DocumentRecyclerViewAdapter(private val onDocumentClickListener: (url: String) -> Unit) : Adapter<DocumentViewHolder>() {
 
     var items = listOf<CourseInformationDocumentModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DocumentViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return DocumentViewHolder(ItemTrainingDocumentBinding.inflate(layoutInflater,parent,false))
+        return DocumentViewHolder(ItemTrainingDocumentBinding.inflate(layoutInflater, parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -22,7 +22,9 @@ class DocumentRecyclerViewAdapter : Adapter<DocumentViewHolder>() {
 
     override fun onBindViewHolder(holder: DocumentViewHolder, position: Int) {
         holder.bind(items[position])
-        //holder.itemView.setOnClickListener { items[position].documentURL }
+        holder.itemView.setOnClickListener {
+            onDocumentClickListener(items[position].documentURL)
+        }
     }
 }
 
