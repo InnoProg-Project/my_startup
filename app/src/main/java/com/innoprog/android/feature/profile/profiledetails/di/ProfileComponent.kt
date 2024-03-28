@@ -1,5 +1,3 @@
-package com.innoprog.android.feature.profile.profiledeteils.di
-
 import com.innoprog.android.di.AppComponent
 import com.innoprog.android.di.ScreenComponent
 import dagger.Component

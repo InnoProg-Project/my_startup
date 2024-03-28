@@ -34,7 +34,7 @@ class InnoProgButtonView @JvmOverloads constructor(
     private val leftIconIV by lazy { findViewById<ImageView>(R.id.left_icon) }
 
     enum class ButtonType {
-        PRIMARY, DEFAULT, FLAT, DELETE
+        PRIMARY, DEFAULT, FLAT
     }
 
     enum class ButtonSize {
@@ -59,6 +59,10 @@ class InnoProgButtonView @JvmOverloads constructor(
         state = if (isEnabled) ButtonState.ENABLED else ButtonState.DISABLED
         setType(type)
         invalidate()
+    }
+
+    fun setButtonColor(color: Int) {
+        textTV.setTextColor(color)
     }
 
     fun setText(text: String) {
@@ -99,11 +103,6 @@ class InnoProgButtonView @JvmOverloads constructor(
                 setBackgroundColor(Color.TRANSPARENT)
                 textTV.setTextColor(context.getColor(R.color.accent_secondary))
                 alpha = if (state == ButtonState.ENABLED) NOT_TRANSPARENT else HALF_TRANSPARENT
-            }
-
-            ButtonType.DELETE -> {
-                background.setTint(context.getColor(R.color.text_field_fill))
-                textTV.setTextColor(context.getColor(R.color.dark))
             }
         }
         leftIconIV.drawable?.setTint(textTV.currentTextColor)

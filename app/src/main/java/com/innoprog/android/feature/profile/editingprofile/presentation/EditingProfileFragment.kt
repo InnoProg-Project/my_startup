@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
@@ -27,20 +28,35 @@ class EditingProfileFragment : BaseFragment<FragmentEditingProfileBinding, BaseV
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initButton()
+        initTopBar()
     }
 
     private fun initButton() {
 
         binding.tvChangePhoto.setOnClickListener {
-            findNavController().navigate(R.id.action_editingProfileFragment_to_editingProfileBottomSheetFragment)
+            findNavController().navigate(R.id.action_editingProfileFragment_to_editingProfileBottomSheetFragment2)
         }
 
         binding.buttonExit.setOnClickListener {
-            findNavController().navigate(R.id.action_editingProfileFragment_to_dialogForExitFragment)
+            findNavController().navigate(R.id.action_editingProfileFragment_to_dialogForExitFragment2)
         }
 
+        binding.buttonDelete.setButtonColor(
+            ContextCompat.getColor(
+                requireContext(),
+                com.innoprog.android.uikit.R.color.dark
+            )
+        )
+
         binding.buttonDelete.setOnClickListener {
-            findNavController().navigate(R.id.action_editingProfileFragment_to_dialogForDeleteAccountFragment)
+            findNavController().navigate(R.id.action_editingProfileFragment_to_dialogForDeleteAccountFragment2)
+        }
+    }
+
+    private fun initTopBar() {
+        binding.topbar.setRightIconVisibility()
+        binding.topbar.setLeftIconClickListener {
+            findNavController().navigateUp()
         }
     }
 }

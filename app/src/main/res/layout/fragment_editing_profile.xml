@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_primary"
     tools:context=".feature.profile.editingprofile.presentation.EditingProfileFragment">
 
 
@@ -11,32 +12,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <com.innoprog.android.uikit.InnoProgTopBarView
+            android:id="@+id/topbar"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="wrap_content"
+            android:background="@color/background_primary"
+            android:gravity="center_horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:topBar_left_icon="@drawable/baseline_arrow_back_24"
+            app:topBar_right_icon="@drawable/baseline_arrow_back_24"
+            app:topBar_title="@string/personal_data" />
 
-            <ImageView
-                android:id="@+id/backButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/padding_3"
-                android:paddingEnd="@dimen/padding_16"
-                android:src="@drawable/baseline_arrow_back_24" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/geologica"
-                android:text="@string/personal_data"
-                android:textColor="@color/text_primary"
-                android:textSize="@dimen/text_size_20" />
-
-        </androidx.appcompat.widget.Toolbar>
 
         <com.innoprog.android.uikit.InnoProgAvatarView
             android:id="@+id/avatar1"
@@ -46,7 +34,7 @@
             app:avatarBackgroundColor="@color/background_secondary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@id/topbar" />
 
         <TextView
             android:id="@+id/tv_change_photo"
@@ -126,7 +114,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_8"
-            app:label="@string/company_name"
+            app:label="@string/company_title"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@+id/inputJobTitle"
@@ -199,7 +187,7 @@
             app:buttonSize="medium"
             app:buttonState="enabled"
             app:buttonText="@string/delete_account"
-            app:buttonType="delete"
+            app:buttonType="def"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
@@ -209,8 +197,8 @@
             android:id="@+id/chip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/buttonDelete"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttonDelete" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -60,47 +60,5 @@
         android:name="com.innoprog.android.feature.mainscreen.presentation.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
-    <fragment
-        android:id="@+id/editingProfileFragment"
-        android:name="com.innoprog.android.feature.profile.editingprofile.presentation.EditingProfileFragment"
-        android:label="fragment_editing_profile"
-        tools:layout="@layout/fragment_editing_profile" >
-        <action
-            android:id="@+id/action_editingProfileFragment_to_editingProfileBottomSheetFragment"
-            app:destination="@id/editingProfileBottomSheetFragment" />
-        <action
-            android:id="@+id/action_editingProfileFragment_to_dialogForDeleteAccountFragment"
-            app:destination="@id/dialogForDeleteAccountFragment" />
-        <action
-            android:id="@+id/action_editingProfileFragment_to_dialogForExitFragment"
-            app:destination="@id/dialogForExitFragment" />
-    </fragment>
-    <dialog
-        android:id="@+id/editingProfileBottomSheetFragment"
-        android:name="com.innoprog.android.feature.profile.editingprofile.presentation.EditingProfileBottomSheetFragment"
-        android:label="EditingProfileBottomSheetFragment"
-        tools:layout="@layout/fragment_editing_profile_bottom_sheet">
-        <action
-            android:id="@+id/action_editingProfileBottomSheetFragment_to_editingProfileFragment"
-            app:destination="@id/editingProfileFragment" />
-    </dialog>
-    <dialog
-        android:id="@+id/dialogForDeleteAccountFragment"
-        android:name="com.innoprog.android.feature.profile.editingprofile.presentation.DialogForDeleteAccountFragment"
-        android:label="DialogForDeleteAccountFragment"
-        tools:layout="@layout/fragment_dialog_for_delete_account">
-        <action
-            android:id="@+id/action_dialogForDeleteAccountFragment_to_editingProfileFragment"
-            app:destination="@id/editingProfileFragment" />
-    </dialog>
-    <dialog
-        android:id="@+id/dialogForExitFragment"
-        android:name="com.innoprog.android.feature.profile.editingprofile.presentation.DialogForExitFragment"
-        android:label="DialogForExitFragment"
-        tools:layout="@layout/fragment_dialog_for_exit">
-        <action
-            android:id="@+id/action_dialogForExitFragment_to_editingProfileFragment"
-            app:destination="@id/editingProfileFragment" />
-    </dialog>
 
 </navigation>

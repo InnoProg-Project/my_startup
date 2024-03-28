@@ -25,7 +25,65 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.innoprog.android.feature.profile.profiledeteils.presentation.ProfileFragment"
+        android:name="com.innoprog.android.feature.profile.profiledetails.presentation.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_profile_bottom_sheet"
+            app:destination="@id/profile_bottom_sheet" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/profile_bottom_sheet"
+        android:name="com.innoprog.android.feature.profile.profiledetails.presentation.BottomSheetProfile"
+        android:label="@string/label_bottom_sheet_profile"
+        tools:layout="@layout/bottom_sheet_profile" >
+        <action
+            android:id="@+id/action_profile_bottom_sheet_to_editingProfileFragment"
+            app:destination="@id/editingProfileFragment" />
+    </dialog>
+
+    <fragment
+        android:id="@+id/editingProfileFragment"
+        android:name="com.innoprog.android.feature.profile.editingprofile.presentation.EditingProfileFragment"
+        android:label="fragment_editing_profile"
+        tools:layout="@layout/fragment_editing_profile" >
+
+        <action
+            android:id="@+id/action_editingProfileFragment_to_dialogForDeleteAccountFragment2"
+            app:destination="@id/dialogForDeleteAccountFragment2" />
+        <action
+            android:id="@+id/action_editingProfileFragment_to_dialogForExitFragment2"
+            app:destination="@id/dialogForExitFragment2" />
+        <action
+            android:id="@+id/action_editingProfileFragment_to_editingProfileBottomSheetFragment2"
+            app:destination="@id/editingProfileBottomSheetFragment2" />
+    </fragment>
+    <dialog
+        android:id="@+id/dialogForDeleteAccountFragment2"
+        android:name="com.innoprog.android.feature.profile.editingprofile.presentation.DialogForDeleteAccountFragment"
+        android:label="DialogForDeleteAccountFragment"
+        tools:layout="@layout/fragment_dialog_for_delete_account">
+        <action
+            android:id="@+id/action_dialogForDeleteAccountFragment2_to_editingProfileFragment"
+            app:destination="@id/editingProfileFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/dialogForExitFragment2"
+        android:name="com.innoprog.android.feature.profile.editingprofile.presentation.DialogForExitFragment"
+        android:label="DialogForExitFragment"
+        tools:layout="@layout/fragment_dialog_for_exit">
+        <action
+            android:id="@+id/action_dialogForExitFragment2_to_editingProfileFragment"
+            app:destination="@id/editingProfileFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/editingProfileBottomSheetFragment2"
+        android:name="com.innoprog.android.feature.profile.editingprofile.presentation.EditingProfileBottomSheetFragment"
+        android:label="EditingProfileBottomSheetFragment"
+        tools:layout="@layout/fragment_editing_profile_bottom_sheet">
+        <action
+            android:id="@+id/action_editingProfileBottomSheetFragment2_to_editingProfileFragment"
+            app:destination="@id/editingProfileFragment" />
+    </dialog>
 </navigation>
