@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.feature.training.courseInformation.domain.useCase.GetCourseInformationUseCase
-import com.innoprog.android.feature.training.courseInformation.presentation.model.CourseInformationState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

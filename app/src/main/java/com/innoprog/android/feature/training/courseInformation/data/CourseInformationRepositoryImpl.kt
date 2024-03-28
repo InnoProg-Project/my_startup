@@ -1,9 +1,9 @@
 package com.innoprog.android.feature.training.courseInformation.data
 
 import com.innoprog.android.feature.training.courseInformation.domain.CourseInformationRepository
-import com.innoprog.android.feature.training.courseInformation.presentation.model.CourseInformationDocumentModel
-import com.innoprog.android.feature.training.courseInformation.presentation.model.CourseInformationModel
-import com.innoprog.android.feature.training.courseInformation.presentation.model.CourseInformationVideoModel
+import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformationDocumentModel
+import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformationModel
+import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformationVideoModel
 import com.innoprog.android.feature.training.trainingList.domain.ErrorStatus
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

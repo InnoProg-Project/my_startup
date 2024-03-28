@@ -1,6 +1,6 @@
 package com.innoprog.android.feature.training.trainingList.domain
 
-import com.innoprog.android.feature.training.trainingList.presentation.model.TrainingListModel
+import com.innoprog.android.feature.training.trainingList.domain.model.TrainingListModel
 import kotlinx.coroutines.flow.Flow
 
 interface TrainingListRepository {

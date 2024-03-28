@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
@@ -14,7 +13,6 @@ import com.innoprog.android.databinding.FragmentCourseInformationBinding
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.training.common.VerticalSpaceDecorator
 import com.innoprog.android.feature.training.courseInformation.di.DaggerCourseInformationComponent
-import com.innoprog.android.feature.training.courseInformation.presentation.model.CourseInformationState
 import com.innoprog.android.feature.training.trainingList.presentation.TrainingListFragment.Companion.COURSE_KEY
 import com.innoprog.android.uikit.ImageLoadingType
 import com.innoprog.android.uikit.R
@@ -52,8 +50,6 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
     }
 
     private fun initVideoRecyclerView() {
-        binding.courseInformationVideoRV.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         // TODO Добавить onClickListener
         videoAdapter = VideoAdapter {}
         binding.courseInformationVideoRV.addItemDecoration(decorator)
@@ -61,8 +57,6 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
     }
 
     private fun initDocumentsRecyclerView() {
-        binding.courseInformationDocumentsRV.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         documentAdapter = DocumentRecyclerViewAdapter { url ->
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
         }

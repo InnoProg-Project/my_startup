@@ -5,14 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentTrainingListBinding
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.training.common.VerticalSpaceDecorator
 import com.innoprog.android.feature.training.trainingList.di.DaggerTrainingListComponent
-import com.innoprog.android.feature.training.trainingList.presentation.model.TrainingListState
 import com.innoprog.android.uikit.R
 
 class TrainingListFragment : BaseFragment<FragmentTrainingListBinding, BaseViewModel>() {
@@ -37,8 +35,6 @@ class TrainingListFragment : BaseFragment<FragmentTrainingListBinding, BaseViewM
     }
 
     private fun initRecyclerView() {
-        binding.trainingRecyclerView.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         trainingAdapter = TrainingRecyclerViewAdapter { courseId ->
             viewModel.navigateTo(
                 com.innoprog.android.R.id.courseInformationFragment,

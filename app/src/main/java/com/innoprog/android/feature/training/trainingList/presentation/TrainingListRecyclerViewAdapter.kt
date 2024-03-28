@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.innoprog.android.databinding.ItemTrainingBinding
-import com.innoprog.android.feature.training.trainingList.presentation.model.TrainingListModel
+import com.innoprog.android.feature.training.trainingList.domain.model.TrainingListModel
 import com.innoprog.android.uikit.ImageLoadingType
 
 class TrainingRecyclerViewAdapter(

@@ -2,7 +2,7 @@ package com.innoprog.android.feature.training.trainingList.data
 
 import com.innoprog.android.feature.training.trainingList.domain.ErrorStatus
 import com.innoprog.android.feature.training.trainingList.domain.TrainingListRepository
-import com.innoprog.android.feature.training.trainingList.presentation.model.TrainingListModel
+import com.innoprog.android.feature.training.trainingList.domain.model.TrainingListModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

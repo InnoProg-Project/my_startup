@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.training.trainingList.presentation.model
+package com.innoprog.android.feature.training.trainingList.domain.model
 
 data class TrainingListModel(
     val trainingId: Int,
