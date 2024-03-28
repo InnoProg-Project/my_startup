@@ -24,7 +24,7 @@ class InnoProgTopBarView @JvmOverloads constructor(
         typedArray.getDrawable(R.styleable.InnoProgTopBarView_topBar_left_icon)
 
     private val titleTV by lazy { findViewById<TextView>(R.id.title_tv) }
-    val rightIconIV by lazy { findViewById<ImageView>(R.id.right_icon) }
+    private val rightIconIV by lazy { findViewById<ImageView>(R.id.right_icon) }
     private val leftIconIV by lazy { findViewById<ImageView>(R.id.left_icon) }
 
     init {

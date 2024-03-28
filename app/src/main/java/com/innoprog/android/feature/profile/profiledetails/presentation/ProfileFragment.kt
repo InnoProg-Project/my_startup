@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.widget.ImageView
 import androidx.navigation.fragment.findNavController
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
@@ -42,15 +40,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
         initChips()
     }
 
-    private fun startAnimation(button: ImageView) {
-        button.startAnimation(
-            AnimationUtils.loadAnimation(
-                button.context,
-                R.anim.open_bottom_sheet
-            )
-        )
-    }
-
     private fun initChips() {
         val chipTitles = listOf(ALL_CONTENT, PROJECT, IDEAS, LIKES, FAVORITES)
         binding.chips.setChips(chipTitles)
@@ -65,7 +54,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
     private fun initTopBar() {
         binding.topbarProfile.setLeftIconVisibility()
         binding.topbarProfile.setRightIconClickListener {
-            startAnimation(binding.topbarProfile.rightIconIV)
             findNavController().navigate(R.id.action_profileFragment_to_profile_bottom_sheet)
         }
     }
