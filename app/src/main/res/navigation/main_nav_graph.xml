@@ -25,7 +25,29 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.innoprog.android.feature.profile.presentation.ProfileFragment"
+        android:name="com.innoprog.android.feature.profile.profiledetails.presentation.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_profile_bottom_sheet"
+            app:destination="@id/profile_bottom_sheet" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/profile_bottom_sheet"
+        android:name="com.innoprog.android.feature.profile.profiledetails.presentation.BottomSheetProfile"
+        android:label="@string/label_bottom_sheet_profile"
+        tools:layout="@layout/bottom_sheet_profile" >
+        <action
+            android:id="@+id/action_profile_bottom_sheet_to_editingProfileFragment"
+            app:destination="@id/editingProfileFragment" />
+    </dialog>
+
+    <fragment
+        android:id="@+id/editingProfileFragment"
+        android:name="com.innoprog.android.feature.profile.editingprofile.presentation.EditingProfileFragment"
+        android:label="fragment_editing_profile"
+        tools:layout="@layout/fragment_editing_profile" >
+
+    </fragment>
 </navigation>

@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.profile.presentation
+package com.innoprog.android.feature.profile.profiledetails.presentation
 
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.network.domain.ApiInteractor
