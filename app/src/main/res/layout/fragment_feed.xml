@@ -4,85 +4,96 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_secondary"
     tools:context=".feature.feed.presentation.FeedFragment">
 
-    <com.innoprog.android.uikit.InnoProgTopBarView
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/margin_8" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/margin_8" />
+
+    <ImageView
         android:id="@+id/btnCreateIdea"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/padding_12"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_idea_add"
+        app:layout_constraintBottom_toTopOf="@id/tvFeed"
+        app:layout_constraintEnd_toStartOf="@+id/tvIdea"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvIdea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="18dp"
+        android:fontFamily="@font/geologica"
+        android:text="Идея"
+        android:textColor="@color/accent_secondary"
+        android:textSize="@dimen/text_size_16"
+        app:layout_constraintBottom_toBottomOf="@+id/btnCreateIdea"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnCreateIdea" />
 
     <TextView
         android:id="@+id/tvFeed"
         style="@style/TextHeadline_1"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16"
         android:text="@string/feed_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCreateIdea" />
 
-    <ScrollView
-        android:id="@+id/publicationsScrollView"
+    <EditText
+        android:id="@+id/etSearch"
+        style="@style/TextBody_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16"
+        android:background="@drawable/background_search_edit_text"
+        android:drawableStart="@drawable/ic_search"
+        android:hint="Название публикации"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp"
+        android:drawablePadding="16dp"
+        android:textColorHint="@color/text_secondary"
+        app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/tvFeed" />
+
+    <com.innoprog.android.uikit.InnoProgChipGroupView
+        android:id="@+id/cgvFilter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+        app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/etSearch" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPublications"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/leftGuideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="@dimen/margin_8" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/rightGuideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_end="@dimen/margin_8" />
-
-
-            <com.innoprog.android.uikit.InnoProgInputView
-                android:id="@+id/etSearch"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="@dimen/margin_16"
-                app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
-                app:layout_constraintStart_toStartOf="@+id/leftGuideline"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.innoprog.android.uikit.InnoProgChipGroupView
-                android:id="@+id/cgvFilter"
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:layout_marginTop="24dp"
-                app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
-                app:layout_constraintStart_toStartOf="@+id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@+id/etSearch" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvPublications"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="24dp"
-                app:layout_constraintEnd_toEndOf="@id/rightGuideline"
-                app:layout_constraintStart_toStartOf="@+id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@+id/cgvFilter"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:itemCount="4"
-                tools:listitem="@layout/item_publication" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </ScrollView>
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cgvFilter"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_publication" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
