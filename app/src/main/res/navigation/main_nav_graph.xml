@@ -28,6 +28,11 @@
     </fragment>
 
     <fragment
+        android:id="@+id/courseInformationFragment"
+        android:name="com.innoprog.android.feature.training.courseInformation.presentation.CourseInformationFragment"
+        android:label="CourseInformationFragment" />
+
+    <fragment
         android:id="@+id/profileFragment"
         android:name="com.innoprog.android.feature.profile.profiledetails.presentation.ProfileFragment"
         android:label="fragment_profile"
@@ -92,8 +97,4 @@
             app:destination="@id/editingProfileFragment" />
     </dialog>
 
-    <fragment
-        android:id="@+id/courseInformationFragment"
-        android:name="com.innoprog.android.feature.training.courseInformation.presentation.CourseInformationFragment"
-        android:label="CourseInformationFragment" />
 </navigation>
