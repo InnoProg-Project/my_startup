@@ -61,6 +61,10 @@ class InnoProgButtonView @JvmOverloads constructor(
         invalidate()
     }
 
+    fun setButtonColor(color: Int) {
+        textTV.setTextColor(color)
+    }
+
     fun setText(text: String) {
         textTV.text = text
         invalidate()

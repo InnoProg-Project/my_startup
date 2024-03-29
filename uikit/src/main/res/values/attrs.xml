@@ -16,40 +16,41 @@
     </declare-styleable>
 
     <declare-styleable name="LikeCustomView">
-        <attr name="likeCount" format="integer"/>
-        <attr name="liked" format="boolean"/>
+        <attr name="likeCount" format="integer" />
+        <attr name="liked" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="AvatarCustomVIew">
-        <attr name="avatarBackgroundColor" format="color"/>
-        <attr name="avatarImageReference" format="reference"/>
+        <attr name="avatarBackgroundColor" format="color" />
+        <attr name="avatarImageReference" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="InnoProgButtonView">
         <attr name="buttonSize" format="enum">
-            <enum name="large" value="0"/>
-            <enum name="medium" value="1"/>
-            <enum name="small" value="2"/>
+            <enum name="large" value="0" />
+            <enum name="medium" value="1" />
+            <enum name="small" value="2" />
         </attr>
         <attr name="buttonType" format="enum">
-            <enum name="primary" value="0"/>
-            <enum name="def" value="1"/>
-            <enum name="flat" value="2"/>
+            <enum name="primary" value="0" />
+            <enum name="def" value="1" />
+            <enum name="flat" value="2" />
         </attr>
-        <attr name="buttonRightIcon" format="reference"/>
-        <attr name="buttonLeftIcon" format="reference"/>
-        <attr name="buttonText" format="string"/>
+        <attr name="buttonRightIcon" format="reference" />
+        <attr name="buttonLeftIcon" format="reference" />
+        <attr name="buttonText" format="string" />
         <attr name="buttonState" format="enum">
-            <enum name="enabled" value="0"/>
-            <enum name="disabled" value="1"/>
+            <enum name="enabled" value="0" />
+            <enum name="disabled" value="1" />
         </attr>
+        <attr name="buttonTextColor" format="color" />
     </declare-styleable>
 
     <declare-styleable name="ChipCustomView">
         <attr name="chipBackgroundColor" format="color" />
         <attr name="chipTextColor" format="color" />
-        <attr name="chipText" format="string"/>
-        <attr name="chipChecked" format="boolean"/>
+        <attr name="chipText" format="string" />
+        <attr name="chipChecked" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="InnoProgTopBarView">
