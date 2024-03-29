@@ -1,8 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_primary"
     tools:context=".feature.profile.editingprofile.presentation.EditingProfileFragment">
 
-</FrameLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.innoprog.android.uikit.InnoProgTopBarView
+            android:id="@+id/topbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background_primary"
+            android:gravity="center_horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:topBar_left_icon="@drawable/baseline_arrow_back_24"
+            app:topBar_right_icon="@drawable/baseline_arrow_back_24"
+            app:topBar_title="@string/personal_data" />
+
+
+        <com.innoprog.android.uikit.InnoProgAvatarView
+            android:id="@+id/avatar1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="@dimen/text_size_16"
+            app:avatarBackgroundColor="@color/background_secondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topbar" />
+
+        <TextView
+            android:id="@+id/tv_change_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_18"
+            android:text="@string/change_photo"
+            android:textColor="@color/accent_secondary"
+            android:textSize="@dimen/text_size_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/avatar1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineStart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_end="16dp" />
+
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/inputNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_50"
+            app:label="@string/phone_number"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/tv_change_photo"
+            app:state="inactive" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/inputFIO"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            app:label="@string/full_name"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/inputNumber"
+            app:state="inactive" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/inputEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            app:label="@string/email"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/inputFIO"
+            app:state="inactive" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/inputJobTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            app:label="@string/job_title"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/inputEmail"
+            app:state="inactive" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/inputCompanyName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            app:label="@string/company_title"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/inputJobTitle"
+            app:state="inactive" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/inputLinkToWebSite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            app:label="@string/link_to_web_site"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/inputCompanyName"
+            app:state="inactive" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/inputAboutMe"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            app:label="@string/about_me"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/inputLinkToWebSite"
+            app:state="inactive" />
+
+        <com.innoprog.android.uikit.InnoProgButtonView
+            android:id="@+id/buttonSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_8"
+            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:clickable="true"
+            android:gravity="center"
+            app:buttonSize="large"
+            app:buttonState="enabled"
+            app:buttonText="@string/save"
+            app:buttonType="primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inputAboutMe" />
+
+        <com.innoprog.android.uikit.InnoProgButtonView
+            android:id="@+id/buttonExit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24"
+            android:clickable="true"
+            android:gravity="center"
+            app:buttonSize="medium"
+            app:buttonState="enabled"
+            app:buttonText="@string/exit"
+            app:buttonType="def"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/buttonSave" />
+
+        <com.innoprog.android.uikit.InnoProgButtonView
+            android:id="@+id/buttonDelete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_30"
+            android:clickable="true"
+            android:gravity="center"
+            app:buttonSize="medium"
+            app:buttonState="enabled"
+            app:buttonText="@string/delete_account"
+            app:buttonType="def"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/buttonExit" />
+
+        <com.innoprog.android.uikit.InnoProgChipGroupView
+            android:id="@+id/chip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttonDelete" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
