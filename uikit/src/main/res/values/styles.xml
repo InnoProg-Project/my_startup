@@ -14,7 +14,7 @@
     </style>
 
     <style name="TextHeadline_3">
-        <item name="fontFamily">@font/geologica</item>
+        <item name="fontFamily">@font/geologica_medium</item>
         <item name="fontWeight">400</item>
         <item name="android:textSize">@dimen/text_size_20</item>
     </style>
