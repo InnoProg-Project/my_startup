@@ -10,4 +10,5 @@
     <dimen name="margin_32">32dp</dimen>
     <dimen name="margin_34">34dp</dimen>
     <dimen name="margin_12">12dp</dimen>
+    <dimen name="margin_40">40dp</dimen>
 </resources>

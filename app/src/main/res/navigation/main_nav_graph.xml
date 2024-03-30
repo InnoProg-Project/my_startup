@@ -41,6 +41,12 @@
         <action
             android:id="@+id/action_profile_bottom_sheet_to_editingProfileFragment"
             app:destination="@id/editingProfileFragment" />
+        <action
+            android:id="@+id/action_profile_bottom_sheet_to_aboutAppFragment"
+            app:destination="@id/aboutAppFragment" />
+        <action
+            android:id="@+id/action_profile_bottom_sheet_to_docksFragment"
+            app:destination="@id/docksFragment" />
     </dialog>
 
     <fragment
@@ -86,4 +92,15 @@
             android:id="@+id/action_editingProfileBottomSheetFragment2_to_editingProfileFragment"
             app:destination="@id/editingProfileFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/aboutAppFragment"
+        android:name="com.innoprog.android.feature.profile.aboutapp.presentation.AboutAppFragment"
+        android:label="fragment_about_app"
+        tools:layout="@layout/fragment_about_app" />
+
+    <fragment
+        android:id="@+id/docksFragment"
+        android:name="com.innoprog.android.feature.profile.docks.presentation.DocksFragment"
+        android:label="fragment_docks"
+        tools:layout="@layout/fragment_docks" />
 </navigation>
