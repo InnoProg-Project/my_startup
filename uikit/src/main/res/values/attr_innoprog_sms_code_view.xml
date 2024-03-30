@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SMSCodeView">
+        <attr name="maxLine" format="integer"/>
+        <attr name="statusChecked"
+            format="enum">
+            <enum name="inactive"
+                value="0" />
+            <enum name="filled"
+                value="1" />
+            <enum name="disabled"
+                value="2" />
+            <enum name="error"
+                value="2" />
+            <enum name="focused"
+            value="2" />
+        </attr>
+    </declare-styleable>
+</resources>
