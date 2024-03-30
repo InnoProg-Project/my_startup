@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">innoprog</string>
+    <string name="hello">Добро пожаловать!</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="new_account">Нет аккаунта?</string>
+    <string name="registration">Зарегистрироваться</string>
 </resources>

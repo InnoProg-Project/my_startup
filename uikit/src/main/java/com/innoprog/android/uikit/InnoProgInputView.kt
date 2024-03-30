@@ -69,6 +69,7 @@ class InnoProgInputView @JvmOverloads constructor(
             rightIcon.setImageDrawable(getDrawable(R.styleable.InnoProgInputView_right_icon))
 
             editTextView.setText(getString(R.styleable.InnoProgInputView_text))
+            editTextView.inputType = getType(R.styleable.InnoProgInputView_input_type)
             emptyHintTextView.text = getString(R.styleable.InnoProgInputView_label)
             if (editTextView.text.isNotBlank()) {
                 emptyHintTextView.textSize = SP_12
