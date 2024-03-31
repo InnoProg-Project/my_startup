@@ -6,84 +6,109 @@
     android:layout_height="match_parent"
     tools:context=".feature.auth.authorization.presentation.AuthorizationFragment">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/margin_16" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/margin_16" />
+
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="136dp"
+        android:layout_height="136dp"
+        android:layout_marginTop="86dp"
         android:src="@drawable/ic_launcher_playstore"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvHello"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tvHello"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvHello"
-        android:layout_width="wrap_content"
+        style="@style/TextHeadline_2"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:padding="@dimen/padding_16"
         android:layout_marginTop="10dp"
+        android:gravity="center"
         android:text="@string/hello"
         app:layout_constraintBottom_toTopOf="@id/ivLogin"
-        app:layout_constraintTop_toBottomOf="@id/logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@id/logo" />
 
     <com.innoprog.android.uikit.InnoProgInputView
         android:id="@+id/ivLogin"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:input_type="text"/>
+        app:input_type="textEmailAddress"
+        app:label="@string/email"
+        app:layout_constraintTop_toBottomOf="@id/tvHello"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder" />
 
     <com.innoprog.android.uikit.InnoProgInputView
         android:id="@+id/ivPassword"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         app:input_type="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:right_icon="@drawable/eye_off"
+        app:label="@string/password_label"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
         app:layout_constraintTop_toBottomOf="@id/ivLogin" />
 
     <com.innoprog.android.uikit.InnoProgButtonView
         android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        app:buttonSize="large"
         android:gravity="center"
-        app:buttonText="Войти"
+        app:buttonSize="large"
+        app:buttonText="@string/enter"
         app:buttonType="primary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
         app:layout_constraintTop_toBottomOf="@id/tvPasswordRecovery" />
 
-    <TextView
+    <com.innoprog.android.uikit.InnoProgButtonView
         android:id="@+id/tvPasswordRecovery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/forgot_password"
+        app:buttonType="flat"
+        app:buttonSize="small"
+        app:buttonText="@string/forgot_password"
         app:layout_constraintBottom_toTopOf="@id/btnLogin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivPassword"/>
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintTop_toBottomOf="@id/ivPassword" />
 
     <TextView
         android:id="@+id/tvNewAccount"
+        style="@style/TextBody_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/new_account"
-        app:layout_constraintBottom_toTopOf="@id/tvRegistration"
+        app:layout_constraintBottom_toTopOf="@id/btRegistration"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/tvRegistration"
+    <com.innoprog.android.uikit.InnoProgButtonView
+        android:id="@+id/btRegistration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/registration"
+        android:layout_marginBottom="@dimen/margin_16"
+        app:buttonSize="large"
+        app:buttonText="@string/registration"
+        app:buttonType="flat"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

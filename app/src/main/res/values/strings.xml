@@ -18,4 +18,6 @@
     <string name="forgot_password">Забыли пароль?</string>
     <string name="new_account">Нет аккаунта?</string>
     <string name="registration">Зарегистрироваться</string>
+    <string name="enter">Войти</string>
+    <string name="password_label">Пароль</string>
 </resources>

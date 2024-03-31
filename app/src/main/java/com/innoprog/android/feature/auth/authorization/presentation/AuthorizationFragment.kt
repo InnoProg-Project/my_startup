@@ -28,7 +28,7 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvRegistration.setOnClickListener {
+        binding.btRegistration.setOnClickListener {
             viewModel.navigateTo(R.id.registrationFragment)
         }
 
