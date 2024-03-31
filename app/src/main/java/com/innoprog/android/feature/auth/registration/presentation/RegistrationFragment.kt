@@ -25,11 +25,11 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnBack.setOnClickListener {
+        binding.registrationTitle.setRightIconClickListener {
             viewModel.navigateUp()
         }
 
-        binding.btnRegistration.setOnClickListener {
+        binding.bvRegistration.setOnClickListener {
             viewModel.navigateTo(R.id.codeEntryFragment)
         }
     }

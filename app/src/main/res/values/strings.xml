@@ -14,4 +14,8 @@
     <string name="about_app">О приложении</string>
     <string name="legal_docks">Правовые документы</string>
     <string name="cancel">Отменить</string>
+    <string name="user_name">ФИО</string>
+    <string name="set_phone_number">Введите номер телефона</string>
+    <string name="agreement">Продолжая, вы соглашаетесь с политикой обработки персональных данных и лицензионным соглашением</string>
+    <string name="regestration">Зарегистрироваться</string>
 </resources>
