@@ -117,4 +117,9 @@
         <item name="android:windowIsFloating">true</item>
     </style>
 
+    <style name="ImageStyle_Corners_Rounded">
+        <item name="cornerSize">16dp</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
+
 </resources>

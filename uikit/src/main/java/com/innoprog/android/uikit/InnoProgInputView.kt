@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat.getDrawable
 import androidx.transition.TransitionManager
 import com.innoprog.android.uikit.ext.applyStyleable
 
@@ -57,10 +58,21 @@ class InnoProgInputView @JvmOverloads constructor(
                 R.styleable.InnoProgInputView_state,
                 InnoProgInputViewState.INACTIVE.number
             )) {
-                InnoProgInputViewState.DISABLED.number -> { state = InnoProgInputViewState.DISABLED }
-                InnoProgInputViewState.ERROR.number -> { state = InnoProgInputViewState.ERROR }
-                InnoProgInputViewState.FOCUSED.number -> { state = InnoProgInputViewState.FOCUSED }
-                else -> { state = InnoProgInputViewState.INACTIVE }
+                InnoProgInputViewState.DISABLED.number -> {
+                    state = InnoProgInputViewState.DISABLED
+                }
+
+                InnoProgInputViewState.ERROR.number -> {
+                    state = InnoProgInputViewState.ERROR
+                }
+
+                InnoProgInputViewState.FOCUSED.number -> {
+                    state = InnoProgInputViewState.FOCUSED
+                }
+
+                else -> {
+                    state = InnoProgInputViewState.INACTIVE
+                }
             }
             renderState(state)
 
@@ -69,7 +81,7 @@ class InnoProgInputView @JvmOverloads constructor(
             rightIcon.setImageDrawable(getDrawable(R.styleable.InnoProgInputView_right_icon))
 
             editTextView.setText(getString(R.styleable.InnoProgInputView_text))
-            editTextView.inputType = getType(R.styleable.InnoProgInputView_input_type)
+            editTextView.inputType = R.styleable.InnoProgInputView_input_type
             emptyHintTextView.text = getString(R.styleable.InnoProgInputView_label)
             if (editTextView.text.isNotBlank()) {
                 emptyHintTextView.textSize = SP_12
@@ -104,6 +116,14 @@ class InnoProgInputView @JvmOverloads constructor(
                 renderState(state)
             }
         }
+    }
+
+    fun setInputType(type: Int) {
+        editTextView.inputType = type
+    }
+
+    fun setRightIcon(src: Int) {
+        rightIcon.setImageDrawable(getDrawable(context, src))
     }
 
     fun renderState(state: InnoProgInputViewState) {

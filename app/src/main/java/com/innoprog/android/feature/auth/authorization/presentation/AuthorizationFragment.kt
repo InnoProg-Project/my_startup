@@ -1,6 +1,7 @@
 package com.innoprog.android.feature.auth.authorization.presentation
 
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,8 @@ import com.innoprog.android.feature.auth.authorization.di.DaggerAuthorizationCom
 class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseViewModel>() {
 
     override val viewModel by injectViewModel<AuthorizationViewModel>()
+    private var isVisiblePassword = false
+
     override fun diComponent(): ScreenComponent = DaggerAuthorizationComponent.builder().build()
 
     override fun createBinding(
@@ -27,6 +30,8 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.ivLogin.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
+        renderIVPassword()
 
         binding.btRegistration.setOnClickListener {
             viewModel.navigateTo(R.id.registrationFragment)
@@ -43,6 +48,21 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
                     inclusive = true
                 }
             })
+        }
+
+        binding.ivPassword.setRightIconClickListener {
+            isVisiblePassword = !isVisiblePassword
+            renderIVPassword()
+        }
+    }
+
+    private fun renderIVPassword() {
+        if (isVisiblePassword) {
+            binding.ivPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD)
+            binding.ivPassword.setRightIcon(R.drawable.eye)
+        } else {
+            binding.ivPassword.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD)
+            binding.ivPassword.setRightIcon(R.drawable.eye_off)
         }
     }
 }
