@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.training.data
+package com.innoprog.android.feature.auth.authorization.data
 
 data class LoginResponse (
     val id: String,

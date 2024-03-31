@@ -1,7 +1,6 @@
 package com.innoprog.android.feature.auth.authorization.data
 
 import com.innoprog.android.feature.auth.authorization.domain.AuthorisationRepository
-import com.innoprog.android.feature.training.data.LoginResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
