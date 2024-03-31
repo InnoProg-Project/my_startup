@@ -41,6 +41,9 @@
         <action
             android:id="@+id/action_profile_bottom_sheet_to_editingProfileFragment"
             app:destination="@id/editingProfileFragment" />
+        <action
+            android:id="@+id/action_profile_bottom_sheet_to_legalDocumentsFragment"
+            app:destination="@id/legalDocumentsFragment" />
     </dialog>
 
     <fragment
@@ -86,4 +89,25 @@
             android:id="@+id/action_editingProfileBottomSheetFragment2_to_editingProfileFragment"
             app:destination="@id/editingProfileFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/legalDocumentsFragment"
+        android:name="com.innoprog.android.feature.profile.legaldocuments.presentation.LegalDocumentsFragment"
+        android:label="fragment_legal_documents"
+        tools:layout="@layout/fragment_legal_documents" >
+        <action
+            android:id="@+id/action_legalDocumentsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_legalDocumentsFragment_to_documentFragment"
+            app:destination="@id/documentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/documentFragment"
+        android:name="com.innoprog.android.feature.profile.legaldocuments.presentation.DocumentFragment"
+        android:label="fragment_document"
+        tools:layout="@layout/fragment_document" >
+        <action
+            android:id="@+id/action_documentFragment_to_legalDocumentsFragment"
+            app:destination="@id/legalDocumentsFragment" />
+    </fragment>
 </navigation>
