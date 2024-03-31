@@ -3,6 +3,7 @@ package com.innoprog.android.uikit
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.LayerDrawable
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.InputMethodManager
@@ -215,6 +216,10 @@ class InnoProgInputView @JvmOverloads constructor(
 
     fun setRightIconClickListener(onClickListener: OnClickListener) {
         rightIcon.setOnClickListener(onClickListener)
+    }
+
+    fun addTextChangedListener(textWatcher: TextWatcher) {
+        editTextView.addTextChangedListener(textWatcher)
     }
 
     companion object {

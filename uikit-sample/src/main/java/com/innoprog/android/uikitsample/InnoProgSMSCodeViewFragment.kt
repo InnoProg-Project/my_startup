@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import com.innoprog.android.uikit.InnoProgInputViewState
 import com.innoprog.android.uikitsample.databinding.FragmentInnoProgSmsCodeViewBinding
 
-
 class InnoProgSMSCodeViewFragment : Fragment() {
 
     private var _binding: FragmentInnoProgSmsCodeViewBinding? = null
