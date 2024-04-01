@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.innoprog.android.uikit.InnoProgTopBarView
+        android:id="@+id/courseInformationTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:topBar_left_icon="@drawable/ic_back"
+        app:topBar_title="О курсе" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/courseInformationTopBar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/courseLogo"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/course_logo_sample" />
+
+            <TextView
+                android:id="@+id/courseInformationTitle"
+                style="@style/TextHeadline_3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:textColor="@color/text_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/courseLogo"
+                tools:text="Интеграция сервисов" />
+
+            <TextView
+                android:id="@+id/courseInformationDescription"
+                style="@style/TextBody_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:textColor="@color/text_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/courseInformationTitle"
+                tools:text="Небольшой курс о том, как интегрировать сервисы в ваше приложение или сайт без участия разработчика. Полный текст курс о том, как интегрировать сервисы в ваше приложение или сайт без участия разработчика" />
+
+            <com.innoprog.android.uikit.InnoProgAvatarView
+                android:id="@+id/courseInformationAuthorAvatar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintBottom_toBottomOf="@+id/courseInformationAuthorPosition"
+                app:layout_constraintStart_toStartOf="@+id/courseInformationDescription"
+                app:layout_constraintTop_toTopOf="@+id/courseInformationAuthorName" />
+
+            <TextView
+                android:id="@+id/courseInformationAuthorName"
+                style="@style/TextSubtitle_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginTop="@dimen/margin_8"
+                android:textColor="@color/text_primary"
+                app:layout_constraintEnd_toStartOf="@+id/courseInformationDate"
+                app:layout_constraintStart_toEndOf="@+id/courseInformationAuthorAvatar"
+                app:layout_constraintTop_toBottomOf="@+id/courseInformationDescription"
+                tools:text="Унтура Михаил" />
+
+            <TextView
+                android:id="@+id/courseInformationAuthorPosition"
+                style="@style/TextBody_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_16"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintEnd_toStartOf="@+id/courseInformationDate"
+                app:layout_constraintStart_toStartOf="@+id/courseInformationAuthorName"
+                app:layout_constraintTop_toBottomOf="@+id/courseInformationAuthorName"
+                tools:text="СЕО в Мой Стартап" />
+
+            <TextView
+                android:id="@+id/courseInformationDate"
+                style="@style/TextBody_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintBottom_toBottomOf="@+id/courseInformationAuthorPosition"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="20 мая" />
+
+            <TextView
+                android:id="@+id/courseInformationDirection"
+                style="@style/TextBody_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8"
+                android:textColor="@color/text_primary"
+                app:layout_constraintStart_toStartOf="@+id/courseInformationDescription"
+                app:layout_constraintTop_toBottomOf="@+id/courseInformationAuthorPosition"
+                tools:text="Управление" />
+
+            <TextView
+                android:id="@+id/courseInformationDirectionHint"
+                style="@style/TextCaption_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/course_direction"
+                android:textColor="@color/text_tertiary"
+                app:layout_constraintStart_toStartOf="@+id/courseInformationDirection"
+                app:layout_constraintTop_toBottomOf="@+id/courseInformationDirection" />
+
+            <View
+                android:id="@+id/courseInformationSeparator"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/margin_16"
+                android:background="@color/text_field_fill"
+                app:layout_constraintTop_toBottomOf="@+id/courseInformationDirectionHint" />
+
+            <TextView
+                android:id="@+id/courseInformationVideoTitle"
+                style="@style/TextHeadline_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_8"
+                android:text="@string/video"
+                android:textColor="@color/text_primary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/courseInformationSeparator" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/courseInformationVideoRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/courseInformationVideoTitle"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_training_video" />
+
+            <TextView
+                android:id="@+id/courseInformationDocumentsTitle"
+                style="@style/TextHeadline_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_8"
+                android:text="@string/documents"
+                android:textColor="@color/text_primary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/courseInformationVideoRV" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/courseInformationDocumentsRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginBottom="56dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/courseInformationDocumentsTitle"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_training_document" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
