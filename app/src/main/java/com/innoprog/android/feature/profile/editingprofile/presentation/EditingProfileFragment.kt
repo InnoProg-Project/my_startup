@@ -54,7 +54,6 @@ class EditingProfileFragment : BaseFragment<FragmentEditingProfileBinding, BaseV
     }
 
     private fun initTopBar() {
-        binding.topbar.setRightIconVisibility()
         binding.topbar.setLeftIconClickListener {
             findNavController().navigateUp()
         }
