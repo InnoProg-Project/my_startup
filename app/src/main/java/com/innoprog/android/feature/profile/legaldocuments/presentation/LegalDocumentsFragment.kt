@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
@@ -41,13 +40,13 @@ class LegalDocumentsFragment : BaseFragment<FragmentLegalDocumentsBinding, BaseV
     }
 
     private fun navigation() {
-        findNavController().navigate(R.id.action_legalDocumentsFragment_to_documentFragment)
+        viewModel.navigateTo(R.id.documentFragment)
     }
 
     private fun initTopBar() {
         binding.topbar.setRightIconVisibility()
         binding.topbar.setLeftIconClickListener {
-            findNavController().navigateUp()
+            viewModel.navigateUp()
         }
     }
 }
