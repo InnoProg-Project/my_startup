@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.LayerDrawable
 import android.text.TextWatcher
+import android.text.method.TransformationMethod
 import android.util.AttributeSet
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.InputMethodManager
@@ -82,7 +83,6 @@ class InnoProgInputView @JvmOverloads constructor(
             rightIcon.setImageDrawable(getDrawable(R.styleable.InnoProgInputView_right_icon))
 
             editTextView.setText(getString(R.styleable.InnoProgInputView_text))
-            editTextView.inputType = R.styleable.InnoProgInputView_input_type
             emptyHintTextView.text = getString(R.styleable.InnoProgInputView_label)
             if (editTextView.text.isNotBlank()) {
                 emptyHintTextView.textSize = SP_12
@@ -121,6 +121,10 @@ class InnoProgInputView @JvmOverloads constructor(
 
     fun setInputType(type: Int) {
         editTextView.inputType = type
+    }
+
+    fun setTransformationMethod(method: TransformationMethod) {
+        editTextView.transformationMethod = method
     }
 
     fun setRightIcon(src: Int) {
@@ -220,6 +224,10 @@ class InnoProgInputView @JvmOverloads constructor(
 
     fun addTextChangedListener(textWatcher: TextWatcher) {
         editTextView.addTextChangedListener(textWatcher)
+    }
+
+    fun getText(): String {
+        return editTextView.text.toString()
     }
 
     companion object {

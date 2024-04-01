@@ -6,9 +6,7 @@ import javax.inject.Inject
 
 class AuthorizationViewModel @Inject constructor(private val useCase: AuthorisationUseCase) :
     BaseViewModel() {
-    private var inputLogin: String? = null
-    private var inputPassword: String? = null
-    fun verify() {
-        useCase.verify(inputLogin ?: "", inputPassword ?: "")
+    fun verify(inputLogin: String, inputPassword: String) {
+        useCase.verify(inputLogin, inputPassword)
     }
 }

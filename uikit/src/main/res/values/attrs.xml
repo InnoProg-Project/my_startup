@@ -13,7 +13,6 @@
         <attr name="caption" format="string" />
         <attr name="left_icon" format="reference" />
         <attr name="right_icon" format="reference" />
-        <attr name="input_type" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="LikeCustomView">
