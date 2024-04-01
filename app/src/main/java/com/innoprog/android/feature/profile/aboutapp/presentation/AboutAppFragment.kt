@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentAboutAppBinding
@@ -33,7 +32,7 @@ class AboutAppFragment : BaseFragment<FragmentAboutAppBinding, BaseViewModel>() 
     private fun initTopBar() {
         binding.topbarAboutApp.setRightIconVisibility()
         binding.topbarAboutApp.setLeftIconClickListener {
-            findNavController().navigateUp()
+            viewModel.navigateUp()
         }
     }
 }
