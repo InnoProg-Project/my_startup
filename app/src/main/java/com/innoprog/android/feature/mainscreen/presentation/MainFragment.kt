@@ -32,5 +32,21 @@ class MainFragment : BaseFragment<FragmentMainBinding, BaseViewModel>() {
                 .navController
 
         binding.bottomNavigationView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.legalDocumentsFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+
+                R.id.documentFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+
+                else -> {
+                    binding.bottomNavigationView.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 }

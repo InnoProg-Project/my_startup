@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_primary"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".feature.profile.legaldocuments.presentation.DocumentFragment">
+    tools:context=".feature.profile.documents.presentation.DocumentFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

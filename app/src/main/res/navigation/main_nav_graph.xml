@@ -103,7 +103,7 @@
     </fragment>
     <fragment
         android:id="@+id/documentFragment"
-        android:name="com.innoprog.android.feature.profile.legaldocuments.presentation.DocumentFragment"
+        android:name="com.innoprog.android.feature.profile.documents.presentation.DocumentFragment"
         android:label="fragment_document"
         tools:layout="@layout/fragment_document" >
         <action
