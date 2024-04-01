@@ -30,7 +30,6 @@ class AboutAppFragment : BaseFragment<FragmentAboutAppBinding, BaseViewModel>() 
     }
 
     private fun initTopBar() {
-        binding.topbarAboutApp.setRightIconVisibility()
         binding.topbarAboutApp.setLeftIconClickListener {
             viewModel.navigateUp()
         }
