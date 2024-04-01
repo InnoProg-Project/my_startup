@@ -36,7 +36,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, BaseViewModel>() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.aboutAppFragment,
-                R.id.profile_bottom_sheet-> {
+                R.id.profile_bottom_sheet -> {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
 
