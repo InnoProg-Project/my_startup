@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".feature.profile.profiledetails.presentation.BottomSheetProfile">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_8"
+        android:background="@color/background_secondary"
+        app:cardCornerRadius="@dimen/corner_radius_16">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_16">
+
+            <ImageView
+                android:id="@+id/edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:src="@drawable/ic_edit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/edit_text"
+                style="@style/TextSubtitle_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:textColor="@color/text_primary"
+                android:text="@string/edit_profile"
+                app:layout_constraintStart_toEndOf="@id/edit"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_32"
+                android:src="@drawable/ic_info"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit" />
+
+            <TextView
+                android:id="@+id/info_text"
+                style="@style/TextSubtitle_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_32"
+                android:textColor="@color/text_primary"
+                android:text="@string/about_app"
+                app:layout_constraintStart_toEndOf="@id/edit"
+                app:layout_constraintTop_toBottomOf="@id/edit" />
+
+            <ImageView
+                android:id="@+id/docks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_32"
+                android:src="@drawable/ic_document_multiple"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/info" />
+
+            <TextView
+                android:id="@+id/docks_text"
+                style="@style/TextSubtitle_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_32"
+                android:textColor="@color/text_primary"
+                android:text="@string/legal_docks"
+                app:layout_constraintStart_toEndOf="@id/edit"
+                app:layout_constraintTop_toBottomOf="@id/info_text" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/buttonCancel"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginStart="@dimen/margin_8"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginEnd="@dimen/margin_8"
+        android:layout_marginBottom="@dimen/margin_34"
+        android:backgroundTint="@color/background_primary"
+        android:textColor="@color/text_primary"
+        android:textSize="18sp"
+        android:text="@string/cancel"
+        android:textFontWeight="500"
+        android:fontFamily="@font/golos_text"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@id/docks" />
+
+</LinearLayout>
