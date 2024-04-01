@@ -32,5 +32,18 @@ class MainFragment : BaseFragment<FragmentMainBinding, BaseViewModel>() {
                 .navController
 
         binding.bottomNavigationView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.aboutAppFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+
+                else -> {
+                    binding.bottomNavigationView.visibility = View.VISIBLE
+                }
+            }
+        }
+
     }
 }
