@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import com.bumptech.glide.Glide
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
@@ -50,8 +51,12 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
     }
 
     private fun initVideoRecyclerView() {
-        // TODO Добавить onClickListener
-        videoAdapter = VideoAdapter {}
+        videoAdapter = VideoAdapter {
+            viewModel.navigateTo(
+                com.innoprog.android.R.id.videoPlayerFragment,
+                bundleOf(VIDEO_PLAYER_KEY to it)
+            )
+        }
         binding.courseInformationVideoRV.addItemDecoration(decorator)
         binding.courseInformationVideoRV.adapter = videoAdapter
     }
@@ -107,5 +112,10 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
             is CourseInformationState.Error -> Unit
             is CourseInformationState.Load -> Unit
         }
+    }
+
+    companion object {
+
+        const val VIDEO_PLAYER_KEY = "VIDEO_PLAYER_KEY"
     }
 }

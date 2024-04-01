@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.innoprog.android.databinding.ItemTrainingVideoBinding
 import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformationVideoModel
 
-class VideoAdapter(private val onVideoClickListener: () -> Unit) : Adapter<VideoViewHolder>() {
+class VideoAdapter(private val onVideoClickListener: (String) -> Unit) : Adapter<VideoViewHolder>() {
 
     var items = listOf<CourseInformationVideoModel>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
@@ -26,12 +26,12 @@ class VideoAdapter(private val onVideoClickListener: () -> Unit) : Adapter<Video
 
 class VideoViewHolder(
     private val binding: ItemTrainingVideoBinding,
-    private val onVideoClickListener: () -> Unit
+    private val onVideoClickListener: (String) -> Unit
 ) : ViewHolder(binding.root) {
 
     fun bind(item: CourseInformationVideoModel) {
         binding.videoPlaceholderIV.setOnClickListener {
-            onVideoClickListener.invoke()
+            onVideoClickListener.invoke(item.videoURL)
         }
         binding.videoDescriptionTV.text = item.videoDescription
     }

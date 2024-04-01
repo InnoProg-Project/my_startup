@@ -77,6 +77,9 @@
         <action
             android:id="@+id/action_dialogForDeleteAccountFragment2_to_editingProfileFragment"
             app:destination="@id/editingProfileFragment" />
+        <action
+            android:id="@+id/action_dialogForDeleteAccountFragment2_to_videoPlayerFragment"
+            app:destination="@id/videoPlayerFragment" />
     </dialog>
     <dialog
         android:id="@+id/dialogForExitFragment2"
@@ -96,5 +99,9 @@
             android:id="@+id/action_editingProfileBottomSheetFragment2_to_editingProfileFragment"
             app:destination="@id/editingProfileFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/videoPlayerFragment"
+        android:name="com.innoprog.android.feature.training.videoPlayer.presentation.VideoPlayerFragment"
+        android:label="VideoPlayerFragment" />
 
 </navigation>
