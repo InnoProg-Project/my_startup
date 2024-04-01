@@ -44,6 +44,5 @@ class MainFragment : BaseFragment<FragmentMainBinding, BaseViewModel>() {
                 }
             }
         }
-
     }
 }
