@@ -49,7 +49,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         val news = News(
             id = "1",
             type = "idea",
-//            author = author,
+            author = author,
             projectId = "123",
             title = "qwe",
             content = "asd",

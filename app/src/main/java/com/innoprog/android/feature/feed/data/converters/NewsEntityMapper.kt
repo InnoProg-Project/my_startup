@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.feed.utils
+package com.innoprog.android.feature.feed.data.converters
 
 import com.innoprog.android.feature.feed.data.db.AuthorEntity
 import com.innoprog.android.feature.feed.data.db.CompanyEntity
@@ -13,7 +13,7 @@ class NewsEntityMapper @Inject constructor() {
         return News(
             id = newsEntity.id,
             type = newsEntity.type,
-//            author = createAuthor(newsEntity.author),
+            author = createAuthor(newsEntity.author),
             projectId = newsEntity.projectId,
             title = newsEntity.title,
             content = newsEntity.content,
@@ -25,8 +25,8 @@ class NewsEntityMapper @Inject constructor() {
 
     private fun createAuthor(authorEntity: AuthorEntity): Author {
         return Author(
-            authorId = authorEntity.authorId,
-            authorName = authorEntity.authorName,
+            id = authorEntity.id,
+            name = authorEntity.name,
             company = createCompany(authorEntity.company)
         )
     }
@@ -42,7 +42,7 @@ class NewsEntityMapper @Inject constructor() {
         return NewsEntity(
             id = news.id,
             type = news.type,
-//            author = createAuthorEntity(news.author),
+            author = createAuthorEntity(news.author),
             projectId = news.projectId,
             title = news.title,
             content = news.content,
@@ -54,8 +54,8 @@ class NewsEntityMapper @Inject constructor() {
 
     private fun createAuthorEntity(author: Author): AuthorEntity {
         return AuthorEntity(
-            authorId = author.authorId,
-            authorName = author.authorName,
+            id = author.id,
+            name = author.name,
             company = createCompanyEntity(author.company)
         )
     }

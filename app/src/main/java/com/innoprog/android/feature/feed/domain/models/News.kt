@@ -3,7 +3,7 @@ package com.innoprog.android.feature.feed.domain.models
 data class News(
     val id: String,
     val type: String,
-//    val author: Author,
+    val author: Author,
     val projectId: String?,
     val title: String,
     val content: String,
@@ -13,8 +13,8 @@ data class News(
 )
 
 data class Author(
-    val authorId: String,
-    val authorName: String,
+    val id: String,
+    val name: String,
     val company: Company
 )
 
