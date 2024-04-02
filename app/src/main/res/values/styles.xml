@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="courseVideoStyle" parent="">
+        <item name="cornerSizeTopLeft">@dimen/margin_16</item>
+        <item name="cornerSizeTopRight">@dimen/margin_16</item>
+    </style>
+    <style name="CustomChips" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    </style>
+</resources>

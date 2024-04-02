@@ -68,6 +68,9 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.10.0")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.7.2")
 
+    //Glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
 
     //Room
     implementation("androidx.room:room-runtime:2.6.1")
