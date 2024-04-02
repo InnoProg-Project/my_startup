@@ -13,7 +13,7 @@ class NewsEntityMapper @Inject constructor() {
         return News(
             id = newsEntity.id,
             type = newsEntity.type,
-            author = createAuthor(newsEntity.author),
+//            author = createAuthor(newsEntity.author),
             projectId = newsEntity.projectId,
             title = newsEntity.title,
             content = newsEntity.content,
@@ -42,7 +42,7 @@ class NewsEntityMapper @Inject constructor() {
         return NewsEntity(
             id = news.id,
             type = news.type,
-            author = createAuthorEntity(news.author),
+//            author = createAuthorEntity(news.author),
             projectId = news.projectId,
             title = news.title,
             content = news.content,

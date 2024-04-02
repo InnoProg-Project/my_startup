@@ -9,7 +9,7 @@ data class NewsEntity(
     @PrimaryKey
     val id: String,
     val type: String,
-    val author: AuthorEntity,
+//    val author: AuthorEntity,
     @ColumnInfo(name = "project_id")
     val projectId: String?,
     val title: String,
