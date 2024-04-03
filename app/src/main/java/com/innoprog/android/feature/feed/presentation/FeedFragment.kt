@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentFeedBinding
@@ -26,7 +27,14 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initButton()
         initChips()
+    }
+
+    private fun initButton() {
+        binding.btnCreateIdea.setOnClickListener {
+            Toast.makeText(requireContext(), "Переход на создание идеи", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun initChips() {
