@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.navigation.fragment.findNavController
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
@@ -34,11 +33,11 @@ class EditingProfileFragment : BaseFragment<FragmentEditingProfileBinding, BaseV
     private fun initButton() {
 
         binding.tvChangePhoto.setOnClickListener {
-            findNavController().navigate(R.id.action_editingProfileFragment_to_editingProfileBottomSheetFragment2)
+            viewModel.navigateTo(R.id.action_editingProfileFragment_to_editingProfileBottomSheetFragment2)
         }
 
         binding.buttonExit.setOnClickListener {
-            findNavController().navigate(R.id.action_editingProfileFragment_to_dialogForExitFragment2)
+            viewModel.navigateTo(R.id.action_editingProfileFragment_to_dialogForExitFragment2)
         }
 
         binding.buttonDelete.setButtonColor(
@@ -49,13 +48,13 @@ class EditingProfileFragment : BaseFragment<FragmentEditingProfileBinding, BaseV
         )
 
         binding.buttonDelete.setOnClickListener {
-            findNavController().navigate(R.id.action_editingProfileFragment_to_dialogForDeleteAccountFragment2)
+            viewModel.navigateTo(R.id.action_editingProfileFragment_to_dialogForDeleteAccountFragment2)
         }
     }
 
     private fun initTopBar() {
         binding.topbar.setLeftIconClickListener {
-            findNavController().navigateUp()
+            viewModel.navigateUp()
         }
     }
 }
