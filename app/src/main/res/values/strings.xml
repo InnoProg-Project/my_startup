@@ -17,10 +17,18 @@
     <string name="about_app">О приложении</string>
     <string name="legal_docks">Правовые документы</string>
     <string name="cancel">Отменить</string>
+
     <string name="fragment_authorization_hello">Добро пожаловать!</string>
     <string name="fragment_authorization_forgot_password">Забыли пароль?</string>
     <string name="fragment_authorization_new_account">Нет аккаунта?</string>
     <string name="fragment_authorization_registration">Зарегистрироваться</string>
     <string name="fragment_authorization_enter">Войти</string>
     <string name="fragment_authorization_password_label">Пароль</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="license_agreement">Лицензионое соглашение</string>
+    <string name="personal_information">Политика обработки\nперсональных данных</string>
+    <string name="legal_documents">Правовые документы</string>
+
 </resources>
