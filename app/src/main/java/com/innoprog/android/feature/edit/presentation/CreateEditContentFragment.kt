@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
@@ -12,6 +13,8 @@ import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.edit.di.DaggerCreateEditContentComponent
 
 class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding, BaseViewModel>() {
+
+    private val args: TypeContentArgs by navArgs()
 
     override val viewModel by injectViewModel<CreateEditContentViewModel>()
     override fun diComponent(): ScreenComponent = DaggerCreateEditContentComponent.builder().build()
@@ -23,10 +26,32 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
         return FragmentCreateEditContentBinding.inflate(inflater, container, false)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_create_edit_content, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.state.observe(viewLifecycleOwner) {
+            render(it)
+        }
+
+        args.let { viewModel.setEditorType(it) }
+
+        binding.topBar.setLeftIconClickListener {
+            viewModel.navigateUp()
+        }
+
     }
+
+    private fun render(state: CreateEditContentState) {
+        when (state) {
+            CreateEditContentState.CreateIdea -> {
+                binding.topBar.setTitleText(getText(R.string.create_idea))
+                binding.saveBV.setText(getString(R.string.publish))
+            }
+
+            is CreateEditContentState.CreatePublication -> TODO()
+            is CreateEditContentState.EditPublication -> TODO()
+        }
+    }
+
+
 }

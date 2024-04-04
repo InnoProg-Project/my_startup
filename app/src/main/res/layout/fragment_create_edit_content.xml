@@ -37,15 +37,84 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="@dimen/margin_8" />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_project"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="cl_project,title_project" />
+
+    <TextView
+        android:id="@+id/title_project"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16"
+        android:textAppearance="@style/TextSubtitle_1"
+        android:textColor="@color/text_primary"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@+id/topBar"
+        tools:text="Проект" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_project"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_12"
+        android:background="@drawable/training_shape"
+        android:backgroundTint="@color/background_secondary"
+        app:layout_constraintEnd_toStartOf="@+id/rightBorder"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@+id/title_project"
+        app:layout_marginBottom="16dp">
+
+
+        <ImageView
+            android:id="@+id/iv_project_logo"
+            android:layout_width="@dimen/ic_size_40"
+            android:layout_height="@dimen/ic_size_40"
+            android:layout_margin="@dimen/margin_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/course_logo_sample" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16"
+            android:layout_marginVertical="@dimen/margin_12"
+            android:textAppearance="@style/TextHeadline_3"
+            android:textColor="@color/text_primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_project_logo"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Мой Стартап" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:textAppearance="@style/TextBody_2"
+            android:textColor="@color/text_secondary"
+            app:layout_constraintEnd_toEndOf="@+id/textView"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:text="Искусственный интеллект" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     <com.innoprog.android.uikit.InnoProgInputView
         android:id="@+id/inputTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_32"
         app:layout_constraintEnd_toStartOf="@+id/rightBorder"
-        app:layout_constraintStart_toEndOf="@id/topBar"
         app:layout_constraintStart_toStartOf="@+id/leftBorder"
-        app:layout_constraintTop_toBottomOf="@+id/topBar" />
+        app:layout_constraintTop_toBottomOf="@+id/cl_project"
+        app:layout_goneMarginTop="@dimen/margin_16" />
 
     <com.innoprog.android.uikit.InnoProgInputView
         android:id="@+id/inputText"
@@ -58,6 +127,15 @@
         app:layout_constraintStart_toStartOf="@+id/leftBorder"
         app:layout_constraintTop_toBottomOf="@+id/inputTitle" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_media"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_20"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@+id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@+id/inputText" />
+
     <com.innoprog.android.uikit.InnoProgButtonView
         android:id="@+id/loadBV"
         android:layout_width="0dp"
@@ -68,7 +146,7 @@
         app:buttonType="def"
         app:layout_constraintEnd_toStartOf="@+id/rightBorder"
         app:layout_constraintStart_toStartOf="@+id/leftBorder"
-        app:layout_constraintTop_toBottomOf="@+id/inputText" />
+        app:layout_constraintTop_toBottomOf="@+id/rv_media" />
 
     <TextView
         android:id="@+id/loadInfoTV"
