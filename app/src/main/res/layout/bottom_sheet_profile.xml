@@ -80,7 +80,7 @@
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_32"
                 android:textColor="@color/text_primary"
-                android:text="@string/legal_docks"
+                android:text="@string/legal_documents"
                 app:layout_constraintStart_toEndOf="@id/edit"
                 app:layout_constraintTop_toBottomOf="@id/info_text" />
 
