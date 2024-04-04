@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:background="@color/background_primary"
             android:gravity="center_horizontal"
-            app:topBar_left_icon="@drawable/baseline_arrow_back_24"
+            app:topBar_left_icon="@drawable/ic_back"
             app:topBar_title="" />
 
         <TextView
