@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_primary"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".feature.profile.legaldocuments.presentation.LegalDocumentsFragment">
+
+    <com.innoprog.android.uikit.InnoProgTopBarView
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_primary"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:topBar_left_icon="@drawable/baseline_arrow_back_24"
+        app:topBar_right_icon="@drawable/baseline_arrow_back_24"
+        app:topBar_title="@string/legal_documents" />
+
+    <LinearLayout
+        android:id="@+id/personal_information"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_background"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        app:layout_constraintTop_toBottomOf="@id/topbar"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/document"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_12"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginBottom="@dimen/margin_12"
+            android:layout_weight="1"
+            android:text="@string/personal_information" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/right_arrow"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/margin_18" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/license_agreement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_background"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        app:layout_constraintTop_toBottomOf="@id/personal_information"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/document"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_12"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginBottom="@dimen/margin_12"
+            android:layout_weight="1"
+            android:text="@string/license_agreement" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/right_arrow"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/margin_18" />
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
