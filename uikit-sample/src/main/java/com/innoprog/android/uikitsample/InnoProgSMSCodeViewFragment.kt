@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.innoprog.android.uikit.InnoProgInputViewState
-import com.innoprog.android.uikitsample.databinding.InnoProgSmsCodeViewLayoutBinding
+import com.innoprog.android.uikitsample.databinding.FragmentInnoProgSmsCodeViewBinding
 
 class InnoProgSMSCodeViewFragment : Fragment() {
 
-    private var _binding: InnoProgSmsCodeViewLayoutBinding? = null
+    private var _binding: FragmentInnoProgSmsCodeViewBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -18,7 +18,7 @@ class InnoProgSMSCodeViewFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = InnoProgSmsCodeViewLayoutBinding.inflate(inflater, container, false)
+        _binding = FragmentInnoProgSmsCodeViewBinding.inflate(inflater, container, false)
         return binding.root
     }
 
