@@ -10,8 +10,10 @@ import com.innoprog.android.R
 import com.innoprog.android.databinding.ItemTrainingVideoBinding
 import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformationVideoModel
 
-class VideoAdapter(private val context: Context,
-                   private val onVideoClickListener: (String) -> Unit) : Adapter<VideoViewHolder>() {
+class VideoAdapter(
+    private val context: Context,
+    private val onVideoClickListener: (String) -> Unit
+) : Adapter<VideoViewHolder>() {
 
     var items = listOf<CourseInformationVideoModel>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
