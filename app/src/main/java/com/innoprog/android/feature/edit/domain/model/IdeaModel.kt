@@ -1,7 +1,6 @@
 package com.innoprog.android.feature.edit.domain.model
 
-data class PublicationModel(
-    val projectId: String,
+data class IdeaModel(
     val title: String,
     val content: String,
     val attachments: List<String>

@@ -7,7 +7,10 @@
     <string name="load_media">Загрузить фото/видео</string>
     <string name="create_idea">Создать идею</string>
     <string name="publish">Опубликовать</string>
+    <string name="save">Сохранить</string>
     <string name="project">Проект</string>
+    <string name="create_publish">Создать публикацию</string>
+    <string name="edit_publish">Редактировать публикацию</string>
 
     <string name="course_direction">Направление курса</string>
     <string name="video">Видео</string>

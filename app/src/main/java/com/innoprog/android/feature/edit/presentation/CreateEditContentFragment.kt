@@ -43,15 +43,25 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
 
     private fun render(state: CreateEditContentState) {
         when (state) {
-            CreateEditContentState.CreateIdea -> {
+            is CreateEditContentState.CreateIdea -> {
                 binding.topBar.setTitleText(getText(R.string.create_idea))
                 binding.saveBV.setText(getString(R.string.publish))
+                binding.groupProject.visibility = View.GONE
+
             }
 
-            is CreateEditContentState.CreatePublication -> TODO()
-            is CreateEditContentState.EditPublication -> TODO()
+            is CreateEditContentState.CreatePublication -> {
+                binding.topBar.setTitleText(getText(R.string.create_publish))
+                binding.saveBV.setText(getString(R.string.publish))
+                binding.groupProject.visibility = View.VISIBLE
+
+            }
+
+            is CreateEditContentState.EditPublication -> {
+                binding.topBar.setTitleText(getText(R.string.edit_publish))
+                binding.saveBV.setText(getString(R.string.save))
+                binding.groupProject.visibility = View.VISIBLE
+            }
         }
     }
-
-
 }
