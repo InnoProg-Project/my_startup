@@ -72,8 +72,8 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
 
-    //ExoPlayer
-    implementation ("androidx.media3:media3-exoplayer:1.3.0")
-    implementation ("androidx.media3:media3-exoplayer-dash:1.3.0")
-    implementation ("androidx.media3:media3-ui:1.3.0")
+    //Room
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
 }

@@ -15,6 +15,19 @@
     <string name="label_bottom_sheet_profile">BottomSheetProfile</string>
     <string name="edit_profile">Редактировать профиль</string>
     <string name="about_app">О приложении</string>
-    <string name="legal_docks">Правовые документы</string>
+    <string name="legal_documents">Правовые документы</string>
     <string name="cancel">Отменить</string>
+
+    <string name="fragment_authorization_hello">Добро пожаловать!</string>
+    <string name="fragment_authorization_forgot_password">Забыли пароль?</string>
+    <string name="fragment_authorization_new_account">Нет аккаунта?</string>
+    <string name="fragment_authorization_registration">Зарегистрироваться</string>
+    <string name="fragment_authorization_enter">Войти</string>
+    <string name="fragment_authorization_password_label">Пароль</string>
+
+    <string name="license_agreement">Лицензионое соглашение</string>
+    <string name="personal_information">Политика обработки\nперсональных данных</string>
+
+    <string name="my_startup">Мой Стартап</string>
+    <string name="version">Версия 2.4.5</string>
 </resources>

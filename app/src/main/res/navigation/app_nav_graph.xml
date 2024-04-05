@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/authorizationFragment">
+
+    <fragment
+        android:id="@+id/authorizationFragment"
+        android:name="com.innoprog.android.feature.auth.authorization.presentation.AuthorizationFragment"
+        android:label="AuthorizationFragment"
+        tools:layout="@layout/fragment_authorization">
+        <action
+            android:id="@+id/action_authorizationFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_authorizationFragment_to_passwordRecoveryFragment"
+            app:destination="@id/passwordRecoveryFragment" />
+        <action
+            android:id="@+id/action_authorizationFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/passwordRecoveryFragment"
+        android:name="com.innoprog.android.feature.auth.passwordrecovery.presentation.PasswordRecoveryFragment"
+        android:label="PasswordRecoveryFragment"
+        tools:layout="@layout/fragment_password_recovery">
+        <action
+            android:id="@+id/action_passwordRecoveryFragment_to_codeEntryFragment"
+            app:destination="@id/codeEntryFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.innoprog.android.feature.auth.registration.presentation.RegistrationFragment"
+        android:label="RegistrationFragment"
+        tools:layout="@layout/fragment_registration">
+        <action
+            android:id="@+id/action_registrationFragment_to_codeEntryFragment"
+            app:destination="@id/codeEntryFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/codeEntryFragment"
+        android:name="com.innoprog.android.feature.auth.codeentry.presentation.CodeEntryFragment"
+        android:label="fragment_code_entry"
+        tools:layout="@layout/fragment_code_entry" />
+
+    <fragment
+        android:id="@+id/newPasswordFragment"
+        android:name="com.innoprog.android.feature.auth.newpassword.presentation.NewPasswordFragment"
+        android:label="fragment_new_password"
+        tools:layout="@layout/fragment_new_password" />
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.innoprog.android.feature.mainscreen.presentation.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_profile_bottom_sheet"
+            app:destination="@id/profile_bottom_sheet" />
+        <action
+            android:id="@+id/action_mainFragment_to_courseInformationFragment"
+            app:destination="@id/courseInformationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="com.innoprog.android.feature.feed.presentation.FeedFragment"
+        android:label="fragment_feed"
+        tools:layout="@layout/fragment_feed" />
+
+    <fragment
+        android:id="@+id/projectsFragment"
+        android:name="com.innoprog.android.feature.projects.presentation.ProjectsFragment"
+        android:label="fragment_projects"
+        tools:layout="@layout/fragment_projects" />
+
+    <fragment
+        android:id="@+id/courseInformationFragment"
+        android:name="com.innoprog.android.feature.training.courseInformation.presentation.CourseInformationFragment"
+        android:label="CourseInformationFragment" />
+
+    <dialog
+        android:id="@+id/profile_bottom_sheet"
+        android:name="com.innoprog.android.feature.profile.profiledetails.presentation.BottomSheetProfile"
+        android:label="@string/label_bottom_sheet_profile"
+        tools:layout="@layout/bottom_sheet_profile">
+
+        <action
+            android:id="@+id/action_profile_bottom_sheet_to_editingProfileFragment"
+            app:destination="@id/editingProfileFragment" />
+        <action
+            android:id="@+id/action_profile_bottom_sheet_to_legalDocumentsFragment"
+            app:destination="@id/legalDocumentsFragment" />
+        <action
+            android:id="@+id/action_profile_bottom_sheet_to_aboutAppFragment"
+            app:destination="@id/aboutAppFragment" />
+    </dialog>
+
+    <fragment
+        android:id="@+id/editingProfileFragment"
+        android:name="com.innoprog.android.feature.profile.editingprofile.presentation.EditingProfileFragment"
+        android:label="fragment_editing_profile"
+        tools:layout="@layout/fragment_editing_profile">
+
+        <action
+            android:id="@+id/action_editingProfileFragment_to_dialogForDeleteAccountFragment2"
+            app:destination="@id/dialogForDeleteAccountFragment2" />
+        <action
+            android:id="@+id/action_editingProfileFragment_to_dialogForExitFragment2"
+            app:destination="@id/dialogForExitFragment2" />
+        <action
+            android:id="@+id/action_editingProfileFragment_to_editingProfileBottomSheetFragment2"
+            app:destination="@id/editingProfileBottomSheetFragment2" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/dialogForDeleteAccountFragment2"
+        android:name="com.innoprog.android.feature.profile.editingprofile.presentation.DialogForDeleteAccountFragment"
+        android:label="DialogForDeleteAccountFragment"
+        tools:layout="@layout/fragment_dialog_for_delete_account">
+        <action
+            android:id="@+id/action_dialogForDeleteAccountFragment2_to_editingProfileFragment"
+            app:destination="@id/editingProfileFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/dialogForExitFragment2"
+        android:name="com.innoprog.android.feature.profile.editingprofile.presentation.DialogForExitFragment"
+        android:label="DialogForExitFragment"
+        tools:layout="@layout/fragment_dialog_for_exit">
+        <action
+            android:id="@+id/action_dialogForExitFragment2_to_editingProfileFragment"
+            app:destination="@id/editingProfileFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/editingProfileBottomSheetFragment2"
+        android:name="com.innoprog.android.feature.profile.editingprofile.presentation.EditingProfileBottomSheetFragment"
+        android:label="EditingProfileBottomSheetFragment"
+        tools:layout="@layout/fragment_editing_profile_bottom_sheet">
+        <action
+            android:id="@+id/action_editingProfileBottomSheetFragment2_to_editingProfileFragment"
+            app:destination="@id/editingProfileFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/legalDocumentsFragment"
+        android:name="com.innoprog.android.feature.profile.legaldocuments.presentation.LegalDocumentsFragment"
+        android:label="fragment_legal_documents"
+        tools:layout="@layout/fragment_legal_documents">
+        <action
+            android:id="@+id/action_legalDocumentsFragment_to_documentFragment"
+            app:destination="@id/documentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/documentFragment"
+        android:name="com.innoprog.android.feature.profile.documents.presentation.DocumentFragment"
+        android:label="fragment_document"
+        tools:layout="@layout/fragment_document">
+        <action
+            android:id="@+id/action_documentFragment_to_legalDocumentsFragment"
+            app:destination="@id/legalDocumentsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutAppFragment"
+        android:name="com.innoprog.android.feature.profile.aboutapp.presentation.AboutAppFragment"
+        android:label="fragment_about_app"
+        tools:layout="@layout/fragment_about_app" />
+
+</navigation>
