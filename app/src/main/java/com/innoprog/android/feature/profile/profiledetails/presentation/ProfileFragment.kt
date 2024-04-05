@@ -53,7 +53,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
     }
 
     private fun initTopBar() {
-        binding.topbarProfile.setLeftIconVisibility()
         binding.topbarProfile.setRightIconClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_profile_bottom_sheet)
         }

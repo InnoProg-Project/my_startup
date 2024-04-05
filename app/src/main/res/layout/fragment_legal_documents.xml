@@ -16,8 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:topBar_left_icon="@drawable/baseline_arrow_back_24"
-        app:topBar_right_icon="@drawable/baseline_arrow_back_24"
+        app:topBar_left_icon="@drawable/ic_back"
         app:topBar_title="@string/legal_documents" />
 
     <LinearLayout

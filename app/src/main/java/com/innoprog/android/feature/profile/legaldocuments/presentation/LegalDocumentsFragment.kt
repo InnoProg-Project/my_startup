@@ -44,7 +44,6 @@ class LegalDocumentsFragment : BaseFragment<FragmentLegalDocumentsBinding, BaseV
     }
 
     private fun initTopBar() {
-        binding.topbar.setRightIconVisibility()
         binding.topbar.setLeftIconClickListener {
             viewModel.navigateUp()
         }
