@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.media3.ui.PlayerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/playerView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_primary">
+    android:background="@color/background_primary"
+    app:show_buffering="always"
+    app:show_subtitle_button="false"
+    app:use_controller="true">
 
-    <androidx.media3.ui.PlayerView
-        android:id="@+id/playerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:show_buffering="always"
-        app:use_controller="true" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.media3.ui.PlayerView>

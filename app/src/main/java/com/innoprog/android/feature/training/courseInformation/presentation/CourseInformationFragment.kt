@@ -51,7 +51,7 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
     }
 
     private fun initVideoRecyclerView() {
-        videoAdapter = VideoAdapter {
+        videoAdapter = VideoAdapter(requireContext()) {
             viewModel.navigateTo(
                 com.innoprog.android.R.id.videoPlayerFragment,
                 bundleOf(VIDEO_PLAYER_KEY to it)

@@ -13,6 +13,8 @@ import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.training.courseInformation.presentation.CourseInformationFragment.Companion.VIDEO_PLAYER_KEY
 import com.innoprog.android.feature.training.videoPlayer.di.DaggerVideoPlayerComponent
 
+private var playbackPosition = 0L
+
 class VideoPlayerFragment : BaseFragment<FragmentVideoPlayerBinding, BaseViewModel>() {
 
     override val viewModel by injectViewModel<VideoPlayerViewModel>()
@@ -23,17 +25,26 @@ class VideoPlayerFragment : BaseFragment<FragmentVideoPlayerBinding, BaseViewMod
 
     private val url by lazy { arguments?.getString(VIDEO_PLAYER_KEY) }
     private val exoPlayer by lazy { ExoPlayer.Builder(requireContext()).build() }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initializePlayer()
+    }
 
+    override fun onStop() {
+        super.onStop()
+        releasePlayer()
+    }
+
+    private fun initializePlayer() {
         binding.playerView.player = exoPlayer
-        exoPlayer.setMediaItem(MediaItem.fromUri(url!!))
+        exoPlayer.setMediaItem(MediaItem.fromUri(url!!), playbackPosition)
         exoPlayer.playWhenReady = true
         exoPlayer.prepare()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    private fun releasePlayer() {
+        playbackPosition = exoPlayer.currentPosition
         exoPlayer.release()
     }
 }
