@@ -14,7 +14,16 @@
         android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/courseVideoStyle"
-        android:src="@drawable/video_sample" />
+        tools:src="@drawable/video_sample" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_play_video"
+        app:layout_constraintBottom_toBottomOf="@+id/videoPlaceholderIV"
+        app:layout_constraintEnd_toEndOf="@+id/videoPlaceholderIV"
+        app:layout_constraintStart_toStartOf="@+id/videoPlaceholderIV"
+        app:layout_constraintTop_toTopOf="@+id/videoPlaceholderIV" />
 
     <TextView
         android:id="@+id/videoDescriptionTV"
