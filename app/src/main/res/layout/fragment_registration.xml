@@ -11,14 +11,16 @@
         android:id="@+id/registrationTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:topBar_title="Регистрация" />
+        app:topBar_title="Регистрация"
+        app:topBar_left_icon="@drawable/ic_back"/>
 
     <com.innoprog.android.uikit.InnoProgInputView
         android:id="@+id/ivPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_16"
-        app:label="@string/set_phone_number" />
+        app:label="@string/set_phone_number"
+        android:layout_marginTop="@dimen/margin_24"/>
 
     <com.innoprog.android.uikit.InnoProgInputView
         android:id="@+id/ivName"
@@ -33,6 +35,13 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_16"
         app:label="@string/email" />
+
+    <com.innoprog.android.uikit.InnoProgInputView
+        android:id="@+id/ivPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        app:label="@string/fragment_authorization_password_label" />
 
     <com.innoprog.android.uikit.InnoProgButtonView
         android:id="@+id/bvRegistration"

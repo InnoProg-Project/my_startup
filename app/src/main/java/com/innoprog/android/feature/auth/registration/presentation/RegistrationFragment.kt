@@ -25,7 +25,7 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.registrationTitle.setRightIconClickListener {
+        binding.registrationTitle.setLeftIconClickListener{
             viewModel.navigateUp()
         }
 
