@@ -12,13 +12,13 @@ class RegistrationRepositoryImpl @Inject constructor() : RegistrationRepository 
         phone: String?,
         password: String
     ): Flow<Pair<Boolean, String?>> = flow {
-        val response = 200
+        val response = mok_result
         when (response) {
-            -1 -> {
+            BAD_REQUEST -> {
                 emit(Pair(false, "error"))
             }
 
-            200 -> {
+            GOOD_REQUEST -> {
                 emit(Pair(true, null))
             }
 
@@ -26,5 +26,11 @@ class RegistrationRepositoryImpl @Inject constructor() : RegistrationRepository 
                 emit(Pair(false, "error"))
             }
         }
+    }
+
+    companion object {
+        const val mok_result = 200
+        const val BAD_REQUEST = -1
+        const val GOOD_REQUEST = 200
     }
 }

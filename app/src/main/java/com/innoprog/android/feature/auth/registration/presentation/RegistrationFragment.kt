@@ -1,6 +1,7 @@
 package com.innoprog.android.feature.auth.registration.presentation
 
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +26,9 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.ivEmail.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
+        binding.ivPhone.setInputType(InputType.TYPE_CLASS_PHONE)
+        binding.ivPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD)
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it.first, it.second)
         }
@@ -41,7 +44,6 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
                 binding.ivPhone.getText(),
                 binding.ivPassword.getText()
             )
-
         }
     }
 
