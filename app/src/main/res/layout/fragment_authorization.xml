@@ -20,18 +20,25 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="@dimen/margin_16" />
 
+    <com.innoprog.android.uikit.InnoProgTopBarView
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:topBar_title=""
+        app:topBar_right_icon="@drawable/ic_button"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/logo"
         android:layout_width="136dp"
         android:layout_height="136dp"
-        android:layout_margin="86dp"
         android:padding="@dimen/padding_16"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher_playstore"
         app:shapeAppearanceOverlay="@style/ImageStyle_Corners_Rounded"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/topBar" />
 
     <TextView
         android:id="@+id/tvHello"
