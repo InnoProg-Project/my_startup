@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
@@ -25,12 +26,30 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.registrationTitle.setLeftIconClickListener{
+        viewModel.observeState().observe(viewLifecycleOwner) {
+            render(it.first, it.second)
+        }
+
+        binding.registrationTitle.setLeftIconClickListener {
             viewModel.navigateUp()
         }
 
         binding.bvRegistration.setOnClickListener {
-            viewModel.navigateTo(R.id.codeEntryFragment)
+            viewModel.registration(
+                binding.ivName.getText(),
+                binding.ivEmail.getText(),
+                binding.ivPhone.getText(),
+                binding.ivPassword.getText()
+            )
+
         }
+    }
+
+    private fun render(isAccepted: Boolean, message: String?) {
+        if (isAccepted) viewModel.navigateTo(R.id.codeEntryFragment) else Toast.makeText(
+            requireContext(),
+            message,
+            Toast.LENGTH_LONG
+        ).show()
     }
 }

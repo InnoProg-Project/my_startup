@@ -1,5 +1,7 @@
 package com.innoprog.android.feature.auth.registration.domain
 
+import kotlinx.coroutines.flow.Flow
+
 interface RegistrationUseCase {
-    fun verify(login: String, password: String)
+    fun registration(login: String, email: String, phone:String?, password: String): Flow<Pair<Boolean, String?>>
 }

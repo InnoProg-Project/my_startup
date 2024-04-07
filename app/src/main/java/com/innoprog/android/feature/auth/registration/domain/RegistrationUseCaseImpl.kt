@@ -1,10 +1,11 @@
 package com.innoprog.android.feature.auth.registration.domain
 
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class RegistrationUseCaseImpl @Inject constructor(private val repository: RegistrationRepository) :
     RegistrationUseCase {
-    override fun verify(login: String, password: String) {
-        repository.verify(login, password)
+    override fun registration(login: String, email: String, phone:String?, password: String): Flow<Pair<Boolean, String?>> {
+        return repository.registration(login, email, phone, password)
     }
 }
