@@ -16,7 +16,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:topBar_left_icon="@drawable/ic_more"
         app:topBar_right_icon="@drawable/ic_more"
         app:topBar_title="@string/profile" />
 

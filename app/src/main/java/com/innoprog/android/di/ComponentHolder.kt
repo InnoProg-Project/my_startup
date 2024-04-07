@@ -7,15 +7,16 @@ abstract class ComponentHolder<T : DIComponent> {
     private var component: T? = null
 
     protected abstract fun buildComponent(): T
+    protected open fun createComponent(): T = buildComponent()
 
-    open fun getComponent(): T = when (mode) {
+    fun getComponent(): T = when (mode) {
         ComponentHolderMode.GLOBAL_SINGLETON -> {
             if (component == null) {
-                component = buildComponent()
+                component = createComponent()
             }
             component!!
         }
 
-        ComponentHolderMode.ALWAYS_CREATE_NEW -> buildComponent()
+        ComponentHolderMode.ALWAYS_CREATE_NEW -> createComponent()
     }
 }

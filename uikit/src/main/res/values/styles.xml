@@ -14,7 +14,7 @@
     </style>
 
     <style name="TextHeadline_3">
-        <item name="fontFamily">@font/geologica</item>
+        <item name="fontFamily">@font/geologica_regular</item>
         <item name="fontWeight">400</item>
         <item name="android:textSize">@dimen/text_size_20</item>
     </style>
@@ -116,5 +116,8 @@
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
     </style>
-
+    <style name="ImageStyle_Corners_Rounded">
+        <item name="cornerSize">16dp</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
 </resources>
