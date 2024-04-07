@@ -38,7 +38,8 @@
         app:shapeAppearanceOverlay="@style/ImageStyle_Corners_Rounded"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topBar" />
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintBottom_toTopOf="@id/tvHello" />
 
     <TextView
         android:id="@+id/tvHello"
@@ -52,14 +53,14 @@
         app:layout_constraintBottom_toTopOf="@id/ivLogin"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
-        app:layout_constraintTop_toBottomOf="@id/logo" />
+         />
 
     <com.innoprog.android.uikit.InnoProgInputView
         android:id="@+id/ivLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:label="@string/email"
-        app:layout_constraintTop_toBottomOf="@id/tvHello"
+        app:layout_constraintBottom_toTopOf="@id/ivPassword"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder" />
 
@@ -72,7 +73,8 @@
         app:label="@string/fragment_authorization_password_label"
         app:layout_constraintEnd_toEndOf="@id/rightBorder"
         app:layout_constraintStart_toStartOf="@id/leftBorder"
-        app:layout_constraintTop_toBottomOf="@id/ivLogin" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <com.innoprog.android.uikit.InnoProgButtonView
         android:id="@+id/btnLogin"
