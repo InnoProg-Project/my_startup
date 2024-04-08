@@ -37,12 +37,12 @@
 
         <TextView
             android:id="@+id/tv_change_photo"
+            style="@style/TextButtonMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_18"
             android:text="@string/change_photo"
             android:textColor="@color/accent_secondary"
-            android:textSize="@dimen/text_size_16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/avatar1" />
@@ -144,6 +144,7 @@
 
         <com.innoprog.android.uikit.InnoProgButtonView
             android:id="@+id/buttonSave"
+            style="@style/TextButtonLarge"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_8"
@@ -161,6 +162,7 @@
 
         <com.innoprog.android.uikit.InnoProgButtonView
             android:id="@+id/buttonExit"
+            style="@style/TextButtonMedium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_24"
@@ -177,6 +179,7 @@
 
         <com.innoprog.android.uikit.InnoProgButtonView
             android:id="@+id/buttonDelete"
+            style="@style/TextButtonMedium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_16"
