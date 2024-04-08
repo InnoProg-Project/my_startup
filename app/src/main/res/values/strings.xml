@@ -30,4 +30,8 @@
 
     <string name="my_startup">Мой Стартап</string>
     <string name="version">Версия 2.4.5</string>
+    <string name="password_recovery_email">Введите email</string>
+    <string name="password_recovery_sand_to">Отправим на него код для восстановления пароля</string>
+    <string name="password_recovery_sand">Отправить код</string>
+    <string name="password_recovery_user_agreement">Продолжая, вы соглашаетесь с политикой обработки персональных данных и лицензионным соглашением\n</string>
 </resources>
