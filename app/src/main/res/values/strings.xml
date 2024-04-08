@@ -34,4 +34,5 @@
     <string name="password_recovery_sand_to">Отправим на него код для восстановления пароля</string>
     <string name="password_recovery_sand">Отправить код</string>
     <string name="password_recovery_user_agreement">Продолжая, вы соглашаетесь с политикой обработки персональных данных и лицензионным соглашением\n</string>
+    <string name="password_recovery_save">Сохранить</string>
 </resources>
