@@ -5,13 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentFeedBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.feature.feed.di.DaggerFeedComponent
+import com.innoprog.android.feature.feed.news_feed.di.DaggerFeedComponent
 import com.innoprog.android.feature.feed.news_feed.domain.models.Author
 import com.innoprog.android.feature.feed.news_feed.domain.models.Company
 import com.innoprog.android.feature.feed.news_feed.domain.models.News
@@ -64,10 +63,10 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
             id = "1",
             type = "idea",
             author = author,
-            projectId = "123",
+            projectId = "1",
             coverUrl = "",
-            title = "qwetyuytyu",
-            content = "asdnnm,nm,nk,kn,",
+            title = "Как мы помогаем родителям в воспитании детей ",
+            content = "Этот надежный помощник предназначен для облегчения путей родительства и обеспечения гармоничного развития маленьких личностей",
             publishedAt = 24,
             likesCount = 24,
             commentsCount = 24,
@@ -77,10 +76,10 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
             id = "2",
             type = "project",
             author = author,
-            projectId = "123",
-            coverUrl = "https://apod.nasa.gov/apod/image/2110/LucyLaunchB_Kraus_2048.jpg",
-            title = "qweweghfhffgf",
-            content = "asadafeghjyjjghnfhnhjnhmd",
+            projectId = "2",
+            coverUrl = "https://img.freepik.com/free-vector/ai-technology-microchip-background-vector-digital-transformation-concept_53876-112222.jpg",
+            title = "Искусственный интеллект",
+            content = "Иску́сственный интелле́кт — свойство искусственных интеллектуальных систем выполнять творческие функции, которые традиционно считаются прерогативой человека (не следует путать с искусственным сознанием)",
             publishedAt = 24,
             likesCount = 24,
             commentsCount = 24,
@@ -101,8 +100,8 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         }
 
         binding.Search.setOnClickListener {
-            findNavController().navigate(com.innoprog.android
-                .R.id.action_feedFragment_to_newsSearchFragment)
+            Toast.makeText(requireContext(), "Переход в поиск по новостям", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
@@ -118,7 +117,13 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     }
 
     private fun initRecyclerView() {
-        newsAdapter = NewsAdapter(listNews)
+        newsAdapter = NewsAdapter(listNews, object : NewsAdapter.OnClickListener {
+            override fun onItemClick(news: News) {
+                Toast.makeText(requireContext(), "Открытие деталей публикации", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        })
+
         binding.rvPublications.adapter = newsAdapter
     }
 

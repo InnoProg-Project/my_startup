@@ -13,7 +13,7 @@ class NewsViewHolder(private val binding: ItemNewsBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     private val radius = binding.root.resources.getDimensionPixelSize(R.dimen.corner_radius_8)
-    fun bind(news: News) {
+    fun bind(news: News, onNewsClickListener: NewsAdapter.OnClickListener) {
         binding.apply {
             Glide
                 .with(itemView)
@@ -34,14 +34,14 @@ class NewsViewHolder(private val binding: ItemNewsBinding) :
 
                 Glide
                     .with(itemView)
-                    .load("https://apod.nasa.gov/apod/image/2110/LucyLaunchB_Kraus_2048.jpg")
+                    .load("https://img.freepik.com/free-vector/ai-technology-microchip-background-vector-digital-transformation-concept_53876-112222.jpg")
                     .placeholder(R.drawable.ic_placeholder_logo)
                     .centerCrop()
                     .transform(RoundedCorners(radius))
                     .into(ivProjectLogo)
 
-                tvProjectName.text = "!!!grffgdfgdh"
-                tvProjectDirection.text = "qwe"
+                tvProjectName.text = "Искусственный интеллект"
+                tvProjectDirection.text = "Искусственный интеллект"
             }
 
             val url = news.author.avatarUrl
@@ -55,6 +55,10 @@ class NewsViewHolder(private val binding: ItemNewsBinding) :
             tvPublicationAuthorName.text = news.author.name
             tvCommentsCount.text = news.commentsCount.toString()
             tvLikesCount.text = news.likesCount.toString()
+
+            itemView.setOnClickListener {
+                onNewsClickListener.onItemClick(news)
+            }
         }
     }
 }
