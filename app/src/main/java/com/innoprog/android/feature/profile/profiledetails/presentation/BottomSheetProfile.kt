@@ -49,9 +49,25 @@ class BottomSheetProfile : BaseBottomSheetFragment<BottomSheetProfileBinding>() 
     }
 
     private fun navigateTo() {
-        binding.editText.setOnClickListener {
-            findNavController().navigate(com.innoprog.android
-                .R.id.action_profile_bottom_sheet_to_editingProfileFragment)
+        with(binding) {
+            editText.setOnClickListener {
+                findNavController().navigate(
+                    com.innoprog.android
+                        .R.id.action_profile_bottom_sheet_to_editingProfileFragment
+                )
+            }
+
+            infoText.setOnClickListener {
+                findNavController().navigate(com.innoprog.android
+                    .R.id.action_profile_bottom_sheet_to_aboutAppFragment)
+            }
+
+            docksText.setOnClickListener {
+                findNavController().navigate(
+                    com.innoprog.android
+                        .R.id.action_profile_bottom_sheet_to_legalDocumentsFragment
+                )
+            }
         }
     }
 }

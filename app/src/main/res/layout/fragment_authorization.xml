@@ -6,44 +6,120 @@
     android:layout_height="match_parent"
     tools:context=".feature.auth.authorization.presentation.AuthorizationFragment">
 
-    <TextView
-        android:id="@+id/tvAuthorizationTitle"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftBorder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Авторизация"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/margin_16" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/margin_16" />
+
+    <com.innoprog.android.uikit.InnoProgTopBarView
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:topBar_title=""
+        app:topBar_right_icon="@drawable/ic_button"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/logo"
+        android:layout_width="136dp"
+        android:layout_height="136dp"
+        android:padding="@dimen/padding_16"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher_playstore"
+        app:shapeAppearanceOverlay="@style/ImageStyle_Corners_Rounded"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintBottom_toTopOf="@id/tvHello" />
 
     <TextView
+        android:id="@+id/tvHello"
+        style="@style/TextHeadline_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_16"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/fragment_authorization_hello"
+        app:layout_constraintBottom_toTopOf="@id/ivLogin"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+         />
+
+    <com.innoprog.android.uikit.InnoProgInputView
+        android:id="@+id/ivLogin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:label="@string/email"
+        app:layout_constraintBottom_toTopOf="@id/ivPassword"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder" />
+
+    <com.innoprog.android.uikit.InnoProgInputView
+        android:id="@+id/ivPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:right_icon="@drawable/eye_off"
+        app:label="@string/fragment_authorization_password_label"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <com.innoprog.android.uikit.InnoProgButtonView
+        android:id="@+id/btnLogin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        app:buttonSize="large"
+        app:buttonText="@string/fragment_authorization_enter"
+        app:buttonType="primary"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintStart_toStartOf="@id/leftBorder"
+        app:layout_constraintTop_toBottomOf="@id/tvPasswordRecovery" />
+
+    <com.innoprog.android.uikit.InnoProgButtonView
         android:id="@+id/tvPasswordRecovery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Забыли пароль?"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:buttonType="flat"
+        app:buttonSize="small"
+        app:buttonText="@string/fragment_authorization_forgot_password"
+        app:layout_constraintBottom_toTopOf="@id/btnLogin"
+        app:layout_constraintEnd_toEndOf="@id/rightBorder"
+        app:layout_constraintTop_toBottomOf="@id/ivPassword" />
 
     <TextView
-        android:id="@+id/tvRegistration"
+        android:id="@+id/tvNewAccount"
+        style="@style/TextBody_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Зарегистрироваться"
+        android:text="@string/fragment_authorization_new_account"
+        app:layout_constraintBottom_toTopOf="@id/btRegistration"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPasswordRecovery" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/btnLogin"
+    <com.innoprog.android.uikit.InnoProgButtonView
+        android:id="@+id/btRegistration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Войти"
+        android:layout_marginBottom="@dimen/margin_16"
+        app:buttonSize="large"
+        app:buttonText="@string/fragment_authorization_registration"
+        app:buttonType="flat"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvRegistration" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
