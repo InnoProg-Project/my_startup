@@ -1,6 +1,7 @@
 package com.innoprog.android.feature.auth.passwordrecovery.presentation
 
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,13 +25,15 @@ class PasswordRecoveryFragment : BaseFragment<FragmentPasswordRecoveryBinding, B
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.ivEmail.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
         binding.topBar.setLeftIconClickListener {
             viewModel.navigateUp()
         }
 
         binding.btnSendCode.setOnClickListener {
-            viewModel.navigateTo(R.id.codeEntryFragment)
+            val bundle = Bundle()
+            bundle.putString("Arg", binding.ivEmail.getText())
+            viewModel.navigateTo(R.id.codeEntryFragment, bundle)
         }
     }
 }

@@ -35,4 +35,6 @@
     <string name="password_recovery_sand">Отправить код</string>
     <string name="password_recovery_user_agreement">Продолжая, вы соглашаетесь с политикой обработки персональных данных и лицензионным соглашением\n</string>
     <string name="password_recovery_save">Сохранить</string>
+    <string name="verification_email_set_code">Теперь введите код</string>
+    <string name="verification_email_information">Код отправили на email %s</string>
 </resources>
