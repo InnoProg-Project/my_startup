@@ -1,9 +1,9 @@
-package com.innoprog.android.feature.feed.presentation
+package com.innoprog.android.feature.feed.news_feed.presentation
 
 import androidx.lifecycle.viewModelScope
 import com.innoprog.android.base.BaseViewModel
-import com.innoprog.android.feature.feed.domain.FavoritesInteractor
-import com.innoprog.android.feature.feed.domain.models.News
+import com.innoprog.android.feature.feed.news_feed.domain.FavoritesInteractor
+import com.innoprog.android.feature.feed.news_feed.domain.models.News
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

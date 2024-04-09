@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.feed.di
+package com.innoprog.android.feature.feed.news_feed.di
 
 import com.innoprog.android.di.AppComponent
 import com.innoprog.android.di.ScreenComponent
