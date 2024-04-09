@@ -16,7 +16,7 @@ class CodeEntryViewModel @Inject constructor() : BaseViewModel() {
                 stateButtonLiveData.postValue(
                     Pair(
                         false,
-                        format("Новый код через %d сек.", millis / 1000)
+                        format("Новый код через %d сек.", millis / MILLIS_IN_SECOND)
                     )
                 )
             }
@@ -24,7 +24,6 @@ class CodeEntryViewModel @Inject constructor() : BaseViewModel() {
             override fun onFinish() {
                 stateButtonLiveData.postValue(Pair(true, "Получить новый код"))
             }
-
         }
         timer.start()
     }
@@ -35,6 +34,7 @@ class CodeEntryViewModel @Inject constructor() : BaseViewModel() {
 
     companion object {
         const val DELAY = 1000L
+        const val MILLIS_IN_SECOND = 1000L
         const val DURATION = 15000L
     }
 }
