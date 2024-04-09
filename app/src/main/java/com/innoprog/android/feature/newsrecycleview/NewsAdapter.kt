@@ -1,12 +1,10 @@
-package com.innoprog.android.feature.news_recycle_view
+package com.innoprog.android.feature.newsrecycleview
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.innoprog.android.databinding.ItemNewsBinding
-import com.innoprog.android.feature.feed.news_feed.domain.models.News
+import com.innoprog.android.feature.feed.newsfeed.domain.models.News
 
 class NewsAdapter(
     private val newsList: ArrayList<News>,

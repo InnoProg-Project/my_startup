@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.feed.news_feed.data.db
+package com.innoprog.android.feature.feed.newsfeed.data.db
 
 import androidx.room.ColumnInfo
 import androidx.room.Embedded

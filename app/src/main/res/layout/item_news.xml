@@ -8,7 +8,7 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardCornerRadius="16dp"
+    app:cardCornerRadius="@dimen/corner_radius_16"
     app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,8 +31,8 @@
 
         <ImageView
             android:id="@+id/ivPublicationCover"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/size_0"
+            android:layout_height="@dimen/size_0"
             android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="h,16:9"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +43,7 @@
         <TextView
             android:id="@+id/tvPublicationTitle"
             style="@style/TextHeadline_3"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/size_0"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_16"
             android:textColor="@color/text_primary"
@@ -55,7 +55,7 @@
         <TextView
             android:id="@+id/tvPublicationContent"
             style="@style/TextBody_1"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/size_0"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
@@ -67,7 +67,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/projectCard"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/size_0"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/margin_16"
             android:background="@drawable/bg_project_card"
@@ -81,8 +81,8 @@
 
             <ImageView
                 android:id="@+id/ivProjectLogo"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="@dimen/size_32"
+                android:layout_height="@dimen/size_32"
                 app:layout_constraintBottom_toBottomOf="@+id/tvProjectDirection"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvProjectName"
@@ -91,9 +91,9 @@
             <TextView
                 android:id="@+id/tvProjectName"
                 style="@style/TextSubtitle_2"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/size_0"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="@dimen/margin_12"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:singleLine="true"
@@ -106,7 +106,7 @@
             <TextView
                 android:id="@+id/tvProjectDirection"
                 style="@style/TextCaption_1"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/size_0"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
@@ -133,8 +133,8 @@
 
         <com.innoprog.android.uikit.InnoProgAvatarView
             android:id="@+id/publicationAuthorAvatar"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="@dimen/size_28"
+            android:layout_height="@dimen/size_28"
             app:layout_constraintBottom_toBottomOf="@+id/tvPublicationAuthorName"
             app:layout_constraintStart_toStartOf="@+id/leftGuideline"
             app:layout_constraintTop_toTopOf="@+id/tvPublicationAuthorName"
@@ -143,9 +143,9 @@
         <TextView
             android:id="@+id/tvPublicationAuthorName"
             style="@style/TextBody_2"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/size_0"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="@dimen/margin_12"
             android:layout_marginEnd="@dimen/margin_16"
             android:layout_marginBottom="@dimen/margin_16"
             android:ellipsize="end"
@@ -162,7 +162,7 @@
             style="@style/TextBody_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
+            android:layout_marginEnd="@dimen/margin_4"
             android:textColor="@color/text_tertiary"
             app:layout_constraintBottom_toBottomOf="@+id/tvPublicationAuthorName"
             app:layout_constraintEnd_toStartOf="@+id/ivComments"
@@ -184,7 +184,7 @@
             style="@style/TextBody_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
+            android:layout_marginEnd="@dimen/margin_4"
             android:textColor="@color/text_tertiary"
             app:layout_constraintBottom_toBottomOf="@+id/tvPublicationAuthorName"
             app:layout_constraintEnd_toStartOf="@+id/ivLikes"

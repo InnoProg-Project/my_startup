@@ -1,11 +1,11 @@
-package com.innoprog.android.feature.feed.news_feed.data.converters
+package com.innoprog.android.feature.feed.newsfeed.data.converters
 
-import com.innoprog.android.feature.feed.news_feed.data.db.AuthorEntity
-import com.innoprog.android.feature.feed.news_feed.data.db.CompanyEntity
-import com.innoprog.android.feature.feed.news_feed.data.db.NewsEntity
-import com.innoprog.android.feature.feed.news_feed.domain.models.Author
-import com.innoprog.android.feature.feed.news_feed.domain.models.Company
-import com.innoprog.android.feature.feed.news_feed.domain.models.News
+import com.innoprog.android.feature.feed.newsfeed.data.db.AuthorEntity
+import com.innoprog.android.feature.feed.newsfeed.data.db.CompanyEntity
+import com.innoprog.android.feature.feed.newsfeed.data.db.NewsEntity
+import com.innoprog.android.feature.feed.newsfeed.domain.models.Author
+import com.innoprog.android.feature.feed.newsfeed.domain.models.Company
+import com.innoprog.android.feature.feed.newsfeed.domain.models.News
 import javax.inject.Inject
 
 class NewsEntityMapper @Inject constructor() {

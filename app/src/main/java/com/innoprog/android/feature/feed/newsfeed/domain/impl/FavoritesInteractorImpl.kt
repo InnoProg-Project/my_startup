@@ -1,8 +1,8 @@
-package com.innoprog.android.feature.feed.news_feed.domain.impl
+package com.innoprog.android.feature.feed.newsfeed.domain.impl
 
-import com.innoprog.android.feature.feed.news_feed.domain.FavoritesInteractor
-import com.innoprog.android.feature.feed.news_feed.domain.FavoritesRepository
-import com.innoprog.android.feature.feed.news_feed.domain.models.News
+import com.innoprog.android.feature.feed.newsfeed.domain.FavoritesInteractor
+import com.innoprog.android.feature.feed.newsfeed.domain.FavoritesRepository
+import com.innoprog.android.feature.feed.newsfeed.domain.models.News
 import javax.inject.Inject
 
 class FavoritesInteractorImpl @Inject constructor(

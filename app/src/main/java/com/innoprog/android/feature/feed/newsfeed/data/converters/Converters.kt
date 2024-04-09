@@ -1,9 +1,9 @@
-package com.innoprog.android.feature.feed.news_feed.data.converters
+package com.innoprog.android.feature.feed.newsfeed.data.converters
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import com.innoprog.android.feature.feed.news_feed.data.db.AuthorEntity
-import com.innoprog.android.feature.feed.news_feed.data.db.CompanyEntity
+import com.innoprog.android.feature.feed.newsfeed.data.db.AuthorEntity
+import com.innoprog.android.feature.feed.newsfeed.data.db.CompanyEntity
 
 class Converters {
     private val gson = Gson()

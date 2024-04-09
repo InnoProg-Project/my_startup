@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.news_recycle_view
+package com.innoprog.android.feature.newsrecycleview
 
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -6,7 +6,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.innoprog.android.R
 import com.innoprog.android.databinding.ItemNewsBinding
-import com.innoprog.android.feature.feed.news_feed.domain.models.News
+import com.innoprog.android.feature.feed.newsfeed.domain.models.News
 import com.innoprog.android.uikit.ImageLoadingType
 
 class NewsViewHolder(private val binding: ItemNewsBinding) :
@@ -34,7 +34,10 @@ class NewsViewHolder(private val binding: ItemNewsBinding) :
 
                 Glide
                     .with(itemView)
-                    .load("https://img.freepik.com/free-vector/ai-technology-microchip-background-vector-digital-transformation-concept_53876-112222.jpg")
+                    .load(
+                        "https://img.freepik.com/free-vector/ai-technology-microchip-" +
+                            "background-vector-digital-transformation-concept_53876-112222.jpg"
+                    )
                     .placeholder(R.drawable.ic_placeholder_logo)
                     .centerCrop()
                     .transform(RoundedCorners(radius))

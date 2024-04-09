@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.feed.news_feed.domain.models
+package com.innoprog.android.feature.feed.newsfeed.domain.models
 
 data class News(
     val id: String,

@@ -18,4 +18,6 @@
     <string name="legal_docks">Правовые документы</string>
     <string name="cancel">Отменить</string>
     <string name="feed_title">Брейншторм идей и проектов 💡</string>
+    <string name="feed_tv_search_text">Название публикации</string>
+    <string name="idea">Идея</string>
 </resources>
