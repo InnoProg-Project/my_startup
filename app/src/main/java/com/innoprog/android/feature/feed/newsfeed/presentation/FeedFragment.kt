@@ -106,7 +106,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
             Toast.makeText(requireContext(), "Переход на создание идеи", Toast.LENGTH_SHORT).show()
         }
 
-        binding.Search.setOnClickListener {
+        binding.tvSearch.setOnClickListener {
             Toast.makeText(requireContext(), "Переход в поиск по новостям", Toast.LENGTH_SHORT)
                 .show()
         }

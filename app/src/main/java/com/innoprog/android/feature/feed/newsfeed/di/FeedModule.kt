@@ -19,8 +19,8 @@ interface FeedModule {
     fun bindFeedViewModel(impl: FeedViewModel): ViewModel
 
     @Binds
-    fun provideFavoritesRepository(favoritesRepositoryImpl: FavoritesRepositoryImpl): FavoritesRepository
+    fun bindFavoritesRepository(favoritesRepositoryImpl: FavoritesRepositoryImpl): FavoritesRepository
 
     @Binds
-    fun provideFavoritesInteractor(favoritesInteractorImpl: FavoritesInteractorImpl): FavoritesInteractor
+    fun bindFavoritesInteractor(favoritesInteractorImpl: FavoritesInteractorImpl): FavoritesInteractor
 }

@@ -47,62 +47,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCreateIdea" />
 
-    <FrameLayout
-        android:id="@+id/Search"
+    <TextView
+        android:id="@+id/tvSearch"
+        style="@style/TextBody_1"
         android:layout_width="@dimen/size_0"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_16"
         android:background="@drawable/bg_feed_search"
-        android:orientation="horizontal"
+        android:drawablePadding="@dimen/padding_16"
+        android:paddingHorizontal="@dimen/padding_16"
+        android:paddingVertical="@dimen/padding_12"
+        android:text="@string/feed_tv_search_text"
+        android:textColor="@color/text_secondary"
+        app:drawableStartCompat="@drawable/ic_search"
         app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
         app:layout_constraintStart_toStartOf="@+id/leftGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/tvFeed">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/ivSearch"
-                android:layout_width="@dimen/size_0"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_16"
-                android:paddingVertical="@dimen/padding_12"
-                android:src="@drawable/ic_search"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tvSearch"
-                style="@style/TextBody_1"
-                android:layout_width="@dimen/size_0"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_16"
-                android:text="@string/feed_tv_search_text"
-                android:textColor="@color/text_secondary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ivSearch"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </FrameLayout>
+        app:layout_constraintTop_toBottomOf="@+id/tvFeed" />
 
     <com.innoprog.android.uikit.InnoProgChipGroupView
         android:id="@+id/cgvFilter"
         android:layout_width="@dimen/size_0"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_24"
+        android:layout_marginTop="@dimen/margin_16"
         android:theme="@style/CustomChips"
         app:layout_constraintStart_toStartOf="@+id/leftGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/Search" />
+        app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/tvSearch" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPublications"
         android:layout_width="@dimen/size_0"
         android:layout_height="@dimen/size_0"
-        android:layout_marginTop="@dimen/margin_16"
+        android:layout_marginVertical="@dimen/margin_8"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
