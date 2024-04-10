@@ -29,16 +29,18 @@
                 android:layout_marginStart="@dimen/margin_16"
                 android:src="@drawable/image_multiple"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/photo"/>
 
             <TextView
                 android:id="@+id/tvGallery"
+                style="@style/TextSubtitle_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_16"
                 android:text="@string/choose_from_gallery"
                 android:textColor="@color/text_primary"
-                android:textSize="@dimen/text_size_16"
+                app:layout_constraintBottom_toTopOf="@id/tvPhoto"
                 app:layout_constraintStart_toEndOf="@id/gallery"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,20 +51,22 @@
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_32"
                 android:src="@drawable/create_photo"
+                app:layout_constraintBottom_toTopOf="@id/deletePhoto"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/gallery" />
 
             <TextView
                 android:id="@+id/tvPhoto"
+                style="@style/TextSubtitle_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_32"
                 android:text="@string/make_photo"
                 android:textColor="@color/text_primary"
-                android:textSize="@dimen/text_size_16"
+                app:layout_constraintBottom_toTopOf="@id/tvdeletePhoto"
                 app:layout_constraintStart_toEndOf="@id/gallery"
-                app:layout_constraintTop_toBottomOf="@id/gallery" />
+                app:layout_constraintTop_toBottomOf="@id/tvGallery" />
 
             <ImageView
                 android:id="@+id/deletePhoto"
@@ -71,19 +75,21 @@
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_32"
                 android:src="@drawable/delete_photo"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/photo" />
 
             <TextView
                 android:id="@+id/tvdeletePhoto"
+                style="@style/TextSubtitle_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_32"
                 android:text="@string/delete_photo"
                 android:textColor="@color/text_primary"
-                android:textSize="@dimen/text_size_16"
-                app:layout_constraintStart_toEndOf="@id/gallery"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/deletePhoto"
                 app:layout_constraintTop_toBottomOf="@id/tvPhoto" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
