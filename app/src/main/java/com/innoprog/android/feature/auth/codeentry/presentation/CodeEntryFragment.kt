@@ -48,7 +48,7 @@ class CodeEntryFragment : BaseFragment<FragmentCodeEntryBinding, BaseViewModel>(
         binding.btnSendCode.setText(message)
     }
 
-    companion object{
+    companion object {
         const val ARG = "Arg"
     }
 }
