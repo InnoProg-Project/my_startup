@@ -30,4 +30,8 @@
 
     <string name="my_startup">Мой Стартап</string>
     <string name="version">Версия 2.4.5</string>
+
+    <string name="feed_title">Брейншторм идей и проектов 💡</string>
+    <string name="feed_tv_search_text">Название публикации</string>
+    <string name="idea">Идея</string>
 </resources>

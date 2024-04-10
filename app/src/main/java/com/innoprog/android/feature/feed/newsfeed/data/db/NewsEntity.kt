@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.feed.data.db
+package com.innoprog.android.feature.feed.newsfeed.data.db
 
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
@@ -14,6 +14,8 @@ data class NewsEntity(
     val author: AuthorEntity,
     @ColumnInfo(name = "project_id")
     val projectId: String?,
+    @ColumnInfo(name = "cover_url")
+    val coverUrl: String?,
     val title: String,
     val content: String,
     @ColumnInfo(name = "published_at")
@@ -26,6 +28,7 @@ data class NewsEntity(
 
 data class AuthorEntity(
     val id: String,
+    val avatarUrl: String?,
     val name: String,
     val company: CompanyEntity
 )
