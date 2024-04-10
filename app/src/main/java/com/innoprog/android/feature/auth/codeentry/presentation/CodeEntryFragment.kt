@@ -27,7 +27,7 @@ class CodeEntryFragment : BaseFragment<FragmentCodeEntryBinding, BaseViewModel>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        email = arguments?.getString("Arg")
+        email = arguments?.getString(ARG)
         binding.tvSetCodeText.text =
             format(getString(R.string.verification_email_information), email ?: "")
         binding.cvEmailInput.setState(InnoProgInputViewState.FOCUSED)
@@ -46,5 +46,9 @@ class CodeEntryFragment : BaseFragment<FragmentCodeEntryBinding, BaseViewModel>(
     private fun renderButton(state: Boolean, message: String) {
         binding.btnSendCode.stateIsEnabled(state)
         binding.btnSendCode.setText(message)
+    }
+
+    companion object{
+        const val ARG = "Arg"
     }
 }

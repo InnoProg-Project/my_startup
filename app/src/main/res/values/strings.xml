@@ -37,4 +37,7 @@
     <string name="password_recovery_save">Сохранить</string>
     <string name="verification_email_set_code">Теперь введите код</string>
     <string name="verification_email_information">Код отправили на email %s</string>
+    <string name="password_recovery_new_password_repeat">Повторите новый пароль</string>
+    <string name="password_recovery_new_password_input">Введите новый пароль</string>
+    <string name="password_recovery_new_password">Новый пароль</string>
 </resources>

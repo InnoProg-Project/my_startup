@@ -10,6 +10,7 @@ import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentPasswordRecoveryBinding
 import com.innoprog.android.di.ScreenComponent
+import com.innoprog.android.feature.auth.codeentry.presentation.CodeEntryFragment.Companion.ARG
 import com.innoprog.android.feature.auth.passwordrecovery.di.DaggerPasswordRecoveryComponent
 
 class PasswordRecoveryFragment : BaseFragment<FragmentPasswordRecoveryBinding, BaseViewModel>() {
@@ -32,7 +33,7 @@ class PasswordRecoveryFragment : BaseFragment<FragmentPasswordRecoveryBinding, B
 
         binding.btnSendCode.setOnClickListener {
             val bundle = Bundle()
-            bundle.putString("Arg", binding.ivEmail.getText())
+            bundle.putString(ARG, binding.ivEmail.getText())
             viewModel.navigateTo(R.id.codeEntryFragment, bundle)
         }
     }
