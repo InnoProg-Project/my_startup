@@ -1,11 +1,11 @@
-package com.innoprog.android.feature.feed.data.converters
+package com.innoprog.android.feature.feed.newsfeed.data.converters
 
-import com.innoprog.android.feature.feed.data.db.AuthorEntity
-import com.innoprog.android.feature.feed.data.db.CompanyEntity
-import com.innoprog.android.feature.feed.data.db.NewsEntity
-import com.innoprog.android.feature.feed.domain.models.Author
-import com.innoprog.android.feature.feed.domain.models.Company
-import com.innoprog.android.feature.feed.domain.models.News
+import com.innoprog.android.feature.feed.newsfeed.data.db.AuthorEntity
+import com.innoprog.android.feature.feed.newsfeed.data.db.CompanyEntity
+import com.innoprog.android.feature.feed.newsfeed.data.db.NewsEntity
+import com.innoprog.android.feature.feed.newsfeed.domain.models.Author
+import com.innoprog.android.feature.feed.newsfeed.domain.models.Company
+import com.innoprog.android.feature.feed.newsfeed.domain.models.News
 import javax.inject.Inject
 
 class NewsEntityMapper @Inject constructor() {
@@ -15,6 +15,7 @@ class NewsEntityMapper @Inject constructor() {
             type = newsEntity.type,
             author = createAuthor(newsEntity.author),
             projectId = newsEntity.projectId,
+            coverUrl = newsEntity.coverUrl,
             title = newsEntity.title,
             content = newsEntity.content,
             publishedAt = newsEntity.publishedAt,
@@ -26,6 +27,7 @@ class NewsEntityMapper @Inject constructor() {
     private fun createAuthor(authorEntity: AuthorEntity): Author {
         return Author(
             id = authorEntity.id,
+            avatarUrl = authorEntity.avatarUrl,
             name = authorEntity.name,
             company = createCompany(authorEntity.company)
         )
@@ -44,6 +46,7 @@ class NewsEntityMapper @Inject constructor() {
             type = news.type,
             author = createAuthorEntity(news.author),
             projectId = news.projectId,
+            coverUrl = news.coverUrl,
             title = news.title,
             content = news.content,
             publishedAt = news.publishedAt,
@@ -55,6 +58,7 @@ class NewsEntityMapper @Inject constructor() {
     private fun createAuthorEntity(author: Author): AuthorEntity {
         return AuthorEntity(
             id = author.id,
+            avatarUrl = author.avatarUrl,
             name = author.name,
             company = createCompanyEntity(author.company)
         )

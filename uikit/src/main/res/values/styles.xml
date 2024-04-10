@@ -2,13 +2,13 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="TextHeadline_1">
-        <item name="fontFamily">@font/geologica</item>
+        <item name="fontFamily">@font/geologica_regular</item>
         <item name="fontWeight">400</item>
         <item name="android:textSize">@dimen/text_size_32</item>
     </style>
 
     <style name="TextHeadline_2">
-        <item name="fontFamily">@font/geologica</item>
+        <item name="fontFamily">@font/geologica_regular</item>
         <item name="fontWeight">400</item>
         <item name="android:textSize">@dimen/text_size_24</item>
     </style>
@@ -20,13 +20,13 @@
     </style>
 
     <style name="TextSubtitle_1">
-        <item name="fontFamily">@font/geologica</item>
+        <item name="fontFamily">@font/geologica_regular</item>
         <item name="fontWeight">400</item>
         <item name="android:textSize">@dimen/text_size_16</item>
     </style>
 
     <style name="TextSubtitle_2">
-        <item name="fontFamily">@font/geologica</item>
+        <item name="fontFamily">@font/geologica_regular</item>
         <item name="fontWeight">400</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
@@ -56,19 +56,19 @@
     </style>
 
     <style name="TextButtonLarge">
-        <item name="fontFamily">@font/geologica</item>
+        <item name="fontFamily">@font/geologica_regular</item>
         <item name="fontWeight">500</item>
         <item name="android:textSize">@dimen/text_size_18</item>
     </style>
 
     <style name="TextButtonMedium">
-        <item name="fontFamily">@font/geologica</item>
+        <item name="fontFamily">@font/geologica_regular</item>
         <item name="fontWeight">400</item>
         <item name="android:textSize">@dimen/text_size_16</item>
     </style>
 
     <style name="TextButtonSmall">
-        <item name="fontFamily">@font/geologica</item>
+        <item name="fontFamily">@font/geologica_regular</item>
         <item name="fontWeight">500</item>
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
@@ -80,7 +80,7 @@
     </style>
 
     <style name="TextControl_1">
-        <item name="fontFamily">@font/geologica</item>
+        <item name="fontFamily">@font/geologica_regular</item>
         <item name="fontWeight">400</item>
         <item name="android:textSize">@dimen/text_size_16</item>
     </style>

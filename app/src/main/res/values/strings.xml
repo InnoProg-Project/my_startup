@@ -40,4 +40,8 @@
     <string name="password_recovery_new_password_repeat">Повторите новый пароль</string>
     <string name="password_recovery_new_password_input">Введите новый пароль</string>
     <string name="password_recovery_new_password">Новый пароль</string>
+  
+    <string name="feed_title">Брейншторм идей и проектов 💡</string>
+    <string name="feed_tv_search_text">Название публикации</string>
+    <string name="idea">Идея</string>
 </resources>
