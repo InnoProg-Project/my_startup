@@ -1,34 +1,35 @@
-package com.innoprog.android.feature.feed.newsfeed.presentation
+package com.innoprog.android.feature.feed.newssearch.presentation
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
+import androidx.core.widget.doOnTextChanged
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
-import com.innoprog.android.databinding.FragmentFeedBinding
+import com.innoprog.android.databinding.FragmentNewsSearchBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.feature.feed.newsfeed.di.DaggerFeedComponent
 import com.innoprog.android.feature.feed.newsfeed.domain.models.Author
 import com.innoprog.android.feature.feed.newsfeed.domain.models.Company
 import com.innoprog.android.feature.feed.newsfeed.domain.models.News
+import com.innoprog.android.feature.feed.newssearch.di.DaggerNewsSearchComponent
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
-import com.innoprog.android.uikit.InnoProgChipGroupView
 
-class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
+class NewsSearchFragment : BaseFragment<FragmentNewsSearchBinding, BaseViewModel>() {
 
-    override val viewModel by injectViewModel<FeedViewModel>()
+    override val viewModel by injectViewModel<NewsSearchViewModel>()
 
     private var newsAdapter: NewsAdapter? = null
     private var listNews: ArrayList<News> = arrayListOf()
 
     override fun diComponent(): ScreenComponent {
         val appComponent = AppComponentHolder.getComponent()
-        return DaggerFeedComponent.builder()
+        return DaggerNewsSearchComponent.builder()
             .appComponent(appComponent)
             .build()
     }
@@ -36,15 +37,12 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     override fun createBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentFeedBinding {
-        return FragmentFeedBinding.inflate(inflater, container, false)
+    ): FragmentNewsSearchBinding {
+        return FragmentNewsSearchBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setUiListeners()
-        initChips()
 
         val company = Company(
             "HighTechCorp",
@@ -97,33 +95,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         listNews = arrayListOf(news, news2, news, news2)
 
         initRecyclerView()
-
-        binding.tvFeed.setOnClickListener {
-            viewModel.onFavoriteClicked(news)
-        }
-    }
-
-    private fun setUiListeners() {
-        binding.btnCreateIdea.setOnClickListener {
-            Toast.makeText(requireContext(), "Переход на создание идеи", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.tvSearch.setOnClickListener {
-            /*Toast.makeText(requireContext(), "Переход в поиск по новостям", Toast.LENGTH_SHORT)
-                .show()*/
-            findNavController().navigate(R.id.action_mainFragment_to_newsSearchFragment)
-        }
-    }
-
-    private fun initChips() {
-        val chipTitles = listOf(ALL_CONTENT, PROJECT, IDEAS)
-        binding.cgvFilter.setChips(chipTitles)
-        binding.cgvFilter.setOnChipSelectListener(object :
-            InnoProgChipGroupView.OnChipSelectListener {
-            override fun onChipSelected(chipIndex: Int) {
-                // Если нужно обработать чип
-            }
-        })
+        setUiListeners()
     }
 
     private fun initRecyclerView() {
@@ -137,9 +109,52 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         binding.rvPublications.adapter = newsAdapter
     }
 
-    companion object {
-        private const val ALL_CONTENT = "Всё"
-        private const val PROJECT = "Проекты"
-        private const val IDEAS = "Идеи"
+    private fun setUiListeners() {
+        binding.tvCancel.setOnClickListener {
+            viewModel.navigateUp()
+        }
+
+        binding.etSearch.doOnTextChanged(textWatcherForEditText)
+    }
+
+    val textWatcherForEditText = { text: CharSequence?, start: Int, before: Int, count: Int ->
+        hideIconClear(text)
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun hideIconClear(text: CharSequence?) {
+        val editText = binding.etSearch
+
+        if (text.isNullOrEmpty()) {
+            editText.setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.ic_search_light,
+                0,
+                0,
+                0
+            )
+            editText.setOnTouchListener { _, motionEvent ->
+                false
+            }
+        } else {
+            editText.setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.ic_search_light,
+                0,
+                R.drawable.ic_delete,
+                0
+            )
+
+            val iconClear = editText.compoundDrawables[2]
+
+            editText.setOnTouchListener { _, motionEvent ->
+                if ((motionEvent.action == MotionEvent.ACTION_UP) &&
+                    (motionEvent.rawX >= (editText.right - iconClear.bounds.width()))
+                ) {
+                    editText.text.clear()
+                    editText.requestFocus()
+                    return@setOnTouchListener true
+                }
+                false
+            }
+        }
     }
 }

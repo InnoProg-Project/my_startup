@@ -66,11 +66,14 @@
         <action
             android:id="@+id/action_mainFragment_to_courseInformationFragment"
             app:destination="@id/courseInformationFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_newsSearchFragment"
+            app:destination="@id/newsSearchFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/feedFragment"
-        android:name="com.innoprog.android.feature.feed.presentation.FeedFragment"
+        android:name="com.innoprog.android.feature.feed.newsfeed.presentation.FeedFragment"
         android:label="fragment_feed"
         tools:layout="@layout/fragment_feed" />
 
@@ -83,7 +86,8 @@
     <fragment
         android:id="@+id/courseInformationFragment"
         android:name="com.innoprog.android.feature.training.courseInformation.presentation.CourseInformationFragment"
-        android:label="CourseInformationFragment" >
+        android:label="CourseInformationFragment"
+        tools:layout="@layout/fragment_course_information">
         <action
             android:id="@+id/action_courseInformationFragment_to_videoPlayerFragment"
             app:destination="@id/videoPlayerFragment" />
@@ -177,5 +181,10 @@
         android:id="@+id/videoPlayerFragment"
         android:name="com.innoprog.android.feature.training.videoPlayer.presentation.VideoPlayerFragment"
         android:label="VideoPlayerFragment" />
+    <fragment
+        android:id="@+id/newsSearchFragment"
+        android:name="com.innoprog.android.feature.feed.newssearch.presentation.NewsSearchFragment"
+        android:label="fragment_news_search"
+        tools:layout="@layout/fragment_news_search" />
 
 </navigation>
