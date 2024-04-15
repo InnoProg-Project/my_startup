@@ -1,6 +1,7 @@
 package com.innoprog.android.feature.auth.passwordrecovery.presentation
 
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentPasswordRecoveryBinding
 import com.innoprog.android.di.ScreenComponent
+import com.innoprog.android.feature.auth.codeentry.presentation.CodeEntryFragment.Companion.ARG
 import com.innoprog.android.feature.auth.passwordrecovery.di.DaggerPasswordRecoveryComponent
 
 class PasswordRecoveryFragment : BaseFragment<FragmentPasswordRecoveryBinding, BaseViewModel>() {
@@ -24,13 +26,15 @@ class PasswordRecoveryFragment : BaseFragment<FragmentPasswordRecoveryBinding, B
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.btnBack.setOnClickListener {
+        binding.ivEmail.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
+        binding.topBar.setLeftIconClickListener {
             viewModel.navigateUp()
         }
 
         binding.btnSendCode.setOnClickListener {
-            viewModel.navigateTo(R.id.codeEntryFragment)
+            val bundle = Bundle()
+            bundle.putString(ARG, binding.ivEmail.getText())
+            viewModel.navigateTo(R.id.codeEntryFragment, bundle)
         }
     }
 }

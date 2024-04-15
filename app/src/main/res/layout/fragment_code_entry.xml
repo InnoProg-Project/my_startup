@@ -1,29 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".feature.auth.codeentry.presentation.CodeEntryFragment">
 
+    <com.innoprog.android.uikit.InnoProgTopBarView
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:topBar_left_icon="@drawable/ic_back"
+        app:topBar_title=" " />
+
     <TextView
-        android:id="@+id/tvCodeEntryTitle"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvSetCodeTitle"
+        style="@style/TextHeadline_2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Ввод кода"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_margin="@dimen/margin_16"
+        android:gravity="center"
+        android:text="@string/verification_email_set_code" />
 
-    <Button
-        android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/tvSetCodeText"
+        style="@style/TextBody_1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Назад"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvCodeEntryTitle" />
+        android:layout_margin="@dimen/margin_16"
+        android:gravity="center"
+        android:text="@string/verification_email_information" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.innoprog.android.uikit.InnoProgSMSCodeView
+        android:id="@+id/cvEmailInput"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        app:label="@string/email" />
+
+    <TextView
+        android:id="@+id/caption"
+        style="@style/TextCaption_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_16"
+        android:gravity="center"
+        android:text="" />
+
+    <com.innoprog.android.uikit.InnoProgButtonView
+        android:id="@+id/btnSendCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:gravity="center"
+        app:buttonSize="large"
+        app:buttonText="@string/password_recovery_sand"
+        app:buttonType="def" />
+</LinearLayout>

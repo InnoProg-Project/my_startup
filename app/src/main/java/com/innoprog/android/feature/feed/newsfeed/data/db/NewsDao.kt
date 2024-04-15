@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.feed.data.db
+package com.innoprog.android.feature.feed.newsfeed.data.db
 
 import androidx.room.Dao
 import androidx.room.Delete

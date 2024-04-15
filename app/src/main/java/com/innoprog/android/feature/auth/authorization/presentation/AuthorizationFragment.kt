@@ -53,6 +53,16 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
             })
         }
 
+        binding.topBar.setRightIconClickListener {
+            viewModel.verify(binding.ivLogin.getText(), binding.ivPassword.getText())
+            viewModel.navigateTo(R.id.mainFragment, bundleOf(), navOptions {
+                launchSingleTop = true
+                popUpTo(R.id.nav_graph) {
+                    inclusive = true
+                }
+            })
+        }
+
         binding.ivPassword.setRightIconClickListener {
             isVisiblePassword = !isVisiblePassword
             renderIVPassword()

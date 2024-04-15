@@ -20,14 +20,15 @@
 
         <TextView
             android:id="@+id/title"
+            style="@style/TextSubtitle_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/geologica"
             android:gravity="center"
             android:text="@string/delete_account"
             android:textColor="@color/text_primary"
             android:textSize="@dimen/text_size_16" />
         <TextView
+            style="@style/TextBody_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

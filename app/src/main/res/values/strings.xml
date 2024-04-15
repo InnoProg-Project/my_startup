@@ -30,6 +30,20 @@
 
     <string name="my_startup">Мой Стартап</string>
     <string name="version">Версия 2.4.5</string>
+    <string name="password_recovery_email">Введите email</string>
+    <string name="password_recovery_sand_to">Отправим на него код для восстановления пароля</string>
+    <string name="password_recovery_sand">Отправить код</string>
+    <string name="password_recovery_user_agreement">Продолжая, вы соглашаетесь с политикой обработки персональных данных и лицензионным соглашением\n</string>
+    <string name="password_recovery_save">Сохранить</string>
+    <string name="verification_email_set_code">Теперь введите код</string>
+    <string name="verification_email_information">Код отправили на email %s</string>
+    <string name="password_recovery_new_password_repeat">Повторите новый пароль</string>
+    <string name="password_recovery_new_password_input">Введите новый пароль</string>
+    <string name="password_recovery_new_password">Новый пароль</string>
+
+    <string name="feed_title">Брейншторм идей и проектов 💡</string>
+    <string name="feed_tv_search_text">Название публикации</string>
+    <string name="idea">Идея</string>
     <string name="user_name">ФИО</string>
     <string name="set_phone_number">Введите номер телефона</string>
     <string name="agreement">Продолжая, вы соглашаетесь с политикой обработки персональных данных и лицензионным соглашением</string>

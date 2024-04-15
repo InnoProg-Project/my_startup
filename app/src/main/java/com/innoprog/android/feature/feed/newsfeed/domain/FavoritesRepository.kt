@@ -1,6 +1,6 @@
-package com.innoprog.android.feature.feed.domain
+package com.innoprog.android.feature.feed.newsfeed.domain
 
-import com.innoprog.android.feature.feed.domain.models.News
+import com.innoprog.android.feature.feed.newsfeed.domain.models.News
 
 interface FavoritesRepository {
     suspend fun insertNewsToFavorites(news: News)
