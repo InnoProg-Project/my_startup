@@ -17,6 +17,8 @@
     <string name="about_app">О приложении</string>
     <string name="legal_documents">Правовые документы</string>
     <string name="cancel">Отменить</string>
+    <string name="step_2">Шаг 2</string>
+    <string name="proceed">Продолжить</string>
 
     <string name="fragment_authorization_hello">Добро пожаловать!</string>
     <string name="fragment_authorization_forgot_password">Забыли пароль?</string>
@@ -44,4 +46,7 @@
     <string name="feed_title">Брейншторм идей и проектов 💡</string>
     <string name="feed_tv_search_text">Название публикации</string>
     <string name="idea">Идея</string>
+    <string name="upload_photo_or_video">Загрузите фото/видео</string>
+    <string name="optional">Необязательно</string>
+    <string name="upload_decription">Картинки загружаются в форматах: png, jpg, jpeg. Размер одной картинки не более 3Мб. Видео загружаются в форматах: mp4, mov. Размер одного видео не более 10Мб</string>
 </resources>

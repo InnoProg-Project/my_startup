@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.innoprog.android.uikit.InnoProgTopBarView
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:topBar_left_icon="@drawable/ic_back"
+            app:topBar_title="@string/step_2" />
+
+        <TextView
+            android:id="@+id/uploadPhotoOrVideoTV"
+            style="@style/TextHeadline_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_8"
+            android:text="@string/upload_photo_or_video"
+            android:textColor="@color/text_primary"
+            app:layout_constraintTop_toBottomOf="@id/topBar" />
+
+        <TextView
+            android:id="@+id/optionalTV"
+            style="@style/TextBody_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_8"
+            android:text="@string/optional"
+            android:textColor="@color/text_secondary"
+            app:layout_constraintTop_toBottomOf="@id/uploadPhotoOrVideoTV" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/uploadPhotoOrVideoRV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_8"
+            app:layout_constraintTop_toBottomOf="@id/optionalTV" />
+
+        <com.innoprog.android.uikit.InnoProgButtonView
+            android:id="@+id/uploadButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_8"
+            app:buttonLeftIcon="@drawable/ic_add_image"
+            app:buttonSize="large"
+            app:buttonText="@string/upload_photo_or_video"
+            app:buttonTextColor="@color/accent_secondary"
+            app:buttonType="def"
+            app:layout_constraintTop_toBottomOf="@+id/uploadPhotoOrVideoRV" />
+
+        <TextView
+            android:id="@+id/uploadDescription"
+            style="@style/TextCaption_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_8"
+            android:text="@string/upload_decription"
+            android:textColor="@color/text_secondary"
+            app:layout_constraintTop_toBottomOf="@id/uploadButton" />
+
+        <com.innoprog.android.uikit.InnoProgButtonView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:buttonText="@string/proceed"
+            app:buttonType="primary"
+            app:layout_constraintTop_toBottomOf="@+id/uploadDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
