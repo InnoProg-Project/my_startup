@@ -33,7 +33,7 @@ class RegistrationViewModel @Inject constructor(private val useCase: Registratio
         stateLiveData.postValue(result)
     }
 
-    fun clearDate(){
-        stateLiveData.postValue(Pair(false,null))
+    fun clearDate() {
+        stateLiveData.postValue(Pair(false, null))
     }
 }
