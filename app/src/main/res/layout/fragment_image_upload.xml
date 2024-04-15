@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_8"
             app:layout_constraintTop_toBottomOf="@id/optionalTV"
-            tools:itemCount="@integer/material_motion_duration_long_2"
+            tools:itemCount="2"
             tools:listitem="@layout/item_image_or_video" />
 
         <com.innoprog.android.uikit.InnoProgButtonView
