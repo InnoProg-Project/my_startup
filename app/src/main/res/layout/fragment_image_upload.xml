@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -41,7 +42,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_8"
-            app:layout_constraintTop_toBottomOf="@id/optionalTV" />
+            app:layout_constraintTop_toBottomOf="@id/optionalTV"
+            tools:itemCount="@integer/material_motion_duration_long_2"
+            tools:listitem="@layout/item_image_or_video" />
 
         <com.innoprog.android.uikit.InnoProgButtonView
             android:id="@+id/uploadButton"
@@ -69,9 +72,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_8"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:buttonText="@string/proceed"
             app:buttonType="primary"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/uploadDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
