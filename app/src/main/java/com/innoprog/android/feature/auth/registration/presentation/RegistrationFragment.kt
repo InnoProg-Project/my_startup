@@ -11,6 +11,7 @@ import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentRegistrationBinding
 import com.innoprog.android.di.ScreenComponent
+import com.innoprog.android.feature.auth.codeentry.presentation.CodeEntryFragment
 import com.innoprog.android.feature.auth.registration.di.DaggerRegistrationComponent
 
 class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewModel>() {
@@ -29,6 +30,7 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
         binding.ivEmail.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
         binding.ivPhone.setInputType(InputType.TYPE_CLASS_PHONE)
         binding.ivPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD)
+
         viewModel.observeState().observe(viewLifecycleOwner) {
             render(it.first, it.second)
         }
@@ -48,10 +50,17 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
     }
 
     private fun render(isAccepted: Boolean, message: String?) {
-        if (isAccepted) viewModel.navigateTo(R.id.codeEntryFragment) else Toast.makeText(
-            requireContext(),
-            message,
-            Toast.LENGTH_LONG
-        ).show()
+        if (isAccepted) {
+            val bundle = Bundle()
+            bundle.putString(CodeEntryFragment.ARG, binding.ivEmail.getText())
+            viewModel.clearDate()
+            viewModel.navigateTo(R.id.codeEntryFragment, bundle)
+        } else if (!message.isNullOrEmpty()) {
+            Toast.makeText(
+                requireContext(),
+                message,
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
 }
