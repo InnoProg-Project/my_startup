@@ -14,7 +14,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/uploadPhotoOrVideo"
-        tools:src="@drawable/video_sample" />
+        tools:src="@drawable/news_sample" />
 
     <ImageView
         android:id="@+id/deleteButton"

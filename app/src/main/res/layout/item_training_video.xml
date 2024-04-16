@@ -14,7 +14,7 @@
         android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/courseVideoStyle"
-        tools:src="@drawable/video_sample" />
+        tools:src="@drawable/news_sample" />
 
     <ImageView
         android:layout_width="wrap_content"

@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:topBar_left_icon="@drawable/ic_back"
-            app:topBar_title="@string/step_2" />
+            tools:topBar_title="@string/step_2" />
 
         <TextView
             android:id="@+id/uploadPhotoAndVideoTV"
@@ -53,7 +53,7 @@
             android:layout_margin="@dimen/margin_8"
             app:buttonLeftIcon="@drawable/ic_add_image"
             app:buttonSize="large"
-            app:buttonText="@string/upload_photo_or_video"
+            tools:buttonText="@string/upload_photo_or_video"
             app:buttonTextColor="@color/accent_secondary"
             app:buttonType="def"
             app:layout_constraintTop_toBottomOf="@+id/uploadPhotoAndVideoRV" />
@@ -72,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_8"
-            app:buttonText="@string/proceed"
+            tools:buttonText="@string/proceed"
             app:buttonType="primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/uploadDescription" />
