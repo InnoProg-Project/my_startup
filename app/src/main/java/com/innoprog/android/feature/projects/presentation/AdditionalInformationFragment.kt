@@ -10,7 +10,6 @@ import com.innoprog.android.databinding.FragmentAdditionalInformationBinding
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.projects.di.DaggerAdditionalInformationComponent
 
-
 open class AdditionalInformationFragment : BaseFragment<FragmentAdditionalInformationBinding, BaseViewModel>() {
 
     override val viewModel by injectViewModel<AdditionalInformationViewModel>()
