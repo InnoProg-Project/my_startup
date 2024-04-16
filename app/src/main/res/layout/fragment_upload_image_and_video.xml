@@ -18,7 +18,7 @@
             app:topBar_title="@string/step_2" />
 
         <TextView
-            android:id="@+id/uploadPhotoOrVideoTV"
+            android:id="@+id/uploadPhotoAndVideoTV"
             style="@style/TextHeadline_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,16 +35,16 @@
             android:layout_margin="@dimen/margin_8"
             android:text="@string/optional"
             android:textColor="@color/text_secondary"
-            app:layout_constraintTop_toBottomOf="@id/uploadPhotoOrVideoTV" />
+            app:layout_constraintTop_toBottomOf="@id/uploadPhotoAndVideoTV" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/uploadPhotoOrVideoRV"
+            android:id="@+id/uploadPhotoAndVideoRV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_8"
             app:layout_constraintTop_toBottomOf="@id/optionalTV"
             tools:itemCount="2"
-            tools:listitem="@layout/item_image_or_video" />
+            tools:listitem="@layout/item_image_and_video" />
 
         <com.innoprog.android.uikit.InnoProgButtonView
             android:id="@+id/uploadButton"
@@ -56,7 +56,7 @@
             app:buttonText="@string/upload_photo_or_video"
             app:buttonTextColor="@color/accent_secondary"
             app:buttonType="def"
-            app:layout_constraintTop_toBottomOf="@+id/uploadPhotoOrVideoRV" />
+            app:layout_constraintTop_toBottomOf="@+id/uploadPhotoAndVideoRV" />
 
         <TextView
             android:id="@+id/uploadDescription"
