@@ -1,8 +1,8 @@
-package com.innoprog.android.feature.projects.di
+package com.innoprog.android.feature.projects.project.di
 
 import androidx.lifecycle.ViewModel
 import com.innoprog.android.di.ViewModelKey
-import com.innoprog.android.feature.projects.presentation.ProjectsViewModel
+import com.innoprog.android.feature.projects.project.presentation.ProjectsViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

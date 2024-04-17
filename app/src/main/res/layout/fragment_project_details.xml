@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_primary"
+        tools:context=".feature.projects.projectdetails.presentation.ProjectDetailsFragment">
+
+        <com.innoprog.android.uikit.InnoProgTopBarView
+            android:id="@+id/topbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background_primary"
+            android:gravity="center_horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:topBar_left_icon="@drawable/ic_back"
+            app:topBar_title="@string/step_1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineStart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_end="16dp" />
+
+        <TextView
+            android:id="@+id/tvHeadLine"
+            style="@style/TextHeadline_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/padding_16"
+            android:text="@string/tell_us_about_the_project"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/topbar" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/projectName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            app:label="@string/name_project"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/tvHeadLine"
+            app:state="inactive" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/ShortDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            app:label="@string/short_description"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/projectName"
+            app:state="inactive" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/Description"
+            android:layout_width="0dp"
+            android:layout_height="134dp"
+            android:layout_marginTop="12dp"
+            app:label="@string/descriptions"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/ShortDescription"
+            app:state="inactive" />
+
+        <LinearLayout
+            android:id="@+id/logoContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="74dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@id/Description">
+
+            <TextView
+                style="@style/TextSubtitle_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16"
+                android:text="@string/logo" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/logoIcon"
+                app:cardCornerRadius="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/logoImageView"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"/>
+
+                <ImageButton
+                    android:id="@+id/deleteLogoButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/delete_logo_button"
+                    android:background="@android:color/transparent"
+                    android:layout_marginTop="@dimen/margin_16"
+                    android:layout_marginEnd="@dimen/margin_16"
+                    android:layout_gravity="top|end"
+                    android:visibility="gone"/>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <com.innoprog.android.uikit.InnoProgButtonView
+                android:id="@+id/btLoadingLogo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16"
+                android:gravity="center"
+                app:buttonLeftIcon="@drawable/add_logo"
+                app:buttonSize="large"
+                app:buttonState="enabled"
+                app:buttonText="@string/loading_logo"
+                app:buttonType="def" />
+
+            <TextView
+                android:id="@+id/tv_doc_dox"
+                style="@style/TextCaption_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_16"
+                android:text="@string/doc_docx_pdf_10" />
+
+        </LinearLayout>
+
+        <com.innoprog.android.uikit.InnoProgButtonView
+            android:id="@+id/btСontinue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_8"
+            android:layout_marginHorizontal="@dimen/margin_8"
+            android:gravity="center"
+            app:buttonSize="large"
+            app:buttonState="disabled"
+            app:buttonText="@string/resume"
+            app:buttonType="primary"
+            android:layout_marginTop="@dimen/margin_74"
+            app:layout_constraintTop_toBottomOf="@id/logoContainer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

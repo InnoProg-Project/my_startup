@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".feature.projects.presentation.ProjectsFragment">
+    tools:context=".feature.projects.project.presentation.ProjectsFragment">
 
     <TextView
         android:id="@+id/tvProjects"

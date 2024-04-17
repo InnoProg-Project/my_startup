@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.projects.presentation
+package com.innoprog.android.feature.projects.project.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentProjectsBinding
 import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.feature.projects.di.DaggerProjectsComponent
+import com.innoprog.android.feature.projects.project.di.DaggerProjectsComponent
 
 class ProjectsFragment : BaseFragment<FragmentProjectsBinding, BaseViewModel>() {
     override val viewModel by injectViewModel<ProjectsViewModel>()

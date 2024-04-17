@@ -14,7 +14,7 @@ import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.feed.newsfeed.presentation.FeedFragment
 import com.innoprog.android.feature.mainscreen.di.DaggerMainScreenComponent
 import com.innoprog.android.feature.profile.profiledetails.presentation.ProfileFragment
-import com.innoprog.android.feature.projects.presentation.ProjectsFragment
+import com.innoprog.android.feature.projects.project.presentation.ProjectsFragment
 import com.innoprog.android.feature.training.trainingList.presentation.TrainingListFragment
 
 class MainFragment : BaseFragment<FragmentMainBinding, BaseViewModel>() {
