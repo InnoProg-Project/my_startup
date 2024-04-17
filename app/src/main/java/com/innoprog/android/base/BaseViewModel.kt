@@ -6,8 +6,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 abstract class BaseViewModel : ViewModel() {
 
@@ -39,6 +43,16 @@ abstract class BaseViewModel : ViewModel() {
                     findNavController(fragment).navigateUp()
                 }
             }
+        }
+    }
+
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        throwable.printStackTrace()
+    }
+
+    fun CoroutineScope.safeLaunch(launchBody: suspend () -> Unit): Job {
+        return launch(coroutineExceptionHandler) {
+            launchBody.invoke()
         }
     }
 }

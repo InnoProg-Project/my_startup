@@ -1,7 +1,5 @@
 package com.innoprog.android.feature.profile.profiledetails.presentation
 
-import DaggerProfileComponent
-import ProfileViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +11,7 @@ import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentProfileBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
+import com.innoprog.android.feature.profile.profiledetails.di.DaggerProfileComponent
 import com.innoprog.android.uikit.InnoProgChipGroupView
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
@@ -21,7 +20,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
 
     override fun diComponent(): ScreenComponent {
         val appComponent = AppComponentHolder.getComponent()
-        return DaggerProfileComponent.builder()
+        return DaggerProfileComponent
+            .builder()
             .appComponent(appComponent)
             .build()
     }
@@ -35,6 +35,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.loadProfile()
 
         initTopBar()
 

@@ -3,11 +3,12 @@ package com.innoprog.android.di
 import android.app.Application
 import com.innoprog.android.db.RoomDB
 import com.innoprog.android.db.RoomDBModule
-import com.innoprog.android.network.data.ApiModule
 import com.innoprog.android.network.data.NetworkModule
+import com.innoprog.android.network.data.ApiModule
 import com.innoprog.android.network.domain.ApiInteractor
 import dagger.BindsInstance
 import dagger.Component
+import retrofit2.Retrofit
 
 @Component(
     modules = [
@@ -19,6 +20,7 @@ import dagger.Component
 interface AppComponent : DIComponent {
     val apiInteractor: ApiInteractor
     val room: RoomDB
+    val retrofit: Retrofit
 
     @Component.Builder
     interface Builder {
