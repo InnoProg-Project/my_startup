@@ -33,7 +33,7 @@
             android:layout_width="@dimen/size_80"
             android:layout_height="@dimen/size_80"
             android:layout_gravity="center"
-            app:avatarImageReference="@drawable/avatar_test_img" />
+            app:avatarImageReference="@drawable/ic_person" />
 
         <TextView
             android:id="@+id/name"
