@@ -14,6 +14,5 @@ interface ProfileComponent : ScreenComponent {
     interface Builder {
         fun build(): ProfileComponent
         fun appComponent(appComponent: AppComponent): Builder
-
     }
 }
