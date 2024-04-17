@@ -51,12 +51,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_8"
+            android:gravity="center"
             app:buttonLeftIcon="@drawable/ic_add_image"
             app:buttonSize="large"
-            tools:buttonText="@string/upload_photo_or_video"
             app:buttonTextColor="@color/accent_secondary"
             app:buttonType="def"
-            app:layout_constraintTop_toBottomOf="@+id/uploadPhotoAndVideoRV" />
+            app:layout_constraintTop_toBottomOf="@+id/uploadPhotoAndVideoRV"
+            tools:buttonText="@string/upload_photo_or_video" />
 
         <TextView
             android:id="@+id/uploadDescription"
@@ -72,10 +73,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_8"
-            tools:buttonText="@string/proceed"
+            android:gravity="center"
             app:buttonType="primary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/uploadDescription" />
+            app:layout_constraintTop_toBottomOf="@+id/uploadDescription"
+            tools:buttonText="@string/proceed" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
