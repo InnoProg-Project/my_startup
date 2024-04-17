@@ -59,4 +59,6 @@
     <string name="link_to_app_example">https://apps.apple.com/ru/appmystartup</string>
     <string name="link_to_social_network">Ссылка на соцсеть</string>
     <string name="link_to_social_network_example">vk.com/mystartup</string>
+    <string name="step_5">Шаг 5</string>
+    <string name="publish">Опубликовать</string>
 </resources>

@@ -32,7 +32,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:topBar_left_icon="@drawable/ic_back"
-            app:topBar_title=" " />
+            tools:topBar_title="@string/step_5" />
 
         <TextView
             android:id="@+id/additional_information"
@@ -150,7 +150,7 @@
             android:layout_marginBottom="@dimen/margin_8"
             android:gravity="center"
             app:buttonSize="large"
-            app:buttonText="@string/save"
+            tools:buttonText="@string/publish"
             app:buttonType="primary"
             app:layout_constraintEnd_toStartOf="@id/right_border"
             app:layout_constraintStart_toEndOf="@id/left_border"
