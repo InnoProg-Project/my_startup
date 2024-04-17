@@ -22,7 +22,11 @@ class ChooseProjectDirectionAdapter : Adapter<ChooseProjectDirectionViewHolder>(
     override fun onBindViewHolder(holder: ChooseProjectDirectionViewHolder, position: Int) {
         holder.bind(items[position])
         holder.itemView.setOnClickListener {
-            items.forEach { it.isSelected = false }
+            items.forEach {
+                if (it.isSelected) {
+                    it.isSelected = false
+                }
+            }
             items[position] = items[position].copy(isSelected = true)
             notifyDataSetChanged()
         }
