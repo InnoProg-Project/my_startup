@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,33 +30,17 @@ class ProjectDetailsFragment : BaseFragment<FragmentProjectDetailsBinding, BaseV
 
         initButton()
 
-        val projectNameTextWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                TODO()
-            }
-
+        val projectNameTextWatcher = object : TextChangedListener {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 checkConditionsAndSetSubmitButton()
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                TODO()
             }
         }
 
         binding.projectName.addTextChangedListener(projectNameTextWatcher)
 
-        val shortDescriptionTextWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                TODO()
-            }
-
+        val shortDescriptionTextWatcher = object : TextChangedListener {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 checkConditionsAndSetSubmitButton()
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                TODO()
             }
         }
 
