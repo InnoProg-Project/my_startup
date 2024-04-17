@@ -3,5 +3,4 @@ package com.innoprog.android.feature.projects.chooseProjectDirection.presentatio
 import com.innoprog.android.base.BaseViewModel
 import javax.inject.Inject
 
-class ChooseProjectDirectionViewModel @Inject constructor() : BaseViewModel() {
-}
+class ChooseProjectDirectionViewModel @Inject constructor() : BaseViewModel()
