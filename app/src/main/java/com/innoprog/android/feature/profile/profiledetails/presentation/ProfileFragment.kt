@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
@@ -13,6 +15,8 @@ import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.profile.profiledetails.di.DaggerProfileComponent
 import com.innoprog.android.uikit.InnoProgChipGroupView
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
 
@@ -36,6 +40,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.profileStateFlow.collectLatest { profile ->
+                binding.name.text = profile?.name.orEmpty()
+                binding.description.text = profile?.about.orEmpty()
+            }
+        }
         viewModel.loadProfile()
 
         initTopBar()
