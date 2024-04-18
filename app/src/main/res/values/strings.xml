@@ -45,4 +45,5 @@
     <string name="feed_tv_search_text">Название публикации</string>
     <string name="idea">Идея</string>
     <string name="feed_search_placeholder">По вашему запросу ничего не нашли</string>
+    <string name="choose_project_direction">Выберите направление проекта</string>
 </resources>
