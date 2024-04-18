@@ -230,6 +230,14 @@ class InnoProgInputView @JvmOverloads constructor(
         return editTextView.text.toString()
     }
 
+    fun setHintText(text: String) {
+        emptyHintTextView.text = text
+    }
+
+    fun setText(text: String) {
+        editTextView.setText(text)
+    }
+
     companion object {
         const val FULL_VISIBLE = 1f
         const val VISIBILITY_40_PERCENT = 0.4f
