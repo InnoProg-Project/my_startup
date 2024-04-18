@@ -33,7 +33,8 @@
         app:buttonType="flat"
         app:layout_constraintBottom_toTopOf="@+id/tvFeed"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/tvFeed"
@@ -45,24 +46,47 @@
         android:textColor="@color/text_primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCreateIdea" />
+        app:layout_constraintTop_toBottomOf="@+id/btnCreateIdea"
+        tools:visibility="visible" />
 
-    <TextView
-        android:id="@+id/tvSearch"
+    <EditText
+        android:id="@+id/etSearch"
         style="@style/TextBody_1"
-        android:layout_width="@dimen/size_0"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_16"
         android:background="@drawable/bg_feed_search"
+        android:drawableStart="@drawable/ic_search"
         android:drawablePadding="@dimen/padding_16"
+        android:hint="@string/feed_tv_search_text"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLines="1"
         android:paddingHorizontal="@dimen/padding_16"
         android:paddingVertical="@dimen/padding_12"
-        android:text="@string/feed_tv_search_text"
-        android:textColor="@color/text_secondary"
-        app:drawableStartCompat="@drawable/ic_search"
-        app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+        android:singleLine="true"
+        android:textColor="@color/text_primary"
+        android:textColorHint="@color/text_secondary"
+        android:textCursorDrawable="@drawable/custom_cursor"
+        app:layout_constraintEnd_toStartOf="@+id/tvCancel"
         app:layout_constraintStart_toStartOf="@+id/leftGuideline"
         app:layout_constraintTop_toBottomOf="@+id/tvFeed" />
+
+    <TextView
+        android:id="@+id/tvCancel"
+        style="@style/TextBody_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="@dimen/margin_8"
+        android:text="@string/cancel"
+        android:textColor="@color/accent_secondary"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/etSearch"
+        app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+        app:layout_constraintStart_toEndOf="@+id/etSearch"
+        app:layout_constraintTop_toTopOf="@+id/etSearch"
+        tools:visibility="gone" />
 
     <com.innoprog.android.uikit.InnoProgChipGroupView
         android:id="@+id/cgvFilter"
@@ -70,9 +94,26 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_16"
         android:theme="@style/CustomChips"
-        app:layout_constraintStart_toStartOf="@+id/leftGuideline"
         app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/tvSearch" />
+        app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@+id/etSearch"
+        tools:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvPlaceholder"
+        style="@style/TextHeadline_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_8"
+        android:text="@string/feed_search_placeholder"
+        android:textAlignment="center"
+        android:textColor="@color/text_tertiary"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cgvFilter"
+        tools:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPublications"
@@ -81,11 +122,12 @@
         android:layout_marginVertical="@dimen/margin_8"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
         app:layout_constraintStart_toStartOf="@+id/leftGuideline"
         app:layout_constraintTop_toBottomOf="@+id/cgvFilter"
-        app:layout_constraintBottom_toBottomOf="parent"
         tools:itemCount="4"
-        tools:listitem="@layout/item_news" />
+        tools:listitem="@layout/item_news"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
