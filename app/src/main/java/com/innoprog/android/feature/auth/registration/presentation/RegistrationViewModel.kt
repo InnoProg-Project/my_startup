@@ -4,36 +4,50 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.innoprog.android.base.BaseViewModel
+import com.innoprog.android.feature.auth.registration.domain.Model.RegistrationModel
 import com.innoprog.android.feature.auth.registration.domain.RegistrationUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class RegistrationViewModel @Inject constructor(private val useCase: RegistrationUseCase) :
-    BaseViewModel() {
+class RegistrationViewModel @Inject constructor(
+    private val useCase: RegistrationUseCase
+) : BaseViewModel() {
 
-    private val stateLiveData = MutableLiveData<Pair<Boolean, String?>>()
-    fun observeState(): LiveData<Pair<Boolean, String?>> = stateLiveData
-    private fun verify(login: String?, email: String?, password: String?): Boolean {
-        return !(login.isNullOrEmpty() || password.isNullOrEmpty() || email.isNullOrEmpty())
+    private var input: RegistrationModel? = null
+
+    private val stateLiveData = MutableLiveData<RegistrationState>(RegistrationState.Default())
+    fun observeState(): LiveData<RegistrationState> = stateLiveData
+    private fun verify(login: String?, phone: String?, email: String?, password: String?): Boolean {
+        return if (!(login.isNullOrEmpty() || password.isNullOrEmpty())) {
+            if (!email.isNullOrEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                input = RegistrationModel(login, phone, email, password)
+                true
+            } else {
+                processResult(RegistrationState.InputError("", RegistrationModel(login, phone, null, password)))
+                false
+            }
+        } else false
     }
 
     fun registration(login: String?, email: String?, phone: String?, password: String?) {
-        if (verify(login, email, password)) {
+        if (verify(login, phone, email, password)) {
             viewModelScope.launch {
-                useCase
-                    .registration(login ?: "", email ?: "", phone, password ?: "")
-                    .collect { pair ->
-                        processResult(pair)
-                    }
+                input?.let {
+                    useCase
+                        .registration(it)
+                        .collect { pair ->
+                            if (pair.first) processResult(RegistrationState.InputComplete(it)) else processResult(RegistrationState.VerificationError(pair.second?: ""))
+                        }
+                }
             }
-        } else processResult(Pair(false, "не все поля заполнены"))
+        }
     }
 
-    private fun processResult(result: Pair<Boolean, String?>) {
+    private fun processResult(result: RegistrationState) {
         stateLiveData.postValue(result)
     }
 
     fun clearDate() {
-        stateLiveData.postValue(Pair(false, null))
+        stateLiveData.postValue(RegistrationState.Default())
     }
 }

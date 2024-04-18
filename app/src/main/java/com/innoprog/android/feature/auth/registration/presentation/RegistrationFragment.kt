@@ -13,6 +13,7 @@ import com.innoprog.android.databinding.FragmentRegistrationBinding
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.auth.codeentry.presentation.CodeEntryFragment
 import com.innoprog.android.feature.auth.registration.di.DaggerRegistrationComponent
+import com.innoprog.android.uikit.InnoProgInputViewState
 
 class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewModel>() {
     override val viewModel by injectViewModel<RegistrationViewModel>()
@@ -32,7 +33,7 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
         binding.ivPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD)
 
         viewModel.observeState().observe(viewLifecycleOwner) {
-            render(it.first, it.second)
+            render(it)
         }
 
         binding.registrationTitle.setLeftIconClickListener {
@@ -49,18 +50,40 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
         }
     }
 
-    private fun render(isAccepted: Boolean, message: String?) {
-        if (isAccepted) {
-            val bundle = Bundle()
-            bundle.putString(CodeEntryFragment.ARG, binding.ivEmail.getText())
-            viewModel.clearDate()
-            viewModel.navigateTo(R.id.codeEntryFragment, bundle)
-        } else if (!message.isNullOrEmpty()) {
-            Toast.makeText(
-                requireContext(),
-                message,
-                Toast.LENGTH_LONG
-            ).show()
+    private fun forwardNavigate(state: RegistrationState.InputComplete) {
+        val bundle = Bundle()
+        bundle.putString(CodeEntryFragment.ARG, state.model.email)
+        viewModel.clearDate()
+        viewModel.navigateTo(R.id.codeEntryFragment, bundle)
+    }
+
+    private fun render(state: RegistrationState) {
+        when (state) {
+            is RegistrationState.InputComplete -> forwardNavigate(state)
+            is RegistrationState.InputError -> drawError(state)
+            is RegistrationState.VerificationError -> showToast(state)
+            else -> Unit
         }
+    }
+
+    private fun showToast(state: RegistrationState.VerificationError) {
+        Toast.makeText(
+            requireContext(),
+            state.message,
+            Toast.LENGTH_LONG
+        ).show()
+    }
+
+    private fun drawError(state: RegistrationState.InputError) {
+        if (state.model.userName.isNullOrEmpty()) binding.ivName.renderState(InnoProgInputViewState.ERROR)
+        if (state.model.email.isNullOrEmpty()) binding.ivEmail.renderState(InnoProgInputViewState.ERROR)
+        if (state.model.password.isNullOrEmpty()) binding.ivPassword.renderState(
+            InnoProgInputViewState.ERROR
+        )
+        Toast.makeText(
+            requireContext(),
+            state.message,
+            Toast.LENGTH_LONG
+        ).show()
     }
 }

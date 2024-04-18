@@ -1,18 +1,17 @@
 package com.innoprog.android.feature.auth.registration.data
 
+import com.innoprog.android.feature.auth.registration.domain.Model.RegistrationModel
 import com.innoprog.android.feature.auth.registration.domain.RegistrationRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class RegistrationRepositoryImpl @Inject constructor() : RegistrationRepository {
+
     override fun registration(
-        login: String,
-        email: String,
-        phone: String?,
-        password: String
+        registrationValue: RegistrationModel
     ): Flow<Pair<Boolean, String?>> = flow {
-        val response = mok_result
+        val response = validate(mapToRegistrationRequest(registrationValue))
         when (response) {
             BAD_REQUEST -> {
                 emit(Pair(false, "error"))
@@ -26,6 +25,19 @@ class RegistrationRepositoryImpl @Inject constructor() : RegistrationRepository 
                 emit(Pair(false, "error"))
             }
         }
+    }
+
+    private fun mapToRegistrationRequest(value: RegistrationModel): RegistrationRequest {
+        return RegistrationRequest(
+            value.userName,
+            value.phone,
+            value.email,
+            value.password
+        )
+    }
+
+    private fun validate(value: RegistrationRequest): Int {
+        return mok_result
     }
 
     companion object {
