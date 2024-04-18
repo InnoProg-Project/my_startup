@@ -235,7 +235,10 @@ class InnoProgInputView @JvmOverloads constructor(
     }
 
     fun setText(text: String) {
-        editTextView.setText(text)
+        if (text.isNotBlank()) {
+            showHintFilled()
+            editTextView.setText(text)
+        }
     }
 
     companion object {
