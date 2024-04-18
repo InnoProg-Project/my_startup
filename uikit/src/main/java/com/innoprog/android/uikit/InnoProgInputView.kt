@@ -81,24 +81,8 @@ class InnoProgInputView @JvmOverloads constructor(
             captionTextView.text = getString(R.styleable.InnoProgInputView_caption)
             leftIcon.setImageDrawable(getDrawable(R.styleable.InnoProgInputView_left_icon))
             rightIcon.setImageDrawable(getDrawable(R.styleable.InnoProgInputView_right_icon))
-
-            editTextView.setText(getString(R.styleable.InnoProgInputView_text))
             emptyHintTextView.text = getString(R.styleable.InnoProgInputView_label)
-            if (editTextView.text.isNotBlank()) {
-                emptyHintTextView.textSize = SP_12
-                constraintSet.connect(
-                    R.id.hint_empty,
-                    ConstraintSet.BOTTOM,
-                    R.id.edit_text,
-                    ConstraintSet.TOP,
-                    0
-                )
-                constraintSet.setMargin(
-                    R.id.hint_empty, ConstraintSet.TOP,
-                    resources.getDimensionPixelSize(R.dimen.margin_5)
-                )
-                constraintSet.applyTo(backgroundEditTextView)
-            }
+            getString(R.styleable.InnoProgInputView_text)?.let { setText(it) }
         }
 
         isFocusable = true
@@ -178,16 +162,15 @@ class InnoProgInputView @JvmOverloads constructor(
 
         constraintSet.connect(
             R.id.hint_empty,
-            ConstraintSet.BOTTOM,
-            ConstraintSet.PARENT_ID,
-            ConstraintSet.BOTTOM,
-            resources.getDimensionPixelSize(R.dimen.margin_16)
-        )
-
-        constraintSet.setMargin(
-            R.id.hint_empty,
             ConstraintSet.TOP,
-            resources.getDimensionPixelSize(R.dimen.margin_16)
+            R.id.left_icon,
+            ConstraintSet.TOP
+        )
+        constraintSet.connect(
+            R.id.hint_empty,
+            ConstraintSet.BOTTOM,
+            R.id.left_icon,
+            ConstraintSet.BOTTOM
         )
 
         TransitionManager.beginDelayedTransition(backgroundEditTextView)
@@ -199,11 +182,11 @@ class InnoProgInputView @JvmOverloads constructor(
 
         constraintSet.connect(
             R.id.hint_empty,
-            ConstraintSet.BOTTOM,
-            R.id.edit_text,
             ConstraintSet.TOP,
-            0
+            ConstraintSet.PARENT_ID,
+            ConstraintSet.TOP
         )
+        constraintSet.clear(R.id.hint_empty, ConstraintSet.BOTTOM)
 
         constraintSet.setMargin(
             R.id.hint_empty, ConstraintSet.TOP,
