@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_primary">
+
+    <com.innoprog.android.uikit.InnoProgTopBarView
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_primary"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:topBar_left_icon="@drawable/ic_back"
+        app:topBar_title="" />
+
+    <TextView
+        android:id="@+id/chooseProjectDirectionTV"
+        style="@style/TextHeadline_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_16"
+        android:text="@string/choose_project_direction"
+        android:textColor="@color/text_primary"
+        app:layout_constraintTop_toBottomOf="@id/topBar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chooseProjectDirectionRV"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginVertical="@dimen/padding_8"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/innoProgButtonView"
+        app:layout_constraintTop_toBottomOf="@id/chooseProjectDirectionTV"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_project_direction" />
+
+    <com.innoprog.android.uikit.InnoProgButtonView
+        android:id="@+id/innoProgButtonView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_16"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:buttonText="Сохранить"
+        tools:layout_editor_absoluteX="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
