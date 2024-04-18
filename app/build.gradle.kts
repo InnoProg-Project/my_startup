@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("io.gitlab.arturbosch.detekt").version("1.23.3")
     id("kotlin-kapt")
+    id ("androidx.navigation.safeargs")
 }
 
 android {
@@ -71,4 +72,14 @@ dependencies {
     //Glide
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
+    kapt ("com.github.bumptech.glide:compiler:4.15.1")
+
+    //Room
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+
+    //VideoPlayer
+    implementation("androidx.media3:media3-exoplayer:1.3.0")
+    implementation("androidx.media3:media3-ui:1.3.0")
 }

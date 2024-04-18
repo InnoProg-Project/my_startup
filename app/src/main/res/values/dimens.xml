@@ -12,4 +12,9 @@
     <dimen name="margin_12">12dp</dimen>
     <dimen name="margin_20">20dp</dimen>
     <dimen name="ic_size_40">40dp</dimen>
+    <dimen name="margin_40">40dp</dimen>
+    <dimen name="corner_radius_8">8dp</dimen>
+    <dimen name="size_0">0dp</dimen>
+    <dimen name="size_32">32dp</dimen>
+    <dimen name="size_28">28dp</dimen>
 </resources>

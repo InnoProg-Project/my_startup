@@ -48,7 +48,7 @@
                 android:layout_marginTop="@dimen/margin_32"
                 android:src="@drawable/ic_info"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edit" />
+                app:layout_constraintTop_toBottomOf="@id/edit_text" />
 
             <TextView
                 android:id="@+id/info_text"
@@ -60,7 +60,7 @@
                 android:textColor="@color/text_primary"
                 android:text="@string/about_app"
                 app:layout_constraintStart_toEndOf="@id/edit"
-                app:layout_constraintTop_toBottomOf="@id/edit" />
+                app:layout_constraintTop_toBottomOf="@id/edit_text" />
 
             <ImageView
                 android:id="@+id/docks"
@@ -70,7 +70,8 @@
                 android:layout_marginTop="@dimen/margin_32"
                 android:src="@drawable/ic_document_multiple"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/info" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/info_text" />
 
             <TextView
                 android:id="@+id/docks_text"
@@ -80,7 +81,8 @@
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_32"
                 android:textColor="@color/text_primary"
-                android:text="@string/legal_docks"
+                android:text="@string/legal_documents"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/edit"
                 app:layout_constraintTop_toBottomOf="@id/info_text" />
 

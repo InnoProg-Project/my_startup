@@ -19,7 +19,8 @@ class TrainingListRepositoryImpl @Inject constructor() : TrainingListRepository 
         TRAINING_AUTHOR_POSITION,
         TRAINING_DATE
     )
-    private val models = listOf(trainingListModel, trainingListModel, trainingListModel, trainingListModel)
+    private val models =
+        listOf(trainingListModel, trainingListModel, trainingListModel, trainingListModel)
 
     override fun getTrainingList(): Flow<Pair<List<TrainingListModel>?, ErrorStatus?>> = flow {
         emit(Pair(models, null))

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="@string/sms_code_inactive" />
+
+        <com.innoprog.android.uikit.InnoProgSMSCodeView
+            android:id="@+id/codeBox1"
+            android:layout_marginTop="@dimen/margin_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="@string/sms_code_disabled" />
+
+        <com.innoprog.android.uikit.InnoProgSMSCodeView
+            android:id="@+id/codeBox2"
+            android:layout_marginTop="@dimen/margin_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="@string/sms_code_error" />
+
+        <com.innoprog.android.uikit.InnoProgSMSCodeView
+            android:id="@+id/codeBox3"
+            android:layout_marginTop="@dimen/margin_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="@string/sms_code_focused" />
+
+        <com.innoprog.android.uikit.InnoProgSMSCodeView
+            android:id="@+id/codeBox4"
+            android:layout_marginTop="@dimen/margin_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</ScrollView>

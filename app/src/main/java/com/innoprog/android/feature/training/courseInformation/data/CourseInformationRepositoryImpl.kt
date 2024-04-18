@@ -51,7 +51,7 @@ class CourseInformationRepositoryImpl @Inject constructor() : CourseInformationR
         const val COURSE_AUTHOR_POSITION = "СЕО в Мой Стартап"
         const val COURSE_DATE = "20 мая"
         const val COURSE_DIRECTION = "Управление"
-        const val COURSE_VIDEO_URL = "https://www.youtube.com/watch?v=KbUBfXEju3c&ab_channel=MemeMystery"
+        const val COURSE_VIDEO_URL = "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
         const val COURSE_VIDEO_DESCRIPTION =
             "This Song was Sung by the Chilean Singer \"Christel\" in the popular Chilean Television Show \"Rojo " +
                 "Fama Contrafama\" is now getting really viral on social media these days. Enjoy the full song!"

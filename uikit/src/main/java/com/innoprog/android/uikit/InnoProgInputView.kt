@@ -3,6 +3,8 @@ package com.innoprog.android.uikit
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.LayerDrawable
+import android.text.TextWatcher
+import android.text.method.TransformationMethod
 import android.util.AttributeSet
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.InputMethodManager
@@ -12,6 +14,7 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat.getDrawable
 import androidx.transition.TransitionManager
 import com.innoprog.android.uikit.ext.applyStyleable
 
@@ -57,10 +60,21 @@ class InnoProgInputView @JvmOverloads constructor(
                 R.styleable.InnoProgInputView_state,
                 InnoProgInputViewState.INACTIVE.number
             )) {
-                InnoProgInputViewState.DISABLED.number -> { state = InnoProgInputViewState.DISABLED }
-                InnoProgInputViewState.ERROR.number -> { state = InnoProgInputViewState.ERROR }
-                InnoProgInputViewState.FOCUSED.number -> { state = InnoProgInputViewState.FOCUSED }
-                else -> { state = InnoProgInputViewState.INACTIVE }
+                InnoProgInputViewState.DISABLED.number -> {
+                    state = InnoProgInputViewState.DISABLED
+                }
+
+                InnoProgInputViewState.ERROR.number -> {
+                    state = InnoProgInputViewState.ERROR
+                }
+
+                InnoProgInputViewState.FOCUSED.number -> {
+                    state = InnoProgInputViewState.FOCUSED
+                }
+
+                else -> {
+                    state = InnoProgInputViewState.INACTIVE
+                }
             }
             renderState(state)
 
@@ -103,6 +117,18 @@ class InnoProgInputView @JvmOverloads constructor(
                 renderState(state)
             }
         }
+    }
+
+    fun setInputType(type: Int) {
+        editTextView.inputType = type
+    }
+
+    fun setTransformationMethod(method: TransformationMethod) {
+        editTextView.transformationMethod = method
+    }
+
+    fun setRightIcon(src: Int) {
+        rightIcon.setImageDrawable(getDrawable(context, src))
     }
 
     fun renderState(state: InnoProgInputViewState) {
@@ -194,6 +220,14 @@ class InnoProgInputView @JvmOverloads constructor(
 
     fun setRightIconClickListener(onClickListener: OnClickListener) {
         rightIcon.setOnClickListener(onClickListener)
+    }
+
+    fun addTextChangedListener(textWatcher: TextWatcher) {
+        editTextView.addTextChangedListener(textWatcher)
+    }
+
+    fun getText(): String {
+        return editTextView.text.toString()
     }
 
     companion object {
