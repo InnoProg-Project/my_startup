@@ -159,7 +159,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
 
         if (text.isNullOrEmpty()) {
             editText.setCompoundDrawablesWithIntrinsicBounds(
-                R.drawable.ic_search_light,
+                R.drawable.ic_search,
                 0,
                 0,
                 0
@@ -169,7 +169,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
             }
         } else {
             editText.setCompoundDrawablesWithIntrinsicBounds(
-                R.drawable.ic_search_light,
+                R.drawable.ic_search,
                 0,
                 R.drawable.ic_delete,
                 0
