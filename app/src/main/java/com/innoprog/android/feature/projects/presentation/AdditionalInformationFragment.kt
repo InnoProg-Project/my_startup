@@ -33,5 +33,4 @@ class AdditionalInformationFragment : BaseFragment<FragmentAdditionalInformation
             viewModel.navigateUp()
         }
     }
-
 }
