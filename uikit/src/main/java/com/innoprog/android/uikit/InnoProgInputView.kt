@@ -22,7 +22,7 @@ class InnoProgInputView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
-    ) : ConstraintLayout(context, attrs, defStyleAttr) {
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private var state: InnoProgInputViewState = InnoProgInputViewState.INACTIVE
 
@@ -229,6 +229,7 @@ class InnoProgInputView @JvmOverloads constructor(
     }
 
     companion object {
+
         const val FULL_VISIBLE = 1f
         const val VISIBILITY_40_PERCENT = 0.4f
 
