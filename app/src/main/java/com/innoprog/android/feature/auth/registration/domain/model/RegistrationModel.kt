@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.auth.registration.domain.Model
+package com.innoprog.android.feature.auth.registration.domain.model
 
 data class RegistrationModel(
     val userName: String?,

@@ -1,6 +1,6 @@
 package com.innoprog.android.feature.auth.registration.presentation
 
-import com.innoprog.android.feature.auth.registration.domain.Model.RegistrationModel
+import com.innoprog.android.feature.auth.registration.domain.model.RegistrationModel
 
 sealed class RegistrationState(val message: String?) {
     class Default : RegistrationState(null)

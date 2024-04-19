@@ -1,7 +1,7 @@
 package com.innoprog.android.feature.auth.registration.data
 
-import com.innoprog.android.feature.auth.registration.domain.Model.RegistrationModel
 import com.innoprog.android.feature.auth.registration.domain.RegistrationRepository
+import com.innoprog.android.feature.auth.registration.domain.model.RegistrationModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -37,7 +37,9 @@ class RegistrationRepositoryImpl @Inject constructor() : RegistrationRepository 
     }
 
     private fun validate(value: RegistrationRequest): Int {
-        return mok_result
+        return if (android.util.Patterns.EMAIL_ADDRESS.matcher(value.email)
+                .matches()
+        ) mok_result else BAD_REQUEST
     }
 
     companion object {

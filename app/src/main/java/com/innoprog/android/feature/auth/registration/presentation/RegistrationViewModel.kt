@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.innoprog.android.base.BaseViewModel
-import com.innoprog.android.feature.auth.registration.domain.Model.RegistrationModel
 import com.innoprog.android.feature.auth.registration.domain.RegistrationUseCase
+import com.innoprog.android.feature.auth.registration.domain.model.RegistrationModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,11 +19,18 @@ class RegistrationViewModel @Inject constructor(
     fun observeState(): LiveData<RegistrationState> = stateLiveData
     private fun verify(login: String?, phone: String?, email: String?, password: String?): Boolean {
         return if (!(login.isNullOrEmpty() || password.isNullOrEmpty())) {
-            if (!email.isNullOrEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            if (!email.isNullOrEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(email)
+                    .matches()
+            ) {
                 input = RegistrationModel(login, phone, email, password)
                 true
             } else {
-                processResult(RegistrationState.InputError("", RegistrationModel(login, phone, null, password)))
+                processResult(
+                    RegistrationState.InputError(
+                        "",
+                        RegistrationModel(login, phone, null, password)
+                    )
+                )
                 false
             }
         } else false
@@ -36,7 +43,9 @@ class RegistrationViewModel @Inject constructor(
                     useCase
                         .registration(it)
                         .collect { pair ->
-                            if (pair.first) processResult(RegistrationState.InputComplete(it)) else processResult(RegistrationState.VerificationError(pair.second?: ""))
+                            if (pair.first) processResult(RegistrationState.InputComplete(it)) else processResult(
+                                RegistrationState.VerificationError(pair.second ?: "")
+                            )
                         }
                 }
             }
