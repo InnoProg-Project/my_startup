@@ -40,7 +40,7 @@
     <string name="password_recovery_new_password_repeat">Повторите новый пароль</string>
     <string name="password_recovery_new_password_input">Введите новый пароль</string>
     <string name="password_recovery_new_password">Новый пароль</string>
-
+  
     <string name="feed_title">Брейншторм идей и проектов 💡</string>
     <string name="feed_tv_search_text">Название публикации</string>
     <string name="idea">Идея</string>
@@ -51,4 +51,6 @@
     <string name="regestration_toast_message">не все поля заполнены</string>
     <string name="registration_fragment_registration">Регистрация</string>
     <string name="wrong_email">Неверно введен e-mail</string>
+    <string name="feed_search_placeholder">По вашему запросу ничего не нашли</string>
+    <string name="choose_project_direction">Выберите направление проекта</string>
 </resources>

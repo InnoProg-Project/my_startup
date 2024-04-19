@@ -9,9 +9,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/background_edit_text_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
         android:background="@drawable/inno_prog_input_view_background"
+        app:layout_constraintBottom_toTopOf="@+id/caption"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_min="@dimen/button_height_48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -19,8 +22,10 @@
             android:id="@+id/left_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginBottom="@dimen/margin_12"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_placeholder" />
@@ -31,41 +36,43 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/margin_14"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
             android:backgroundTint="@android:color/transparent"
             android:singleLine="true"
             android:textColor="@color/text_secondary"
             android:textSize="16sp"
-            tools:text="Label"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/right_icon"
             app:layout_constraintStart_toEndOf="@+id/left_icon"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Label" />
 
         <EditText
             android:id="@+id/edit_text"
             style="@style/TextBody_1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="@dimen/margin_8"
             android:background="@android:color/transparent"
+            android:gravity="top|start"
             android:singleLine="true"
             android:textColor="@color/text_primary"
             android:textCursorDrawable="@null"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/right_icon"
+            app:layout_constraintHeight_min="wrap"
             app:layout_constraintStart_toEndOf="@id/left_icon"
+            app:layout_constraintTop_toBottomOf="@+id/hint_empty"
             tools:text="Filled text" />
 
         <ImageView
             android:id="@+id/right_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginEnd="@dimen/margin_12"
+            android:layout_marginBottom="@dimen/margin_12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_placeholder" />
@@ -78,8 +85,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/background_edit_text_view"
-        app:layout_constraintTop_toBottomOf="@id/background_edit_text_view"
         tools:text="Caption" />
 
 </merge>
