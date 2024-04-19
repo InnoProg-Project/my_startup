@@ -73,6 +73,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_12"
+            app:singleLine="false"
             app:label="@string/investments_description"
             app:layout_constraintEnd_toStartOf="@id/right_border"
             app:layout_constraintStart_toEndOf="@id/left_border"

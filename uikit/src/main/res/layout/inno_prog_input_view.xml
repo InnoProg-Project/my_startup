@@ -25,7 +25,6 @@
             android:layout_marginStart="@dimen/margin_12"
             android:layout_marginTop="@dimen/margin_12"
             android:layout_marginBottom="@dimen/margin_12"
-
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_placeholder" />
@@ -52,11 +51,10 @@
             style="@style/TextBody_1"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/margin_8"
             android:layout_marginBottom="@dimen/margin_8"
             android:background="@android:color/transparent"
             android:gravity="top|start"
-            android:singleLine="true"
             android:textColor="@color/text_primary"
             android:textCursorDrawable="@null"
             app:layout_constraintBottom_toBottomOf="parent"

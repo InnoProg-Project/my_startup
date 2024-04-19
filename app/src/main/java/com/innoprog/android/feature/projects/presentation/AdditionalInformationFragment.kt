@@ -25,6 +25,8 @@ class AdditionalInformationFragment : BaseFragment<FragmentAdditionalInformation
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.investmentsDescriptionIv.setSingleLine(false)
+
         initTopBar()
     }
 
@@ -33,4 +35,5 @@ class AdditionalInformationFragment : BaseFragment<FragmentAdditionalInformation
             viewModel.navigateUp()
         }
     }
+
 }

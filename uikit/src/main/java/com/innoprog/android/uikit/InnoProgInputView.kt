@@ -22,7 +22,7 @@ class InnoProgInputView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
-) : ConstraintLayout(context, attrs, defStyleAttr) {
+    ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private var state: InnoProgInputViewState = InnoProgInputViewState.INACTIVE
 
@@ -222,6 +222,10 @@ class InnoProgInputView @JvmOverloads constructor(
             showHintFilled()
             editTextView.setText(text)
         }
+    }
+
+    fun setSingleLine(singleLine: Boolean) {
+        editTextView.isSingleLine = singleLine
     }
 
     companion object {
