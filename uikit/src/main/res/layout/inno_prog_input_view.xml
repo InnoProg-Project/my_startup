@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/background_edit_text_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:background="@drawable/inno_prog_input_view_background"
         app:layout_constraintBottom_toTopOf="@+id/caption"
@@ -50,7 +50,7 @@
             android:id="@+id/edit_text"
             style="@style/TextBody_1"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_8"
             android:layout_marginBottom="@dimen/margin_8"
             android:background="@android:color/transparent"
