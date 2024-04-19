@@ -44,6 +44,4 @@
     <string name="feed_title">Брейншторм идей и проектов 💡</string>
     <string name="feed_tv_search_text">Название публикации</string>
     <string name="idea">Идея</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
