@@ -14,9 +14,9 @@ import com.innoprog.android.feature.edit.di.DaggerCreateEditContentComponent
 
 class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding, BaseViewModel>() {
 
-    private val args: TypeContentArgs by navArgs()
-
+    private val args by navArgs<CreateEditContentFragmentArgs>()
     override val viewModel by injectViewModel<CreateEditContentViewModel>()
+
     override fun diComponent(): ScreenComponent = DaggerCreateEditContentComponent.builder().build()
 
     override fun createBinding(
@@ -33,7 +33,9 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
             render(it)
         }
 
-        args.let { viewModel.setEditorType(it) }
+       // args.let { viewModel.setEditorType(it) }
+
+        viewModel.setEditorType(args.typeContent)
 
         binding.topBar.setLeftIconClickListener {
             viewModel.navigateUp()

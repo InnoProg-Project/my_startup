@@ -72,7 +72,11 @@
         android:id="@+id/feedFragment"
         android:name="com.innoprog.android.feature.feed.presentation.FeedFragment"
         android:label="fragment_feed"
-        tools:layout="@layout/fragment_feed" />
+        tools:layout="@layout/fragment_feed" >
+        <action
+            android:id="@+id/action_feedFragment_to_createEditContentFragment"
+            app:destination="@id/createEditContentFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/projectsFragment"
@@ -177,5 +181,14 @@
         android:id="@+id/videoPlayerFragment"
         android:name="com.innoprog.android.feature.training.videoPlayer.presentation.VideoPlayerFragment"
         android:label="VideoPlayerFragment" />
+    <fragment
+        android:id="@+id/createEditContentFragment"
+        android:name="com.innoprog.android.feature.edit.presentation.CreateEditContentFragment"
+        android:label="fragment_create_edit_content"
+        tools:layout="@layout/fragment_create_edit_content" >
+        <argument
+            android:name="typeContent"
+            app:argType="com.innoprog.android.feature.edit.presentation.TypeContentArgs" />
+    </fragment>
 
 </navigation>

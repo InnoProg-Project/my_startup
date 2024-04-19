@@ -14,16 +14,19 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import androidx.navigation.fragment.findNavController
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentFeedBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
+import com.innoprog.android.feature.edit.presentation.TypeContentArgs
 import com.innoprog.android.feature.feed.newsfeed.di.DaggerFeedComponent
 import com.innoprog.android.feature.feed.newsfeed.domain.models.Author
 import com.innoprog.android.feature.feed.newsfeed.domain.models.Company
 import com.innoprog.android.feature.feed.newsfeed.domain.models.News
+import com.innoprog.android.feature.feed.presentation.FeedFragmentDirections
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
 import com.innoprog.android.uikit.InnoProgChipGroupView
 
@@ -62,12 +65,12 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         val author = Author(
             "3fa85f64-5717-4562-b3fc-2c963f66afa6",
             "https://s3-alpha-sig.figma.com/img/0b35/64f4/7bc6ac8f4998b581668bc2f5a94" +
-                "f85bd?Expires=1713139200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=jI3I7" +
-                "K7XSeeEULdAe7lPRzZgQsq7QFBYBXEuZK~ZViDvt196iU7N6iH7c9CjBkSouTPDDVi9oWp~ja" +
-                "EAcgPmisHin3DlUEIgVGQebnQWL90Ux31RBXODizud2t2Hk~iN2zC-dngHwFwziPYuqsmQ2UH" +
-                "LAnUUjetbmeD3N6X12O8~cfOAHc~sArR~8dBFeK8cxaD4SvQWzfttuomT8ydnUL~LtgIFijch" +
-                "YW~Qo364qR457Cd5niI7Kgp27Rc515MZmAiIFIvYLqBBNF4cywqk2VtL-nv68MwDduUr6rDXxt" +
-                "Vq-a3c6QxvN68lgFZ0LO3V3d05LbV2gv7OwzfSqjPIpg__",
+                    "f85bd?Expires=1713139200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=jI3I7" +
+                    "K7XSeeEULdAe7lPRzZgQsq7QFBYBXEuZK~ZViDvt196iU7N6iH7c9CjBkSouTPDDVi9oWp~ja" +
+                    "EAcgPmisHin3DlUEIgVGQebnQWL90Ux31RBXODizud2t2Hk~iN2zC-dngHwFwziPYuqsmQ2UH" +
+                    "LAnUUjetbmeD3N6X12O8~cfOAHc~sArR~8dBFeK8cxaD4SvQWzfttuomT8ydnUL~LtgIFijch" +
+                    "YW~Qo364qR457Cd5niI7Kgp27Rc515MZmAiIFIvYLqBBNF4cywqk2VtL-nv68MwDduUr6rDXxt" +
+                    "Vq-a3c6QxvN68lgFZ0LO3V3d05LbV2gv7OwzfSqjPIpg__",
             "Юлия Анисимова",
             company
         )
@@ -80,7 +83,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
             coverUrl = "",
             title = "Как мы помогаем родителям в воспитании детей ",
             content = "Этот надежный помощник предназначен для облегчения путей родительства и " +
-                "обеспечения гармоничного развития маленьких личностей",
+                    "обеспечения гармоничного развития маленьких личностей",
             publishedAt = 24,
             likesCount = 24,
             commentsCount = 24,
@@ -92,11 +95,11 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
             author = author,
             projectId = "2",
             coverUrl = "https://img.freepik.com/free-vector/ai-technology-microchip-background-" +
-                "vector-digital-transformation-concept_53876-112222.jpg",
+                    "vector-digital-transformation-concept_53876-112222.jpg",
             title = "Искусственный интеллект",
             content = "Иску́сственный интелле́кт — свойство искусственных интеллектуальных систем " +
-                "выполнять творческие функции, которые традиционно считаются прерогативой " +
-                "человека (не следует путать с искусственным сознанием)",
+                    "выполнять творческие функции, которые традиционно считаются прерогативой " +
+                    "человека (не следует путать с искусственным сознанием)",
             publishedAt = 24,
             likesCount = 24,
             commentsCount = 24,
@@ -113,7 +116,13 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
 
     private fun setUiListeners() {
         binding.btnCreateIdea.setOnClickListener {
-            Toast.makeText(requireContext(), "Переход на создание идеи", Toast.LENGTH_SHORT).show()
+            // Toast.makeText(requireContext(), "Переход на создание идеи", Toast.LENGTH_SHORT).show()
+
+            findNavController().navigate(
+                FeedFragmentDirections.actionFeedFragmentToCreateEditContentFragment(
+                    TypeContentArgs.CreateIdea
+                )
+            )
         }
 
         binding.etSearch.setOnFocusChangeListener { view, hasFocus ->
