@@ -46,4 +46,11 @@
     <string name="idea">Идея</string>
     <string name="feed_search_placeholder">По вашему запросу ничего не нашли</string>
     <string name="choose_project_direction">Выберите направление проекта</string>
+
+    <string name="step_4">Шаг 4</string>
+    <string name="attach_docks">Прикрепите файлы, чтобы рассказать о проекте ещё больше. Например, one page, презентацию, отчёты и прочие документы. Необязательно</string>
+    <string name="investments_report">Отчёт по инвестициям за I квартал 2024.docx</string>
+    <string name="download_dock">Загрузить документ</string>
+    <string name="download_hint_text">Документы загружаются в форматах: doc, docx, pdf. Размер одного документа не более 10Мб.</string>
+    <string name="continue_loading">Продолжить</string>
 </resources>
