@@ -101,6 +101,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:visibility="visible"
         app:buttonSize="large"
         app:buttonState="enabled"
         app:buttonTextColor="@color/text_primary"
@@ -110,6 +111,20 @@
         app:layout_constraintEnd_toEndOf="@+id/right_border"
         app:layout_constraintStart_toStartOf="@id/left_border" />
 
+    <com.innoprog.android.uikit.InnoProgButtonView
+        android:id="@+id/button_save"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        app:buttonSize="large"
+        app:buttonState="enabled"
+        app:buttonTextColor="@color/text_primary"
+        app:buttonType="primary"
+        app:buttonText="@string/save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/right_border"
+        app:layout_constraintStart_toStartOf="@id/left_border" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
