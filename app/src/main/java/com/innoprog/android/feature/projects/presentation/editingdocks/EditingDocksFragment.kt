@@ -11,14 +11,12 @@ import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentEditingDocksBinding
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.projects.di.DaggerEditingDocksComponent
-import com.innoprog.android.feature.training.courseInformation.presentation.DocumentRecyclerViewAdapter
 
 class EditingDocksFragment : BaseFragment<FragmentEditingDocksBinding, BaseViewModel>() {
     override val viewModel by injectViewModel<EditingDocksViewModel>()
     override fun diComponent(): ScreenComponent = DaggerEditingDocksComponent.builder().build()
 
     private var documentAdapter: DocumentsAdapter? = null
-
 
     override fun createBinding(
         inflater: LayoutInflater,
