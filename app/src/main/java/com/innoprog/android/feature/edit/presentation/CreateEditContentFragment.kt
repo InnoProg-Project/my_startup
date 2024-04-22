@@ -33,8 +33,6 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
             render(it)
         }
 
-       // args.let { viewModel.setEditorType(it) }
-
         viewModel.setEditorType(args.typeContent)
 
         binding.topBar.setLeftIconClickListener {
@@ -48,6 +46,8 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
             is CreateEditContentState.CreateIdea -> {
                 binding.topBar.setTitleText(getText(R.string.create_idea))
                 binding.saveBV.setText(getString(R.string.publish))
+                binding.inputTitle.setHintText(getString(R.string.title_of_idea))
+                binding.inputText.setHintText(getString(R.string.text_idea))
                 binding.groupProject.visibility = View.GONE
 
             }
@@ -55,8 +55,9 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
             is CreateEditContentState.CreatePublication -> {
                 binding.topBar.setTitleText(getText(R.string.create_publish))
                 binding.saveBV.setText(getString(R.string.publish))
+                binding.inputTitle.setHintText(getString(R.string.title_of_news))
+                binding.inputText.setHintText(getString(R.string.text_publish))
                 binding.groupProject.visibility = View.VISIBLE
-
             }
 
             is CreateEditContentState.EditPublication -> {
@@ -66,4 +67,6 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
             }
         }
     }
+
+
 }

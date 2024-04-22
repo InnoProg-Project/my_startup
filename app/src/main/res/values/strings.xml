@@ -11,6 +11,10 @@
     <string name="project">Проект</string>
     <string name="create_publish">Создать публикацию</string>
     <string name="edit_publish">Редактировать публикацию</string>
+    <string name="title_of_idea">Заголовок идеи</string>
+    <string name="text_idea">Текст идеи</string>
+    <string name="title_of_news">Заголовок новости</string>
+    <string name="text_publish">Текст публикации</string>
 
     <string name="course_direction">Направление курса</string>
     <string name="video">Видео</string>

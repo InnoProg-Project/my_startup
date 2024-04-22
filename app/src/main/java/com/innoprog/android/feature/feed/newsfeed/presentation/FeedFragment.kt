@@ -26,7 +26,7 @@ import com.innoprog.android.feature.feed.newsfeed.di.DaggerFeedComponent
 import com.innoprog.android.feature.feed.newsfeed.domain.models.Author
 import com.innoprog.android.feature.feed.newsfeed.domain.models.Company
 import com.innoprog.android.feature.feed.newsfeed.domain.models.News
-import com.innoprog.android.feature.feed.presentation.FeedFragmentDirections
+import com.innoprog.android.feature.mainscreen.presentation.MainFragmentDirections
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
 import com.innoprog.android.uikit.InnoProgChipGroupView
 
@@ -116,10 +116,9 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
 
     private fun setUiListeners() {
         binding.btnCreateIdea.setOnClickListener {
-            // Toast.makeText(requireContext(), "Переход на создание идеи", Toast.LENGTH_SHORT).show()
 
             findNavController().navigate(
-                FeedFragmentDirections.actionFeedFragmentToCreateEditContentFragment(
+                MainFragmentDirections.actionMainFragmentToCreateEditContentFragment(
                     TypeContentArgs.CreateIdea
                 )
             )

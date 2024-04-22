@@ -66,6 +66,9 @@
         <action
             android:id="@+id/action_mainFragment_to_courseInformationFragment"
             app:destination="@id/courseInformationFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_createEditContentFragment"
+            app:destination="@id/createEditContentFragment" />
     </fragment>
 
     <fragment
@@ -73,9 +76,6 @@
         android:name="com.innoprog.android.feature.feed.presentation.FeedFragment"
         android:label="fragment_feed"
         tools:layout="@layout/fragment_feed" >
-        <action
-            android:id="@+id/action_feedFragment_to_createEditContentFragment"
-            app:destination="@id/createEditContentFragment" />
     </fragment>
 
     <fragment
