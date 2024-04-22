@@ -1,10 +1,20 @@
 package com.innoprog.android.feature.feed.newsfeed.presentation
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
+import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentFeedBinding
@@ -41,7 +51,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initButton()
+        setUiListeners()
         initChips()
 
         val company = Company(
@@ -101,15 +111,20 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         }
     }
 
-    private fun initButton() {
+    private fun setUiListeners() {
         binding.btnCreateIdea.setOnClickListener {
             Toast.makeText(requireContext(), "Переход на создание идеи", Toast.LENGTH_SHORT).show()
         }
 
-        binding.tvSearch.setOnClickListener {
-            Toast.makeText(requireContext(), "Переход в поиск по новостям", Toast.LENGTH_SHORT)
-                .show()
+        binding.etSearch.setOnFocusChangeListener { view, hasFocus ->
+            startSearch()
         }
+
+        binding.tvCancel.setOnClickListener {
+            cancelSearch()
+        }
+
+        binding.etSearch.doOnTextChanged(textWatcherForEditText)
     }
 
     private fun initChips() {
@@ -132,6 +147,113 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         })
 
         binding.rvPublications.adapter = newsAdapter
+    }
+
+    val textWatcherForEditText = { text: CharSequence?, start: Int, before: Int, count: Int ->
+        changeIconClearVisibility(text)
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun changeIconClearVisibility(text: CharSequence?) {
+        val editText = binding.etSearch
+
+        if (text.isNullOrEmpty()) {
+            editText.setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.ic_search,
+                0,
+                0,
+                0
+            )
+            editText.setOnTouchListener { _, motionEvent ->
+                false
+            }
+        } else {
+            editText.setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.ic_search,
+                0,
+                R.drawable.ic_delete,
+                0
+            )
+        }
+
+        clearSearchBar()
+    }
+
+    private fun startSearch() {
+        binding.apply {
+            btnCreateIdea.isVisible = false
+            tvFeed.isVisible = false
+            cgvFilter.isVisible = false
+            tvCancel.isVisible = true
+            changeElementBinding()
+        }
+    }
+
+    private fun cancelSearch() {
+        binding.apply {
+            etSearch.clearFocus()
+            etSearch.text.clear()
+            hideKeyboard()
+            btnCreateIdea.isVisible = true
+            tvFeed.isVisible = true
+            cgvFilter.isVisible = true
+            tvCancel.isVisible = false
+            changeElementBinding()
+        }
+    }
+
+    private fun changeElementBinding() {
+        val constraintLayout = binding.root
+
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(constraintLayout)
+
+        val marginBetweenTvFeedAndEtSearch =
+            resources.getDimensionPixelSize(com.innoprog.android.uikit.R.dimen.margin_16)
+
+        if (binding.btnCreateIdea.isVisible && binding.tvFeed.isVisible) {
+            constraintSet.connect(
+                R.id.etSearch,
+                ConstraintSet.TOP,
+                R.id.tvFeed,
+                ConstraintSet.BOTTOM,
+                marginBetweenTvFeedAndEtSearch
+            )
+        } else {
+            constraintSet.connect(
+                R.id.etSearch,
+                ConstraintSet.TOP,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.TOP,
+            )
+        }
+
+        constraintSet.applyTo(constraintLayout)
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun clearSearchBar() {
+        val editText = binding.etSearch
+        val iconClear = ContextCompat.getDrawable(requireContext(), R.drawable.ic_delete)
+        val iconWidth = iconClear?.intrinsicWidth ?: 0
+
+        editText.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_UP && event.rawX >=
+                ((editText.right - editText.compoundPaddingEnd - iconWidth))
+            ) {
+                editText.text?.clear()
+                editText.requestFocus()
+                Log.d("Search_click", "Clear button clicked")
+                return@setOnTouchListener true
+            }
+            return@setOnTouchListener false
+        }
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        inputMethodManager?.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
     }
 
     companion object {
