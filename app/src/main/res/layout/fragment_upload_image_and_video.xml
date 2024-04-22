@@ -9,14 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.innoprog.android.uikit.InnoProgTopBarView
-            android:id="@+id/topBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:topBar_left_icon="@drawable/ic_back"
-            tools:topBar_title="@string/step_2" />
-
         <TextView
             android:id="@+id/uploadPhotoAndVideoTV"
             style="@style/TextHeadline_2"
@@ -25,7 +17,7 @@
             android:layout_marginHorizontal="@dimen/margin_8"
             android:text="@string/upload_photo_or_video"
             android:textColor="@color/text_primary"
-            app:layout_constraintTop_toBottomOf="@id/topBar" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/optionalTV"

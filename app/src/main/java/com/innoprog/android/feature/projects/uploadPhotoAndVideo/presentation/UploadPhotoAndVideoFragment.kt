@@ -1,8 +1,6 @@
 package com.innoprog.android.feature.projects.uploadPhotoAndVideo.presentation
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
@@ -17,17 +15,5 @@ class UploadPhotoAndVideoFragment : BaseFragment<FragmentUploadImageAndVideoBind
 
     override fun createBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentUploadImageAndVideoBinding {
         return FragmentUploadImageAndVideoBinding.inflate(inflater, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        initTopBar()
-    }
-
-    private fun initTopBar() {
-        binding.topBar.setLeftIconClickListener {
-            viewModel.navigateUp()
-        }
     }
 }
