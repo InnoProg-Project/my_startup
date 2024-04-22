@@ -17,6 +17,7 @@ import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.auth.authorization.di.DaggerAuthorizationComponent
 import com.innoprog.android.feature.auth.authorization.domain.model.UserData
+import com.innoprog.android.uikit.InnoProgInputViewState
 
 class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseViewModel>() {
 
@@ -66,12 +67,6 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
 
         binding.topBar.setRightIconClickListener {
             viewModel.verify(binding.ivLogin.getText(), binding.ivPassword.getText())
-            viewModel.navigateTo(R.id.mainFragment, bundleOf(), navOptions {
-                launchSingleTop = true
-                popUpTo(R.id.nav_graph) {
-                    inclusive = true
-                }
-            })
         }
 
         binding.ivPassword.setRightIconClickListener {
@@ -82,8 +77,14 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
 
     private fun renderResult(data: UserData?, message: String?) {
         if (data != null) {
-
+            viewModel.navigateTo(R.id.mainFragment, bundleOf(), navOptions {
+                launchSingleTop = true
+                popUpTo(R.id.nav_graph) {
+                    inclusive = true
+                }
+            })
         } else {
+            binding.ivPassword.renderState(InnoProgInputViewState.ERROR)
         }
     }
 
