@@ -7,4 +7,9 @@
     </style>
     <style name="CustomChips" parent="Theme.MaterialComponents.DayNight.NoActionBar">
     </style>
+
+    <style name="roundedImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/button_padding_10</item>
+    </style>
 </resources>

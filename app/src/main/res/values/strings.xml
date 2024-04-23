@@ -46,4 +46,8 @@
     <string name="idea">Идея</string>
     <string name="feed_search_placeholder">По вашему запросу ничего не нашли</string>
     <string name="choose_project_direction">Выберите направление проекта</string>
+
+    <string name="your_projects">Ваши проекты</string>
+    <string name="tell_about_your_project">Расскажите про\nваш проект</string>
+    <string name="create_project">Создать проект</string>
 </resources>
