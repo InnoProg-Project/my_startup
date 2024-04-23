@@ -18,7 +18,7 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
 
     private val adapter by lazy {
         ProjectsScreenAdapter(requireContext()) {
-            //TODO переход на экран проекта
+            // TODO переход на экран проекта
         }
     }
 
@@ -37,10 +37,10 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
         }
         binding.projectsRV.adapter = adapter
         binding.createNewProjectButton.setOnClickListener {
-            //TODO переход на экран создания проекта
+            // TODO переход на экран создания проекта
         }
         binding.createFirstProjectButton.setOnClickListener {
-            //TODO переход на экран создания проекта
+            // TODO переход на экран создания проекта
         }
     }
 
