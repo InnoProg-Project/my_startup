@@ -16,7 +16,7 @@ class AuthorisationRepositoryImpl @Inject constructor(
         val response = networkClient.authorize(AuthorizationBody(login, password))
         when (response.resultCode) {
             ERROR -> {
-                emit(Resource.Error(""))
+                emit(Resource.Error("Ошибка сервера"))
             }
 
             SUCCESS -> {

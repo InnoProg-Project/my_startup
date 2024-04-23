@@ -57,16 +57,15 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
 
         binding.btnLogin.setOnClickListener {
             viewModel.verify(binding.ivLogin.getText(), binding.ivPassword.getText())
+        }
+
+        binding.topBar.setRightIconClickListener {
             viewModel.navigateTo(R.id.mainFragment, bundleOf(), navOptions {
                 launchSingleTop = true
                 popUpTo(R.id.nav_graph) {
                     inclusive = true
                 }
             })
-        }
-
-        binding.topBar.setRightIconClickListener {
-            viewModel.verify(binding.ivLogin.getText(), binding.ivPassword.getText())
         }
 
         binding.ivPassword.setRightIconClickListener {

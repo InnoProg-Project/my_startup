@@ -22,5 +22,5 @@ interface ApiService {
     fun get(@Url url: String, @HeaderMap headers: Map<String, String>): Call<ResponseBody>
 
     @POST("/v1/login")
-    fun authorize(@Body body: AuthorizationBody): LoginResponse
+    suspend fun authorize(@Body body: AuthorizationBody): LoginResponse
 }
