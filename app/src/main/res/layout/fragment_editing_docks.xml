@@ -28,7 +28,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:topBar_left_icon="@drawable/ic_back"
-        tools:topBar_title="@string/step_4" />
+        tools:topBar_title="@string/editing_docks_step_4" />
 
     <TextView
         android:id="@+id/docks"
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_8"
         android:layout_marginBottom="@dimen/margin_16"
-        android:text="@string/attach_docks"
+        android:text="@string/editing_docks_attach_docks"
         android:textColor="@color/text_secondary"
         app:layout_constraintEnd_toEndOf="@+id/right_border"
         app:layout_constraintStart_toStartOf="@id/left_border"
@@ -77,7 +77,7 @@
         android:gravity="center_horizontal"
         app:buttonLeftIcon="@drawable/document"
         app:buttonSize="large"
-        app:buttonText="@string/download_dock"
+        app:buttonText="@string/editing_docks_download_dock"
         app:buttonTextColor="@color/accent_secondary"
         app:buttonType="def"
         app:layout_constraintEnd_toEndOf="@id/right_border"
@@ -90,7 +90,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_16"
-        android:text="@string/download_hint_text"
+        android:text="@string/editing_docks_download_hint_text"
         android:textColor="@color/text_secondary"
         app:layout_constraintEnd_toEndOf="@id/right_border"
         app:layout_constraintStart_toStartOf="@id/left_border"

@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toStartOf="@+id/icon_right"
         app:layout_constraintStart_toEndOf="@+id/left_icon"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/investments_report" />
+        tools:text="@string/editing_docks_investments_report" />
 
     <ImageView
         android:id="@+id/icon_right"
