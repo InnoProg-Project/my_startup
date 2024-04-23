@@ -1,7 +1,7 @@
 package com.innoprog.android.feature.auth.registration.data
 
 import com.innoprog.android.feature.auth.registration.domain.RegistrationRepository
-import com.innoprog.android.feature.auth.registration.domain.model.RegistrationModel
+import com.innoprog.android.feature.auth.registration.domain.models.RegistrationModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

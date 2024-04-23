@@ -10,6 +10,7 @@ import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentRegistrationBinding
+import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.auth.codeentry.presentation.CodeEntryFragment
 import com.innoprog.android.feature.auth.registration.di.DaggerRegistrationComponent
@@ -17,7 +18,11 @@ import com.innoprog.android.uikit.InnoProgInputViewState
 
 class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewModel>() {
     override val viewModel by injectViewModel<RegistrationViewModel>()
-    override fun diComponent(): ScreenComponent = DaggerRegistrationComponent.builder().build()
+
+    override fun diComponent(): ScreenComponent {
+        val appComponent = AppComponentHolder.getComponent()
+        return DaggerRegistrationComponent.builder().appComponent(appComponent).build()
+    }
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -52,7 +57,7 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
 
     private fun forwardNavigate(state: RegistrationState.InputComplete) {
         val bundle = Bundle()
-        bundle.putString(CodeEntryFragment.ARG, state.model.email)
+        bundle.putString(CodeEntryFragment.ARG, state.registrationData.email)
         viewModel.clearDate()
         viewModel.navigateTo(R.id.codeEntryFragment, bundle)
     }
@@ -75,9 +80,9 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
     }
 
     private fun drawError(state: RegistrationState.InputError) {
-        if (state.model.userName.isNullOrEmpty()) binding.ivName.renderState(InnoProgInputViewState.ERROR)
-        if (state.model.email.isNullOrEmpty()) binding.ivEmail.renderState(InnoProgInputViewState.ERROR)
-        if (state.model.password.isNullOrEmpty()) binding.ivPassword.renderState(
+        if (state.registrationData.userName.isNullOrEmpty()) binding.ivName.renderState(InnoProgInputViewState.ERROR)
+        if (state.registrationData.email.isNullOrEmpty()) binding.ivEmail.renderState(InnoProgInputViewState.ERROR)
+        if (state.registrationData.password.isNullOrEmpty()) binding.ivPassword.renderState(
             InnoProgInputViewState.ERROR
         )
         Toast.makeText(

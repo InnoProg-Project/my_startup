@@ -1,16 +1,21 @@
 package com.innoprog.android.feature.auth.registration.presentation
 
+import android.annotation.SuppressLint
+import android.content.Context
+import androidx.core.content.ContextCompat.getString
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.innoprog.android.R
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.feature.auth.registration.domain.RegistrationUseCase
-import com.innoprog.android.feature.auth.registration.domain.model.RegistrationModel
+import com.innoprog.android.feature.auth.registration.domain.models.RegistrationModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class RegistrationViewModel @Inject constructor(
-    private val useCase: RegistrationUseCase
+    private val useCase: RegistrationUseCase,
+    @SuppressLint("StaticFieldLeak") private val context: Context
 ) : BaseViewModel() {
 
     private var input: RegistrationModel? = null
@@ -27,13 +32,27 @@ class RegistrationViewModel @Inject constructor(
             } else {
                 processResult(
                     RegistrationState.InputError(
-                        "",
+                        getString(
+                            context,
+                            R.string.registration_toast_message
+                        ),
                         RegistrationModel(login, phone, null, password)
                     )
                 )
                 false
             }
-        } else false
+        } else {
+            processResult(
+                RegistrationState.InputError(
+                    getString(
+                        context,
+                        R.string.registration_toast_message
+                    ),
+                    RegistrationModel(login, phone, email, password)
+                )
+            )
+            false
+        }
     }
 
     fun registration(login: String?, email: String?, phone: String?, password: String?) {
@@ -44,7 +63,12 @@ class RegistrationViewModel @Inject constructor(
                         .registration(it)
                         .collect { pair ->
                             if (pair.first) processResult(RegistrationState.InputComplete(it)) else processResult(
-                                RegistrationState.VerificationError(pair.second ?: "")
+                                RegistrationState.VerificationError(
+                                    pair.second ?: getString(
+                                        context,
+                                        R.string.registration_error
+                                    )
+                                )
                             )
                         }
                 }

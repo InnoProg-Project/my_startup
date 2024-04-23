@@ -48,9 +48,10 @@
     <string name="set_phone_number">Введите номер телефона</string>
     <string name="agreement">Продолжая, вы соглашаетесь с политикой обработки персональных данных и лицензионным соглашением</string>
     <string name="registration">Зарегистрироваться</string>
-    <string name="regestration_toast_message">не все поля заполнены</string>
+    <string name="registration_toast_message">не все поля заполнены</string>
     <string name="registration_fragment_registration">Регистрация</string>
     <string name="wrong_email">Неверно введен e-mail</string>
     <string name="feed_search_placeholder">По вашему запросу ничего не нашли</string>
     <string name="choose_project_direction">Выберите направление проекта</string>
+    <string name="registration_error">Ошибка сервера</string>
 </resources>

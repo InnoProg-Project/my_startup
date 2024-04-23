@@ -34,7 +34,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_16"
-        app:caption="@string/wrong_email"
         app:label="@string/email" />
 
     <com.innoprog.android.uikit.InnoProgInputView
