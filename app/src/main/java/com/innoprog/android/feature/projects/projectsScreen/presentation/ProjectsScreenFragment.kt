@@ -8,7 +8,7 @@ import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentProjectsBinding
 import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.feature.projects.di.DaggerProjectsComponent
+import com.innoprog.android.feature.projects.projectsScreen.di.DaggerProjectsComponent
 import com.innoprog.android.feature.projects.projectsScreen.domain.model.ProjectScreenModel
 
 class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewModel>() {
@@ -17,7 +17,7 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
     override fun diComponent(): ScreenComponent = DaggerProjectsComponent.builder().build()
 
     private val adapter by lazy {
-        ProjectsScreenAdapter {
+        ProjectsScreenAdapter(requireContext()) {
             //TODO переход на экран проекта
         }
     }
@@ -36,6 +36,12 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
             render(it)
         }
         binding.projectsRV.adapter = adapter
+        binding.createNewProjectButton.setOnClickListener {
+            //TODO переход на экран создания проекта
+        }
+        binding.createFirstProjectButton.setOnClickListener {
+            //TODO переход на экран создания проекта
+        }
     }
 
     private fun render(state: ProjectsScreenState) {

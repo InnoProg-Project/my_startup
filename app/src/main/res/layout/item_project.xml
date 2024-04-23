@@ -14,6 +14,7 @@
         android:id="@+id/projectLogo"
         android:layout_width="@dimen/button_height_40"
         android:layout_height="@dimen/button_height_40"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/projectShortDescription"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/projectName"
@@ -41,7 +42,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/projectName"
         app:layout_constraintTop_toBottomOf="@+id/projectName"
-        tools:text="Искусственный интелект" />
+        tools:text="Искусственный интеллект" />
 
     <TextView
         android:id="@+id/projectDescription"
