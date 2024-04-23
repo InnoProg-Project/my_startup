@@ -14,16 +14,16 @@ class ProfileInfoRepoImpl @Inject constructor(
 
     override suspend fun getAndSaveProfile(): Profile {
         val profileNet = profileApi.loadProfile()
-        roomDB.profileDao().saveProfile(
-            ProfileEntity(
-                userId = profileNet.userId,
-                name = profileNet.name,
-                about = profileNet.about,
-                communicationChannels = profileNet.communicationChannels,
-                authorities = profileNet.authorities
-
+        roomDB.profileDao()
+            .saveProfile(
+                ProfileEntity(
+                    userId = profileNet.userId,
+                    name = profileNet.name,
+                    about = profileNet.about,
+                    communicationChannels = profileNet.communicationChannels,
+                    authorities = profileNet.authorities
+                )
             )
-        )
         return Profile(
             userId = profileNet.userId,
             name = profileNet.name,

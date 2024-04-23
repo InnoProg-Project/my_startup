@@ -15,6 +15,7 @@ import retrofit2.Retrofit
 @Module(
     includes = [ProfileModule.ProfileApiModule::class]
 )
+
 interface ProfileModule {
 
     @IntoMap
