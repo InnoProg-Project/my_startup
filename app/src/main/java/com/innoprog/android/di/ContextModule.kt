@@ -5,7 +5,6 @@ import android.content.Context
 import dagger.Binds
 import dagger.Module
 
-
 @Module
 interface ContextModule {
     @Binds
