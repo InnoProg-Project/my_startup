@@ -66,11 +66,14 @@
         <action
             android:id="@+id/action_mainFragment_to_courseInformationFragment"
             app:destination="@id/courseInformationFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_newsDetailsFragment"
+            app:destination="@id/newsDetailsFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/feedFragment"
-        android:name="com.innoprog.android.feature.feed.presentation.FeedFragment"
+        android:name="com.innoprog.android.feature.feed.newsfeed.presentation.FeedFragment"
         android:label="fragment_feed"
         tools:layout="@layout/fragment_feed" />
 
@@ -177,5 +180,10 @@
         android:id="@+id/videoPlayerFragment"
         android:name="com.innoprog.android.feature.training.videoPlayer.presentation.VideoPlayerFragment"
         android:label="VideoPlayerFragment" />
+    <fragment
+        android:id="@+id/newsDetailsFragment"
+        android:name="com.innoprog.android.feature.feed.newsdetails.presentation.NewsDetailsFragment"
+        android:label="fragment_news_details"
+        tools:layout="@layout/fragment_news_details" />
 
 </navigation>

@@ -141,8 +141,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     private fun initRecyclerView() {
         newsAdapter = NewsAdapter(listNews, object : NewsAdapter.OnClickListener {
             override fun onItemClick(news: News) {
-                Toast.makeText(requireContext(), "Открытие деталей публикации", Toast.LENGTH_SHORT)
-                    .show()
+                viewModel.navigateTo(R.id.action_mainFragment_to_newsDetailsFragment)
             }
         })
 
