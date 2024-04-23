@@ -15,7 +15,7 @@ class RetrofitNetworkClient @Inject constructor(
             try {
                 val response = api.authorize(dto)
                 response.apply { resultCode = SUCCESS }
-            } catch (e: Throwable) {
+            } catch (e: Exception) {
                 Response().apply { resultCode = ERROR_CODE }
             }
         }
