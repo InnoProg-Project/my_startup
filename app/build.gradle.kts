@@ -3,7 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("io.gitlab.arturbosch.detekt").version("1.23.3")
     id("kotlin-kapt")
-    id ("androidx.navigation.safeargs")
+    id ("androidx.navigation.safeargs.kotlin")
 }
 
 android {
