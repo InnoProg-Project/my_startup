@@ -1,6 +1,5 @@
 package com.innoprog.android.feature.auth.authorization.data
 
-import android.util.Log
 import com.innoprog.android.feature.auth.authorization.domain.AuthorisationRepository
 import com.innoprog.android.feature.auth.authorization.domain.model.UserData
 import com.innoprog.android.util.Resource
@@ -21,7 +20,6 @@ class AuthorisationRepositoryImpl @Inject constructor(
 
             SUCCESS -> {
                 with(response as LoginResponse) {
-                    Log.d("loginResponse", "Response: $response")
                     val result = mapToUserDate(this)
                     emit(Resource.Success(result))
                 }

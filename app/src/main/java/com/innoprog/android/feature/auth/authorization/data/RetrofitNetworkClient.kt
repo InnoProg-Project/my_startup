@@ -1,6 +1,5 @@
 package com.innoprog.android.feature.auth.authorization.data
 
-import android.util.Log
 import com.innoprog.android.network.data.ApiService
 import com.innoprog.android.network.data.Response
 import kotlinx.coroutines.Dispatchers
@@ -15,13 +14,15 @@ class RetrofitNetworkClient @Inject constructor(
         return withContext(Dispatchers.IO) {
             try {
                 val response = api.authorize(dto)
-                Log.d("response", response.toString())
-                response.apply { resultCode = 200 }
-
+                response.apply { resultCode = SUCCESS }
             } catch (e: Throwable) {
-                Log.d("response", e.toString())
-                Response().apply { resultCode = 500 }
+                Response().apply { resultCode = ERROR_CODE }
             }
         }
+    }
+
+    companion object {
+        const val ERROR_CODE = 500
+        const val SUCCESS = 200
     }
 }

@@ -7,6 +7,7 @@ import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.navigation.navOptions
 import com.innoprog.android.R
@@ -84,6 +85,11 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
             })
         } else {
             binding.ivPassword.renderState(InnoProgInputViewState.ERROR)
+            Toast.makeText(
+                requireContext(),
+                message,
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
