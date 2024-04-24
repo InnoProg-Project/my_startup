@@ -20,12 +20,12 @@ interface ProjectsModule {
     fun bindProjectsScreenViewModel(impl: ProjectsScreenViewModel): ViewModel
 
     @Binds
-    fun provideSearchScreenRepository(
+    fun bindSearchScreenRepository(
         impl: ProjectsScreenRepositoryImpl
     ): ProjectsScreenRepository
 
     @Binds
-    fun provideGetProjectsUseCase(
+    fun bindGetProjectsUseCase(
         impl: GetProjectsUseCaseImpl
     ): GetProjectsUseCase
 }
