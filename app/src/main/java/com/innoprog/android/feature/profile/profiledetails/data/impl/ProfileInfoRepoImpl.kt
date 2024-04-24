@@ -1,35 +1,47 @@
 package com.innoprog.android.feature.profile.profiledetails.data.impl
 
-import com.innoprog.android.db.RoomDB
-import com.innoprog.android.feature.profile.profiledetails.data.db.ProfileEntity
-import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileApi
+import com.innoprog.android.feature.profile.profiledetails.data.network.NetworkClient
+import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileResponse
 import com.innoprog.android.feature.profile.profiledetails.domain.ProfileInfoRepo
 import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
+import com.innoprog.android.network.data.ApiConstants
+import com.innoprog.android.util.ErrorType
+import com.innoprog.android.util.Resource
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class ProfileInfoRepoImpl @Inject constructor(
-    private val profileApi: ProfileApi,
-    private val roomDB: RoomDB
+    private val network: NetworkClient
 ) : ProfileInfoRepo {
 
-    override suspend fun getAndSaveProfile(): Profile {
-        val profileNet = profileApi.loadProfile()
-        roomDB.profileDao()
-            .saveProfile(
-                ProfileEntity(
-                    userId = profileNet.userId,
-                    name = profileNet.name,
-                    about = profileNet.about,
-                    communicationChannels = profileNet.communicationChannels,
-                    authorities = profileNet.authorities
-                )
-            )
+    override fun loadProfile(): Flow<Resource<Profile>> = flow {
+
+        val response = network.getProfile()
+        when (response.resultCode) {
+            ApiConstants.NO_INTERNET_CONNECTION_CODE -> {
+                emit(Resource.Error(ErrorType.NO_CONNECTION))
+            }
+
+            ApiConstants.SUCCESS_CODE -> {
+                with(response as ProfileResponse) {
+                    val result = mapToProfile(this)
+                    emit(Resource.Success(result))
+                }
+            }
+
+            else -> {
+                emit(Resource.Error(ErrorType.BAD_REQUEST))
+            }
+        }
+    }
+
+    private fun mapToProfile(response: ProfileResponse): Profile {
         return Profile(
-            userId = profileNet.userId,
-            name = profileNet.name,
-            about = profileNet.about,
-            communicationChannels = profileNet.communicationChannels,
-            authorities = profileNet.authorities
-        )
+            response.userId,
+            response.name,
+            response.about,
+            response.communicationChannels,
+            response.authorities)
     }
 }

@@ -4,18 +4,16 @@ import com.innoprog.android.feature.profile.profiledetails.presentation.ProfileV
 import androidx.lifecycle.ViewModel
 import com.innoprog.android.di.ViewModelKey
 import com.innoprog.android.feature.profile.profiledetails.data.impl.ProfileInfoRepoImpl
-import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileApi
+import com.innoprog.android.feature.profile.profiledetails.data.network.NetworkClient
+import com.innoprog.android.feature.profile.profiledetails.data.network.RetrofitNetworkClient
+import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileUseCase
+import com.innoprog.android.feature.profile.profiledetails.domain.impl.GetProfileUseCaseImpl
 import com.innoprog.android.feature.profile.profiledetails.domain.ProfileInfoRepo
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.multibindings.IntoMap
-import retrofit2.Retrofit
 
-@Module(
-    includes = [ProfileModule.ProfileApiModule::class]
-)
-
+@Module
 interface ProfileModule {
 
     @IntoMap
@@ -26,11 +24,11 @@ interface ProfileModule {
     @Binds
     fun bindRepository(impl: ProfileInfoRepoImpl): ProfileInfoRepo
 
-    @Module
-    class ProfileApiModule {
-        @Provides
-        fun provideApi(retrofit: Retrofit): ProfileApi {
-            return retrofit.create(ProfileApi::class.java)
-        }
-    }
+    @Binds
+    fun provideGetProfileUseCase(impl: GetProfileUseCaseImpl): GetProfileUseCase
+
+    @Binds
+    fun provideNetworkClient(impl: RetrofitNetworkClient): NetworkClient
+
 }
+

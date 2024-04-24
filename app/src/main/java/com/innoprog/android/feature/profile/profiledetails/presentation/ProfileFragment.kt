@@ -13,6 +13,7 @@ import com.innoprog.android.databinding.FragmentProfileBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.profile.profiledetails.di.DaggerProfileComponent
+import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
 import com.innoprog.android.uikit.InnoProgChipGroupView
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -39,13 +40,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.profileStateFlow.collectLatest { profile ->
-                binding.name.text = profile?.name.orEmpty()
-                binding.description.text = profile?.about.orEmpty()
-            }
+        viewModel.uiState.observe(viewLifecycleOwner) { state ->
+            render(state)
         }
-        viewModel.loadProfile()
 
         initTopBar()
 
@@ -69,7 +66,39 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
         }
     }
 
+    private fun render(screenState: ProfileScreenState) {
+        when (screenState) {
+            is ProfileScreenState.Content -> {
+                fillViews(screenState.profileInfo)
+            }
+
+            is ProfileScreenState.Error -> {
+                showError()
+            }
+
+            is ProfileScreenState.Loading -> {
+                showLoading()
+            }
+        }
+    }
+
+    private fun fillViews(profile: Profile) {
+        with(binding) {
+            name.text = profile.name
+            description.text = profile.about
+        }
+    }
+
+    private fun showLoading() {
+
+    }
+
+
+    private fun showError() {
+    }
+
     companion object {
+
         private const val ALL_CONTENT = "Всё"
         private const val PROJECT = "Проекты"
         private const val IDEAS = "Идеи"

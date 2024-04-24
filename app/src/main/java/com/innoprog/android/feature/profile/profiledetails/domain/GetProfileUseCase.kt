@@ -4,6 +4,6 @@ import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
 import com.innoprog.android.util.Resource
 import kotlinx.coroutines.flow.Flow
 
-interface ProfileInfoRepo {
-    fun loadProfile(): Flow<Resource<Profile>>
+interface GetProfileUseCase {
+    fun getProfile(): Flow<Resource<Profile>>
 }
