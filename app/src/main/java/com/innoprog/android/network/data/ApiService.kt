@@ -7,7 +7,6 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.HeaderMap
 import retrofit2.http.POST
-import retrofit2.http.Query
 import retrofit2.http.Url
 
 interface ApiService {
@@ -23,7 +22,5 @@ interface ApiService {
     fun get(@Url url: String, @HeaderMap headers: Map<String, String>): Call<ResponseBody>
 
     @GET("/v1/profile")
-    suspend fun loadProfile(
-        @Query("userId") id : String = "8b6f9c8a-2e7d-403f-a712-3f45ebb912ac"
-    ): ProfileResponse
+    suspend fun loadProfile(): ProfileResponse
 }

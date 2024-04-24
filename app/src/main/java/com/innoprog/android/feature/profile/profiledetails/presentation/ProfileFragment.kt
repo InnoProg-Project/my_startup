@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.lifecycleScope
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
@@ -15,8 +15,6 @@ import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.profile.profiledetails.di.DaggerProfileComponent
 import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
 import com.innoprog.android.uikit.InnoProgChipGroupView
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
 
@@ -43,6 +41,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
         viewModel.uiState.observe(viewLifecycleOwner) { state ->
             render(state)
         }
+
+        viewModel.loadProfile()
 
         initTopBar()
 
@@ -75,10 +75,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
             is ProfileScreenState.Error -> {
                 showError()
             }
-
-            is ProfileScreenState.Loading -> {
-                showLoading()
-            }
         }
     }
 
@@ -89,12 +85,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
         }
     }
 
-    private fun showLoading() {
-
-    }
-
-
     private fun showError() {
+        with(binding) {
+            name.isVisible = false
+            description.isVisible = false
+        }
     }
 
     companion object {
