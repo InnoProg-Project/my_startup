@@ -61,7 +61,6 @@
     <string name="editing_docks_continue_loading">Продолжить</string>
 
     <string name="additional_information">Дополнительная\nинформация о проекте</string>
-    <string name="optional">Необязательно</string>
     <string name="financing_stage">Этап финансирования</string>
     <string name="investments_description">Опишите необходимые инвестиции для проекта></string>
     <string name="investments_description_example">Проекту необходимо 8 млн ₽ на\nразвитие первого этапа (Stage 1 в\nнашей презентации). Срок реализации\nуказан для stage 1</string>
