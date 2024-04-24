@@ -105,10 +105,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         listNews = arrayListOf(news, news2, news, news2)
 
         initRecyclerView()
-
-        binding.tvFeed.setOnClickListener {
-            viewModel.onFavoriteClicked(news)
-        }
     }
 
     private fun setUiListeners() {
