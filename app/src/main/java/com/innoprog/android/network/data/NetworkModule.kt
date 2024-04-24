@@ -16,9 +16,8 @@ class NetworkModule {
         .callTimeout(ApiConstants.CALL_TIMEOUT.toLong(), TimeUnit.SECONDS)
         .readTimeout(ApiConstants.READ_TIMEOUT.toLong(), TimeUnit.SECONDS)
         .addInterceptor(HttpLoggingInterceptor().apply {
-            HttpLoggingInterceptor.Level.BASIC
-        }
-        )
+            level = HttpLoggingInterceptor.Level.BODY
+        })
         .build()
 
     @Provides
