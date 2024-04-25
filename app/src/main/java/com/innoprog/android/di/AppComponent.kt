@@ -23,7 +23,6 @@ interface AppComponent : DIComponent {
     val apiInteractor: ApiInteractor
     val room: RoomDB
     val context: Context
-
     @Component.Builder
     interface Builder {
 
@@ -38,8 +37,6 @@ interface DIComponent
 
 // Эта сущность нужна чтобы хранить AppComponent в памяти и подсовывать в наши ScreenComponent'ы
 object AppComponentHolder : DataBasedComponentHolder<AppComponent, Application>() {
-
     override val mode: ComponentHolderMode = ComponentHolderMode.GLOBAL_SINGLETON
-    override fun buildComponent(data: Application): AppComponent =
-        DaggerAppComponent.builder().app(data).build()
+    override fun buildComponent(data: Application): AppComponent = DaggerAppComponent.builder().app(data).build()
 }
