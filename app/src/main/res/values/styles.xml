@@ -5,6 +5,14 @@
         <item name="cornerSizeTopLeft">@dimen/margin_16</item>
         <item name="cornerSizeTopRight">@dimen/margin_16</item>
     </style>
+
+    <style name="uploadPhotoOrVideo" parent="">
+        <item name="cornerSizeTopLeft">@dimen/margin_16</item>
+        <item name="cornerSizeTopRight">@dimen/margin_16</item>
+        <item name="cornerSizeBottomRight">@dimen/margin_16</item>
+        <item name="cornerSizeBottomLeft">@dimen/margin_16</item>
+    </style>
+
     <style name="CustomChips" parent="Theme.MaterialComponents.DayNight.NoActionBar">
     </style>
 
