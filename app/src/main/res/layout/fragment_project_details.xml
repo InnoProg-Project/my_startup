@@ -44,6 +44,7 @@
             style="@style/TextHeadline_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_primary"
             android:paddingVertical="@dimen/padding_16"
             android:text="@string/tell_us_about_the_project"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
@@ -98,6 +99,7 @@
                 style="@style/TextSubtitle_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
                 android:layout_marginTop="@dimen/margin_16"
                 android:text="@string/logo" />
 
@@ -113,7 +115,7 @@
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:scaleType="centerCrop"
-                    android:visibility="visible"/>
+                    android:visibility="gone"/>
 
                 <ImageButton
                     android:id="@+id/deleteLogoButton"
