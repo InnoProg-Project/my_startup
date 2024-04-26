@@ -26,8 +26,13 @@ class EditingProfileFragment : BaseFragment<FragmentEditingProfileBinding, BaseV
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeData()
         initButton()
         initTopBar()
+    }
+
+    private fun observeData() {
+        viewModel.saveProfile()
     }
 
     private fun initButton() {
