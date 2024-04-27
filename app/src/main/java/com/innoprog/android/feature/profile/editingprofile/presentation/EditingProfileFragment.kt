@@ -9,13 +9,19 @@ import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentEditingProfileBinding
+import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.profile.editingprofile.di.DaggerEditingProfileComponent
 
 class EditingProfileFragment : BaseFragment<FragmentEditingProfileBinding, BaseViewModel>() {
 
     override val viewModel by injectViewModel<EditingProfileViewModel>()
-    override fun diComponent(): ScreenComponent = DaggerEditingProfileComponent.builder().build()
+    override fun diComponent(): ScreenComponent {
+        val appComponent = AppComponentHolder.getComponent()
+        return DaggerEditingProfileComponent.builder()
+            .appComponent(appComponent)
+            .build()
+    }
 
     override fun createBinding(
         inflater: LayoutInflater,

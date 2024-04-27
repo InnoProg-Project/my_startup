@@ -3,8 +3,8 @@ package com.innoprog.android.feature.profile.editingprofile.di
 import androidx.lifecycle.ViewModel
 import com.innoprog.android.di.ViewModelKey
 import com.innoprog.android.feature.profile.editingprofile.data.ProfileRepositoryImpl
-import com.innoprog.android.feature.profile.editingprofile.data.network.NetworkClient
-import com.innoprog.android.feature.profile.editingprofile.data.network.RetrofitNetworkClient
+import com.innoprog.android.feature.profile.editingprofile.data.NetworkClient
+import com.innoprog.android.feature.profile.editingprofile.data.RetrofitNetworkClient
 import com.innoprog.android.feature.profile.editingprofile.domain.ProfileRepository
 import com.innoprog.android.feature.profile.editingprofile.domain.ProfileUseCase
 import com.innoprog.android.feature.profile.editingprofile.domain.ProfileUseCaseImpl

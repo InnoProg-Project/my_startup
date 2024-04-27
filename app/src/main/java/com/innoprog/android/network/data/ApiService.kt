@@ -1,6 +1,7 @@
 package com.innoprog.android.network.data
 
-import com.innoprog.android.feature.profile.editingprofile.data.network.ProfileDto
+import com.innoprog.android.feature.profile.editingprofile.data.BodyResponse
+import com.innoprog.android.feature.profile.editingprofile.data.ProfileDto
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -18,8 +19,6 @@ interface ApiService {
     fun get(@Url url: String, @HeaderMap headers: Map<String, String>): Call<ResponseBody>
 
     @PUT("/v1/profile")
-    suspend fun saveProfile(): ProfileDto
+    suspend fun editProfile(): BodyResponse
 
-    @GET("/v1/profile")
-    suspend fun getProfile(): ProfileDto
 }
