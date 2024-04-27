@@ -2,16 +2,16 @@ package com.innoprog.android.feature.projects.project.di
 
 import androidx.lifecycle.ViewModel
 import com.innoprog.android.di.ViewModelKey
-import com.innoprog.android.feature.projects.project.presentation.ProjectsViewModel
+import com.innoprog.android.feature.projects.project.presentation.editingdocks.EditingDocksViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-interface ProjectsModule {
+interface EditingDocksModule {
 
     @IntoMap
-    @ViewModelKey(ProjectsViewModel::class)
+    @ViewModelKey(EditingDocksViewModel::class)
     @Binds
-    fun bindProjectsViewModel(impl: ProjectsViewModel): ViewModel
+    fun bindProjectsViewModel(impl: EditingDocksViewModel): ViewModel
 }

@@ -1,6 +1,5 @@
-package com.innoprog.android.feature.projects.project.di
-
 import com.innoprog.android.di.ScreenComponent
+import com.innoprog.android.feature.projects.projectsScreen.di.ProjectsModule
 import dagger.Component
 
 @Component(
