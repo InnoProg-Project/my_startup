@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_primary"
+    tools:context=".feature.projects.project.presentation.AdditionalInformationFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left_border"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/margin_16" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/right_border"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/margin_16" />
+
+        <com.innoprog.android.uikit.InnoProgTopBarView
+            android:id="@+id/topbar_additional_information"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:topBar_left_icon="@drawable/ic_back"
+            tools:topBar_title="@string/step_5" />
+
+        <TextView
+            android:id="@+id/additional_information"
+            style="@style/TextHeadline_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16"
+            android:text="@string/additional_information"
+            android:textColor="@color/text_primary"
+            app:layout_constraintEnd_toStartOf="@id/right_border"
+            app:layout_constraintStart_toEndOf="@id/left_border"
+            app:layout_constraintTop_toBottomOf="@id/topbar_additional_information" />
+
+        <TextView
+            android:id="@+id/optional"
+            style="@style/TextBody_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:text="@string/optional"
+            android:textColor="@color/text_secondary"
+            app:layout_constraintStart_toEndOf="@id/left_border"
+            app:layout_constraintTop_toBottomOf="@+id/additional_information" />
+
+        <TextView
+            android:id="@+id/financing_stage"
+            style="@style/TextSubtitle_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24"
+            android:text="@string/financing_stage"
+            android:textColor="@color/text_primary"
+            app:layout_constraintStart_toEndOf="@id/left_border"
+            app:layout_constraintTop_toBottomOf="@id/optional" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/investments_description_iv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12"
+            app:singleLine="false"
+            app:label="@string/investments_description"
+            app:layout_constraintEnd_toStartOf="@id/right_border"
+            app:layout_constraintStart_toEndOf="@id/left_border"
+            app:layout_constraintTop_toBottomOf="@+id/financing_stage"
+            app:text="@string/investments_description_example" />
+
+        <TextView
+            android:id="@+id/terms"
+            style="@style/TextSubtitle_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/terms"
+            android:textColor="@color/text_primary"
+            app:layout_constraintStart_toEndOf="@id/left_border"
+            app:layout_constraintTop_toBottomOf="@id/investments_description_iv" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/implementation_terms_iv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12"
+            app:label="@string/select_date"
+            app:layout_constraintEnd_toStartOf="@id/right_border"
+            app:layout_constraintStart_toEndOf="@id/left_border"
+            app:layout_constraintTop_toBottomOf="@+id/terms"
+            app:right_icon="@drawable/ic_chevron"
+            app:text="@string/date_example" />
+
+        <TextView
+            android:id="@+id/links"
+            style="@style/TextSubtitle_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/links"
+            android:textColor="@color/text_primary"
+            app:layout_constraintStart_toEndOf="@id/left_border"
+            app:layout_constraintTop_toBottomOf="@id/implementation_terms_iv" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/link_to_web_iv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12"
+            app:label="@string/link_to_web"
+            app:layout_constraintEnd_toStartOf="@id/right_border"
+            app:layout_constraintStart_toEndOf="@id/left_border"
+            app:layout_constraintTop_toBottomOf="@+id/links"
+            app:text="@string/link_to_web_example" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/link_to_app_iv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:label="@string/link_to_app"
+            app:layout_constraintEnd_toStartOf="@id/right_border"
+            app:layout_constraintStart_toEndOf="@id/left_border"
+            app:layout_constraintTop_toBottomOf="@+id/link_to_web_iv"
+            app:text="@string/link_to_app_example" />
+
+        <com.innoprog.android.uikit.InnoProgInputView
+            android:id="@+id/link_to_social_network_iv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:label="@string/link_to_social_network"
+            app:layout_constraintEnd_toStartOf="@id/right_border"
+            app:layout_constraintStart_toEndOf="@id/left_border"
+            app:layout_constraintTop_toBottomOf="@+id/link_to_app_iv"
+            app:text="@string/link_to_social_network_example" />
+
+        <com.innoprog.android.uikit.InnoProgButtonView
+            android:id="@+id/button_save"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4"
+            android:layout_marginBottom="@dimen/margin_8"
+            android:gravity="center"
+            app:buttonSize="large"
+            tools:buttonText="@string/publish"
+            app:buttonType="primary"
+            app:layout_constraintEnd_toStartOf="@id/right_border"
+            app:layout_constraintStart_toEndOf="@id/left_border"
+            app:layout_constraintTop_toBottomOf="@id/link_to_social_network_iv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

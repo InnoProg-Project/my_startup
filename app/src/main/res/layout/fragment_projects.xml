@@ -1,19 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".feature.projects.project.presentation.ProjectsFragment">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_secondary"
+    tools:context=".feature.projects.projectsScreen.presentation.ProjectsScreenFragment">
 
     <TextView
         android:id="@+id/tvProjects"
+        style="@style/TextHeadline_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Проекты"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginTop="@dimen/top_bar_min_height_44"
+        android:text="@string/projects_your_projects"
+        android:textColor="@color/text_primary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/projectPlaceholderIV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_cube"
+        app:layout_constraintBottom_toTopOf="@id/projectPlaceholderTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvProjects"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/projectPlaceholderTV"
+        style="@style/TextHeadline_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24"
+        android:gravity="center"
+        android:text="@string/projects_tell_about_your_project"
+        android:textColor="@color/text_primary"
+        app:layout_constraintBottom_toBottomOf="@id/createFirstProjectButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/projectPlaceholderIV" />
+
+    <com.innoprog.android.uikit.InnoProgButtonView
+        android:id="@+id/createFirstProjectButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24"
+        app:buttonText="@string/projects_create_project"
+        app:buttonType="primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/projectPlaceholderTV" />
+
+    <com.innoprog.android.uikit.InnoProgButtonView
+        android:id="@+id/createNewProjectButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_8"
+        android:layout_marginTop="@dimen/margin_16"
+        android:gravity="center"
+        app:buttonText="@string/projects_create_project"
+        app:buttonType="white"
+        app:layout_constraintTop_toBottomOf="@+id/tvProjects"
+        tools:layout_editor_absoluteX="4dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/projectsRV"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/margin_8"
+        android:layout_marginTop="@dimen/margin_8"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createNewProjectButton"
+        tools:itemCount="2"
+        tools:layout_editor_absoluteX="8dp"
+        tools:listitem="@layout/item_project" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -76,7 +76,7 @@
 
     <fragment
         android:id="@+id/projectsFragment"
-        android:name="com.innoprog.android.feature.projects.project.presentation.ProjectsFragment"
+        android:name="com.innoprog.android.feature.projects.projectsScreen.presentation.ProjectsScreenFragment"
         android:label="fragment_projects"
         tools:layout="@layout/fragment_projects" />
 
