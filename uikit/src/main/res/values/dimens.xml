@@ -32,6 +32,7 @@
     <dimen name="margin_32">32dp</dimen>
     <dimen name="margin_34">34dp</dimen>
     <dimen name="margin_50">50dp</dimen>
+    <dimen name="margin_74">74dp</dimen>
 
     <dimen name="button_radius_32">32dp</dimen>
     <dimen name="button_height_48">48dp</dimen>

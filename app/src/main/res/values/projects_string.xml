@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="step_1">Шаг 1</string>
+    <string name="doc_docx_pdf_10">Документы загружаются в форматах: doc, docx, pdf. Размер одного документа не более 10Мб.</string>
+    <string name="descriptions">Описание (необязательно)</string>
+    <string name="tell_us_about_the_project">Расскажите о проекте</string>
+    <string name="name_project">Название проекта</string>
+    <string name="short_description">Краткое описание</string>
+    <string name="logo">Логотип</string>
+    <string name="loading_logo">Загрузить логотип</string>
+    <string name="resume">Продолжить</string>
+</resources>

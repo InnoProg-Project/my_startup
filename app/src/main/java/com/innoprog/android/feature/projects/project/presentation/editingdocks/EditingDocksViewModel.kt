@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.projects.presentation.editingdocks
+package com.innoprog.android.feature.projects.project.presentation.editingdocks
 
 import com.innoprog.android.base.BaseViewModel
 import javax.inject.Inject

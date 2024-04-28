@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.projects.presentation
+package com.innoprog.android.feature.projects.project.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,12 +8,14 @@ import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentAdditionalInformationBinding
 import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.feature.projects.di.DaggerAdditionalInformationComponent
+import com.innoprog.android.feature.projects.project.di.DaggerAdditionalInformationComponent
 
-class AdditionalInformationFragment : BaseFragment<FragmentAdditionalInformationBinding, BaseViewModel>() {
+class AdditionalInformationFragment :
+    BaseFragment<FragmentAdditionalInformationBinding, BaseViewModel>() {
 
     override val viewModel by injectViewModel<AdditionalInformationViewModel>()
-    override fun diComponent(): ScreenComponent = DaggerAdditionalInformationComponent.builder().build()
+    override fun diComponent(): ScreenComponent =
+        DaggerAdditionalInformationComponent.builder().build()
 
     override fun createBinding(
         inflater: LayoutInflater,
