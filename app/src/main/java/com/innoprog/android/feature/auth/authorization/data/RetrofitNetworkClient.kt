@@ -4,6 +4,7 @@ import com.innoprog.android.network.data.ApiService
 import com.innoprog.android.network.data.Response
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.IOException
 import javax.inject.Inject
 
 class RetrofitNetworkClient @Inject constructor(
@@ -15,7 +16,7 @@ class RetrofitNetworkClient @Inject constructor(
             try {
                 val response = api.authorize(dto)
                 response.apply { resultCode = SUCCESS }
-            } catch (e: Exception) {
+            } catch (e: IOException) {
                 Response().apply { resultCode = ERROR_CODE }
             }
         }
