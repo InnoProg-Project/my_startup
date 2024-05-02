@@ -3,6 +3,7 @@ package com.innoprog.android.feature.auth.authorization.data
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.Log
 import com.innoprog.android.network.data.ApiConstants
 import com.innoprog.android.network.data.ApiService
 import com.innoprog.android.network.data.Response
@@ -25,6 +26,7 @@ class RetrofitNetworkClient @Inject constructor(
                 val response = api.authorize(dto)
                 response.apply { resultCode = ApiConstants.SUCCESS_CODE }
             } catch (e: IOException) {
+                Log.e("RetrofitNetworkClient", "An error occurred", e)
                 Response().apply { resultCode = ApiConstants.BAD_REQUEST_CODE }
             }
         }
