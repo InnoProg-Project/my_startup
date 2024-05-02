@@ -7,7 +7,6 @@ import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.navigation.navOptions
 import com.innoprog.android.R
@@ -41,8 +40,7 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.ivLogin.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
-        binding.ivPassword.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD)
+        customizeIV()
         renderIVPassword()
         viewModel.observeState().observe(viewLifecycleOwner) {
             renderResult(it.first, it.second)
@@ -84,12 +82,9 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
                 }
             })
         } else {
+            binding.ivLogin.renderState(InnoProgInputViewState.ERROR)
             binding.ivPassword.renderState(InnoProgInputViewState.ERROR)
-            Toast.makeText(
-                requireContext(),
-                message,
-                Toast.LENGTH_LONG
-            ).show()
+            binding.ivPassword.setCaptionText(message!!)
         }
     }
 
@@ -101,5 +96,12 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
             binding.ivPassword.setTransformationMethod(PasswordTransformationMethod.getInstance())
             binding.ivPassword.setRightIcon(R.drawable.eye)
         }
+    }
+
+    private fun customizeIV(){
+        binding.ivLogin.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
+        binding.ivLogin.setSingleLine(true)
+        binding.ivPassword.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD)
+        binding.ivPassword.setSingleLine(true)
     }
 }

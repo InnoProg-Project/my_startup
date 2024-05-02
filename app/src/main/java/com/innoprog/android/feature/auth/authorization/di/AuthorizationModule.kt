@@ -28,5 +28,5 @@ interface AuthorizationModule {
     fun provideAuthorisationRepository(repository: AuthorisationRepositoryImpl): AuthorisationRepository
 
     @Binds
-    fun provideNetworkClient(repository: RetrofitNetworkClient): NetworkClient
+    fun provideNetworkClient(retrofit: RetrofitNetworkClient): NetworkClient
 }

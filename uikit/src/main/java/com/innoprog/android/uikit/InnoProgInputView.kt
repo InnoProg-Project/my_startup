@@ -106,6 +106,9 @@ class InnoProgInputView @JvmOverloads constructor(
     fun setInputType(type: Int) {
         editTextView.inputType = type
     }
+    fun setCaptionText(text: String) {
+        captionTextView.text = text
+    }
 
     fun setTransformationMethod(method: TransformationMethod) {
         editTextView.transformationMethod = method

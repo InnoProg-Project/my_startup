@@ -1,8 +1,11 @@
 package com.innoprog.android.feature.auth.authorization.presentation
 
+import android.content.Context
+import androidx.core.content.ContextCompat.getString
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.innoprog.android.R
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.feature.auth.authorization.domain.AuthorisationUseCase
 import com.innoprog.android.feature.auth.authorization.domain.model.UserData
@@ -10,14 +13,14 @@ import com.innoprog.android.util.Resource
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class AuthorizationViewModel @Inject constructor(private val useCase: AuthorisationUseCase) :
+class AuthorizationViewModel @Inject constructor(private val useCase: AuthorisationUseCase, private val context: Context) :
     BaseViewModel() {
 
     private val stateLiveData = MutableLiveData<Pair<UserData?, String?>>()
     fun observeState(): LiveData<Pair<UserData?, String?>> = stateLiveData
     fun verify(inputLogin: String, inputPassword: String) {
-        if (!inputLogin.isNullOrEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(inputLogin)
-                .matches() && !inputPassword.isNullOrEmpty()
+        if (inputLogin.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(inputLogin)
+                .matches() && inputPassword.isNotEmpty()
         ) {
             viewModelScope.launch {
                 useCase.verify(inputLogin, inputPassword).collect {
@@ -27,6 +30,6 @@ class AuthorizationViewModel @Inject constructor(private val useCase: Authorisat
                     }
                 }
             }
-        } else stateLiveData.postValue(Pair(null, "не все поля заполнены"))
+        } else stateLiveData.postValue(Pair(null, getString(context, R.string.autorisation_bad_data)))
     }
 }
