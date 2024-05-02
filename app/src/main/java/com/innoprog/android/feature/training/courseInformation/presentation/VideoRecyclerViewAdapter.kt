@@ -47,7 +47,7 @@ class VideoViewHolder(
         Glide.with(context)
             .load(item.videoURL)
             .fitCenter()
-            .placeholder(R.drawable.video_sample)
+            .placeholder(R.drawable.news_sample)
             .into(binding.videoPlaceholderIV)
     }
 }
