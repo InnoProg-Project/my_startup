@@ -1,5 +1,8 @@
 package com.innoprog.android.feature.auth.authorization.data
 
+import android.content.Context
+import androidx.core.content.ContextCompat
+import com.innoprog.android.R
 import com.innoprog.android.feature.auth.authorization.domain.AuthorisationRepository
 import com.innoprog.android.feature.auth.authorization.domain.model.UserData
 import com.innoprog.android.network.data.ApiConstants
@@ -10,13 +13,21 @@ import javax.inject.Inject
 
 class AuthorisationRepositoryImpl @Inject constructor(
     private val networkClient: NetworkClient,
+    private val context: Context
 ) :
     AuthorisationRepository {
     override fun verify(login: String, password: String): Flow<Resource<UserData>> = flow {
         val response = networkClient.authorize(AuthorizationBody(login, password))
         when (response.resultCode) {
             ApiConstants.BAD_REQUEST_CODE -> {
-                emit(Resource.Error("Ошибка сервера"))
+                emit(
+                    Resource.Error(
+                        ContextCompat.getString(
+                            context,
+                            R.string.autorisation_bad_data
+                        )
+                    )
+                )
             }
 
             ApiConstants.SUCCESS_CODE -> {
@@ -27,7 +38,14 @@ class AuthorisationRepositoryImpl @Inject constructor(
             }
 
             else -> {
-                emit(Resource.Error("Ошибка сервера"))
+                emit(
+                    Resource.Error(
+                        ContextCompat.getString(
+                            context,
+                            R.string.autorisation_no_internet
+                        )
+                    )
+                )
             }
         }
     }

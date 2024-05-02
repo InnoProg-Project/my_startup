@@ -13,7 +13,10 @@ import com.innoprog.android.util.Resource
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class AuthorizationViewModel @Inject constructor(private val useCase: AuthorisationUseCase, private val context: Context) :
+class AuthorizationViewModel @Inject constructor(
+    private val useCase: AuthorisationUseCase,
+    private val context: Context
+) :
     BaseViewModel() {
 
     private val stateLiveData = MutableLiveData<Pair<UserData?, String?>>()
@@ -30,6 +33,11 @@ class AuthorizationViewModel @Inject constructor(private val useCase: Authorisat
                     }
                 }
             }
-        } else stateLiveData.postValue(Pair(null, getString(context, R.string.autorisation_bad_data)))
+        } else stateLiveData.postValue(
+            Pair(
+                null,
+                getString(context, R.string.autorisation_bad_data)
+            )
+        )
     }
 }

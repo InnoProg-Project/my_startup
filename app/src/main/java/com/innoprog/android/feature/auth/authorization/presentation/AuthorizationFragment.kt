@@ -97,8 +97,7 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
             binding.ivPassword.setRightIcon(R.drawable.eye)
         }
     }
-
-    private fun customizeIV(){
+    private fun customizeIV() {
         binding.ivLogin.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
         binding.ivLogin.setSingleLine(true)
         binding.ivPassword.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD)
