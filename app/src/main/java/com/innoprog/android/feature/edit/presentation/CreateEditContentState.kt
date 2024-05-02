@@ -6,7 +6,11 @@ import com.innoprog.android.feature.edit.domain.model.PublicationModel
 sealed interface CreateEditContentState {
     data object CreateIdea : CreateEditContentState
 
-    data class CreatePublication(val project: ProjectModel) : CreateEditContentState
+    data class CreatePublication(
+        val project: ProjectModel,
+        val showProjectHolder: Boolean
+    ) : CreateEditContentState
+
 
     data class EditPublication(val project: ProjectModel, val publication: PublicationModel) :
         CreateEditContentState

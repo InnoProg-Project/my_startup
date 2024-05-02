@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.navArgs
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
@@ -18,6 +19,11 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
     override val viewModel by injectViewModel<CreateEditContentViewModel>()
 
     override fun diComponent(): ScreenComponent = DaggerCreateEditContentComponent.builder().build()
+
+    private val pickMediaLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            uri?.let { viewModel.addMediaToLoadList(it) }
+        }
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -38,6 +44,12 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
         binding.topBar.setLeftIconClickListener {
             viewModel.navigateUp()
         }
+
+        binding.saveBV.setOnClickListener {
+            // clickButtonSave()
+        }
+
+        binding.loadBV.setOnClickListener { loadMedia() }
 
     }
 
@@ -69,4 +81,11 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
     }
 
 
+    private fun loadMedia() {
+        pickMediaLauncher.launch(FORMAT_MEDIA)
+    }
+
+    companion object {
+        const val FORMAT_MEDIA = "image/* video/*"
+    }
 }
