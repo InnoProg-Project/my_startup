@@ -177,5 +177,9 @@
         android:id="@+id/videoPlayerFragment"
         android:name="com.innoprog.android.feature.training.videoPlayer.presentation.VideoPlayerFragment"
         android:label="VideoPlayerFragment" />
+    <fragment
+        android:id="@+id/projectDetailsFragment"
+        android:name="com.innoprog.android.feature.projects.projectdetails.presentation.ProjectDetailsFragment"
+        android:label="ProjectDetailsFragment" />
 
 </navigation>

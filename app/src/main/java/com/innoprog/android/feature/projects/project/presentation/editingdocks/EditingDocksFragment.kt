@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.projects.presentation.editingdocks
+package com.innoprog.android.feature.projects.project.presentation.editingdocks
 
 import android.content.Intent
 import android.net.Uri
@@ -10,7 +10,7 @@ import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentEditingDocksBinding
 import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.feature.projects.di.DaggerEditingDocksComponent
+import com.innoprog.android.feature.projects.project.di.DaggerEditingDocksComponent
 
 class EditingDocksFragment : BaseFragment<FragmentEditingDocksBinding, BaseViewModel>() {
     override val viewModel by injectViewModel<EditingDocksViewModel>()

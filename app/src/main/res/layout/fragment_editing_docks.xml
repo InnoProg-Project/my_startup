@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_primary"
-    tools:context=".feature.projects.presentation.editingdocks.EditingDocksFragment">
+    tools:context=".feature.projects.project.presentation.editingdocks.EditingDocksFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/left_border"

@@ -8,7 +8,6 @@ import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentProjectsBinding
 import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.feature.projects.projectsScreen.di.DaggerProjectsComponent
 import com.innoprog.android.feature.projects.projectsScreen.domain.model.ProjectScreenModel
 
 class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewModel>() {
