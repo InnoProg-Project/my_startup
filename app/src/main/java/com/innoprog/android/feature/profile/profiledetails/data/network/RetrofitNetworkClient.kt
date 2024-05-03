@@ -41,10 +41,10 @@ class RetrofitNetworkClient @Inject constructor(
         val capabilities =
             connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
         return capabilities?.let {
-            it.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-                    it.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                    it.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
-                    it.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH)
+            it.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || it.hasTransport(
+                NetworkCapabilities.TRANSPORT_WIFI
+            ) || it.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) || it.hasTransport(
+                NetworkCapabilities.TRANSPORT_BLUETOOTH)
         } ?: false
     }
 }
