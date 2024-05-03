@@ -19,7 +19,6 @@ import dagger.Component
     ]
 )
 interface AppComponent : DIComponent {
-
     val apiInteractor: ApiInteractor
     val room: RoomDB
     val context: Context

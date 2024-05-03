@@ -25,8 +25,8 @@ interface ProfileModule {
     fun bindRepository(impl: ProfileInfoRepoImpl): ProfileInfoRepo
 
     @Binds
-    fun provideGetProfileUseCase(impl: GetProfileUseCaseImpl): GetProfileUseCase
+    fun bindGetProfileUseCase(impl: GetProfileUseCaseImpl): GetProfileUseCase
 
     @Binds
-    fun provideNetworkClient(impl: RetrofitNetworkClient): NetworkClient
+    fun bindNetworkClient(impl: RetrofitNetworkClient): NetworkClient
 }

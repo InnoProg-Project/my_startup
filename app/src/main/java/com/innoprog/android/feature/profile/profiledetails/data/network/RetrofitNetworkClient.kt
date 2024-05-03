@@ -34,20 +34,17 @@ class RetrofitNetworkClient @Inject constructor(
         }
     }
 
-    private fun isConnected(): Boolean {
+    fun isConnected(): Boolean {
         val connectivityManager = context.getSystemService(
             Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager
         val capabilities =
             connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        if (capabilities != null) {
-            when {
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> return true
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> return true
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> return true
-            }
-        }
-        return false
+        return capabilities?.let {
+            it.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                    it.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                    it.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
+                    it.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH)
+        } ?: false
     }
 }
