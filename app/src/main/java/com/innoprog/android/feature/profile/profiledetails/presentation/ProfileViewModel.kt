@@ -23,7 +23,7 @@ class ProfileViewModel @Inject constructor(private val getProfileUseCase: GetPro
         if (profile != null) {
             _uiState.postValue(ProfileScreenState.Content(profile as Profile))
         } else {
-            _uiState.value = ProfileScreenState.Error(ErrorType.NOT_FOUND)
+            _uiState.value = ProfileScreenState.Error(ErrorType.UNEXPECTED)
 
             viewModelScope.launch(Dispatchers.IO) {
                 getProfileUseCase.getProfile().collect { response ->
