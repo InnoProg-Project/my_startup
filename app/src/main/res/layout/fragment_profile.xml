@@ -64,18 +64,18 @@
                 android:textColor="@color/text_secondary" />
 
             <TextView
-                android:id="@+id/in"
+                android:id="@+id/profile_in"
                 style="@style/TextBody_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginHorizontal="@dimen/margin_4"
                 android:gravity="center"
-                android:text="@string/in"
+                android:text="@string/profile_in"
                 android:textColor="@color/text_secondary" />
 
             <TextView
-                android:id="@+id/company"
+                android:id="@+id/company_name"
                 style="@style/TextBody_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

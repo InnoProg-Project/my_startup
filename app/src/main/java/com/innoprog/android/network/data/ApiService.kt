@@ -1,5 +1,6 @@
 package com.innoprog.android.network.data
 
+import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileCompanyResponse
 import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileResponse
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -23,4 +24,7 @@ interface ApiService {
 
     @GET("/v1/profile")
     suspend fun loadProfile(): ProfileResponse
+
+    @GET("/v1/profile/company")
+    suspend fun loadProfileCompany(): ProfileCompanyResponse
 }

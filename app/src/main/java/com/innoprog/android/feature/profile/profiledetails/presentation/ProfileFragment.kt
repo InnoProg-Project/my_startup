@@ -14,6 +14,7 @@ import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.profile.profiledetails.di.DaggerProfileComponent
 import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
+import com.innoprog.android.feature.profile.profiledetails.domain.models.ProfileCompany
 import com.innoprog.android.uikit.InnoProgChipGroupView
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
@@ -38,15 +39,25 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.uiState.observe(viewLifecycleOwner) { state ->
-            render(state)
-        }
+        observeData()
 
         viewModel.loadProfile()
+
+        viewModel.loadProfileCompany()
 
         initTopBar()
 
         initChips()
+    }
+
+    private fun observeData() {
+        viewModel.uiState.observe(viewLifecycleOwner) { state ->
+            render(state)
+        }
+
+        viewModel.uiStateCompany.observe(viewLifecycleOwner) { state ->
+            renderCompany(state)
+        }
     }
 
     private fun initChips() {
@@ -78,6 +89,18 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
         }
     }
 
+    private fun renderCompany(screenStateCompany: ProfileCompanyScreenState) {
+        when (screenStateCompany) {
+            is ProfileCompanyScreenState.Content -> {
+                fillViewsCompany(screenStateCompany.profileCompany)
+            }
+
+            is ProfileCompanyScreenState.Error -> {
+                showError()
+            }
+        }
+    }
+
     private fun fillViews(profile: Profile) {
         with(binding) {
             name.text = profile.name
@@ -85,10 +108,21 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
         }
     }
 
+    private fun fillViewsCompany(company: ProfileCompany) {
+        with(binding) {
+            position.text = company.role
+            companyName.text = company.name
+            profileIn.isVisible = true
+        }
+    }
+
     private fun showError() {
         with(binding) {
             name.isVisible = false
             description.isVisible = false
+            position.isVisible = false
+            profileIn.isVisible = false
+            companyName.isVisible = false
         }
     }
 

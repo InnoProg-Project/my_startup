@@ -4,20 +4,30 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.innoprog.android.base.BaseViewModel
+import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileCompanyUseCase
 import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileUseCase
 import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
+import com.innoprog.android.feature.profile.profiledetails.domain.models.ProfileCompany
 import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ProfileViewModel @Inject constructor(private val getProfileUseCase: GetProfileUseCase) :
+class ProfileViewModel @Inject constructor(
+    private val getProfileUseCase: GetProfileUseCase,
+    private val getProfileCompanyUseCase: GetProfileCompanyUseCase
+) :
     BaseViewModel() {
 
     private val _uiState = MutableLiveData<ProfileScreenState>()
     val uiState: LiveData<ProfileScreenState> = _uiState
+
+    private val _uiStateCompany = MutableLiveData<ProfileCompanyScreenState>()
+    val uiStateCompany: LiveData<ProfileCompanyScreenState> = _uiStateCompany
+
     private var profile: Profile? = null
+    private var profileCompany: ProfileCompany? = null
 
     fun loadProfile() {
         if (profile != null) {
@@ -32,8 +42,32 @@ class ProfileViewModel @Inject constructor(private val getProfileUseCase: GetPro
                             _uiState.postValue(ProfileScreenState.Content(response.data))
                             profile = response.data
                         }
+
                         is Resource.Error -> {
                             _uiState.postValue(ProfileScreenState.Error(response.errorType))
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun loadProfileCompany() {
+        if (profileCompany != null) {
+            _uiStateCompany.postValue(ProfileCompanyScreenState.Content(profileCompany as ProfileCompany))
+        } else {
+            _uiStateCompany.value = ProfileCompanyScreenState.Error(ErrorType.UNEXPECTED)
+
+            viewModelScope.launch(Dispatchers.IO) {
+                getProfileCompanyUseCase.getProfileCompany().collect { response ->
+                    when (response) {
+                        is Resource.Success -> {
+                            _uiStateCompany.postValue(ProfileCompanyScreenState.Content(response.data))
+                            profileCompany = response.data
+                        }
+
+                        is Resource.Error -> {
+                            _uiStateCompany.postValue(ProfileCompanyScreenState.Error(response.errorType))
                         }
                     }
                 }

@@ -34,7 +34,19 @@ class RetrofitNetworkClient @Inject constructor(
         }
     }
 
-    fun isConnected(): Boolean {
+    override suspend fun getProfileCompany(): Response {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = service.loadProfileCompany()
+                response.apply { resultCode = ApiConstants.SUCCESS_CODE }
+            } catch (e: IOException) {
+                Log.e("RetrofitNetworkClient", "An error occurred", e)
+                Response().apply { resultCode = ApiConstants.BAD_REQUEST_CODE }
+            }
+        }
+    }
+
+    private fun isConnected(): Boolean {
         val connectivityManager = context.getSystemService(
             Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager
@@ -44,7 +56,8 @@ class RetrofitNetworkClient @Inject constructor(
             it.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || it.hasTransport(
                 NetworkCapabilities.TRANSPORT_WIFI
             ) || it.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) || it.hasTransport(
-                NetworkCapabilities.TRANSPORT_BLUETOOTH)
+                NetworkCapabilities.TRANSPORT_BLUETOOTH
+            )
         } ?: false
     }
 }

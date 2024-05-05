@@ -11,7 +11,7 @@
     <string name="company_name">HighTechCorp</string>
     <string name="description">"Образовательный уровень родителей зачастую влияет на будущее детей больше, чем их успеваемость в школе. "</string>
     <string name="empty">Пока тут пусто</string>
-    <string name="in">в</string>
+    <string name="profile_in">в</string>
     <string name="label_bottom_sheet_profile">BottomSheetProfile</string>
     <string name="edit_profile">Редактировать профиль</string>
     <string name="about_app">О приложении</string>

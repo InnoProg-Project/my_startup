@@ -5,8 +5,10 @@ import com.innoprog.android.di.ViewModelKey
 import com.innoprog.android.feature.profile.profiledetails.data.impl.ProfileInfoRepoImpl
 import com.innoprog.android.feature.profile.profiledetails.data.network.NetworkClient
 import com.innoprog.android.feature.profile.profiledetails.data.network.RetrofitNetworkClient
+import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileCompanyUseCase
 import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileUseCase
 import com.innoprog.android.feature.profile.profiledetails.domain.ProfileInfoRepo
+import com.innoprog.android.feature.profile.profiledetails.domain.impl.GetProfileCompanyUseCaseImpl
 import com.innoprog.android.feature.profile.profiledetails.domain.impl.GetProfileUseCaseImpl
 import com.innoprog.android.feature.profile.profiledetails.presentation.ProfileViewModel
 import dagger.Binds
@@ -26,6 +28,9 @@ interface ProfileModule {
 
     @Binds
     fun bindGetProfileUseCase(impl: GetProfileUseCaseImpl): GetProfileUseCase
+
+    @Binds
+    fun bindGetProfileCompanyUseCase(impl: GetProfileCompanyUseCaseImpl): GetProfileCompanyUseCase
 
     @Binds
     fun bindNetworkClient(impl: RetrofitNetworkClient): NetworkClient
