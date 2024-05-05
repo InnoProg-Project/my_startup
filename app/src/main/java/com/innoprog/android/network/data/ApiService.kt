@@ -1,7 +1,7 @@
 package com.innoprog.android.network.data
 
 import com.innoprog.android.feature.profile.editingprofile.data.BodyResponse
-import com.innoprog.android.feature.profile.editingprofile.data.ProfileDto
+import com.innoprog.android.feature.profile.editingprofile.data.CompanyBodyResponse
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -21,4 +21,6 @@ interface ApiService {
     @PUT("/v1/profile")
     suspend fun editProfile(): BodyResponse
 
+    @PUT("/v1/profile/company")
+    suspend fun editProfileCompany(): CompanyBodyResponse
 }

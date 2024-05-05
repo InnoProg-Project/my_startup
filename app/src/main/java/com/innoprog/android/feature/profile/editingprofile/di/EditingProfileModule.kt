@@ -2,12 +2,14 @@ package com.innoprog.android.feature.profile.editingprofile.di
 
 import androidx.lifecycle.ViewModel
 import com.innoprog.android.di.ViewModelKey
-import com.innoprog.android.feature.profile.editingprofile.data.ProfileRepositoryImpl
 import com.innoprog.android.feature.profile.editingprofile.data.NetworkClient
+import com.innoprog.android.feature.profile.editingprofile.data.ProfileRepositoryImpl
 import com.innoprog.android.feature.profile.editingprofile.data.RetrofitNetworkClient
+import com.innoprog.android.feature.profile.editingprofile.domain.EditBodyProfileUseCase
+import com.innoprog.android.feature.profile.editingprofile.domain.EditBodyProfileUseCaseImpl
+import com.innoprog.android.feature.profile.editingprofile.domain.EditProfileCompanyUseCase
+import com.innoprog.android.feature.profile.editingprofile.domain.EditProfileCompanyUseCaseImpl
 import com.innoprog.android.feature.profile.editingprofile.domain.ProfileRepository
-import com.innoprog.android.feature.profile.editingprofile.domain.ProfileUseCase
-import com.innoprog.android.feature.profile.editingprofile.domain.ProfileUseCaseImpl
 import com.innoprog.android.feature.profile.editingprofile.presentation.EditingProfileViewModel
 import dagger.Binds
 import dagger.Module
@@ -23,9 +25,13 @@ interface EditingProfileModule {
 
     @Binds
     fun provideNetworkClient(impl: RetrofitNetworkClient): NetworkClient
+
     @Binds
     fun bindProfileRepository(repository: ProfileRepositoryImpl): ProfileRepository
 
     @Binds
-    fun bindProfileUseCase(useCase: ProfileUseCaseImpl): ProfileUseCase
+    fun bindProfileUseCase(useCase: EditBodyProfileUseCaseImpl): EditBodyProfileUseCase
+
+    @Binds
+    fun bindProfileCompanyUseCase(useCase: EditProfileCompanyUseCaseImpl): EditProfileCompanyUseCase
 }

@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.profile.editingprofile.domain
+package com.innoprog.android.feature.profile.editingprofile.domain.model
 
 data class Profile(
     val body: Body,

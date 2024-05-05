@@ -10,4 +10,4 @@ data class ProfileDto(
 data class BodyResponse(
     val about: String,
     val name: String
-): Response()
+) : Response()
