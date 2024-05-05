@@ -10,12 +10,10 @@ import com.innoprog.android.feature.feed.newsfeed.data.db.NewsEntity
 @Database(
     entities = [
         NewsEntity::class,
-
     ],
     version = 1
 )
 @TypeConverters(Converters::class)
 abstract class RoomDB : RoomDatabase() {
-
     abstract fun newsDao(): NewsDao
 }
