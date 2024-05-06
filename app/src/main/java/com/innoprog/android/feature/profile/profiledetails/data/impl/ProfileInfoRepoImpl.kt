@@ -1,6 +1,6 @@
 package com.innoprog.android.feature.profile.profiledetails.data.impl
 
-import com.innoprog.android.feature.profile.profiledetails.data.network.NetworkClient
+import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileApi
 import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileCompanyResponse
 import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileResponse
 import com.innoprog.android.feature.profile.profiledetails.domain.ProfileInfoRepo
@@ -14,12 +14,12 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class ProfileInfoRepoImpl @Inject constructor(
-    private val network: NetworkClient
+    private val network: ProfileApi
 ) : ProfileInfoRepo {
 
     override fun loadProfile(): Flow<Resource<Profile>> = flow {
 
-        val response = network.getProfile()
+        val response = network.loadProfile()
         when (response.resultCode) {
             ApiConstants.NO_INTERNET_CONNECTION_CODE -> {
                 emit(Resource.Error(ErrorType.NO_CONNECTION))
@@ -39,7 +39,7 @@ class ProfileInfoRepoImpl @Inject constructor(
     }
 
     override fun loadProfileCompany(): Flow<Resource<ProfileCompany>> = flow {
-        val response = network.getProfileCompany()
+        val response = network.loadProfileCompany()
         when (response.resultCode) {
             ApiConstants.NO_INTERNET_CONNECTION_CODE -> {
                 emit(Resource.Error(ErrorType.NO_CONNECTION))
