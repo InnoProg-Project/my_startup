@@ -1,5 +1,8 @@
 package com.innoprog.android.feature.profile.profiledetails.data.impl
 
+import com.innoprog.android.db.RoomDB
+import com.innoprog.android.feature.profile.profiledetails.data.db.ProfileCompanyEntity
+import com.innoprog.android.feature.profile.profiledetails.data.db.ProfileEntity
 import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileApi
 import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileCompanyResponse
 import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileResponse
@@ -14,12 +17,23 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class ProfileInfoRepoImpl @Inject constructor(
-    private val network: ProfileApi
+    private val network: ProfileApi,
+    private val roomDB: RoomDB
+
 ) : ProfileInfoRepo {
 
-    override fun loadProfile(): Flow<Resource<Profile>> = flow {
+    override suspend fun loadProfile(): Flow<Resource<Profile>> = flow {
 
         val response = network.loadProfile()
+        roomDB.profileDao().saveProfile(
+            ProfileEntity(
+                userId = response.userId,
+                name = response.name,
+                about = response.about,
+                communicationChannels = response.communicationChannels,
+                authorities = response.authorities
+            )
+        )
         when (response.resultCode) {
             ApiConstants.NO_INTERNET_CONNECTION_CODE -> {
                 emit(Resource.Error(ErrorType.NO_CONNECTION))
@@ -38,8 +52,17 @@ class ProfileInfoRepoImpl @Inject constructor(
         }
     }
 
-    override fun loadProfileCompany(): Flow<Resource<ProfileCompany>> = flow {
+    override suspend fun loadProfileCompany(): Flow<Resource<ProfileCompany>> = flow {
         val response = network.loadProfileCompany()
+        roomDB.profileCompanyDao().saveProfileCompany(
+            ProfileCompanyEntity(
+                id = response.id,
+                userId = response.userId,
+                name = response.name,
+                url = response.url,
+                role = response.role
+            )
+        )
         when (response.resultCode) {
             ApiConstants.NO_INTERNET_CONNECTION_CODE -> {
                 emit(Resource.Error(ErrorType.NO_CONNECTION))
@@ -64,7 +87,8 @@ class ProfileInfoRepoImpl @Inject constructor(
             response.name,
             response.about,
             response.communicationChannels,
-            response.authorities)
+            response.authorities
+        )
     }
 
     private fun mapToProfileCompany(response: ProfileCompanyResponse): ProfileCompany {

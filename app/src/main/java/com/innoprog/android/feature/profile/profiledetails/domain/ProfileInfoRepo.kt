@@ -6,6 +6,6 @@ import com.innoprog.android.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface ProfileInfoRepo {
-    fun loadProfile(): Flow<Resource<Profile>>
-    fun loadProfileCompany(): Flow<Resource<ProfileCompany>>
+    suspend fun loadProfile(): Flow<Resource<Profile>>
+    suspend fun loadProfileCompany(): Flow<Resource<ProfileCompany>>
 }

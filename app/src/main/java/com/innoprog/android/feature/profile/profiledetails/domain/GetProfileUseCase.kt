@@ -5,5 +5,5 @@ import com.innoprog.android.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface GetProfileUseCase {
-    fun getProfile(): Flow<Resource<Profile>>
+    suspend fun getProfile(): Flow<Resource<Profile>>
 }

@@ -10,7 +10,7 @@ import javax.inject.Inject
 class GetProfileUseCaseImpl @Inject constructor(private val repository: ProfileInfoRepo) :
     GetProfileUseCase {
 
-    override fun getProfile(): Flow<Resource<Profile>> {
+    override suspend fun getProfile(): Flow<Resource<Profile>> {
         return repository.loadProfile()
     }
 }
