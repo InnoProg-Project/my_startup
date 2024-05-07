@@ -5,6 +5,5 @@ object ApiConstants {
     const val CALL_TIMEOUT = 30
     const val READ_TIMEOUT = 30
     const val SUCCESS_CODE = 200
-    const val NO_INTERNET_CONNECTION_CODE = -1
     const val BAD_REQUEST_CODE = 400
 }

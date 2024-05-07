@@ -3,6 +3,9 @@ package com.innoprog.android.feature.auth.authorization.data
 import android.content.Context
 import androidx.core.content.ContextCompat
 import com.innoprog.android.R
+import com.innoprog.android.feature.auth.authorization.data.network.AuthorizationBody
+import com.innoprog.android.feature.auth.authorization.data.network.LoginResponse
+import com.innoprog.android.feature.auth.authorization.data.network.NetworkClient
 import com.innoprog.android.feature.auth.authorization.domain.AuthorisationRepository
 import com.innoprog.android.feature.auth.authorization.domain.model.UserData
 import com.innoprog.android.network.data.ApiConstants
@@ -33,6 +36,7 @@ class AuthorisationRepositoryImpl @Inject constructor(
             ApiConstants.SUCCESS_CODE -> {
                 with(response as LoginResponse) {
                     val result = mapToUserDate(this)
+
                     emit(Resource.Success(result))
                 }
             }

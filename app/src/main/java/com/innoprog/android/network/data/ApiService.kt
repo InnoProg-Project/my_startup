@@ -1,7 +1,5 @@
 package com.innoprog.android.network.data
 
-import com.innoprog.android.feature.auth.authorization.data.AuthorizationBody
-import com.innoprog.android.feature.auth.authorization.data.LoginResponse
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -20,7 +18,4 @@ interface ApiService {
 
     @GET
     fun get(@Url url: String, @HeaderMap headers: Map<String, String>): Call<ResponseBody>
-
-    @POST("/v1/login")
-    suspend fun authorize(@Body body: AuthorizationBody): LoginResponse
 }

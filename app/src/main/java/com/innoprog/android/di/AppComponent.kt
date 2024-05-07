@@ -15,7 +15,7 @@ import dagger.Component
         NetworkModule::class,
         ApiModule::class,
         RoomDBModule::class,
-        ContextModule::class
+        ContextModule::class,
     ]
 )
 interface AppComponent : DIComponent {
