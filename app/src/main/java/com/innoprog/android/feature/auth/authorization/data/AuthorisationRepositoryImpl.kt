@@ -16,6 +16,7 @@ import javax.inject.Inject
 
 class AuthorisationRepositoryImpl @Inject constructor(
     private val networkClient: NetworkClient,
+    private val sharedPreferences: AuthSharedPReferencesLocalStorage,
     private val context: Context
 ) :
     AuthorisationRepository {
@@ -36,7 +37,7 @@ class AuthorisationRepositoryImpl @Inject constructor(
             ApiConstants.SUCCESS_CODE -> {
                 with(response as LoginResponse) {
                     val result = mapToUserDate(this)
-
+                    this.headers?.let { sharedPreferences.setCookies(it) }
                     emit(Resource.Success(result))
                 }
             }

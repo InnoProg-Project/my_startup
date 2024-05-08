@@ -1,6 +1,6 @@
 package com.innoprog.android.feature.auth.authorization.data.network
 
-open class MrResponse {
+open class Response {
     var resultCode = 0
-    var headers = ""
+    var headers: String? = null
 }

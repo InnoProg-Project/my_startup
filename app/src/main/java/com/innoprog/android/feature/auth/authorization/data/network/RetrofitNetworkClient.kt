@@ -11,7 +11,7 @@ class RetrofitNetworkClient @Inject constructor(
     private val api: LoginApi,
 ) : NetworkClient {
 
-    override suspend fun authorize(dto: AuthorizationBody): MrResponse {
+    override suspend fun authorize(dto: AuthorizationBody): Response {
         return withContext(Dispatchers.IO) {
             try {
                 val response = api.authorize(dto)
@@ -23,11 +23,11 @@ class RetrofitNetworkClient @Inject constructor(
                     }
                 } else {
                     Log.d("response", "An error ${response.code()}")
-                    MrResponse().apply { resultCode = ApiConstants.BAD_REQUEST_CODE }
+                    Response().apply { resultCode = ApiConstants.BAD_REQUEST_CODE }
                 }
             } catch (e: IOException) {
                 Log.e("RetrofitNetworkClient", "An error occurred", e)
-                MrResponse().apply { resultCode = ApiConstants.BAD_REQUEST_CODE }
+                Response().apply { resultCode = ApiConstants.BAD_REQUEST_CODE }
             }!!
         }
     }

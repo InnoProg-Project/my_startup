@@ -2,6 +2,8 @@ package com.innoprog.android.feature.auth.authorization.di
 
 import androidx.lifecycle.ViewModel
 import com.innoprog.android.di.ViewModelKey
+import com.innoprog.android.feature.auth.authorization.data.AuthLocalStorage
+import com.innoprog.android.feature.auth.authorization.data.AuthSharedPReferencesLocalStorage
 import com.innoprog.android.feature.auth.authorization.data.AuthorisationRepositoryImpl
 import com.innoprog.android.feature.auth.authorization.data.network.LoginApi
 import com.innoprog.android.feature.auth.authorization.data.network.NetworkClient
@@ -16,7 +18,7 @@ import dagger.Provides
 import dagger.multibindings.IntoMap
 import retrofit2.Retrofit
 
-@Module( includes = [AuthorizationModule.LoginApiModule::class])
+@Module(includes = [AuthorizationModule.LoginApiModule::class])
 interface AuthorizationModule {
 
     @IntoMap
@@ -29,6 +31,9 @@ interface AuthorizationModule {
 
     @Binds
     fun provideAuthorisationRepository(repository: AuthorisationRepositoryImpl): AuthorisationRepository
+
+    @Binds
+    fun provideLocalStorage(sharedPreferences: AuthSharedPReferencesLocalStorage): AuthLocalStorage
 
     @Binds
     fun provideNetworkClient(retrofit: RetrofitNetworkClient): NetworkClient
