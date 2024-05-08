@@ -5,10 +5,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.innoprog.android.db.RoomDB
 import com.innoprog.android.db.RoomDBModule
+import com.innoprog.android.local.LocalStorageModule
 import com.innoprog.android.network.data.ApiModule
 import com.innoprog.android.network.data.NetworkModule
 import com.innoprog.android.network.domain.ApiInteractor
-import com.innoprog.android.local.LocalStorageModule
 import dagger.BindsInstance
 import dagger.Component
 
@@ -34,7 +34,6 @@ interface AppComponent : DIComponent {
 
         @BindsInstance
         fun app(app: Application): Builder
-
     }
 }
 
