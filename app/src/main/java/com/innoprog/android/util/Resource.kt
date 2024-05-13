@@ -1,7 +1,12 @@
 package com.innoprog.android.util
 
-sealed class Resource<T>(val data: T? = null, val message: String? = null) {
+import kotlinx.coroutines.flow.Flow
 
-    class Success<T>(data: T) : Resource<T>(data)
-    class Error<T>(message: String?, data: T? = null) : Resource<T>(data, message)
+typealias ResourcesFlow<T> = Flow<Resource<List<T>>>
+
+sealed class Resource<out T> {
+
+    data class Success<out T>(val data: T) : Resource<T>()
+
+    data class Error(val errorType: ErrorType) : Resource<Nothing>()
 }
