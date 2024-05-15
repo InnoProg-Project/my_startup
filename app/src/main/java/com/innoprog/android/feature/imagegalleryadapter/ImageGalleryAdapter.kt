@@ -7,10 +7,12 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.innoprog.android.R
 
-class ImageGalleryAdapter (private val images: List<Int>) : RecyclerView.Adapter<ImageGalleryAdapter.ImageGalleryViewHolder>() {
+class ImageGalleryAdapter(private val images: List<Int>) :
+    RecyclerView.Adapter<ImageGalleryAdapter.ImageGalleryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageGalleryViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_image_for_gallery, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_image_for_gallery, parent, false)
         return ImageGalleryViewHolder(view)
     }
 

@@ -18,7 +18,9 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/margin_16"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newsTopBar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,10 +30,26 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_marginBottom="@dimen/margin_8"
+                android:background="@drawable/tab_layout_background"
+                app:layout_constraintBottom_toBottomOf="@+id/viewPager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:tabBackground="@drawable/tab_pager_selector"
+                app:tabGravity="center"
+                app:tabIndicator="@null"
+                app:tabMode="fixed"
+                app:tabPaddingEnd="@dimen/padding_6"
+                app:tabPaddingStart="@dimen/padding_6" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/leftGuideline"
@@ -64,6 +82,8 @@
                 style="@style/TextBody_1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="6"
                 android:textColor="@color/text_primary"
                 app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
                 app:layout_constraintStart_toStartOf="@+id/leftGuideline"
@@ -163,6 +183,7 @@
                 android:layout_marginTop="@dimen/margin_16"
                 android:text="@string/more_about_project"
                 android:textColor="@color/text_primary"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
                 app:layout_constraintStart_toStartOf="@+id/leftGuideline"
                 app:layout_constraintTop_toBottomOf="@+id/tvNewsAuthorPosition" />
@@ -175,7 +196,7 @@
                 android:background="@drawable/bg_project_card"
                 android:paddingHorizontal="@dimen/padding_16"
                 android:paddingVertical="@dimen/padding_12"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
                 app:layout_constraintStart_toStartOf="@+id/leftGuideline"
                 app:layout_constraintTop_toBottomOf="@+id/tvAboutProjectTitle">
@@ -283,11 +304,10 @@
                 android:layout_height="wrap_content"
                 android:visibility="visible"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toTopOf="@+id/btnShowMore"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inputComment"
-                tools:itemCount="4"
+                tools:itemCount="5"
                 tools:listitem="@layout/item_comment"
                 tools:visibility="visible" />
 
@@ -297,12 +317,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_4"
                 android:clickable="true"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:buttonSize="small"
                 app:buttonState="enabled"
                 app:buttonText="@string/show_more"
                 app:buttonType="flat"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rvComments"
                 tools:visibility="visible" />

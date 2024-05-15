@@ -137,7 +137,10 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     private fun initRecyclerView() {
         newsAdapter = NewsAdapter(listNews, object : NewsAdapter.OnClickListener {
             override fun onItemClick(news: News) {
-                viewModel.navigateTo(R.id.action_mainFragment_to_newsDetailsFragment)
+                viewModel.navigateTo(
+                    R.id.action_mainFragment_to_newsDetailsFragment,
+                    Bundle().apply { putString("news_model", news.id) }
+                )
             }
         })
 
@@ -255,5 +258,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         private const val ALL_CONTENT = "Всё"
         private const val PROJECT = "Проекты"
         private const val IDEAS = "Идеи"
+        const val ARG_NEWS = "news_model"
     }
 }
