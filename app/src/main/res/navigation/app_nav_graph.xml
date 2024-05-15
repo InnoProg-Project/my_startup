@@ -79,7 +79,7 @@
 
     <fragment
         android:id="@+id/projectsFragment"
-        android:name="com.innoprog.android.feature.projects.presentation.ProjectsFragment"
+        android:name="com.innoprog.android.feature.projects.projectsScreen.presentation.ProjectsScreenFragment"
         android:label="fragment_projects"
         tools:layout="@layout/fragment_projects" />
 
@@ -180,6 +180,10 @@
         android:id="@+id/videoPlayerFragment"
         android:name="com.innoprog.android.feature.training.videoPlayer.presentation.VideoPlayerFragment"
         android:label="VideoPlayerFragment" />
+    <fragment
+        android:id="@+id/projectDetailsFragment"
+        android:name="com.innoprog.android.feature.projects.projectdetails.presentation.ProjectDetailsFragment"
+        android:label="ProjectDetailsFragment" />
     <fragment
         android:id="@+id/newsDetailsFragment"
         android:name="com.innoprog.android.feature.feed.newsdetails.presentation.NewsDetailsFragment"
