@@ -1,15 +1,18 @@
 package com.innoprog.android.feature.edit.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.navArgs
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentCreateEditContentBinding
+import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.edit.di.DaggerCreateEditContentComponent
 
@@ -18,11 +21,21 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
     private val args by navArgs<CreateEditContentFragmentArgs>()
     override val viewModel by injectViewModel<CreateEditContentViewModel>()
 
-    override fun diComponent(): ScreenComponent = DaggerCreateEditContentComponent.builder().build()
+    override fun diComponent(): ScreenComponent {
+        val appComponent = AppComponentHolder.getComponent()
+        return DaggerCreateEditContentComponent
+            .builder()
+            .appComponent(appComponent)
+            .build()
+    }
 
     private val pickMediaLauncher =
-        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-            uri?.let { viewModel.addMediaToLoadList(it) }
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            uri?.path?.let {
+                viewModel.addMediaToLoadList(it)
+                Log.e("qwe", it)
+            }
+
         }
 
     override fun createBinding(
@@ -80,12 +93,11 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
         }
     }
 
-
     private fun loadMedia() {
-        pickMediaLauncher.launch(FORMAT_MEDIA)
-    }
-
-    companion object {
-        const val FORMAT_MEDIA = "image/* video/*"
+        pickMediaLauncher.launch(
+            PickVisualMediaRequest(
+                ActivityResultContracts.PickVisualMedia.ImageAndVideo
+            )
+        )
     }
 }

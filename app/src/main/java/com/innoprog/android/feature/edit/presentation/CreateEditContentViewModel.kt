@@ -1,6 +1,5 @@
 package com.innoprog.android.feature.edit.presentation
 
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.innoprog.android.base.BaseViewModel
@@ -19,7 +18,7 @@ class CreateEditContentViewModel @Inject constructor(
 
     val state: LiveData<CreateEditContentState> = _state
 
-    val mediaList = mutableListOf<Uri>()
+    private val mediaList = mutableListOf<String>()
 
     fun setEditorType(typeContentArgs: TypeContentArgs) {
         when (typeContentArgs) {
@@ -37,8 +36,8 @@ class CreateEditContentViewModel @Inject constructor(
         _state.value = state
     }
 
-    fun addMediaToLoadList(uri: Uri) {
-        mediaList.add(uri)
+    fun addMediaToLoadList(mediaPath: String) {
+        mediaList.add(mediaPath)
     }
 
 }

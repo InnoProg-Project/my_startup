@@ -1,6 +1,7 @@
 package com.innoprog.android.feature.edit.data.impl
 
 import com.innoprog.android.feature.edit.data.CreateEditContentRepository
+import com.innoprog.android.feature.edit.data.EditContentNetworkClient
 import com.innoprog.android.feature.edit.domain.model.IdeaModel
 import com.innoprog.android.feature.edit.domain.model.ProjectModel
 import com.innoprog.android.feature.edit.domain.model.PublicationModel
@@ -10,7 +11,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class CreateEditContentRepositoryImpl @Inject constructor() : CreateEditContentRepository {
+class CreateEditContentRepositoryImpl @Inject constructor(
+    private val networkClient: EditContentNetworkClient
+) : CreateEditContentRepository {
     override suspend fun createIdea(ideaModel: IdeaModel) {
 
     }
