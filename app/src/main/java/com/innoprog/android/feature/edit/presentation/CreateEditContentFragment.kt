@@ -1,7 +1,9 @@
 package com.innoprog.android.feature.edit.presentation
 
+import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,11 +33,11 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
 
     private val pickMediaLauncher =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-            uri?.path?.let {
-                viewModel.addMediaToLoadList(it)
-                Log.e("qwe", it)
+            uri?.let {
+                getRealPathFromUri(it)?.let { path ->
+                    viewModel.addMediaToLoadList(path)
+                }
             }
-
         }
 
     override fun createBinding(
@@ -100,4 +102,19 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
             )
         )
     }
+
+    private fun getRealPathFromUri(uri: Uri): String? {
+        var realPath: String? = null
+        val context = requireContext()
+        val cursor: Cursor? = context.contentResolver.query(uri, null, null, null, null)
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val columnIndex = it.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+                realPath = it.getString(columnIndex)
+            }
+        }
+        cursor?.close()
+        return realPath
+    }
+
 }
