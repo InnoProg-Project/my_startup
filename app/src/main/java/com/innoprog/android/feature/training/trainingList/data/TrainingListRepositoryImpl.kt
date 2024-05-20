@@ -15,19 +15,27 @@ class TrainingListRepositoryImpl @Inject constructor() : TrainingListRepository 
 
     private fun mockData(): List<CourseShort> {
         val mockList = mutableListOf<CourseShort>().apply {
-            repeat(100) { position ->
-                add(CourseShort(
-                    id = position.toString(),
-                    direction = "Управление",
-                    title = "Интеграция сервисов - $position",
-                    avatarURL = "https://wallpapers4screen.com/Uploads/27-1-2016/18417/cat-tiger-white-cat-cats-photo.jpg",
-                    description = "Небольшой курс о том, как интегрировать сервисы в ваше приложение или сайт без участия разработчика",
-                    authorName = "Унтура Михаил",
-                    authorPost = "СЕО в Мой Стартап",
-                    createdDate = "20 мая"
-                ))
+            repeat(MOCK_LIST_SIZE) { position ->
+                add(
+                    CourseShort(
+                        id = position.toString(),
+                        direction = "Управление",
+                        title = "Интеграция сервисов - $position",
+                        avatarURL = MOCK_AVATAR_URL,
+                        description = MOCK_DESCRIPTION,
+                        authorName = "Унтура Михаил",
+                        authorPost = "СЕО в Мой Стартап",
+                        createdDate = "20 мая"
+                    )
+                )
             }
         }
         return mockList
+    }
+
+    companion object {
+        private const val MOCK_AVATAR_URL = "https://wallpapers4screen.com/Uploads/27-1-2016/18417/cat-tiger-white-cat-cats-photo.jpg"
+        private const val MOCK_DESCRIPTION = "Небольшой курс о том, как интегрировать сервисы в ваше приложение или сайт без участия разработчика"
+        private const val MOCK_LIST_SIZE = 100
     }
 }

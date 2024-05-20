@@ -3,7 +3,7 @@ package com.innoprog.android.feature.training.trainingList.data.network.dto
 import com.google.gson.annotations.SerializedName
 import com.innoprog.android.feature.training.trainingList.domain.model.CourseShort
 
-class CourseShortDto(
+data class CourseShortDto(
     @SerializedName("id")
     val id: String,
     @SerializedName("title")

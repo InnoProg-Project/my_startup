@@ -20,7 +20,7 @@ class TrainingListViewModel @Inject constructor(private val getTrainingListUseCa
         viewModelScope.launch {
             runCatching {
                 getTrainingListUseCase.execute().collect { result ->
-                    when(result) {
+                    when (result) {
                         is Result.Error -> setState(TrainingListState.Error)
                         is Result.Success -> setState(TrainingListState.Content(result.data))
                     }
