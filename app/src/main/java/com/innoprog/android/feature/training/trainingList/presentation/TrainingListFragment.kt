@@ -14,9 +14,13 @@ import com.innoprog.android.feature.training.trainingList.di.DaggerTrainingListC
 import com.innoprog.android.uikit.R
 
 class TrainingListFragment : BaseFragment<FragmentTrainingListBinding, BaseViewModel>() {
-
     override val viewModel by injectViewModel<TrainingListViewModel>()
-    private var trainingAdapter: TrainingRecyclerViewAdapter? = null
+    private val trainingAdapter = TrainingRecyclerViewAdapter { courseId ->
+        viewModel.navigateTo(
+            com.innoprog.android.R.id.courseInformationFragment,
+            bundleOf(COURSE_KEY to courseId)
+        )
+    }
     override fun diComponent(): ScreenComponent = DaggerTrainingListComponent.builder().build()
 
     override fun createBinding(
@@ -35,14 +39,7 @@ class TrainingListFragment : BaseFragment<FragmentTrainingListBinding, BaseViewM
     }
 
     private fun initRecyclerView() {
-        trainingAdapter = TrainingRecyclerViewAdapter { courseId ->
-            viewModel.navigateTo(
-                com.innoprog.android.R.id.courseInformationFragment,
-                bundleOf(COURSE_KEY to courseId)
-            )
-        }
-        val decorator =
-            VerticalSpaceDecorator(resources.getDimensionPixelSize(R.dimen.margin_8))
+        val decorator = VerticalSpaceDecorator(resources.getDimensionPixelSize(R.dimen.margin_8))
         binding.trainingRecyclerView.addItemDecoration(decorator)
         binding.trainingRecyclerView.adapter = trainingAdapter
     }
@@ -56,7 +53,7 @@ class TrainingListFragment : BaseFragment<FragmentTrainingListBinding, BaseViewM
             }
 
             is TrainingListState.Content -> {
-                trainingAdapter?.items = state.trainingList
+                trainingAdapter.items = state.trainingList
                 binding.trainingRecyclerView.visibility = View.VISIBLE
                 binding.trainingNoCoursesPlaceholderIcon.visibility = View.INVISIBLE
                 binding.trainingNoCoursesPlaceholderTV.visibility = View.INVISIBLE
@@ -65,7 +62,6 @@ class TrainingListFragment : BaseFragment<FragmentTrainingListBinding, BaseViewM
     }
 
     companion object {
-
         const val COURSE_KEY = "COURSE_KEY"
     }
 }

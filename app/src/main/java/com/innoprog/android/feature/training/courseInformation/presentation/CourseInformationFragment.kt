@@ -23,7 +23,7 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
     override val viewModel by injectViewModel<CourseInformationViewModel>()
     override fun diComponent(): ScreenComponent = DaggerCourseInformationComponent.builder().build()
 
-    private val courseId by lazy { arguments?.getInt(COURSE_KEY) }
+    private val courseId by lazy { arguments?.getString(COURSE_KEY) }
 
     private var videoAdapter: VideoAdapter? = null
     private var documentAdapter: DocumentRecyclerViewAdapter? = null

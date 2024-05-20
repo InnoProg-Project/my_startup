@@ -1,9 +1,9 @@
 package com.innoprog.android.feature.training.trainingList.presentation
 
-import com.innoprog.android.feature.training.trainingList.domain.model.TrainingListModel
+import com.innoprog.android.feature.training.trainingList.domain.model.CourseShort
 
 sealed interface TrainingListState {
     data object Load : TrainingListState
-    data class Content(val trainingList: List<TrainingListModel>) : TrainingListState
+    class Content(val trainingList: List<CourseShort>) : TrainingListState
     data object Error : TrainingListState
 }
