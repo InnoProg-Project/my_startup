@@ -1,8 +1,10 @@
 package com.innoprog.android.feature.edit.data
 
 import com.innoprog.android.feature.edit.domain.model.IdeaModel
+import com.innoprog.android.feature.edit.domain.model.MediaAttachmentsModel
 import com.innoprog.android.feature.edit.domain.model.ProjectModel
 import com.innoprog.android.feature.edit.domain.model.PublicationModel
+import com.innoprog.android.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface CreateEditContentRepository {
@@ -16,4 +18,6 @@ interface CreateEditContentRepository {
 
 
     fun getPublicationById(id: String): Flow<PublicationModel>
+
+    suspend fun addMediaToListAttachments(path: String): Resource<MediaAttachmentsModel>
 }

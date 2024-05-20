@@ -105,8 +105,11 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
 
     private fun getRealPathFromUri(uri: Uri): String? {
         var realPath: String? = null
-        val context = requireContext()
-        val cursor: Cursor? = context.contentResolver.query(uri, null, null, null, null)
+
+        val cursor: Cursor? = requireContext()
+            .contentResolver
+            .query(uri, null, null, null, null)
+
         cursor?.use {
             if (it.moveToFirst()) {
                 val columnIndex = it.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
