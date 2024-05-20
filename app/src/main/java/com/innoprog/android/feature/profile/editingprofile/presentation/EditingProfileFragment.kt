@@ -9,6 +9,7 @@ import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentEditingProfileBinding
+import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.profile.editingprofile.di.DaggerEditingProfileComponent
 import com.innoprog.android.feature.profile.editingprofile.domain.models.Profile
@@ -19,7 +20,13 @@ import com.innoprog.android.feature.profile.editingprofile.presentation.state.Pr
 class EditingProfileFragment : BaseFragment<FragmentEditingProfileBinding, BaseViewModel>() {
 
     override val viewModel by injectViewModel<EditingProfileViewModel>()
-    override fun diComponent(): ScreenComponent = DaggerEditingProfileComponent.builder().build()
+    override fun diComponent(): ScreenComponent {
+        val appComponent = AppComponentHolder.getComponent()
+        return DaggerEditingProfileComponent
+            .builder()
+            .appComponent(appComponent)
+            .build()
+    }
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -30,10 +37,10 @@ class EditingProfileFragment : BaseFragment<FragmentEditingProfileBinding, BaseV
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeData()
         initButton()
         initTopBar()
     }
-
 
     private fun observeData() {
         viewModel.uiState.observe(viewLifecycleOwner) { state ->

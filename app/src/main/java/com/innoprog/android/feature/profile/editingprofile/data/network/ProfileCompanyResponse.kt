@@ -15,4 +15,3 @@ data class ProfileCompanyResponse(
     @SerializedName("role")
     val role: String
 ) : Response()
-

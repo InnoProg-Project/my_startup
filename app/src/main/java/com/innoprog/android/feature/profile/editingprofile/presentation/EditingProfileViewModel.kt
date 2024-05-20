@@ -15,7 +15,6 @@ import com.innoprog.android.util.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
 import javax.inject.Inject
 
 class EditingProfileViewModel @Inject constructor(
