@@ -66,11 +66,14 @@
         <action
             android:id="@+id/action_mainFragment_to_courseInformationFragment"
             app:destination="@id/courseInformationFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_projectFragment"
+            app:destination="@id/projectFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/feedFragment"
-        android:name="com.innoprog.android.feature.feed.presentation.FeedFragment"
+        android:name="com.innoprog.android.feature.feed.newsfeed.presentation.FeedFragment"
         android:label="fragment_feed"
         tools:layout="@layout/fragment_feed" />
 
@@ -181,5 +184,10 @@
         android:id="@+id/projectDetailsFragment"
         android:name="com.innoprog.android.feature.projects.projectdetails.presentation.ProjectDetailsFragment"
         android:label="ProjectDetailsFragment" />
+    <fragment
+        android:id="@+id/projectFragment"
+        android:name="com.innoprog.android.feature.feed.projectScreen.presentation.AnyProjectFragment"
+        android:label="fragment_any_project"
+        tools:layout="@layout/fragment_any_project" />
 
 </navigation>

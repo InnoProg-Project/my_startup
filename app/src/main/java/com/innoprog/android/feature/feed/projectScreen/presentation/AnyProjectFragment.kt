@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentAnyProjectBinding
@@ -13,19 +16,21 @@ import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.feed.newsfeed.domain.models.Author
 import com.innoprog.android.feature.feed.newsfeed.domain.models.Company
 import com.innoprog.android.feature.feed.newsfeed.domain.models.News
-import com.innoprog.android.feature.feed.projectScreen.di.DaggerProjectComponent
+import com.innoprog.android.feature.feed.projectScreen.di.DaggerAnyProjectComponent
+import com.innoprog.android.feature.feed.projectScreen.domain.AnyProjectModel
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
+import okhttp3.internal.format
 
-class ProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel>() {
+class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel>() {
 
-    override val viewModel by injectViewModel<ProjectViewModel>()
+    override val viewModel by injectViewModel<AnyProjectViewModel>()
 
     private var newsAdapter: NewsAdapter? = null
     private var listNews: ArrayList<News> = arrayListOf()
 
     override fun diComponent(): ScreenComponent {
         val appComponent = AppComponentHolder.getComponent()
-        return DaggerProjectComponent.builder()
+        return DaggerAnyProjectComponent.builder()
             .appComponent(appComponent)
             .build()
     }
@@ -41,6 +46,12 @@ class ProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel>()
         super.onViewCreated(view, savedInstanceState)
 
         setUiListeners()
+
+        viewModel.screenState.observe(viewLifecycleOwner) {
+            updateUI(it)
+        }
+
+        viewModel.getAnyProject("1")
 
         val company = Company(
             "HighTechCorp",
@@ -62,7 +73,7 @@ class ProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel>()
 
         val news = News(
             id = "1",
-            type = "idea",
+            type = "project",
             author = author,
             projectId = "1",
             coverUrl = "",
@@ -93,11 +104,19 @@ class ProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel>()
         listNews = arrayListOf(news, news2, news, news2)
 
         initRecyclerView()
-
     }
 
     private fun setUiListeners() {
+        binding.apply {
+            projectTopBar.setLeftIconClickListener {
+                viewModel.navigateUp()
+            }
 
+            btnProjectDetails.setOnClickListener {
+                Toast.makeText(requireContext(), "Открытие деталей проекта", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
     }
 
     private fun initRecyclerView() {
@@ -111,4 +130,37 @@ class ProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel>()
         binding.rvPublications.adapter = newsAdapter
     }
 
+    private fun updateUI(state: AnyProjectScreenState) {
+        when (state) {
+            is AnyProjectScreenState.Loading -> showLoading()
+            is AnyProjectScreenState.Content -> showContent(state.anyProject)
+            is AnyProjectScreenState.Error -> showError()
+        }
+    }
+
+    private fun showLoading() {
+        Toast.makeText(requireContext(), "Загрузка", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showError() {
+        Toast.makeText(requireContext(), "Ошибка", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showContent(anyProject: AnyProjectModel) {
+        val radius = binding.root.resources.getDimensionPixelSize(R.dimen.corner_radius_10)
+        binding.apply {
+            Glide.with(requireContext())
+                .load(anyProject.logoFilePath)
+                .placeholder(R.drawable.ic_placeholder_logo)
+                .centerCrop()
+                .transform(RoundedCorners(radius))
+                .into(ivProjectLogo)
+
+            tvProjectName.text = anyProject.name
+            tvProjectDirection.text = anyProject.area
+            tvProjectDescription.text = anyProject.shortDescription
+            tvProjectNews.text =
+                format(getString(R.string.project_news), anyProject.publicationsCount)
+        }
+    }
 }

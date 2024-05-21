@@ -8,13 +8,13 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     dependencies = [AppComponent::class],
-    modules = [ProjectModule::class]
+    modules = [AnyProjectModule::class]
 )
 
-interface ProjectComponent : ScreenComponent {
+interface AnyProjectComponent : ScreenComponent {
     @Component.Builder
     interface Builder {
-        fun build(): ProjectComponent
+        fun build(): AnyProjectComponent
         fun appComponent(appComponent: AppComponent): Builder
     }
 }

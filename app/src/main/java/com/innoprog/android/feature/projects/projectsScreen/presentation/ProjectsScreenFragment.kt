@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentProjectsBinding
@@ -37,6 +39,7 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
         binding.projectsRV.adapter = adapter
         binding.createNewProjectButton.setOnClickListener {
             // TODO переход на экран создания проекта
+            findNavController().navigate(R.id.action_mainFragment_to_projectFragment)
         }
         binding.createFirstProjectButton.setOnClickListener {
             // TODO переход на экран создания проекта
