@@ -18,12 +18,13 @@ class NewsDetailsViewModel @Inject constructor(
 
     fun getNewsDetails(newsId: String) {
         viewModelScope.launch {
-            newsDetailsInteractor.getNewsDetails(newsId).collect {
-                if (it.first != null) {
-                    setState(NewsDetailsScreenState.Content(it.first!!))
-                } else {
-                    setState(NewsDetailsScreenState.Error)
-                }
+            val (newsDetails, errorStatus) = newsDetailsInteractor.getNewsDetails(newsId)
+            if (errorStatus != null) {
+                // Обработка ошибки
+                setState(NewsDetailsScreenState.Error)
+            } else {
+                // Обработка успешного результата
+                setState(NewsDetailsScreenState.Content(newsDetails))
             }
         }
     }

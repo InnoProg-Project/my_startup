@@ -100,7 +100,7 @@ class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewMod
     private fun updateUI(state: NewsDetailsScreenState) {
         when (state) {
             is NewsDetailsScreenState.Loading -> showLoading()
-            is NewsDetailsScreenState.Content -> showContent(state.newsDetails)
+            is NewsDetailsScreenState.Content -> state.newsDetails?.let { showContent(it) }
             is NewsDetailsScreenState.Error -> showError()
         }
     }

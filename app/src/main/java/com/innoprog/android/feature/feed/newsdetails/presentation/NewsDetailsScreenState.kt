@@ -8,6 +8,6 @@ sealed interface NewsDetailsScreenState {
     data object Error : NewsDetailsScreenState
 
     data class Content(
-        val newsDetails: NewsDetailsModel,
+        val newsDetails: NewsDetailsModel?,
     ) : NewsDetailsScreenState
 }

@@ -6,8 +6,6 @@ import com.innoprog.android.feature.feed.newsdetails.domain.NewsDetailsRepositor
 import com.innoprog.android.feature.feed.newsfeed.domain.models.Author
 import com.innoprog.android.feature.feed.newsfeed.domain.models.Company
 import com.innoprog.android.feature.training.trainingList.domain.ErrorStatus
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class NewsDetailsRepositoryImpl @Inject constructor() : NewsDetailsRepository {
@@ -57,8 +55,7 @@ class NewsDetailsRepositoryImpl @Inject constructor() : NewsDetailsRepository {
         comments = listOf(comment, comment, comment, comment, comment)
     )
 
-    override suspend fun getNewsDetails(id: String): Flow<Pair<NewsDetailsModel?, ErrorStatus?>> =
-        flow {
-            emit(Pair(newsDetails, null))
-        }
+    override suspend fun getNewsDetails(id: String): Pair<NewsDetailsModel?, ErrorStatus?> {
+        return Pair(newsDetails, null)
+    }
 }
