@@ -1,14 +1,10 @@
 package com.innoprog.android.local
 
-import android.content.Context
-import android.content.SharedPreferences
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 
 @Module
-class
-LocalStorageModule {
-    @Provides
-    fun provideSharedPref(context: Context): SharedPreferences =
-        context.getSharedPreferences("PREFERENCE_INNOPROG", Context.MODE_PRIVATE)
+interface LocalStorageModule {
+    @Binds
+    fun bindSharedPrefLocalStorage(storage: SharedPreferencesLocalStorageImpl): LocalStorage
 }

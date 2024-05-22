@@ -2,12 +2,8 @@ package com.innoprog.android.feature.auth.authorization.di
 
 import androidx.lifecycle.ViewModel
 import com.innoprog.android.di.ViewModelKey
-import com.innoprog.android.feature.auth.authorization.data.AuthLocalStorage
-import com.innoprog.android.feature.auth.authorization.data.AuthSharedPReferencesLocalStorage
 import com.innoprog.android.feature.auth.authorization.data.AuthorisationRepositoryImpl
 import com.innoprog.android.feature.auth.authorization.data.network.LoginApi
-import com.innoprog.android.feature.auth.authorization.data.network.NetworkClient
-import com.innoprog.android.feature.auth.authorization.data.network.RetrofitNetworkClient
 import com.innoprog.android.feature.auth.authorization.domain.AuthorisationRepository
 import com.innoprog.android.feature.auth.authorization.domain.AuthorisationUseCase
 import com.innoprog.android.feature.auth.authorization.domain.AuthorisationUseCaseImpl
@@ -32,11 +28,6 @@ interface AuthorizationModule {
     @Binds
     fun provideAuthorisationRepository(repository: AuthorisationRepositoryImpl): AuthorisationRepository
 
-    @Binds
-    fun provideLocalStorage(sharedPreferences: AuthSharedPReferencesLocalStorage): AuthLocalStorage
-
-    @Binds
-    fun provideNetworkClient(retrofit: RetrofitNetworkClient): NetworkClient
 
     @Module
     class LoginApiModule {

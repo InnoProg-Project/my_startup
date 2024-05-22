@@ -1,57 +1,58 @@
 package com.innoprog.android.feature.auth.authorization.data
 
-import android.content.Context
-import androidx.core.content.ContextCompat
-import com.innoprog.android.R
+import android.util.Log
 import com.innoprog.android.feature.auth.authorization.data.network.AuthorizationBody
+import com.innoprog.android.feature.auth.authorization.data.network.LoginApi
 import com.innoprog.android.feature.auth.authorization.data.network.LoginResponse
-import com.innoprog.android.feature.auth.authorization.data.network.NetworkClient
 import com.innoprog.android.feature.auth.authorization.domain.AuthorisationRepository
 import com.innoprog.android.feature.auth.authorization.domain.model.UserData
+import com.innoprog.android.local.LocalStorage
 import com.innoprog.android.network.data.ApiConstants
+import com.innoprog.android.network.data.Response
+import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class AuthorisationRepositoryImpl @Inject constructor(
-    private val networkClient: NetworkClient,
-    private val sharedPreferences: AuthSharedPReferencesLocalStorage,
-    private val context: Context
+    private val api: LoginApi,
+    private val local: LocalStorage,
 ) :
     AuthorisationRepository {
+
     override fun verify(login: String, password: String): Flow<Resource<UserData>> = flow {
-        val response = networkClient.authorize(AuthorizationBody(login, password))
-        when (response.resultCode) {
-            ApiConstants.BAD_REQUEST_CODE -> {
-                emit(
-                    Resource.Error(
-                        ContextCompat.getString(
-                            context,
-                            R.string.autorisation_bad_data
+        try {
+            val response = api.authorize(AuthorizationBody(login, password))
+            Log.d("response", this.toString())
+            when (response.resultCode) {
+                ApiConstants.BAD_REQUEST_CODE -> {
+                    emit(
+                        Resource.Error(
+                            ErrorType.BAD_REQUEST
                         )
                     )
-                )
-            }
+                }
 
-            ApiConstants.SUCCESS_CODE -> {
-                with(response as LoginResponse) {
-                    val result = mapToUserDate(this)
-                    this.headers?.let { sharedPreferences.setCookies(it) }
-                    emit(Resource.Success(result))
+                ApiConstants.SUCCESS_CODE -> {
+                    with(response as LoginResponse) {
+                        val result = mapToUserDate(this)
+                        local.headers = response.headers
+                        emit(Resource.Success(result))
+                    }
+                }
+
+                else -> {
+                    emit(
+                        Resource.Error(
+                            ErrorType.BAD_REQUEST
+                        )
+                    )
                 }
             }
-
-            else -> {
-                emit(
-                    Resource.Error(
-                        ContextCompat.getString(
-                            context,
-                            R.string.autorisation_no_internet
-                        )
-                    )
-                )
-            }
+        } catch (e: Exception) {
+            Log.e("RetrofitNetworkClient", "An error occurred", e)
+            Response().apply { resultCode = ApiConstants.BAD_REQUEST_CODE }
         }
     }
 

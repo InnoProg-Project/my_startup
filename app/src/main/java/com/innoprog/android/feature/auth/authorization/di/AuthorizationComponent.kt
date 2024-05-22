@@ -2,12 +2,11 @@ package com.innoprog.android.feature.auth.authorization.di
 
 import com.innoprog.android.di.AppComponent
 import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.network.data.NetworkModule
 import dagger.Component
 
 @Component(
     dependencies = [AppComponent::class],
-    modules = [AuthorizationModule::class, NetworkModule::class]
+    modules = [AuthorizationModule::class]
 )
 interface AuthorizationComponent : ScreenComponent {
     @Component.Builder
