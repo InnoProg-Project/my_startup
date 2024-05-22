@@ -1,50 +1,48 @@
 package com.innoprog.android.feature.auth.registration.data
 
+import android.util.Log
 import com.innoprog.android.feature.auth.registration.domain.RegistrationRepository
 import com.innoprog.android.feature.auth.registration.domain.models.RegistrationModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import com.innoprog.android.network.data.ApiConstants.BAD_REQUEST_CODE
+import com.innoprog.android.network.data.ApiConstants.SUCCESS_CODE
 import javax.inject.Inject
 
-class RegistrationRepositoryImpl @Inject constructor() : RegistrationRepository {
+class RegistrationRepositoryImpl @Inject constructor(private val api: RegistrationApi) :
+    RegistrationRepository {
 
-    override fun registration(
+    override suspend fun registration(
         registrationValue: RegistrationModel
-    ): Flow<Pair<Boolean, String?>> = flow {
-        val response = validate(mapToRegistrationRequest(registrationValue))
-        when (response) {
-            BAD_REQUEST -> {
-                emit(Pair(false, "error"))
-            }
+    ): Pair<Boolean, String?> {
+        try {
+            val response = api.setRegistrationData(mapToRegistrationRequest(registrationValue))
+            Log.d("myRegistration", "my $response")
+            return when (response.resultCode) {
+                BAD_REQUEST_CODE -> {
+                    Pair(false, "error")
+                }
 
-            GOOD_REQUEST -> {
-                emit(Pair(true, null))
-            }
+                SUCCESS_CODE -> {
+                    Pair(true, null)
+                }
 
-            else -> {
-                emit(Pair(false, "error"))
+                else -> {
+                    Pair(false, "error")
+                }
             }
+        } catch (e: Exception) {
+            Log.e("myRegistration", " error: $e")
+            return  Pair(false, "error")
         }
     }
 
-    private fun mapToRegistrationRequest(value: RegistrationModel): RegistrationRequest {
-        return RegistrationRequest(
-            value.userName,
+    private fun mapToRegistrationRequest(value: RegistrationModel): RegistrationBody {
+        return RegistrationBody(
+            value.userName!!,
+            value.email!!,
             value.phone,
-            value.email,
-            value.password
+            value.password!!,
+            value.about,
+            value.language
         )
-    }
-
-    private fun validate(value: RegistrationRequest): Int {
-        return if (android.util.Patterns.EMAIL_ADDRESS.matcher(value.email)
-                .matches()
-        ) mok_result else BAD_REQUEST
-    }
-
-    companion object {
-        const val mok_result = 200
-        const val BAD_REQUEST = -1
-        const val GOOD_REQUEST = 200
     }
 }
