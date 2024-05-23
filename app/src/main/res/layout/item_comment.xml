@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background_primary"
+    android:paddingHorizontal="@dimen/padding_16"
+    android:paddingVertical="@dimen/padding_12">
+
+    <TextView
+        android:id="@+id/tvCommentAuthorName"
+        style="@style/TextSubtitle_2"
+        android:layout_width="@dimen/size_0"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_primary"
+        app:layout_constraintEnd_toStartOf="@+id/tvCommentDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Мария Иванова" />
+
+    <TextView
+        android:id="@+id/tvCommentDate"
+        style="@style/TextCaption_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8"
+        android:textColor="@color/text_tertiary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvCommentAuthorName"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="23 октября" />
+
+    <TextView
+        android:id="@+id/tvCommentContent"
+        style="@style/TextBody_2"
+        android:layout_width="@dimen/size_0"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"
+        android:textColor="@color/text_primary"
+        app:layout_constraintEnd_toStartOf="@+id/tvDeleteComment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCommentAuthorName"
+        tools:text="Перспективный проект!" />
+
+    <TextView
+        android:id="@+id/tvDeleteComment"
+        style="@style/TextButtonSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_8"
+        android:text="@string/delete"
+        android:textColor="@color/accent_secondary"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCommentContent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvCommentContent"
+        app:layout_constraintTop_toTopOf="@+id/tvCommentContent"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
