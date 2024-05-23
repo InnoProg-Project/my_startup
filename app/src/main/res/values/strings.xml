@@ -54,6 +54,13 @@
     <string name="registration_fragment_registration">Регистрация</string>
     <string name="wrong_email">Неверно введен e-mail</string>
     <string name="feed_search_placeholder">По вашему запросу ничего не нашли</string>
+    <string name="more_about_project">Подробнее о проекте</string>
+    <string name="comments">Комментарии (%s)</string>
+    <string name="add_comment">Добавьте комментарий</string>
+    <string name="no_comments_placeholder">Будьте первым, кто оставит комментарий</string>
+    <string name="show_more">Показать ещё</string>
+    <string name="show_all">Показать всё</string>
+
     <string name="choose_project_direction">Выберите направление проекта</string>
 
     <string name="projects_your_projects">Ваши проекты</string>
