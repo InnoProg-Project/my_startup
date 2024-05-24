@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.innoprog.android.R
@@ -122,8 +123,8 @@ class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel
     private fun initRecyclerView() {
         newsAdapter = NewsAdapter(listNews, object : NewsAdapter.OnClickListener {
             override fun onItemClick(news: News) {
-                Toast.makeText(requireContext(), "Открытие деталей публикации", Toast.LENGTH_SHORT)
-                    .show()
+                val action = AnyProjectFragmentDirections.actionProjectFragmentToNewsDetailsFragment(news.id)
+                findNavController().navigate(action)
             }
         })
 
