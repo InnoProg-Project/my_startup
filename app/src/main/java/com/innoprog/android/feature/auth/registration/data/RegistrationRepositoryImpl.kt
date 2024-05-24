@@ -5,6 +5,7 @@ import com.innoprog.android.feature.auth.registration.domain.RegistrationReposit
 import com.innoprog.android.feature.auth.registration.domain.models.RegistrationModel
 import com.innoprog.android.network.data.ApiConstants.BAD_REQUEST_CODE
 import com.innoprog.android.network.data.ApiConstants.SUCCESS_CODE
+import retrofit2.HttpException
 import javax.inject.Inject
 
 class RegistrationRepositoryImpl @Inject constructor(private val api: RegistrationApi) :
@@ -29,7 +30,7 @@ class RegistrationRepositoryImpl @Inject constructor(private val api: Registrati
                     Pair(false, "error")
                 }
             }
-        } catch (e: Exception) {
+        } catch (e: HttpException) {
             Log.e("myRegistration", " error: $e")
             return Pair(false, "error")
         }
