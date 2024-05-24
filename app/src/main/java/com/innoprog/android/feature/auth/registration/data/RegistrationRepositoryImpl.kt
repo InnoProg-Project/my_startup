@@ -31,7 +31,7 @@ class RegistrationRepositoryImpl @Inject constructor(private val api: Registrati
             }
         } catch (e: Exception) {
             Log.e("myRegistration", " error: $e")
-            return  Pair(false, "error")
+            return Pair(false, "error")
         }
     }
 

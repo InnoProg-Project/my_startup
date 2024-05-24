@@ -8,5 +8,3 @@ data class RegistrationBody(
     val about: String?,
     val language: String?
 )
-
-

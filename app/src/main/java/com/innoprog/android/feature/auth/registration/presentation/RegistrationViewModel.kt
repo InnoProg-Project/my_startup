@@ -27,16 +27,15 @@ class RegistrationViewModel @Inject constructor(
             if (!email.isNullOrEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(email)
                     .matches()
             ) {
-                input = RegistrationModel(login, phone, email, password,null, null)
+                val registrationPhone = if (phone.isNullOrEmpty()) null else phone
+                input = RegistrationModel(login, registrationPhone, email, password, null, null)
                 true
             } else {
                 processResult(
                     RegistrationState.InputError(
                         getString(
-                            context,
-                            R.string.registration_toast_message
-                        ),
-                        RegistrationModel(login, phone, null, password, null, null)
+                            context, R.string.registration_toast_message
+                        ), RegistrationModel(login, phone, null, password, null, null)
                     )
                 )
                 false
@@ -45,10 +44,8 @@ class RegistrationViewModel @Inject constructor(
             processResult(
                 RegistrationState.InputError(
                     getString(
-                        context,
-                        R.string.registration_toast_message
-                    ),
-                    RegistrationModel(login, phone, email, password,null, null)
+                        context, R.string.registration_toast_message
+                    ), RegistrationModel(login, phone, email, password, null, null)
                 )
             )
             false
@@ -59,18 +56,15 @@ class RegistrationViewModel @Inject constructor(
         if (verify(login, phone, email, password)) {
             viewModelScope.launch {
                 input?.let {
-                    useCase
-                        .registration(it)
-                        .collect { pair ->
-                            if (pair.first) processResult(RegistrationState.InputComplete(it)) else processResult(
-                                RegistrationState.VerificationError(
-                                    pair.second ?: getString(
-                                        context,
-                                        R.string.registration_error
-                                    )
+                    useCase.registration(it).collect { pair ->
+                        if (pair.first) processResult(RegistrationState.InputComplete(it)) else processResult(
+                            RegistrationState.VerificationError(
+                                pair.second ?: getString(
+                                    context, R.string.registration_error
                                 )
                             )
-                        }
+                        )
+                    }
                 }
             }
         }

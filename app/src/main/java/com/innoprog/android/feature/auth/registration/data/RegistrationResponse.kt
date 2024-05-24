@@ -8,4 +8,4 @@ data class RegistrationResponse(
     val id: String,
     @SerializedName("name")
     val name: String
-): Response()
+) : Response()
