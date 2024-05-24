@@ -12,8 +12,8 @@ class RegistrationUseCaseImpl @Inject constructor(private val repository: Regist
     ): Flow<Pair<Boolean, String?>> = flow {
         val firstChecking =
             (data.userName?.length ?: ZERO) in MIN_NAME..MAX_NAME &&
-                    (data.email?.length ?: ZERO) in MIN_EMAIL..MAX_EMAIL &&
-                    (data.password?.length ?: ZERO) in MIN_PASSWORD..MAX_PASSWORD
+                (data.email?.length ?: ZERO) in MIN_EMAIL..MAX_EMAIL &&
+                (data.password?.length ?: ZERO) in MIN_PASSWORD..MAX_PASSWORD
         if (firstChecking) emit(repository.registration(data)) else emit(Pair(false, "error"))
     }
 
@@ -25,6 +25,5 @@ class RegistrationUseCaseImpl @Inject constructor(private val repository: Regist
         const val MAX_EMAIL = 255
         const val MIN_PASSWORD = 2
         const val MAX_PASSWORD = 60
-
     }
 }
