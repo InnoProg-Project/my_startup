@@ -70,4 +70,9 @@ class InnoProgLikeView @JvmOverloads constructor(
         countOfLikesTextView.text = "$likeCount"
         liked = false
     }
+
+    fun setLikeCount(count: Int) {
+        likeCount = count
+        countOfLikesTextView.text = count.toString()
+    }
 }
