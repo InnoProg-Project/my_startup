@@ -1,9 +1,7 @@
 package com.innoprog.android.feature.auth.registration.presentation
 
 import android.os.Bundle
-import android.text.Editable
 import android.text.InputType
-import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
@@ -18,6 +16,7 @@ import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.auth.codeentry.presentation.CodeEntryFragment
 import com.innoprog.android.feature.auth.registration.di.DaggerRegistrationComponent
+import com.innoprog.android.feature.projects.projectdetails.presentation.TextChangedListener
 import com.innoprog.android.uikit.InnoProgInputViewState
 
 class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewModel>() {
@@ -38,7 +37,7 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.ivPhone.setInputType(InputType.TYPE_CLASS_PHONE)
+        initPhoneInput()
         initEmailInput()
         initNameInput()
         initPasswordInput()
@@ -55,24 +54,22 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
         }
     }
 
+    private  fun initPhoneInput(){
+        binding.ivPhone.setInputType(InputType.TYPE_CLASS_PHONE)
+        binding.ivPhone.addTextChangedListener(object : TextChangedListener {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                viewModel.setPhone(s.toString())
+            }
+        })
+    }
     private fun initEmailInput() {
         with(binding.ivEmail) {
             setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
             setSingleLine(true)
-            addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
+            addTextChangedListener(object : TextChangedListener {
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                     viewModel.verifyEmail(s.toString())
                 }
-
-                override fun afterTextChanged(s: Editable) {}
             })
         }
         viewModel.observeEmailState().observe(viewLifecycleOwner) {
@@ -84,20 +81,10 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
         with(binding.ivName) {
             setInputType(InputType.TYPE_CLASS_TEXT)
             setSingleLine(true)
-            addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
+            addTextChangedListener(object : TextChangedListener {
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                     viewModel.verifyUserName(s.toString())
                 }
-
-                override fun afterTextChanged(s: Editable) {}
             })
         }
         viewModel.observeNameState().observe(viewLifecycleOwner) {
@@ -106,7 +93,6 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
     }
 
     private fun initPasswordInput() {
-        renderIVPassword()
         with(binding.ivPassword) {
             setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD)
             setSingleLine(true)
@@ -114,22 +100,13 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
                 isVisiblePassword = !isVisiblePassword
                 renderIVPassword()
             }
-            addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
+            addTextChangedListener(object : TextChangedListener {
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                     viewModel.verifyPassword(s.toString())
                 }
-
-                override fun afterTextChanged(s: Editable) {}
             })
         }
+        renderIVPassword()
         viewModel.observePasswordState().observe(viewLifecycleOwner) {
             setPasswordInputStatus(it)
         }
@@ -145,33 +122,44 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
         }
     }
 
-    private fun setEmailInputStatus(isCorrect: Boolean) {
-        if (isCorrect) {
-            binding.ivEmail.renderState(InnoProgInputViewState.INACTIVE)
-            binding.ivEmail.setCaption("")
-        } else {
-            binding.ivEmail.renderState(InnoProgInputViewState.ERROR)
-            binding.ivEmail.setCaption(getString(R.string.registration_email_error))
+    private fun setEmailInputStatus(state: InputState) {
+        when (state) {
+            InputState.DEFAULT -> {
+                binding.ivEmail.setCaption("")
+            }
+            InputState.CORRECT -> {
+                binding.ivEmail.renderState(InnoProgInputViewState.FOCUSED)
+                binding.ivEmail.setCaption("")
+            }
+            InputState.ERROR -> {
+                binding.ivEmail.renderState(InnoProgInputViewState.ERROR)
+                binding.ivEmail.setCaption(getString(R.string.registration_email_error))
+            }
         }
     }
 
-    private fun setNameInputStatus(isCorrect: Boolean) {
-        if (isCorrect) {
-            binding.ivName.renderState(InnoProgInputViewState.INACTIVE)
-            binding.ivName.setCaption("")
-        } else {
-            binding.ivName.renderState(InnoProgInputViewState.ERROR)
-            binding.ivName.setCaption(getString(R.string.registration_name_error))
+    private fun setNameInputStatus(state: InputState) {
+        when (state) {
+            InputState.CORRECT, InputState.DEFAULT -> {
+                binding.ivName.setCaption("")
+            }
+            InputState.ERROR -> {
+                binding.ivName.renderState(InnoProgInputViewState.ERROR)
+                binding.ivName.setCaption(getString(R.string.registration_name_error))
+            }
         }
     }
 
-    private fun setPasswordInputStatus(isCorrect: Boolean) {
-        if (isCorrect) {
-            binding.ivPassword.renderState(InnoProgInputViewState.INACTIVE)
-            binding.ivPassword.setCaption("")
-        } else {
-            binding.ivPassword.renderState(InnoProgInputViewState.ERROR)
-            binding.ivPassword.setCaption(getString(R.string.registration_password_error))
+    private fun setPasswordInputStatus(state: InputState) {
+        when (state) {
+            InputState.CORRECT, InputState.DEFAULT -> {
+                binding.ivPassword.renderState(InnoProgInputViewState.INACTIVE)
+                binding.ivPassword.setCaption("")
+            }
+            InputState.ERROR -> {
+                binding.ivPassword.renderState(InnoProgInputViewState.ERROR)
+                binding.ivPassword.setCaption(getString(R.string.registration_password_error))
+            }
         }
     }
 
@@ -200,8 +188,12 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
     }
 
     private fun drawError(state: RegistrationState.InputError) {
-        if (state.registrationData.userName.isNullOrEmpty()) binding.ivName.renderState(InnoProgInputViewState.ERROR)
-        if (state.registrationData.email.isNullOrEmpty()) binding.ivEmail.renderState(InnoProgInputViewState.ERROR)
+        if (state.registrationData.userName.isNullOrEmpty()) binding.ivName.renderState(
+            InnoProgInputViewState.ERROR
+        )
+        if (state.registrationData.email.isNullOrEmpty()) binding.ivEmail.renderState(
+            InnoProgInputViewState.ERROR
+        )
         if (state.registrationData.password.isNullOrEmpty()) binding.ivPassword.renderState(
             InnoProgInputViewState.ERROR
         )

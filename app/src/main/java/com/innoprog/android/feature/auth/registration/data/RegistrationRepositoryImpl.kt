@@ -51,6 +51,6 @@ class RegistrationRepositoryImpl @Inject constructor(private val api: Registrati
 
     companion object {
         const val SUCCESS_CODE = 201
-        const val BAD_REQUEST_CODE = 401
+        const val BAD_REQUEST_CODE = 400
     }
 }
