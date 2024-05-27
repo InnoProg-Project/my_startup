@@ -7,6 +7,7 @@ import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.feature.edit.domain.useCase.CreateIdeaUseCase
 import com.innoprog.android.feature.edit.domain.useCase.CreatePublishUseCase
 import com.innoprog.android.feature.edit.domain.useCase.EditePublishUseCase
+import com.innoprog.android.util.Resource
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -39,10 +40,11 @@ class CreateEditContentViewModel @Inject constructor(
 
     fun addMediaToLoadList(mediaPath: String) {
         viewModelScope.launch {
-
+            val resource = createIdeaUseCase.addMediaToListAttachments(mediaPath)
+            when (resource) {
+                is Resource.Error -> setState(CreateEditContentState.Error(resource.errorType.name))
+                is Resource.Success -> setState(CreateEditContentState.MediaAttachList(resource.data))
+            }
         }
-
-
     }
-
 }

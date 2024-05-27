@@ -7,9 +7,11 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
@@ -17,11 +19,14 @@ import com.innoprog.android.databinding.FragmentCreateEditContentBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.edit.di.DaggerCreateEditContentComponent
+import com.innoprog.android.feature.edit.domain.model.MediaAttachmentsModel
 
 class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding, BaseViewModel>() {
 
     private val args by navArgs<CreateEditContentFragmentArgs>()
     override val viewModel by injectViewModel<CreateEditContentViewModel>()
+
+    private var mediaAttachAdapter: MediaAttachRecyclerAdapter? = null
 
     override fun diComponent(): ScreenComponent {
         val appComponent = AppComponentHolder.getComponent()
@@ -92,6 +97,18 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
                 binding.saveBV.setText(getString(R.string.save))
                 binding.groupProject.visibility = View.VISIBLE
             }
+
+            is CreateEditContentState.MediaAttachList -> {
+                if (state.mediaAttachments != null) {
+                    binding.rvMedia.visibility = View.VISIBLE
+                    initMediaAttachList(state.mediaAttachments)
+
+                } else {
+                    binding.rvMedia.visibility = View.GONE
+                }
+            }
+
+            is CreateEditContentState.Error -> showError(state.errorMassage)
         }
     }
 
@@ -118,6 +135,21 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
         }
         cursor?.close()
         return realPath
+    }
+
+    private fun initMediaAttachList(mediaAttach: MediaAttachmentsModel) {
+        mediaAttachAdapter = MediaAttachRecyclerAdapter(
+            onDeleteClickListener = { /*удалить из списка */ },
+            onPlayClickListener = { /*переход на плеер видео */ }
+        )
+        mediaAttachAdapter!!.mediaList = mediaAttach.pathList
+        binding.rvMedia.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvMedia.adapter = mediaAttachAdapter
+        mediaAttachAdapter!!.notifyDataSetChanged()
+    }
+
+    private fun showError(errorMassage: String) {
+        Toast.makeText(requireContext(), errorMassage, Toast.LENGTH_SHORT).show()
     }
 
 }
