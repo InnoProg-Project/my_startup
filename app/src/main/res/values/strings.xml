@@ -49,12 +49,17 @@
     <string name="user_name">ФИО</string>
     <string name="set_phone_number">Введите номер телефона</string>
     <string name="agreement">Продолжая, вы соглашаетесь с политикой обработки персональных данных и лицензионным соглашением</string>
-    <string name="registration">Зарегистрироваться</string>
-    <string name="registration_toast_message">не все поля заполнены</string>
-    <string name="registration_fragment_registration">Регистрация</string>
+
     <string name="wrong_email">Неверно введен e-mail</string>
     <string name="feed_search_placeholder">По вашему запросу ничего не нашли</string>
     <string name="choose_project_direction">Выберите направление проекта</string>
+
+    <string name="registration">Зарегистрироваться</string>
+    <string name="registration_toast_message">не все поля заполнены</string>
+    <string name="registration_fragment_registration">Регистрация</string>
+    <string name="registration_name_error">Введите имя от 2 до 60 символов</string>
+    <string name="registration_email_error">Email введен некорректно</string>
+    <string name="registration_password_error">Пароль должен быть не менее 6 символов</string>
 
     <string name="projects_your_projects">Ваши проекты</string>
     <string name="projects_tell_about_your_project">Расскажите про\nваш проект</string>
@@ -89,5 +94,4 @@
     <string name="link_to_social_network_example">vk.com/mystartup</string>
     <string name="step_5">Шаг 5</string>
     <string name="publish">Опубликовать</string>
-
 </resources>

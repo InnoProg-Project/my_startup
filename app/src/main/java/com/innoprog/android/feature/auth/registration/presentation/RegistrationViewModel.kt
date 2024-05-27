@@ -1,6 +1,5 @@
 package com.innoprog.android.feature.auth.registration.presentation
 
-import android.annotation.SuppressLint
 import android.content.Context
 import androidx.core.content.ContextCompat.getString
 import androidx.lifecycle.LiveData
@@ -15,27 +14,75 @@ import javax.inject.Inject
 
 class RegistrationViewModel @Inject constructor(
     private val useCase: RegistrationUseCase,
-    @SuppressLint("StaticFieldLeak") private val context: Context
+    private val context: Context
 ) : BaseViewModel() {
 
     private var input: RegistrationModel? = null
+    private var userName: String? = null
+    private var email: String? = null
+    private var password: String? = null
+    private var phone: String? = null
+
+
+    private val emailStateLiveData = MutableLiveData<Boolean>(true)
+    fun observeEmailState(): LiveData<Boolean> = emailStateLiveData
+
+    private val nameStateLiveData = MutableLiveData<Boolean>(true)
+    fun observeNameState(): LiveData<Boolean> = nameStateLiveData
+
+    private val passwordStateLiveData = MutableLiveData<Boolean>(true)
+    fun observePasswordState(): LiveData<Boolean> = passwordStateLiveData
 
     private val stateLiveData = MutableLiveData<RegistrationState>(RegistrationState.Default())
     fun observeState(): LiveData<RegistrationState> = stateLiveData
-    private fun verify(login: String?, phone: String?, email: String?, password: String?): Boolean {
-        return if (!(login.isNullOrEmpty() || password.isNullOrEmpty())) {
-            if (!email.isNullOrEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(email)
-                    .matches()
+
+    fun verifyUserName(userName: String) {
+        if (userName.length in MIN_NAME..MAX_NAME) {
+            nameStateLiveData.postValue(true)
+            this.email = null
+        } else {
+            nameStateLiveData.postValue(false)
+            this.userName = userName
+        }
+    }
+
+    fun verifyEmail(email: String) {
+        if (email.length in MIN_EMAIL..MAX_EMAIL && android.util.Patterns.EMAIL_ADDRESS.matcher(
+                email
+            )
+                .matches()
+        ) {
+            emailStateLiveData.postValue(true)
+            this.email = null
+        } else {
+            emailStateLiveData.postValue(false)
+            this.email = email
+        }
+    }
+
+    fun verifyPassword(password: String) {
+        if (password.length in MIN_PASSWORD..MAX_PASSWORD) {
+            passwordStateLiveData.postValue(true)
+            this.password = null
+        } else {
+            passwordStateLiveData.postValue(false)
+            this.password = password
+        }
+    }
+
+    private fun verify(): Boolean {
+        return if (!(userName.isNullOrEmpty() || password.isNullOrEmpty())) {
+            if (!email.isNullOrEmpty()
             ) {
                 val registrationPhone = if (phone.isNullOrEmpty()) null else phone
-                input = RegistrationModel(login, registrationPhone, email, password, null, null)
+                input = RegistrationModel(userName, registrationPhone, email, password)
                 true
             } else {
                 processResult(
                     RegistrationState.InputError(
                         getString(
                             context, R.string.registration_toast_message
-                        ), RegistrationModel(login, phone, null, password, null, null)
+                        ), RegistrationModel(userName, phone, null, password)
                     )
                 )
                 false
@@ -45,16 +92,16 @@ class RegistrationViewModel @Inject constructor(
                 RegistrationState.InputError(
                     getString(
                         context, R.string.registration_toast_message
-                    ), RegistrationModel(login, phone, email, password, null, null)
+                    ), RegistrationModel(userName, phone, email, password)
                 )
             )
             false
         }
     }
 
-    fun registration(login: String?, email: String?, phone: String?, password: String?) {
-        if (verify(login, phone, email, password)) {
-            viewModelScope.launch {
+    fun registration() {
+        if (verify()) {
+            viewModelScope.launch() {
                 input?.let {
                     useCase.registration(it).collect { pair ->
                         if (pair.first) processResult(RegistrationState.InputComplete(it)) else processResult(
@@ -76,5 +123,14 @@ class RegistrationViewModel @Inject constructor(
 
     fun clearDate() {
         stateLiveData.postValue(RegistrationState.Default())
+    }
+
+    companion object {
+        const val MIN_NAME = 2
+        const val MAX_NAME = 60
+        const val MIN_EMAIL = 3
+        const val MAX_EMAIL = 255
+        const val MIN_PASSWORD = 6
+        const val MAX_PASSWORD = 60
     }
 }

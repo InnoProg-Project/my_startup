@@ -3,23 +3,24 @@ package com.innoprog.android.feature.auth.registration.data
 import android.util.Log
 import com.innoprog.android.feature.auth.registration.domain.RegistrationRepository
 import com.innoprog.android.feature.auth.registration.domain.models.RegistrationModel
-import com.innoprog.android.network.data.ApiConstants.BAD_REQUEST_CODE
-import com.innoprog.android.network.data.ApiConstants.SUCCESS_CODE
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
+import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 class RegistrationRepositoryImpl @Inject constructor(private val api: RegistrationApi) :
     RegistrationRepository {
 
-    override suspend fun registration(
+    override fun registration(
         registrationValue: RegistrationModel
-    ): Pair<Boolean, String?> {
+    ): Flow<Pair<Boolean, String?>> = flow {
         try {
             val response = api.setRegistrationData(mapToRegistrationRequest(registrationValue))
             Log.d("myRegistration", "my $response")
-            return when (response.resultCode) {
+            when (response.resultCode) {
                 BAD_REQUEST_CODE -> {
-                    Pair(false, "error")
+                    emit(Pair(false, "error"))
                 }
 
                 SUCCESS_CODE -> {
@@ -27,12 +28,15 @@ class RegistrationRepositoryImpl @Inject constructor(private val api: Registrati
                 }
 
                 else -> {
-                    Pair(false, "error")
+                    emit(Pair(false, "error"))
                 }
             }
         } catch (e: HttpException) {
             Log.e("myRegistration", " error: $e")
-            return Pair(false, "error")
+            emit(Pair(false, "error"))
+        } catch (e: SocketTimeoutException) {
+            Log.e("myRegistration", " error: $e")
+            emit(Pair(false, "error"))
         }
     }
 
@@ -41,9 +45,12 @@ class RegistrationRepositoryImpl @Inject constructor(private val api: Registrati
             value.userName!!,
             value.email!!,
             value.phone,
-            value.password!!,
-            value.about,
-            value.language
+            value.password!!
         )
+    }
+
+    companion object {
+        const val SUCCESS_CODE = 201
+        const val BAD_REQUEST_CODE = 401
     }
 }
