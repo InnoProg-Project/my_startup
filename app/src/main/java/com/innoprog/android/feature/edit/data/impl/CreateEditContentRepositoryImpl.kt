@@ -21,15 +21,15 @@ class CreateEditContentRepositoryImpl @Inject constructor(
     private val networkClient: EditContentNetworkClient
 ) : CreateEditContentRepository {
 
-    private val mediaAttachmentsList = mutableListOf<String>()
+    private val mediaListOfPath = mutableListOf<String>()
 
     override suspend fun addMediaToListAttachments(path: String): Resource<MediaAttachmentsModel> {
         return withContext(Dispatchers.Default) {
             when (val fileFormat = formatFileVerification(path)) {
                 FormatFile.VIDEO, FormatFile.IMAGE -> {
                     if (isFileSizeCorrect(path, fileFormat)) {
-                        mediaAttachmentsList.add(path)
-                        Resource.Success(MediaAttachmentsModel(mediaAttachmentsList))
+                        mediaListOfPath.add(path)
+                        Resource.Success(MediaAttachmentsModel(mediaListOfPath))
                     } else {
                         Resource.Error(ErrorType.INVALID_FILE_SIZE)
                     }
@@ -37,6 +37,17 @@ class CreateEditContentRepositoryImpl @Inject constructor(
 
 
                 FormatFile.INVALID -> Resource.Error(ErrorType.INVALID_FILE_FORMAT)
+            }
+        }
+    }
+
+    override suspend fun deleteMediaFromListAttachments(path: String): Resource<MediaAttachmentsModel> {
+        return withContext(Dispatchers.Default){
+            if (mediaListOfPath.contains(path)){
+                mediaListOfPath.remove(path)
+                Resource.Success(MediaAttachmentsModel(mediaListOfPath))
+            } else {
+                Resource.Error(ErrorType.BAD_REQUEST)
             }
         }
     }

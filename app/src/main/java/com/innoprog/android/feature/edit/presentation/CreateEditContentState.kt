@@ -8,8 +8,7 @@ sealed interface CreateEditContentState {
     data object CreateIdea : CreateEditContentState
 
     data class CreatePublication(
-        val project: ProjectModel,
-        val showProjectHolder: Boolean
+        val project: ProjectModel
     ) : CreateEditContentState
 
 

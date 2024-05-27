@@ -40,11 +40,20 @@ class CreateEditContentViewModel @Inject constructor(
 
     fun addMediaToLoadList(mediaPath: String) {
         viewModelScope.launch {
-            val resource = createIdeaUseCase.addMediaToListAttachments(mediaPath)
-            when (resource) {
+            when (val resource = createIdeaUseCase.addMediaToListAttachments(mediaPath)) {
                 is Resource.Error -> setState(CreateEditContentState.Error(resource.errorType.name))
                 is Resource.Success -> setState(CreateEditContentState.MediaAttachList(resource.data))
             }
         }
     }
+
+    fun deleteMediaFromListAttachments(path: String) {
+        viewModelScope.launch {
+            when (val resource = createIdeaUseCase.deleteMediaFromListAttachments(path)) {
+                is Resource.Error -> setState(CreateEditContentState.Error(resource.errorType.name))
+                is Resource.Success -> setState(CreateEditContentState.MediaAttachList(resource.data))
+            }
+        }
+    }
+
 }

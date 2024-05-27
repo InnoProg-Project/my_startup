@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.innoprog.android.R
@@ -20,6 +21,7 @@ import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.edit.di.DaggerCreateEditContentComponent
 import com.innoprog.android.feature.edit.domain.model.MediaAttachmentsModel
+import com.innoprog.android.feature.training.courseInformation.presentation.CourseInformationFragment
 
 class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding, BaseViewModel>() {
 
@@ -139,8 +141,13 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
 
     private fun initMediaAttachList(mediaAttach: MediaAttachmentsModel) {
         mediaAttachAdapter = MediaAttachRecyclerAdapter(
-            onDeleteClickListener = { /*удалить из списка */ },
-            onPlayClickListener = { /*переход на плеер видео */ }
+            onDeleteClickListener = { viewModel.deleteMediaFromListAttachments(it) },
+            onPlayClickListener = {
+                viewModel.navigateTo(
+                    R.id.videoPlayerFragment,
+                    bundleOf(CourseInformationFragment.VIDEO_PLAYER_KEY to it)
+                )
+            }
         )
         mediaAttachAdapter!!.mediaList = mediaAttach.pathList
         binding.rvMedia.layoutManager = LinearLayoutManager(requireContext())

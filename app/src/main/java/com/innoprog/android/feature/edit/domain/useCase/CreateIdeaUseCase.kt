@@ -10,4 +10,7 @@ interface CreateIdeaUseCase {
 
     suspend fun addMediaToListAttachments(path: String): Resource<MediaAttachmentsModel>
 
+    suspend fun deleteMediaFromListAttachments(path: String): Resource<MediaAttachmentsModel>
+
+
 }
