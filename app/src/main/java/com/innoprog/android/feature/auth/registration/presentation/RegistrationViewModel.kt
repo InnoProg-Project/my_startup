@@ -1,7 +1,6 @@
 package com.innoprog.android.feature.auth.registration.presentation
 
 import android.content.Context
-import android.util.Log
 import androidx.core.content.ContextCompat.getString
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -89,7 +88,7 @@ class RegistrationViewModel @Inject constructor(
             false
         } else {
             val registrationPhone = if (phone.isNullOrEmpty()) null else phone
-            RegistrationModel(userName, registrationPhone, email, password)
+            input = RegistrationModel(userName, registrationPhone, email, password)
             true
         }
     }
@@ -97,9 +96,9 @@ class RegistrationViewModel @Inject constructor(
     fun registration() {
         if (verify()) {
             viewModelScope.launch(Dispatchers.IO) {
-                input?.let {
-                    useCase.registration(it).collect { pair ->
-                        if (pair.first) processResult(RegistrationState.InputComplete(it)) else processResult(
+                runCatching {
+                    useCase.registration(input!!).collect { pair ->
+                        if (pair.first) processResult(RegistrationState.InputComplete(input!!)) else processResult(
                             RegistrationState.VerificationError(
                                 pair.second ?: getString(
                                     context, R.string.registration_error
@@ -107,6 +106,8 @@ class RegistrationViewModel @Inject constructor(
                             )
                         )
                     }
+                }.onFailure {
+                    processResult(RegistrationState.VerificationError("dataError"))
                 }
             }
         }

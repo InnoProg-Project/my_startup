@@ -54,7 +54,7 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
         }
     }
 
-    private  fun initPhoneInput(){
+    private fun initPhoneInput() {
         binding.ivPhone.setInputType(InputType.TYPE_CLASS_PHONE)
         binding.ivPhone.addTextChangedListener(object : TextChangedListener {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -62,6 +62,7 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
             }
         })
     }
+
     private fun initEmailInput() {
         with(binding.ivEmail) {
             setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
@@ -127,10 +128,12 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
             InputState.DEFAULT -> {
                 binding.ivEmail.setCaption("")
             }
+
             InputState.CORRECT -> {
                 binding.ivEmail.renderState(InnoProgInputViewState.FOCUSED)
                 binding.ivEmail.setCaption("")
             }
+
             InputState.ERROR -> {
                 binding.ivEmail.renderState(InnoProgInputViewState.ERROR)
                 binding.ivEmail.setCaption(getString(R.string.registration_email_error))
@@ -143,6 +146,7 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
             InputState.CORRECT, InputState.DEFAULT -> {
                 binding.ivName.setCaption("")
             }
+
             InputState.ERROR -> {
                 binding.ivName.renderState(InnoProgInputViewState.ERROR)
                 binding.ivName.setCaption(getString(R.string.registration_name_error))
@@ -156,6 +160,7 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
                 binding.ivPassword.renderState(InnoProgInputViewState.INACTIVE)
                 binding.ivPassword.setCaption("")
             }
+
             InputState.ERROR -> {
                 binding.ivPassword.renderState(InnoProgInputViewState.ERROR)
                 binding.ivPassword.setCaption(getString(R.string.registration_password_error))
