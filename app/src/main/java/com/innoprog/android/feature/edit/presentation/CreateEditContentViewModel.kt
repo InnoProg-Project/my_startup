@@ -56,4 +56,14 @@ class CreateEditContentViewModel @Inject constructor(
         }
     }
 
+    fun getMediaAttachments() {
+        viewModelScope.launch {
+            when (val resource = createIdeaUseCase.getMediaAttachments()) {
+                is Resource.Success -> setState(CreateEditContentState.MediaAttachList(resource.data))
+                else -> setState(CreateEditContentState.MediaAttachList(null))
+            }
+        }
+
+    }
+
 }

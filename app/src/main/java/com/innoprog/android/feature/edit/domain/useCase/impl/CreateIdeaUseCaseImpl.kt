@@ -23,4 +23,8 @@ class CreateIdeaUseCaseImpl @Inject constructor(
         return repository.deleteMediaFromListAttachments(path)
     }
 
+    override suspend fun getMediaAttachments(): Resource<MediaAttachmentsModel> {
+        return repository.getMediaAttachments()
+    }
+
 }

@@ -42,9 +42,19 @@ class CreateEditContentRepositoryImpl @Inject constructor(
     }
 
     override suspend fun deleteMediaFromListAttachments(path: String): Resource<MediaAttachmentsModel> {
-        return withContext(Dispatchers.Default){
-            if (mediaListOfPath.contains(path)){
+        return withContext(Dispatchers.Default) {
+            if (mediaListOfPath.contains(path)) {
                 mediaListOfPath.remove(path)
+                Resource.Success(MediaAttachmentsModel(mediaListOfPath))
+            } else {
+                Resource.Error(ErrorType.BAD_REQUEST)
+            }
+        }
+    }
+
+    override suspend fun getMediaAttachments(): Resource<MediaAttachmentsModel> {
+        return withContext(Dispatchers.Default) {
+            if (mediaListOfPath.isNotEmpty()) {
                 Resource.Success(MediaAttachmentsModel(mediaListOfPath))
             } else {
                 Resource.Error(ErrorType.BAD_REQUEST)

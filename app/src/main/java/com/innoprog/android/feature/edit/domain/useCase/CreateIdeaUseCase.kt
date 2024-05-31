@@ -12,5 +12,6 @@ interface CreateIdeaUseCase {
 
     suspend fun deleteMediaFromListAttachments(path: String): Resource<MediaAttachmentsModel>
 
+    suspend fun getMediaAttachments(): Resource<MediaAttachmentsModel>
 
 }

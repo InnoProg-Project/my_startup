@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.innoprog.android.R
@@ -25,8 +26,10 @@ import com.innoprog.android.feature.training.courseInformation.presentation.Cour
 
 class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding, BaseViewModel>() {
 
-    private val args by navArgs<CreateEditContentFragmentArgs>()
     override val viewModel by injectViewModel<CreateEditContentViewModel>()
+
+    private val args by navArgs<CreateEditContentFragmentArgs>()
+
 
     private var mediaAttachAdapter: MediaAttachRecyclerAdapter? = null
 
@@ -54,14 +57,19 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
         return FragmentCreateEditContentBinding.inflate(inflater, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         viewModel.state.observe(viewLifecycleOwner) {
             render(it)
         }
+        if (savedInstanceState == null) {
+            viewModel.setEditorType(args.typeContent)
+        }
 
-        viewModel.setEditorType(args.typeContent)
+        viewModel.getMediaAttachments()
 
         binding.topBar.setLeftIconClickListener {
             viewModel.navigateUp()
@@ -143,9 +151,13 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
         mediaAttachAdapter = MediaAttachRecyclerAdapter(
             onDeleteClickListener = { viewModel.deleteMediaFromListAttachments(it) },
             onPlayClickListener = {
+                val navOptions = NavOptions.Builder()
+                    .setLaunchSingleTop(true)
+                    .build()
                 viewModel.navigateTo(
                     R.id.videoPlayerFragment,
-                    bundleOf(CourseInformationFragment.VIDEO_PLAYER_KEY to it)
+                    bundleOf(CourseInformationFragment.VIDEO_PLAYER_KEY to it),
+                    navOptions
                 )
             }
         )

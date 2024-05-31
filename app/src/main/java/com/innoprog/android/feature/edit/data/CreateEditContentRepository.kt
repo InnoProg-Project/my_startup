@@ -20,5 +20,9 @@ interface CreateEditContentRepository {
     fun getPublicationById(id: String): Flow<PublicationModel>
 
     suspend fun addMediaToListAttachments(path: String): Resource<MediaAttachmentsModel>
+
     suspend fun deleteMediaFromListAttachments(path: String): Resource<MediaAttachmentsModel>
+
+    suspend fun getMediaAttachments(): Resource<MediaAttachmentsModel>
+
 }
