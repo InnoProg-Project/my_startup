@@ -37,12 +37,11 @@ class TrainingListViewHolder(private val binding: ItemTrainingBinding) : Recycle
         binding.trainingTitle.text = item.title
         binding.trainingDescription.text = item.description
         binding.trainingAuthorName.text = item.authorName
-        binding.trainingAuthorPosition.text = item.authorPost
         binding.trainingDate.text = item.createdDate
         val initials = item.authorName
             .split(' ')
             .map { it.first().uppercaseChar() }
-            .joinToString()
+            .joinToString(separator = "", limit = 2)
         binding.trainingAuthorAvatar.text = initials.ifBlank { "?" }
     }
 }

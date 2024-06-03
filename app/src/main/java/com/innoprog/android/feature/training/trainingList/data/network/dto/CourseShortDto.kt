@@ -28,9 +28,7 @@ fun CourseShortDto.mapToDomain(): CourseShort {
         direction = direction,
         title = title,
         description = description,
-        avatarURL = usefulLinks,
         authorName = author,
-        authorPost = "",
         createdDate = publishedAt
     )
 }

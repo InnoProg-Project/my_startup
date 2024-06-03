@@ -5,8 +5,6 @@ data class CourseShort(
     val direction: String,
     val title: String,
     val description: String,
-    val avatarURL: String,
     val authorName: String,
-    val authorPost: String,
     val createdDate: String,
 )

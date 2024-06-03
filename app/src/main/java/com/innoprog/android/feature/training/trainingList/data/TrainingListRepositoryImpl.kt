@@ -45,12 +45,33 @@ class TrainingListRepositoryImpl @Inject constructor(
             if (exception is SocketTimeoutException) {
                 emit(Result.Error(GetCourseListError.NO_CONNECTION))
             } else {
-                emit(Result.Error(GetCourseListError.BAD_REQUEST))
+                emit(Result.Success(mockResponse()))
             }
         }
     }
 
+    private fun mockResponse(): List<CourseShort> {
+        val courses = mutableListOf<CourseShort>()
+        repeat(MOCK_SIZE) {
+            val name = if (it % 2 == 0) {
+                "Алексей"
+            } else {
+                "Унтура Михаил"
+            }
+            courses.add(CourseShort(
+                id = it.toString(),
+                direction = "Мобильная разработка",
+                title = "Работа с сетью",
+                description = "Взаимодействие с Retrofit",
+                authorName = name,
+                createdDate = "03.06.2024"
+            ))
+        }
+        return courses
+    }
+
     companion object {
         private val TAG = TrainingListRepository::class.simpleName
+        private const val MOCK_SIZE = 100
     }
 }

@@ -55,6 +55,7 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         tools:text="УМ"
+        android:background="@drawable/shape_avatar"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@+id/trainingAuthorPosition"
         app:layout_constraintStart_toStartOf="@+id/trainingDescription"

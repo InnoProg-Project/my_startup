@@ -54,13 +54,16 @@ class TrainingListFragment : BaseFragment<FragmentTrainingListBinding, BaseViewM
     private fun render(state: TrainingListState) {
         when (state) {
             is TrainingListState.Error -> {
+                hideProgress()
                 binding.trainingRecyclerView.visibility = View.INVISIBLE
                 binding.trainingNoCoursesPlaceholderIcon.visibility = View.VISIBLE
                 binding.trainingNoCoursesPlaceholderTV.visibility = View.VISIBLE
             }
 
             is TrainingListState.Content -> {
+                hideProgress()
                 trainingAdapter.items = state.trainingList
+                trainingAdapter.notifyDataSetChanged()
                 binding.trainingRecyclerView.visibility = View.VISIBLE
                 binding.trainingNoCoursesPlaceholderIcon.visibility = View.INVISIBLE
                 binding.trainingNoCoursesPlaceholderTV.visibility = View.INVISIBLE
@@ -70,9 +73,19 @@ class TrainingListFragment : BaseFragment<FragmentTrainingListBinding, BaseViewM
                 binding.trainingRecyclerView.visibility = View.INVISIBLE
                 binding.trainingNoCoursesPlaceholderIcon.visibility = View.INVISIBLE
                 binding.trainingNoCoursesPlaceholderTV.visibility = View.INVISIBLE
-
+                showProgress()
             }
         }
+    }
+
+    private fun showProgress() {
+        binding.progress.show()
+        binding.lblProgressDescription.visibility = View.VISIBLE
+    }
+
+    private fun hideProgress() {
+        binding.progress.hide()
+        binding.lblProgressDescription.visibility = View.GONE
     }
 
     companion object {
