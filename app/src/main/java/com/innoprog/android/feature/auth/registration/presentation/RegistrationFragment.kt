@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.navigation.navOptions
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
@@ -168,16 +170,18 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
         }
     }
 
-    private fun forwardNavigate(state: RegistrationState.InputComplete) {
-        val bundle = Bundle()
-        bundle.putString(CodeEntryFragment.ARG, state.registrationData.email)
-        viewModel.clearDate()
-        viewModel.navigateTo(R.id.codeEntryFragment, bundle)
+    private fun forwardNavigate() {
+        viewModel.navigateTo(R.id.mainFragment, bundleOf(), navOptions {
+            launchSingleTop = true
+            popUpTo(R.id.nav_graph) {
+                inclusive = true
+            }
+        })
     }
 
     private fun render(state: RegistrationState) {
         when (state) {
-            is RegistrationState.InputComplete -> forwardNavigate(state)
+            is RegistrationState.InputComplete -> forwardNavigate()
             is RegistrationState.InputError -> drawError(state)
             is RegistrationState.VerificationError -> showToast(state)
             else -> Unit
@@ -204,7 +208,7 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
         )
         Toast.makeText(
             requireContext(),
-            state.message,
+            getString(R.string.registration_error),
             Toast.LENGTH_LONG
         ).show()
     }

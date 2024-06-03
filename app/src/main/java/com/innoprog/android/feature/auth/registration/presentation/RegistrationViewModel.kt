@@ -1,11 +1,8 @@
 package com.innoprog.android.feature.auth.registration.presentation
 
-import android.content.Context
-import androidx.core.content.ContextCompat.getString
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.innoprog.android.R
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.feature.auth.registration.domain.RegistrationUseCase
 import com.innoprog.android.feature.auth.registration.domain.models.RegistrationModel
@@ -15,7 +12,6 @@ import javax.inject.Inject
 
 class RegistrationViewModel @Inject constructor(
     private val useCase: RegistrationUseCase,
-    private val context: Context
 ) : BaseViewModel() {
 
     private var input: RegistrationModel? = null
@@ -33,7 +29,7 @@ class RegistrationViewModel @Inject constructor(
     private val passwordStateLiveData = MutableLiveData(InputState.DEFAULT)
     fun observePasswordState(): LiveData<InputState> = passwordStateLiveData
 
-    private val stateLiveData = MutableLiveData<RegistrationState>(RegistrationState.Default())
+    private val stateLiveData = MutableLiveData<RegistrationState>(RegistrationState.Default)
     fun observeState(): LiveData<RegistrationState> = stateLiveData
 
     fun verifyUserName(userName: String) {
@@ -53,8 +49,7 @@ class RegistrationViewModel @Inject constructor(
     fun verifyEmail(email: String) {
         if (email.length in MIN_EMAIL..MAX_EMAIL && android.util.Patterns.EMAIL_ADDRESS.matcher(
                 email
-            )
-                .matches()
+            ).matches()
         ) {
             emailStateLiveData.postValue(InputState.CORRECT)
             this.email = email
@@ -80,9 +75,7 @@ class RegistrationViewModel @Inject constructor(
         return if ((userName.isNullOrEmpty() || password.isNullOrEmpty()) || email.isNullOrEmpty()) {
             processResult(
                 RegistrationState.InputError(
-                    getString(
-                        context, R.string.registration_toast_message
-                    ), RegistrationModel(userName, phone, email, password)
+                    RegistrationModel(userName, phone, email, password)
                 )
             )
             false
@@ -98,11 +91,9 @@ class RegistrationViewModel @Inject constructor(
             viewModelScope.launch(Dispatchers.IO) {
                 runCatching {
                     useCase.registration(input!!).collect { pair ->
-                        if (pair.first) processResult(RegistrationState.InputComplete(input!!)) else processResult(
+                        if (pair.first) processResult(RegistrationState.InputComplete) else processResult(
                             RegistrationState.VerificationError(
-                                pair.second ?: getString(
-                                    context, R.string.registration_error
-                                )
+                                pair.second ?: ""
                             )
                         )
                     }
@@ -118,7 +109,7 @@ class RegistrationViewModel @Inject constructor(
     }
 
     fun clearDate() {
-        stateLiveData.postValue(RegistrationState.Default())
+        stateLiveData.postValue(RegistrationState.Default)
     }
 
     companion object {
