@@ -16,7 +16,6 @@ import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentRegistrationBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.feature.auth.codeentry.presentation.CodeEntryFragment
 import com.innoprog.android.feature.auth.registration.di.DaggerRegistrationComponent
 import com.innoprog.android.feature.projects.projectdetails.presentation.TextChangedListener
 import com.innoprog.android.uikit.InnoProgInputViewState
