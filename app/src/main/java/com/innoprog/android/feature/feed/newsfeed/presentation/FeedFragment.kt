@@ -25,7 +25,6 @@ import com.innoprog.android.feature.feed.newsfeed.di.DaggerFeedComponent
 import com.innoprog.android.feature.feed.newsfeed.domain.models.Author
 import com.innoprog.android.feature.feed.newsfeed.domain.models.Company
 import com.innoprog.android.feature.feed.newsfeed.domain.models.News
-import com.innoprog.android.feature.mainscreen.presentation.MainFragmentDirections
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
 import com.innoprog.android.uikit.InnoProgChipGroupView
 
@@ -134,7 +133,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     private fun initRecyclerView() {
         newsAdapter = NewsAdapter(listNews, object : NewsAdapter.OnClickListener {
             override fun onItemClick(news: News) {
-                val action = MainFragmentDirections.actionMainFragmentToNewsDetailsFragment(news.id)
+                val action = FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(news.id)
                 findNavController().navigate(action)
             }
         })

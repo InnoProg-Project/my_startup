@@ -97,4 +97,6 @@
     <string name="step_5">Шаг 5</string>
     <string name="publish">Опубликовать</string>
 
+    <!-- FillAboutProjectScreen -->
+    <string name="err_pick_photo">Не удалось прикрепить фото</string>
 </resources>
