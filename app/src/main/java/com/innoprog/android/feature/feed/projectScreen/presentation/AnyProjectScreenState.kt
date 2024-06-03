@@ -6,7 +6,7 @@ import com.innoprog.android.util.ErrorType
 sealed interface AnyProjectScreenState {
     data object Loading : AnyProjectScreenState
 
-    data class Error(val type: ErrorType) : AnyProjectScreenState
+    class Error(val type: ErrorType) : AnyProjectScreenState
 
-    data class Content(val anyProject: AnyProjectModel) : AnyProjectScreenState
+    class Content(val anyProject: AnyProjectModel) : AnyProjectScreenState
 }
