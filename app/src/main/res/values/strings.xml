@@ -97,4 +97,6 @@
     <string name="step_5">Шаг 5</string>
     <string name="publish">Опубликовать</string>
 
+    <!-- CourseListScreen -->
+    <string name="course_list_lbl_progress_description">Ищем курсы</string>
 </resources>

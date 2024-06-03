@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.innoprog.android.databinding.ItemTrainingBinding
 import com.innoprog.android.feature.training.trainingList.domain.model.CourseShort
-import com.innoprog.android.uikit.ImageLoadingType
 
 class TrainingRecyclerViewAdapter(
     private val onItemClickListener: (courseId: String) -> Unit = {}
@@ -40,11 +39,10 @@ class TrainingListViewHolder(private val binding: ItemTrainingBinding) : Recycle
         binding.trainingAuthorName.text = item.authorName
         binding.trainingAuthorPosition.text = item.authorPost
         binding.trainingDate.text = item.createdDate
-
-        val url = item.avatarURL
-        val placeholderResId = com.innoprog.android.uikit.R.drawable.ic_person
-        val imageType =
-            ImageLoadingType.ImageNetwork(url, placeholderResId = placeholderResId)
-        binding.trainingAuthorAvatar.loadImage(imageType)
+        val initials = item.authorName
+            .split(' ')
+            .map { it.first().uppercaseChar() }
+            .joinToString()
+        binding.trainingAuthorAvatar.text = initials.ifBlank { "?" }
     }
 }

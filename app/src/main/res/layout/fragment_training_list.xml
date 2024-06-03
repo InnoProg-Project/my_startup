@@ -34,6 +34,7 @@
         android:id="@+id/trainingNoCoursesPlaceholderIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:importantForAccessibility="no"
         android:src="@drawable/ic_placeholer_no_courses"
         app:layout_constraintBottom_toTopOf="@+id/trainingNoCoursesPlaceholderTV"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,4 +58,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/trainingNoCoursesPlaceholderIcon" />
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:trackColor="@color/accent_default"
+        tools:visibility="visible" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/lbl_progress_description"
+        style="@style/TextHeadline_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/button_padding_12"
+        android:text="@string/course_list_lbl_progress_description"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/progress"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

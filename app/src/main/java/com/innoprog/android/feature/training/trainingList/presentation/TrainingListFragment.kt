@@ -8,6 +8,7 @@ import androidx.core.os.bundleOf
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentTrainingListBinding
+import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.training.common.VerticalSpaceDecorator
 import com.innoprog.android.feature.training.trainingList.di.DaggerTrainingListComponent
@@ -21,7 +22,13 @@ class TrainingListFragment : BaseFragment<FragmentTrainingListBinding, BaseViewM
             bundleOf(COURSE_KEY to courseId)
         )
     }
-    override fun diComponent(): ScreenComponent = DaggerTrainingListComponent.builder().build()
+
+    override fun diComponent(): ScreenComponent {
+        return DaggerTrainingListComponent
+            .builder()
+            .appComponent(AppComponentHolder.getComponent())
+            .build()
+    }
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -46,7 +53,7 @@ class TrainingListFragment : BaseFragment<FragmentTrainingListBinding, BaseViewM
 
     private fun render(state: TrainingListState) {
         when (state) {
-            is TrainingListState.Load, TrainingListState.Error -> {
+            is TrainingListState.Error -> {
                 binding.trainingRecyclerView.visibility = View.INVISIBLE
                 binding.trainingNoCoursesPlaceholderIcon.visibility = View.VISIBLE
                 binding.trainingNoCoursesPlaceholderTV.visibility = View.VISIBLE
@@ -57,6 +64,13 @@ class TrainingListFragment : BaseFragment<FragmentTrainingListBinding, BaseViewM
                 binding.trainingRecyclerView.visibility = View.VISIBLE
                 binding.trainingNoCoursesPlaceholderIcon.visibility = View.INVISIBLE
                 binding.trainingNoCoursesPlaceholderTV.visibility = View.INVISIBLE
+            }
+
+            is TrainingListState.Load -> {
+                binding.trainingRecyclerView.visibility = View.INVISIBLE
+                binding.trainingNoCoursesPlaceholderIcon.visibility = View.INVISIBLE
+                binding.trainingNoCoursesPlaceholderTV.visibility = View.INVISIBLE
+
             }
         }
     }

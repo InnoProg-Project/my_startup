@@ -7,28 +7,35 @@ import androidx.lifecycle.viewModelScope
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.feature.training.trainingList.domain.useCase.GetTrainingListUseCase
 import com.innoprog.android.util.Result
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class TrainingListViewModel @Inject constructor(private val getTrainingListUseCase: GetTrainingListUseCase) :
-    BaseViewModel() {
+class TrainingListViewModel @Inject constructor(
+    private val getTrainingListUseCase: GetTrainingListUseCase
+) : BaseViewModel() {
     private val _state = MutableLiveData<TrainingListState>()
     val state: LiveData<TrainingListState> = _state
 
     init {
         setState(TrainingListState.Load)
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             runCatching {
                 getTrainingListUseCase.execute().collect { result ->
-                    when (result) {
-                        is Result.Error -> setState(TrainingListState.Error)
-                        is Result.Success -> setState(TrainingListState.Content(result.data))
+                    withContext(Dispatchers.Main) {
+                        when (result) {
+                            is Result.Error -> setState(TrainingListState.Error)
+                            is Result.Success -> setState(TrainingListState.Content(result.data))
+                        }
                     }
                 }
             }.onFailure { exception ->
-                setState(TrainingListState.Error)
-                Log.e(TAG, "error -> ${exception.localizedMessage}")
-                exception.printStackTrace()
+                withContext(Dispatchers.Main) {
+                    setState(TrainingListState.Error)
+                    Log.e(TAG, "error -> ${exception.localizedMessage}")
+                    exception.printStackTrace()
+                }
             }
         }
     }
