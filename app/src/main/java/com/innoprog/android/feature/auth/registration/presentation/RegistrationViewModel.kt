@@ -91,11 +91,15 @@ class RegistrationViewModel @Inject constructor(
             viewModelScope.launch(Dispatchers.IO) {
                 runCatching {
                     useCase.registration(input!!).collect { pair ->
-                        if (pair.first) processResult(RegistrationState.InputComplete) else processResult(
-                            RegistrationState.VerificationError(
-                                pair.second ?: ""
+                        if (pair.first) {
+                            processResult(RegistrationState.InputComplete)
+                        } else {
+                            processResult(
+                                RegistrationState.VerificationError(
+                                    pair.second ?: ""
+                                )
                             )
-                        )
+                        }
                     }
                 }.onFailure {
                     processResult(RegistrationState.VerificationError("dataError"))

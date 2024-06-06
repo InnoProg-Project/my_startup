@@ -17,14 +17,13 @@ class RegistrationRepositoryImpl @Inject constructor(private val api: Registrati
     ): Flow<Pair<Boolean, String?>> = flow {
         try {
             val response = api.setRegistrationData(mapToRegistrationRequest(registrationValue))
-            Log.d("myRegistration", "my $response")
-            when (response.resultCode) {
+            when (response.code()) {
                 BAD_REQUEST_CODE -> {
                     emit(Pair(false, "error"))
                 }
 
                 SUCCESS_CODE -> {
-                    Pair(true, null)
+                    emit(Pair(true, null))
                 }
 
                 else -> {
