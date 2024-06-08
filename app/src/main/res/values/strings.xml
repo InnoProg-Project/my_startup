@@ -97,4 +97,7 @@
     <string name="step_5">Шаг 5</string>
     <string name="publish">Опубликовать</string>
 
+    <string name="project">Проект</string>
+    <string name="project_news">Публикации о проекте (%s)</string>
+    <string name="project_details">Подробнее о проекте</string>
 </resources>
