@@ -98,6 +98,8 @@
     <string name="publish">Опубликовать</string>
 
     <string name="project">Проект</string>
+    <string name="project_news">Публикации о проекте (%s)</string>
+    <string name="project_details">Подробнее о проекте</string>
     <string name="publication">Публикация</string>
     <string name="additional_information_about_project">Дополнительная информация о проекте</string>
 

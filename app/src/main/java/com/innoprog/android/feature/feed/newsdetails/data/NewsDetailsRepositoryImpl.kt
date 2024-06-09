@@ -33,7 +33,7 @@ class NewsDetailsRepositoryImpl @Inject constructor() : NewsDetailsRepository {
 
     private val newsDetails = NewsDetailsModel(
         id = "1",
-        type = "idea",
+        type = "project",
         author = author,
         projectId = "1",
         coverUrl = "",

@@ -9,7 +9,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.tabs.TabLayoutMediator
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
@@ -79,6 +82,10 @@ class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewMod
                     btnShowAll.isVisible = false
                 }
             }
+
+            projectCard.setOnClickListener {
+                findNavController().navigate(R.id.action_newsDetailsFragment_to_projectFragment)
+            }
         }
     }
 
@@ -135,6 +142,8 @@ class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewMod
                     .toString()
             tvNewsAuthorPosition.text = newsAuthorPosition
 
+            loadProjectInfo(newsDetails)
+
             tvComments.text = format(getString(R.string.comments), newsDetails.commentsCount)
 
             if (newsDetails.comments != null) {
@@ -185,6 +194,32 @@ class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewMod
             })
 
         binding.rvComments.adapter = commentsAdapter
+    }
+
+    private fun loadProjectInfo(newsDetails: NewsDetailsModel) {
+        val radius = binding.root.resources.getDimensionPixelSize(R.dimen.corner_radius_10)
+        binding.apply {
+            if (newsDetails.type == "project") {
+                tvAboutProjectTitle.isVisible = true
+                projectCard.isVisible = true
+                Glide
+                    .with(requireContext())
+                    .load(
+                        "https://img.freepik.com/free-vector/ai-technology-microchip-" +
+                            "background-vector-digital-transformation-concept_53876-112222.jpg"
+                    )
+                    .placeholder(R.drawable.ic_placeholder_logo)
+                    .centerCrop()
+                    .transform(RoundedCorners(radius))
+                    .into(ivProjectLogo)
+
+                tvProjectName.text = "Искусственный интеллект"
+                tvProjectDirection.text = "Искусственный интеллект"
+            } else {
+                tvAboutProjectTitle.isVisible = false
+                projectCard.isVisible = false
+            }
+        }
     }
 
     companion object {
