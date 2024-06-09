@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_primary"
     android:orientation="vertical"
     tools:context=".feature.auth.registration.presentation.RegistrationFragment">
 
@@ -11,16 +12,16 @@
         android:id="@+id/registrationTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:topBar_title="@string/registration_fragment_registration"
-        app:topBar_left_icon="@drawable/ic_back"/>
+        app:topBar_left_icon="@drawable/ic_back"
+        app:topBar_title="@string/registration_fragment_registration" />
 
     <com.innoprog.android.uikit.InnoProgInputView
         android:id="@+id/ivPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_16"
-        app:label="@string/set_phone_number"
-        android:layout_marginTop="@dimen/margin_24"/>
+        android:layout_marginTop="@dimen/margin_24"
+        app:label="@string/set_phone_number" />
 
     <com.innoprog.android.uikit.InnoProgInputView
         android:id="@+id/ivName"
@@ -53,10 +54,10 @@
 
     <TextView
         android:id="@+id/tvAgreement"
+        style="@style/TextCaption_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_16"
-        style="@style/TextCaption_1"
         android:gravity="center"
         android:text="@string/agreement" />
 
