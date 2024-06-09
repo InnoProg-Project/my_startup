@@ -8,39 +8,37 @@
     android:backgroundTint="@color/background_secondary">
 
     <ImageView
-        android:id="@+id/documentIconIV"
+        android:id="@+id/ivDocIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_16"
         android:src="@drawable/ic_document"
-        app:layout_constraintBottom_toBottomOf="@+id/documentTitleTV"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDocumentTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/documentTitleTV" />
+        app:layout_constraintTop_toTopOf="@+id/tvDocumentTitle" />
 
     <TextView
-        android:id="@+id/documentTitleTV"
+        android:id="@+id/tvDocumentTitle"
         style="@style/TextBody_1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_8"
-        android:layout_marginTop="@dimen/margin_8"
-        android:layout_marginEnd="@dimen/margin_8"
-        android:layout_marginBottom="@dimen/margin_8"
+        android:layout_marginVertical="@dimen/margin_12"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_12"
         android:textColor="@color/text_primary"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/documentArrowForwardIV"
-        app:layout_constraintStart_toEndOf="@+id/documentIconIV"
+        app:layout_constraintEnd_toStartOf="@+id/ivArrowForward"
+        app:layout_constraintStart_toEndOf="@+id/ivDocIcon"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Пример заполнения отчёта.docx" />
+        tools:text="Отчёт по инвестициям за I квартал 2024.docx" />
 
     <ImageView
-        android:id="@+id/documentArrowForwardIV"
+        android:id="@+id/ivArrowForward"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_arrow_forward"
-        app:layout_constraintBottom_toBottomOf="@+id/documentTitleTV"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDocumentTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/documentTitleTV" />
-
+        app:layout_constraintTop_toTopOf="@+id/tvDocumentTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
