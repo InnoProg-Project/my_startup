@@ -2,6 +2,7 @@ package com.innoprog.android.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -23,10 +24,16 @@ class RootActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, dest, _ ->
             when (dest.id) {
                 R.id.feedFragment, R.id.profileFragment, R.id.trainingListFragment, R.id.projectsFragment -> {
+                    if (dest.id != R.id.profileFragment) {
+                        window.statusBarColor = ContextCompat.getColor(this, com.innoprog.android.uikit.R.color.background_secondary)
+                    } else {
+                        window.statusBarColor = ContextCompat.getColor(this, com.innoprog.android.uikit.R.color.background_primary)
+                    }
                     binding.bottomNavigationView.isVisible = true
                 }
 
                 else -> {
+                    window.statusBarColor = ContextCompat.getColor(this, com.innoprog.android.uikit.R.color.background_primary)
                     binding.bottomNavigationView.isVisible = false
                 }
             }
