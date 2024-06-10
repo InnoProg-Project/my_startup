@@ -18,6 +18,7 @@
         android:id="@+id/ivPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/button_padding_6"
         android:layout_marginHorizontal="@dimen/margin_16"
         app:label="@string/set_phone_number"
         android:layout_marginTop="@dimen/margin_24"/>
@@ -27,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_16"
+        android:paddingBottom="@dimen/button_padding_6"
         app:label="@string/user_name" />
 
     <com.innoprog.android.uikit.InnoProgInputView
@@ -34,6 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_16"
+        android:paddingBottom="@dimen/button_padding_6"
         app:label="@string/email" />
 
     <com.innoprog.android.uikit.InnoProgInputView
@@ -41,6 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_16"
+        android:paddingBottom="@dimen/button_padding_6"
         app:label="@string/fragment_authorization_password_label" />
 
     <com.innoprog.android.uikit.InnoProgButtonView
