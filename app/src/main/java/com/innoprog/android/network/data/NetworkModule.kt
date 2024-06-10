@@ -15,6 +15,7 @@ class NetworkModule {
     fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
         .callTimeout(ApiConstants.CALL_TIMEOUT.toLong(), TimeUnit.SECONDS)
         .readTimeout(ApiConstants.READ_TIMEOUT.toLong(), TimeUnit.SECONDS)
+        .addInterceptor(AuthInterceptor())
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         })
