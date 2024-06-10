@@ -2,10 +2,10 @@ package com.innoprog.android.feature.feed.newsfeed.di
 
 import androidx.lifecycle.ViewModel
 import com.innoprog.android.di.ViewModelKey
-import com.innoprog.android.feature.feed.newsfeed.data.FavoritesRepositoryImpl
-import com.innoprog.android.feature.feed.newsfeed.domain.FavoritesInteractor
-import com.innoprog.android.feature.feed.newsfeed.domain.impl.FavoritesInteractorImpl
-import com.innoprog.android.feature.feed.newsfeed.domain.FavoritesRepository
+import com.innoprog.android.feature.feed.newsfeed.data.FeedRepositoryImpl
+import com.innoprog.android.feature.feed.newsfeed.domain.FeedInteractor
+import com.innoprog.android.feature.feed.newsfeed.domain.FeedRepository
+import com.innoprog.android.feature.feed.newsfeed.domain.impl.FeedInteractorImpl
 import com.innoprog.android.feature.feed.newsfeed.presentation.FeedViewModel
 import dagger.Binds
 import dagger.Module
@@ -19,8 +19,8 @@ interface FeedModule {
     fun bindFeedViewModel(impl: FeedViewModel): ViewModel
 
     @Binds
-    fun bindFavoritesRepository(favoritesRepositoryImpl: FavoritesRepositoryImpl): FavoritesRepository
+    fun bindFeedRepository(feedRepositoryImpl: FeedRepositoryImpl): FeedRepository
 
     @Binds
-    fun bindFavoritesInteractor(favoritesInteractorImpl: FavoritesInteractorImpl): FavoritesInteractor
+    fun bindFeedInteractor(feedInteractorImpl: FeedInteractorImpl): FeedInteractor
 }
