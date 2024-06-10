@@ -4,5 +4,5 @@ data class RegistrationModel(
     val userName: String?,
     val phone: String?,
     val email: String?,
-    val password: String?,
+    val password: String?
 )
