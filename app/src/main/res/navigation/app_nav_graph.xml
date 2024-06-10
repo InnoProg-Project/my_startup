@@ -66,11 +66,18 @@
         <action
             android:id="@+id/action_mainFragment_to_courseInformationFragment"
             app:destination="@id/courseInformationFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_newsDetailsFragment"
+            app:destination="@id/newsDetailsFragment" >
+            <argument
+                android:name="newsId"
+                app:argType="string" />
+        </action>
     </fragment>
 
     <fragment
         android:id="@+id/feedFragment"
-        android:name="com.innoprog.android.feature.feed.presentation.FeedFragment"
+        android:name="com.innoprog.android.feature.feed.newsfeed.presentation.FeedFragment"
         android:label="fragment_feed"
         tools:layout="@layout/fragment_feed" />
 
@@ -181,5 +188,26 @@
         android:id="@+id/projectDetailsFragment"
         android:name="com.innoprog.android.feature.projects.projectdetails.presentation.ProjectDetailsFragment"
         android:label="ProjectDetailsFragment" />
+    <fragment
+        android:id="@+id/newsDetailsFragment"
+        android:name="com.innoprog.android.feature.feed.newsdetails.presentation.NewsDetailsFragment"
+        android:label="fragment_news_details"
+        tools:layout="@layout/fragment_news_details" >
+        <argument
+            android:name="newsId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_newsDetailsFragment_to_projectFragment"
+            app:destination="@id/projectFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/projectFragment"
+        android:name="com.innoprog.android.feature.feed.projectScreen.presentation.AnyProjectFragment"
+        android:label="fragment_any_project"
+        tools:layout="@layout/fragment_any_project" >
+        <action
+            android:id="@+id/action_projectFragment_to_newsDetailsFragment"
+            app:destination="@id/newsDetailsFragment" />
+    </fragment>
 
 </navigation>
