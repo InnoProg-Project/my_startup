@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.innoprog.android.base.BaseViewModel
+import com.innoprog.android.feature.edit.domain.model.IdeaModel
 import com.innoprog.android.feature.edit.domain.useCase.CreateIdeaUseCase
 import com.innoprog.android.feature.edit.domain.useCase.CreatePublishUseCase
 import com.innoprog.android.feature.edit.domain.useCase.EditePublishUseCase
@@ -64,6 +65,14 @@ class CreateEditContentViewModel @Inject constructor(
             }
         }
 
+    }
+
+    fun saveIdea(title: String, content: String) {
+        viewModelScope.launch {
+            createIdeaUseCase.createIdea(
+                IdeaModel(title, content)
+            )
+        }
     }
 
 }

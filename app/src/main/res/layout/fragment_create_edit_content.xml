@@ -188,6 +188,7 @@
                 android:gravity="center_horizontal"
                 app:buttonText="@string/publish"
                 app:buttonType="primary"
+                app:buttonState="disabled"
                 app:layout_constraintBottom_toBottomOf="@+id/bottomBorder"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

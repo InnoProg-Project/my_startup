@@ -4,6 +4,8 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,8 +32,18 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
 
     private val args by navArgs<CreateEditContentFragmentArgs>()
 
-
     private var mediaAttachAdapter: MediaAttachRecyclerAdapter? = null
+
+    private val createTextWatcher = object : TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            checkingText()
+        }
+
+        override fun afterTextChanged(p0: Editable?) {}
+
+    }
 
     override fun diComponent(): ScreenComponent {
         val appComponent = AppComponentHolder.getComponent()
@@ -57,7 +69,6 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
         return FragmentCreateEditContentBinding.inflate(inflater, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -75,10 +86,6 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
             viewModel.navigateUp()
         }
 
-        binding.saveBV.setOnClickListener {
-            // clickButtonSave()
-        }
-
         binding.loadBV.setOnClickListener { loadMedia() }
 
     }
@@ -90,7 +97,15 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
                 binding.saveBV.setText(getString(R.string.publish))
                 binding.inputTitle.setHintText(getString(R.string.title_of_idea))
                 binding.inputText.setHintText(getString(R.string.text_idea))
+                binding.inputTitle.addTextChangedListener(createTextWatcher)
+                binding.inputText.addTextChangedListener(createTextWatcher)
                 binding.groupProject.visibility = View.GONE
+                binding.saveBV.setOnClickListener {
+                    viewModel.saveIdea(
+                        binding.inputTitle.getText(),
+                        binding.inputText.getText()
+                    )
+                }
 
             }
 
@@ -169,6 +184,12 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
 
     private fun showError(errorMassage: String) {
         Toast.makeText(requireContext(), errorMassage, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun checkingText() {
+        binding.saveBV.stateIsEnabled(
+            binding.inputTitle.getText().isNotBlank() && binding.inputText.getText().isNotBlank()
+        )
     }
 
 }
