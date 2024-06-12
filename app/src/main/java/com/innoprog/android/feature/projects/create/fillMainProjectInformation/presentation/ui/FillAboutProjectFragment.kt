@@ -18,8 +18,8 @@ import com.innoprog.android.feature.projects.create.fillMainProjectInformation.p
 import com.innoprog.android.feature.projects.create.fillMainProjectInformation.presentation.model.FillAboutProjectEvent
 import kotlinx.coroutines.launch
 
-class FillAboutProjectFragment
-    : BaseFragment<FragmentProjectDetailsBinding, FillAboutProjectViewModel>() {
+class FillAboutProjectFragment :
+    BaseFragment<FragmentProjectDetailsBinding, FillAboutProjectViewModel>() {
 
     private val imagePicker = registerForActivityResult(
         ActivityResultContracts.GetContent()

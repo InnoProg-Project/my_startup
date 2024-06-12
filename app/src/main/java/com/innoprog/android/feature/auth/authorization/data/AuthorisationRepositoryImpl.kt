@@ -23,7 +23,10 @@ class AuthorisationRepositoryImpl @Inject constructor(
             val response = api.authorize(header)
             Log.d("1234", response.code().toString())
             when (response.code()) {
-                SUCCESS -> emit(AuthState.SUCCESS)
+                SUCCESS -> {
+                    AuthorizationBody.data = authData
+                    emit(AuthState.SUCCESS)
+                }
                 ERROR -> emit(AuthState.VERIFICATION_ERROR)
                 else -> emit(AuthState.VERIFICATION_ERROR)
             }
