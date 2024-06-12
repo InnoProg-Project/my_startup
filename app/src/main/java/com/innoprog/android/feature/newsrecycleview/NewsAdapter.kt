@@ -7,8 +7,8 @@ import com.innoprog.android.databinding.ItemNewsBinding
 import com.innoprog.android.feature.feed.newsfeed.domain.models.News
 
 class NewsAdapter(
-    private val newsList: ArrayList<News>,
-    private val onNewsClickListener: OnClickListener
+    var newsList: ArrayList<News>,
+    private val onNewsClick: (News) -> Unit
 ) : RecyclerView.Adapter<NewsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
@@ -17,14 +17,13 @@ class NewsAdapter(
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        holder.bind(newsList[position], onNewsClickListener)
+        holder.bind(newsList[position])
+        holder.itemView.setOnClickListener {
+            onNewsClick.invoke(newsList[position])
+        }
     }
 
     override fun getItemCount(): Int {
         return newsList.size
-    }
-
-    interface OnClickListener {
-        fun onItemClick(news: News)
     }
 }

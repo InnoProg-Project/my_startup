@@ -243,6 +243,18 @@
         <argument
             android:name="newsId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_newsDetailsFragment_to_projectFragment"
+            app:destination="@id/projectFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/projectFragment"
+        android:name="com.innoprog.android.feature.feed.projectScreen.presentation.AnyProjectFragment"
+        android:label="fragment_any_project"
+        tools:layout="@layout/fragment_any_project" >
+        <action
+            android:id="@+id/action_projectFragment_to_newsDetailsFragment"
+            app:destination="@id/newsDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/fillAboutProjectFragment"
