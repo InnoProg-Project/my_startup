@@ -28,7 +28,6 @@ interface AuthorizationModule {
     @Binds
     fun provideAuthorisationRepository(repository: AuthorisationRepositoryImpl): AuthorisationRepository
 
-
     @Module
     class LoginApiModule {
         @Provides

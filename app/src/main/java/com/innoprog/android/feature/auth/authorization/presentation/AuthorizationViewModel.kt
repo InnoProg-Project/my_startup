@@ -1,17 +1,11 @@
 package com.innoprog.android.feature.auth.authorization.presentation
 
-import android.content.Context
-import androidx.core.content.ContextCompat.getString
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.innoprog.android.R
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.feature.auth.authorization.domain.AuthorisationUseCase
 import com.innoprog.android.feature.auth.authorization.domain.model.AuthState
-import com.innoprog.android.feature.auth.authorization.domain.model.UserData
-import com.innoprog.android.util.ErrorType
-import com.innoprog.android.util.Resource
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

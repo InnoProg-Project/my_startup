@@ -4,9 +4,6 @@ import android.app.Application
 import android.content.Context
 import com.innoprog.android.db.RoomDB
 import com.innoprog.android.db.RoomDBModule
-import com.innoprog.android.local.LocalStorage
-import com.innoprog.android.local.LocalStorageModule
-import com.innoprog.android.local.SharedPreferencesModule
 import com.innoprog.android.network.data.NetworkModule
 import dagger.BindsInstance
 import dagger.Component
@@ -17,15 +14,12 @@ import retrofit2.Retrofit
         NetworkModule::class,
         RoomDBModule::class,
         ContextModule::class,
-        SharedPreferencesModule::class,
-        LocalStorageModule::class,
     ]
 )
 interface AppComponent : DIComponent {
     val room: RoomDB
     val context: Context
     val retrofit: Retrofit
-    val local: LocalStorage
 
     @Component.Builder
     interface Builder {
