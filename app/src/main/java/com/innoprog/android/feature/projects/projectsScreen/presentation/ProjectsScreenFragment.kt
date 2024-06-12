@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentProjectsBinding
@@ -30,16 +32,17 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel.state.observe(viewLifecycleOwner) {
             render(it)
         }
         binding.projectsRV.adapter = adapter
         binding.createNewProjectButton.setOnClickListener {
-            // TODO переход на экран создания проекта
+            val direction = ProjectsScreenFragmentDirections
+                .actionProjectsFragmentToFillAboutProjectFragment()
+            findNavController().navigate(direction)
         }
         binding.createFirstProjectButton.setOnClickListener {
-            // TODO переход на экран создания проекта
+            viewModel.navigateTo(R.id.fillAboutProjectFragment)
         }
     }
 

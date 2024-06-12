@@ -1,17 +1,43 @@
 package com.innoprog.android.feature.feed.newsfeed.presentation
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.innoprog.android.base.BaseViewModel
-import com.innoprog.android.feature.feed.newsfeed.domain.FavoritesInteractor
-import com.innoprog.android.feature.feed.newsfeed.domain.models.News
+import com.innoprog.android.feature.feed.newsfeed.domain.FeedInteractor
+import com.innoprog.android.util.ErrorType
+import com.innoprog.android.util.Resource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class FeedViewModel @Inject constructor(private val favoritesInteractor: FavoritesInteractor) :
+class FeedViewModel @Inject constructor(private val feedInteractor: FeedInteractor) :
     BaseViewModel() {
-    fun onFavoriteClicked(news: News) {
-        viewModelScope.launch {
-            favoritesInteractor.insertNewsToFavorites(news)
+
+    private val _screenState = MutableLiveData<FeedScreenState>()
+    val screenState: LiveData<FeedScreenState> = _screenState
+
+    fun getNewsFeed() {
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching {
+                feedInteractor.getNewsFeed().collect { response ->
+                    when (response) {
+                        is Resource.Success -> {
+                            setState(FeedScreenState.Content(response.data))
+                        }
+
+                        is Resource.Error -> {
+                            setState(FeedScreenState.Error(response.errorType))
+                        }
+                    }
+                }
+            }.onFailure { exception ->
+                setState(FeedScreenState.Error(ErrorType.BAD_REQUEST))
+            }
         }
+    }
+
+    private fun setState(state: FeedScreenState) {
+        _screenState.postValue(state)
     }
 }

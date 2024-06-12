@@ -13,7 +13,7 @@ class NewsViewHolder(private val binding: ItemNewsBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     private val radius = binding.root.resources.getDimensionPixelSize(R.dimen.corner_radius_8)
-    fun bind(news: News, onNewsClickListener: NewsAdapter.OnClickListener) {
+    fun bind(news: News) {
         binding.apply {
             Glide
                 .with(itemView)
@@ -58,10 +58,6 @@ class NewsViewHolder(private val binding: ItemNewsBinding) :
             tvPublicationAuthorName.text = news.author.name
             tvCommentsCount.text = news.commentsCount.toString()
             tvLikesCount.text = news.likesCount.toString()
-
-            itemView.setOnClickListener {
-                onNewsClickListener.onItemClick(news)
-            }
         }
     }
 }
