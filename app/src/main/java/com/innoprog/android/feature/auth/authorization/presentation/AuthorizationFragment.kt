@@ -7,13 +7,13 @@ import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentAuthorizationBinding
+import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.auth.authorization.di.DaggerAuthorizationComponent
 import com.innoprog.android.feature.auth.authorization.domain.model.AuthState
@@ -56,25 +56,8 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
 
         binding.btnLogin.setOnClickListener {
             viewModel.verify(binding.ivLogin.getText(), binding.ivPassword.getText())
-            viewModel.navigateTo(R.id.feedFragment, bundleOf(), navOptions {
-                launchSingleTop = true
-                popUpTo(R.id.nav_graph) {
-                    inclusive = true
-                }
-            })
         }
 
-        binding.topBar.setRightIconClickListener {
-            viewModel.verify(binding.ivLogin.getText(), binding.ivPassword.getText())
-            val direction =
-                AuthorizationFragmentDirections.actionAuthorizationFragmentToFeedFragment()
-            findNavController().navigate(direction, navOptions {
-                launchSingleTop = true
-                popUpTo(R.id.nav_graph) {
-                    inclusive = true
-                }
-            })
-        }
         binding.ivPassword.setRightIconClickListener {
             isVisiblePassword = !isVisiblePassword
             renderIVPassword()
@@ -91,7 +74,9 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
     }
 
     private fun navigateNext() {
-        viewModel.navigateTo(R.id.mainFragment, bundleOf(), navOptions {
+        val direction =
+            AuthorizationFragmentDirections.actionAuthorizationFragmentToFeedFragment()
+        findNavController().navigate(direction, navOptions {
             launchSingleTop = true
             popUpTo(R.id.nav_graph) {
                 inclusive = true
