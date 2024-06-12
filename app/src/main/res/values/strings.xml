@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">innoprog</string>
+    <string name="app_name">Мой стартап</string>
     <string name="Training">Обучение</string>
     <string name="no_courses">Доступных курсов пока нет</string>
     <string name="course_direction">Направление курса</string>
@@ -104,4 +104,7 @@
     <string name="project">Проект</string>
     <string name="project_news">Публикации о проекте (%s)</string>
     <string name="project_details">Подробнее о проекте</string>
+
+    <!-- FillAboutProjectScreen -->
+    <string name="err_pick_photo">Не удалось прикрепить фото</string>
 </resources>

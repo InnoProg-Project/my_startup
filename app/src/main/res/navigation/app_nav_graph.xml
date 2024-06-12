@@ -12,15 +12,25 @@
         tools:layout="@layout/fragment_authorization">
         <action
             android:id="@+id/action_authorizationFragment_to_registrationFragment"
-            app:destination="@id/registrationFragment" />
+            app:destination="@id/registrationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_authorizationFragment_to_passwordRecoveryFragment"
-            app:destination="@id/passwordRecoveryFragment" />
+            app:destination="@id/passwordRecoveryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
-            android:id="@+id/action_authorizationFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
-            app:popUpTo="@+id/nav_graph"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_authorizationFragment_to_feedFragment"
+            app:destination="@id/feedFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment
@@ -30,7 +40,11 @@
         tools:layout="@layout/fragment_password_recovery">
         <action
             android:id="@+id/action_passwordRecoveryFragment_to_codeEntryFragment"
-            app:destination="@id/codeEntryFragment" />
+            app:destination="@id/codeEntryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment
@@ -40,7 +54,14 @@
         tools:layout="@layout/fragment_registration">
         <action
             android:id="@+id/action_registrationFragment_to_codeEntryFragment"
-            app:destination="@id/codeEntryFragment" />
+            app:destination="@id/codeEntryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_registrationFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
     </fragment>
 
     <fragment
@@ -56,44 +77,44 @@
         tools:layout="@layout/fragment_new_password" />
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.innoprog.android.feature.mainscreen.presentation.MainFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_main">
-        <action
-            android:id="@+id/action_mainFragment_to_profile_bottom_sheet"
-            app:destination="@id/profile_bottom_sheet" />
-        <action
-            android:id="@+id/action_mainFragment_to_courseInformationFragment"
-            app:destination="@id/courseInformationFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_newsDetailsFragment"
-            app:destination="@id/newsDetailsFragment" >
-            <argument
-                android:name="newsId"
-                app:argType="string" />
-        </action>
-    </fragment>
-
-    <fragment
         android:id="@+id/feedFragment"
         android:name="com.innoprog.android.feature.feed.newsfeed.presentation.FeedFragment"
         android:label="fragment_feed"
-        tools:layout="@layout/fragment_feed" />
+        tools:layout="@layout/fragment_feed" >
+        <action
+            android:id="@+id/action_feedFragment_to_newsDetailsFragment"
+            app:destination="@id/newsDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 
     <fragment
         android:id="@+id/projectsFragment"
         android:name="com.innoprog.android.feature.projects.projectsScreen.presentation.ProjectsScreenFragment"
         android:label="fragment_projects"
-        tools:layout="@layout/fragment_projects" />
+        tools:layout="@layout/fragment_projects">
+        <action
+            android:id="@+id/action_projectsFragment_to_fillAboutProjectFragment"
+            app:destination="@id/fillAboutProjectFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/courseInformationFragment"
         android:name="com.innoprog.android.feature.training.courseInformation.presentation.CourseInformationFragment"
-        android:label="CourseInformationFragment" >
+        android:label="CourseInformationFragment">
         <action
             android:id="@+id/action_courseInformationFragment_to_videoPlayerFragment"
-            app:destination="@id/videoPlayerFragment" />
+            app:destination="@id/videoPlayerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <dialog
@@ -104,13 +125,25 @@
 
         <action
             android:id="@+id/action_profile_bottom_sheet_to_editingProfileFragment"
-            app:destination="@id/editingProfileFragment" />
+            app:destination="@id/editingProfileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_profile_bottom_sheet_to_legalDocumentsFragment"
-            app:destination="@id/legalDocumentsFragment" />
+            app:destination="@id/legalDocumentsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_profile_bottom_sheet_to_aboutAppFragment"
-            app:destination="@id/aboutAppFragment" />
+            app:destination="@id/aboutAppFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </dialog>
 
     <fragment
@@ -137,7 +170,11 @@
         tools:layout="@layout/fragment_dialog_for_delete_account">
         <action
             android:id="@+id/action_dialogForDeleteAccountFragment2_to_editingProfileFragment"
-            app:destination="@id/editingProfileFragment" />
+            app:destination="@id/editingProfileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </dialog>
     <dialog
         android:id="@+id/dialogForExitFragment2"
@@ -146,7 +183,11 @@
         tools:layout="@layout/fragment_dialog_for_exit">
         <action
             android:id="@+id/action_dialogForExitFragment2_to_editingProfileFragment"
-            app:destination="@id/editingProfileFragment" />
+            app:destination="@id/editingProfileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </dialog>
     <dialog
         android:id="@+id/editingProfileBottomSheetFragment2"
@@ -155,7 +196,11 @@
         tools:layout="@layout/fragment_editing_profile_bottom_sheet">
         <action
             android:id="@+id/action_editingProfileBottomSheetFragment2_to_editingProfileFragment"
-            app:destination="@id/editingProfileFragment" />
+            app:destination="@id/editingProfileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </dialog>
     <fragment
         android:id="@+id/legalDocumentsFragment"
@@ -164,7 +209,11 @@
         tools:layout="@layout/fragment_legal_documents">
         <action
             android:id="@+id/action_legalDocumentsFragment_to_documentFragment"
-            app:destination="@id/documentFragment" />
+            app:destination="@id/documentFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/documentFragment"
@@ -187,12 +236,13 @@
     <fragment
         android:id="@+id/projectDetailsFragment"
         android:name="com.innoprog.android.feature.projects.projectdetails.presentation.ProjectDetailsFragment"
-        android:label="ProjectDetailsFragment" />
+        android:label="ProjectDetailsFragment"
+        tools:layout="@layout/fragment_project_details" />
     <fragment
         android:id="@+id/newsDetailsFragment"
         android:name="com.innoprog.android.feature.feed.newsdetails.presentation.NewsDetailsFragment"
         android:label="fragment_news_details"
-        tools:layout="@layout/fragment_news_details" >
+        tools:layout="@layout/fragment_news_details">
         <argument
             android:name="newsId"
             app:argType="string" />
@@ -209,5 +259,24 @@
             android:id="@+id/action_projectFragment_to_newsDetailsFragment"
             app:destination="@id/newsDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/fillAboutProjectFragment"
+        android:name="com.innoprog.android.feature.projects.create.fillMainProjectInformation.presentation.ui.FillAboutProjectFragment"
+        android:label="FillAboutProjectFragment"
+        tools:layout="@layout/fragment_project_details" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.innoprog.android.feature.profile.profiledetails.presentation.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_profile_bottom_sheet"
+            app:destination="@id/profile_bottom_sheet" />
+    </fragment>
+    <fragment
+        android:id="@+id/trainingListFragment"
+        android:name="com.innoprog.android.feature.training.trainingList.presentation.TrainingListFragment"
+        android:label="fragment_training_list"
+        tools:layout="@layout/fragment_training_list" />
 
 </navigation>
