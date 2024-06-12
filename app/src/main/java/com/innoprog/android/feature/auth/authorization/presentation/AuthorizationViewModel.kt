@@ -8,40 +8,27 @@ import androidx.lifecycle.viewModelScope
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.feature.auth.authorization.domain.AuthorisationUseCase
+import com.innoprog.android.feature.auth.authorization.domain.model.AuthState
 import com.innoprog.android.feature.auth.authorization.domain.model.UserData
 import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class AuthorizationViewModel @Inject constructor(
-    private val useCase: AuthorisationUseCase,
-    private val context: Context
-) :
+class AuthorizationViewModel @Inject constructor(private val useCase: AuthorisationUseCase) :
     BaseViewModel() {
 
-    private val stateLiveData = MutableLiveData<Pair<UserData?, String?>>()
-    fun observeState(): LiveData<Pair<UserData?, String?>> = stateLiveData
+    private val stateLiveData = MutableLiveData<AuthState>()
+    fun observeState(): LiveData<AuthState> = stateLiveData
     fun verify(inputLogin: String, inputPassword: String) {
         if (inputLogin.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(inputLogin)
                 .matches() && inputPassword.isNotEmpty()
         ) {
             viewModelScope.launch {
                 useCase.verify(inputLogin, inputPassword).collect {
-                    when (it) {
-                        is Resource.Success -> stateLiveData.postValue(Pair(it.data, null))
-                        is Resource.Error -> menageError(it.errorType)
-                    }
+                    stateLiveData.postValue(it)
                 }
             }
-        } else menageError(ErrorType.UNEXPECTED)
-    }
-
-    private fun menageError(errorType: ErrorType){
-        when(errorType){
-            ErrorType.NOT_FOUND -> stateLiveData.postValue(Pair(null, getString(context,R.string.autorisation_no_internet)))
-            ErrorType.BAD_REQUEST -> stateLiveData.postValue(Pair(null, getString(context,R.string.autorisation_no_internet)))
-            else -> stateLiveData.postValue( Pair(null, getString(context, R.string.autorisation_bad_data)))
-        }
+        } else stateLiveData.postValue(AuthState.INPUT_ERROR)
     }
 }

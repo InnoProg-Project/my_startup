@@ -7,6 +7,7 @@ import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.navigation.navOptions
 import com.innoprog.android.R
@@ -16,7 +17,7 @@ import com.innoprog.android.databinding.FragmentAuthorizationBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.auth.authorization.di.DaggerAuthorizationComponent
-import com.innoprog.android.feature.auth.authorization.domain.model.UserData
+import com.innoprog.android.feature.auth.authorization.domain.model.AuthState
 import com.innoprog.android.uikit.InnoProgInputViewState
 
 class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseViewModel>() {
@@ -43,7 +44,7 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
         customizeIV()
         renderIVPassword()
         viewModel.observeState().observe(viewLifecycleOwner) {
-            renderResult(it.first, it.second)
+            renderResult(it)
         }
 
         binding.btRegistration.setOnClickListener {
@@ -73,19 +74,28 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
         }
     }
 
-    private fun renderResult(data: UserData?, message: String?) {
-        if (data != null) {
-            viewModel.navigateTo(R.id.mainFragment, bundleOf(), navOptions {
-                launchSingleTop = true
-                popUpTo(R.id.nav_graph) {
-                    inclusive = true
-                }
-            })
-        } else {
-            binding.ivLogin.renderState(InnoProgInputViewState.ERROR)
-            binding.ivPassword.renderState(InnoProgInputViewState.ERROR)
-            binding.ivPassword.setCaptionText(message!!)
+    private fun renderResult(state: AuthState) {
+        when (state) {
+            AuthState.SUCCESS -> navigateNext()
+            AuthState.CONNECTION_ERROR -> renderError(getString(R.string.authorization_no_internet))
+            AuthState.VERIFICATION_ERROR -> renderError(getString(R.string.authorization_bad_data))
+            AuthState.INPUT_ERROR -> renderError(getString(R.string.authorization_bad_data))
         }
+    }
+
+    private fun navigateNext() {
+        viewModel.navigateTo(R.id.mainFragment, bundleOf(), navOptions {
+            launchSingleTop = true
+            popUpTo(R.id.nav_graph) {
+                inclusive = true
+            }
+        })
+    }
+
+    private fun renderError(message: String) {
+        binding.ivLogin.renderState(InnoProgInputViewState.ERROR)
+        binding.ivPassword.renderState(InnoProgInputViewState.ERROR)
+        binding.ivPassword.setCaptionText(message)
     }
 
     private fun renderIVPassword() {
@@ -97,6 +107,7 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
             binding.ivPassword.setRightIcon(R.drawable.eye)
         }
     }
+
     private fun customizeIV() {
         binding.ivLogin.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS)
         binding.ivLogin.setSingleLine(true)

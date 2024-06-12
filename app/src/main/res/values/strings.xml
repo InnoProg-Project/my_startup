@@ -89,7 +89,7 @@
     <string name="link_to_social_network_example">vk.com/mystartup</string>
     <string name="step_5">Шаг 5</string>
     <string name="publish">Опубликовать</string>
-    <string name="autorisation_bad_data">Неверный email или пароль</string>
-    <string name="autorisation_no_internet">Ошибка сервера</string>
+    <string name="authorization_bad_data">Неверный email или пароль</string>
+    <string name="authorization_no_internet">Ошибка сервера</string>
 
 </resources>

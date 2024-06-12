@@ -1,12 +1,14 @@
 package com.innoprog.android.feature.auth.authorization.data.network
 
-import retrofit2.http.Body
+import okhttp3.Response
+import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface LoginApi {
 
-    @POST("/v1/login")
+    @GET("/v1/profile")
     suspend fun authorize(
-        @Body body: AuthorizationBody,
-    ): LoginResponse
+        @Header("X-Authorization") header: String
+    ): Response
 }
