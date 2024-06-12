@@ -7,11 +7,7 @@ import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.feature.profile.profiledetails.domain.ChipsInteractor
 import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileCompanyUseCase
 import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileUseCase
-import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
-import com.innoprog.android.feature.profile.profiledetails.domain.models.ProfileCompany
-import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,26 +27,16 @@ class ProfileViewModel @Inject constructor(
     private val _chipsUiState = MutableLiveData<ChipsScreenState>()
     val chipsUiState: LiveData<ChipsScreenState> = _chipsUiState
 
-    private var profile: Profile? = null
-    private var profileCompany: ProfileCompany? = null
-
     fun loadProfile() {
-        if (profile != null) {
-            _uiState.postValue(ProfileScreenState.Content(profile as Profile))
-        } else {
-            _uiState.value = ProfileScreenState.Error(ErrorType.UNEXPECTED)
+        viewModelScope.launch {
+            getProfileUseCase.getProfile().collect { response ->
+                when (response) {
+                    is Resource.Success -> {
+                        _uiState.postValue(ProfileScreenState.Content(response.data))
+                    }
 
-            viewModelScope.launch(Dispatchers.IO) {
-                getProfileUseCase.getProfile().collect { response ->
-                    when (response) {
-                        is Resource.Success -> {
-                            _uiState.postValue(ProfileScreenState.Content(response.data))
-                            profile = response.data
-                        }
-
-                        is Resource.Error -> {
-                            _uiState.postValue(ProfileScreenState.Error(response.errorType))
-                        }
+                    is Resource.Error -> {
+                        _uiState.postValue(ProfileScreenState.Error(response.errorType))
                     }
                 }
             }
@@ -58,29 +44,98 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun loadProfileCompany() {
-        if (profileCompany != null) {
-            _uiStateCompany.postValue(ProfileCompanyScreenState.Content(profileCompany as ProfileCompany))
-        } else {
-            _uiStateCompany.value = ProfileCompanyScreenState.Error(ErrorType.UNEXPECTED)
+        viewModelScope.launch {
+            getProfileCompanyUseCase.getProfileCompany().collect { response ->
+                when (response) {
+                    is Resource.Success -> {
+                        _uiStateCompany.postValue(ProfileCompanyScreenState.Content(response.data))
+                    }
 
-            viewModelScope.launch(Dispatchers.IO) {
-                getProfileCompanyUseCase.getProfileCompany().collect { response ->
-                    when (response) {
-                        is Resource.Success -> {
-                            _uiStateCompany.postValue(ProfileCompanyScreenState.Content(response.data))
-                            profileCompany = response.data
-                        }
-
-                        is Resource.Error -> {
-                            _uiStateCompany.postValue(ProfileCompanyScreenState.Error(response.errorType))
-                        }
+                    is Resource.Error -> {
+                        _uiStateCompany.postValue(ProfileCompanyScreenState.Error(response.errorType))
                     }
                 }
             }
         }
     }
 
-    fun loadChips() {
+    fun loadChipAll(authorId: String) {
+        viewModelScope.launch {
+            chipsInteractor.getAll(authorId).collect { response ->
+                when(response) {
+                    is Resource.Success -> {
+                        _chipsUiState.postValue(ChipsScreenState.All(response.data))
+                    }
 
+                    is Resource.Error -> {
+                        _chipsUiState.postValue(ChipsScreenState.Error(response.errorType))
+                    }
+                }
+            }
+        }
+    }
+
+    fun loadChipProjects(authorId: String) {
+        viewModelScope.launch {
+            chipsInteractor.getProjects(authorId).collect { response ->
+                when(response) {
+                    is Resource.Success -> {
+                        _chipsUiState.postValue(ChipsScreenState.Projects(response.data))
+                    }
+
+                    is Resource.Error -> {
+                        _chipsUiState.postValue(ChipsScreenState.Error(response.errorType))
+                    }
+                }
+            }
+        }
+    }
+
+    fun loadChipIdeas(type: String, authorId: String) {
+        viewModelScope.launch {
+            chipsInteractor.getIdeas(type, authorId).collect { response ->
+                when(response) {
+                    is Resource.Success -> {
+                        _chipsUiState.postValue(ChipsScreenState.Ideas(response.data))
+                    }
+
+                    is Resource.Error -> {
+                        _chipsUiState.postValue(ChipsScreenState.Error(response.errorType))
+                    }
+                }
+            }
+        }
+    }
+
+    fun loadChipLikes(lastId: String, pageSize: Int) {
+        viewModelScope.launch {
+            chipsInteractor.getLikes(lastId, pageSize).collect { response ->
+                when(response) {
+                    is Resource.Success -> {
+                        _chipsUiState.postValue(ChipsScreenState.Liked(response.data))
+                    }
+
+                    is Resource.Error -> {
+                        _chipsUiState.postValue(ChipsScreenState.Error(response.errorType))
+                    }
+                }
+            }
+        }
+    }
+
+    fun loadChipFavorites(lastId: String, pageSize: Int) {
+        viewModelScope.launch {
+            chipsInteractor.getFavorites(lastId, pageSize).collect { response ->
+                when(response) {
+                    is Resource.Success -> {
+                        _chipsUiState.postValue(ChipsScreenState.Favorites(response.data))
+                    }
+
+                    is Resource.Error -> {
+                        _chipsUiState.postValue(ChipsScreenState.Error(response.errorType))
+                    }
+                }
+            }
+        }
     }
 }
