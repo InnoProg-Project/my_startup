@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.tabs.TabLayoutMediator
@@ -20,7 +20,6 @@ import com.innoprog.android.feature.feed.anyProjectDetails.di.DaggerAnyProjectDe
 import com.innoprog.android.feature.feed.anyProjectDetails.domain.models.AnyProjectDetailsModel
 import com.innoprog.android.feature.imagegalleryadapter.ImageGalleryAdapter
 import com.innoprog.android.feature.training.common.VerticalSpaceDecorator
-import com.innoprog.android.feature.training.courseInformation.presentation.DocumentRecyclerViewAdapter
 import com.innoprog.android.uikit.R
 
 class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding, BaseViewModel>() {
@@ -29,18 +28,10 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
 
     private var galleryAdapter: ImageGalleryAdapter? = null
 
-    //private var listNews = ArrayList<>()
+    private var documentAdapter: DocumentAdapter? = null
 
-    /*private val newsAdapter: NewsAdapter by lazy {
-        NewsAdapter(listNews) { news ->
-            val action = AnyProjectFragmentDirections.actionProjectFragmentToNewsDetailsFragment(news.id)
-            findNavController().navigate(action)
-        }
-    }*/
-
-    private var documentAdapter: DocumentRecyclerViewAdapter? = null
     private val decorator: VerticalSpaceDecorator by lazy {
-        VerticalSpaceDecorator(resources.getDimensionPixelSize(R.dimen.margin_8))
+        VerticalSpaceDecorator(resources.getDimensionPixelSize(R.dimen.margin_16))
     }
 
     override fun diComponent(): ScreenComponent {
@@ -62,18 +53,14 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
 
         setUiListeners()
 
+        val args: AnyProjectDetailsFragmentArgs by navArgs()
+        val projectId = args.projectId
+
         viewModel.screenState.observe(viewLifecycleOwner) {
             updateUI(it)
         }
 
-        viewModel.getAnyProjectDetails("555")
-
-        //binding.rvPublications.adapter = newsAdapter
-        documentAdapter = DocumentRecyclerViewAdapter { url ->
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-        }
-        binding.rvDocuments.addItemDecoration(decorator)
-        binding.rvDocuments.adapter = documentAdapter
+        viewModel.getAnyProjectDetails(projectId)
     }
 
     private fun setUiListeners() {
@@ -99,6 +86,14 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position -> }.attach()
     }
 
+    private fun initDocumentsRecyclerView() {
+        documentAdapter = DocumentAdapter { url ->
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+        }
+        binding.rvDocuments.addItemDecoration(decorator)
+        binding.rvDocuments.adapter = documentAdapter
+    }
+
     private fun updateUI(state: AnyProjectDetailsScreenState) {
         when (state) {
             is AnyProjectDetailsScreenState.Loading -> showLoading()
@@ -119,33 +114,17 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
         binding.apply {
             initImageGallery()
             loadProjectInfo(anyProjectDetails)
+            initDocumentsRecyclerView()
+            if (anyProjectDetails.documents != null) {
+                documentAdapter?.items = anyProjectDetails.documents
+            }
             tvShortDescription.text = anyProjectDetails.shortDescription
             tvDescription.text = anyProjectDetails.description
             tvFinancingStageValue.text = anyProjectDetails.financingStage
-            tvDeadline.text = anyProjectDetails.deadline
-
-
-            /*Glide.with(requireContext())
-                .load(anyProject.logoFilePath)
-                .placeholder(R.drawable.ic_placeholder_logo)
-                .centerCrop()
-                .transform(RoundedCorners(radius))
-                .into(ivProjectLogo)
-
-            tvProjectName.text = anyProject.name
-            tvProjectDirection.text = anyProject.area
-            tvProjectDescription.text = anyProject.shortDescription
-            tvProjectNews.text =
-                format(getString(R.string.project_news), anyProject.publicationsCount)
-
-            if (anyProject.projectNews != null) {
-                rvPublications.isVisible = true
-                newsAdapter.newsList.clear()
-                newsAdapter.newsList.addAll(anyProject.projectNews)
-                newsAdapter.notifyDataSetChanged()
-            } else {
-                rvPublications.isVisible = false
-            }*/
+            tvDeadlineValue.text = anyProjectDetails.deadline
+            tvLinkToWebValue.text = anyProjectDetails.siteUrls[0]
+            tvLinkToAppValue.text = anyProjectDetails.siteUrls[1]
+            tvLinkToSocialNetworkValue.text = anyProjectDetails.siteUrls[2]
         }
     }
 

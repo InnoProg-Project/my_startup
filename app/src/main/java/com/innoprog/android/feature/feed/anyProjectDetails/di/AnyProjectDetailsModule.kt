@@ -19,8 +19,12 @@ interface AnyProjectDetailsModule {
     fun bindAnyProjectDetailsViewModel(impl: AnyProjectDetailsViewModel): ViewModel
 
     @Binds
-    fun bindAnyProjectDetailsRepository(anyProjectDetailsRepositoryImpl: AnyProjectDetailsRepositoryImpl): AnyProjectDetailsRepository
+    fun bindAnyProjectDetailsRepository(
+        anyProjectDetailsRepositoryImpl: AnyProjectDetailsRepositoryImpl
+    ): AnyProjectDetailsRepository
 
     @Binds
-    fun bindAnyProjectDetailsInteractor(anyProjectDetailsInteractorImpl: AnyProjectDetailsInteractorImpl): AnyProjectDetailsInteractor
+    fun bindAnyProjectDetailsInteractor(
+        anyProjectDetailsInteractorImpl: AnyProjectDetailsInteractorImpl
+    ): AnyProjectDetailsInteractor
 }

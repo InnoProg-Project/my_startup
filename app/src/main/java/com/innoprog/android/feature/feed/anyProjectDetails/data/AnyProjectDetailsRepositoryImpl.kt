@@ -19,7 +19,8 @@ class AnyProjectDetailsRepositoryImpl @Inject constructor() : AnyProjectDetailsR
     )
 
     private val document = DocumentModel(
-        documentURL = "",
+        documentURL = "https://img.freepik.com/free-vector/ai-technology-microchip-background-" +
+            "vector-digital-transformation-concept_53876-112222.jpg",
         documentTitle = "Отчёт по инвестициям за I квартал 2024.docx"
     )
 

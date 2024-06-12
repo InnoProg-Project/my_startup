@@ -40,6 +40,6 @@ class AnyProjectDetailsViewModel @Inject constructor(
     }
 
     private fun setState(state: AnyProjectDetailsScreenState) {
-        _screenState.value = state
+        _screenState.postValue(state)
     }
 }
