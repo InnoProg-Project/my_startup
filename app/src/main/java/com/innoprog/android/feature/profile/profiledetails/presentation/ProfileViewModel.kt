@@ -79,4 +79,8 @@ class ProfileViewModel @Inject constructor(
             }
         }
     }
+
+    fun loadChips() {
+
+    }
 }

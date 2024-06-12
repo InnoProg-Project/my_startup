@@ -6,8 +6,9 @@ import com.innoprog.android.feature.profile.profiledetails.domain.ChipsProfileRe
 import com.innoprog.android.feature.profile.profiledetails.domain.models.Project
 import com.innoprog.android.util.Resource
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class ChipsInteractorImpl(private val repo: ChipsProfileRepo): ChipsInteractor {
+class ChipsInteractorImpl @Inject constructor  (private val repo: ChipsProfileRepo): ChipsInteractor {
 
     override suspend fun getAll(authorId: String): Flow<Resource<List<News>>> {
         return repo.getAll(authorId)
