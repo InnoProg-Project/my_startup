@@ -6,10 +6,12 @@ import com.innoprog.android.feature.profile.profiledetails.data.impl.ChipsProfil
 import com.innoprog.android.feature.profile.profiledetails.data.impl.ProfileInfoRepoImpl
 import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileApi
 import com.innoprog.android.feature.profile.profiledetails.data.network.RetrofitClient
+import com.innoprog.android.feature.profile.profiledetails.domain.ChipsInteractor
 import com.innoprog.android.feature.profile.profiledetails.domain.ChipsProfileRepo
 import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileCompanyUseCase
 import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileUseCase
 import com.innoprog.android.feature.profile.profiledetails.domain.ProfileInfoRepo
+import com.innoprog.android.feature.profile.profiledetails.domain.impl.ChipsInteractorImpl
 import com.innoprog.android.feature.profile.profiledetails.domain.impl.GetProfileCompanyUseCaseImpl
 import com.innoprog.android.feature.profile.profiledetails.domain.impl.GetProfileUseCaseImpl
 import com.innoprog.android.feature.profile.profiledetails.presentation.ProfileViewModel
@@ -44,6 +46,9 @@ interface ProfileModule {
 
     @Binds
     fun bindChipsRepository(impl: ChipsProfileRepoImpl): ChipsProfileRepo
+
+    @Binds
+    fun bindChipsInteractor(impl: ChipsInteractorImpl): ChipsInteractor
 
     @Module
     class ProfileInfoApiModule {

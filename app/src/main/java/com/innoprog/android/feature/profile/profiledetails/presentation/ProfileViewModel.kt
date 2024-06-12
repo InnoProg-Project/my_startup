@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.innoprog.android.base.BaseViewModel
+import com.innoprog.android.feature.profile.profiledetails.domain.ChipsInteractor
 import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileCompanyUseCase
 import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileUseCase
 import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(
     private val getProfileUseCase: GetProfileUseCase,
-    private val getProfileCompanyUseCase: GetProfileCompanyUseCase
+    private val getProfileCompanyUseCase: GetProfileCompanyUseCase,
+    private val chipsInteractor: ChipsInteractor
 ) :
     BaseViewModel() {
 
@@ -25,6 +27,9 @@ class ProfileViewModel @Inject constructor(
 
     private val _uiStateCompany = MutableLiveData<ProfileCompanyScreenState>()
     val uiStateCompany: LiveData<ProfileCompanyScreenState> = _uiStateCompany
+
+    private val _chipsUiState = MutableLiveData<ChipsScreenState>()
+    val chipsUiState: LiveData<ChipsScreenState> = _chipsUiState
 
     private var profile: Profile? = null
     private var profileCompany: ProfileCompany? = null
