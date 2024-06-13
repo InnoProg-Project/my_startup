@@ -224,12 +224,15 @@ class InnoProgInputView @JvmOverloads constructor(
         }
     }
 
+    fun setCaption(text: String) {
+        captionTextView.text = text
+    }
+
     fun setSingleLine(singleLine: Boolean) {
         editTextView.isSingleLine = singleLine
     }
 
     companion object {
-
         const val FULL_VISIBLE = 1f
         const val VISIBILITY_40_PERCENT = 0.4f
 

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentProfileBinding
@@ -73,7 +72,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
 
     private fun initTopBar() {
         binding.topbarProfile.setRightIconClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_profile_bottom_sheet)
+            val direction = ProfileFragmentDirections.actionProfileFragmentToProfileBottomSheet()
+            findNavController().navigate(direction)
         }
     }
 
