@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
@@ -45,7 +46,7 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
 
         binding.btnLogin.setOnClickListener {
             viewModel.verify(binding.ivLogin.getText(), binding.ivPassword.getText())
-            viewModel.navigateTo(R.id.mainFragment, bundleOf(), navOptions {
+            viewModel.navigateTo(R.id.feedFragment, bundleOf(), navOptions {
                 launchSingleTop = true
                 popUpTo(R.id.nav_graph) {
                     inclusive = true
@@ -55,7 +56,9 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
 
         binding.topBar.setRightIconClickListener {
             viewModel.verify(binding.ivLogin.getText(), binding.ivPassword.getText())
-            viewModel.navigateTo(R.id.mainFragment, bundleOf(), navOptions {
+            val direction =
+                AuthorizationFragmentDirections.actionAuthorizationFragmentToFeedFragment()
+            findNavController().navigate(direction, navOptions {
                 launchSingleTop = true
                 popUpTo(R.id.nav_graph) {
                     inclusive = true
