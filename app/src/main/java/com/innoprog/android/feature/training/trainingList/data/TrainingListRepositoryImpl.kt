@@ -20,7 +20,7 @@ class TrainingListRepositoryImpl @Inject constructor(
             val response = courseApi.getCourseList()
             val body = response.body()
             if (response.isSuccessful && body != null) {
-                emit(Result.Success(body.courseList.map { it.mapToDomain() }))
+                emit(Result.Success(body.map { it.mapToDomain() }))
             } else {
                 when (response.code()) {
                     GetCourseListError.NOT_FOUND.code -> {
@@ -44,34 +44,11 @@ class TrainingListRepositoryImpl @Inject constructor(
             Log.e(TAG, "error -> ${exception.localizedMessage}")
             if (exception is SocketTimeoutException) {
                 emit(Result.Error(GetCourseListError.NO_CONNECTION))
-            } else {
-                emit(Result.Success(mockResponse()))
             }
         }
-    }
-
-    private fun mockResponse(): List<CourseShort> {
-        val courses = mutableListOf<CourseShort>()
-        repeat(MOCK_SIZE) {
-            val name = if (it % 2 == 0) {
-                "Алексей"
-            } else {
-                "Унтура Михаил"
-            }
-            courses.add(CourseShort(
-                id = it.toString(),
-                direction = "Мобильная разработка",
-                title = "Работа с сетью",
-                description = "Взаимодействие с Retrofit",
-                authorName = name,
-                createdDate = "03.06.2024"
-            ))
-        }
-        return courses
     }
 
     companion object {
         private val TAG = TrainingListRepository::class.simpleName
-        private const val MOCK_SIZE = 100
     }
 }

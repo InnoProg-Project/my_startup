@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.innoprog.android.databinding.ItemTrainingBinding
 import com.innoprog.android.feature.training.trainingList.domain.model.CourseShort
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class TrainingRecyclerViewAdapter(
     private val onItemClickListener: (courseId: String) -> Unit = {}
@@ -30,14 +32,16 @@ class TrainingRecyclerViewAdapter(
     }
 }
 
-class TrainingListViewHolder(private val binding: ItemTrainingBinding) : RecyclerView.ViewHolder(binding.root) {
+class TrainingListViewHolder(private val binding: ItemTrainingBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: CourseShort) {
         binding.trainingDirection.text = item.direction
         binding.trainingTitle.text = item.title
         binding.trainingDescription.text = item.description
         binding.trainingAuthorName.text = item.authorName
-        binding.trainingDate.text = item.createdDate
+        val date = LocalDate.parse(item.createdDate, DateTimeFormatter.ISO_DATE)
+        binding.trainingDate.text = date.format(DateTimeFormatter.ofPattern("dd MMM"))
         val initials = item.authorName
             .split(' ')
             .map { it.first().uppercaseChar() }
