@@ -5,6 +5,7 @@ import android.content.Context
 import com.innoprog.android.db.RoomDB
 import com.innoprog.android.db.RoomDBModule
 import com.innoprog.android.network.data.NetworkModule
+import com.innoprog.android.network.domain.AuthorizationDataRepository
 import dagger.BindsInstance
 import dagger.Component
 import retrofit2.Retrofit
@@ -20,6 +21,7 @@ interface AppComponent : DIComponent {
     val room: RoomDB
     val context: Context
     val retrofit: Retrofit
+    val authData: AuthorizationDataRepository
 
     @Component.Builder
     interface Builder {
