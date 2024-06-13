@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.navigation.navOptions
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
@@ -170,7 +169,8 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
     }
 
     private fun forwardNavigate() {
-        viewModel.navigateTo(R.id.mainFragment, bundleOf(), navOptions {
+        val direction = RegistrationFragmentDirections.actionRegistrationFragmentToFeedFragment()
+        viewModel.navigateTo(direction, navOptions {
             launchSingleTop = true
             popUpTo(R.id.nav_graph) {
                 inclusive = true

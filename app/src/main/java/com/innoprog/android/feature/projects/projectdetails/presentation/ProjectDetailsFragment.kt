@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,32 +23,29 @@ class ProjectDetailsFragment : BaseFragment<FragmentProjectDetailsBinding, BaseV
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentProjectDetailsBinding {
+        Log.v(TAG, "starting $TAG")
         return FragmentProjectDetailsBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initButton()
-
         val projectNameTextWatcher = object : TextChangedListener {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 checkConditionsAndSetSubmitButton()
             }
         }
-
         binding.projectName.addTextChangedListener(projectNameTextWatcher)
-
         val shortDescriptionTextWatcher = object : TextChangedListener {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 checkConditionsAndSetSubmitButton()
             }
         }
-
         binding.ShortDescription.addTextChangedListener(shortDescriptionTextWatcher)
     }
 
     private fun initButton() {
+        binding.topbar.setLeftIconClickListener { viewModel.navigateUp() }
         binding.btLoadingLogo.setOnClickListener {
             openImagePicker()
         }
@@ -108,5 +106,6 @@ class ProjectDetailsFragment : BaseFragment<FragmentProjectDetailsBinding, BaseV
 
     companion object {
         private const val IMAGE_PICKER_REQUEST_CODE = 100
+        private val TAG = ProjectDetailsFragment::class.simpleName
     }
 }

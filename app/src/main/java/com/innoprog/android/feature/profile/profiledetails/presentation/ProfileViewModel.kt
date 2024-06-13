@@ -36,15 +36,17 @@ class ProfileViewModel @Inject constructor(
             _uiState.value = ProfileScreenState.Error(ErrorType.UNEXPECTED)
 
             viewModelScope.launch(Dispatchers.IO) {
-                getProfileUseCase.getProfile().collect { response ->
-                    when (response) {
-                        is Resource.Success -> {
-                            _uiState.postValue(ProfileScreenState.Content(response.data))
-                            profile = response.data
-                        }
+                runCatching {
+                    getProfileUseCase.getProfile().collect { response ->
+                        when (response) {
+                            is Resource.Success -> {
+                                _uiState.postValue(ProfileScreenState.Content(response.data))
+                                profile = response.data
+                            }
 
-                        is Resource.Error -> {
-                            _uiState.postValue(ProfileScreenState.Error(response.errorType))
+                            is Resource.Error -> {
+                                _uiState.postValue(ProfileScreenState.Error(response.errorType))
+                            }
                         }
                     }
                 }
@@ -59,15 +61,17 @@ class ProfileViewModel @Inject constructor(
             _uiStateCompany.value = ProfileCompanyScreenState.Error(ErrorType.UNEXPECTED)
 
             viewModelScope.launch(Dispatchers.IO) {
-                getProfileCompanyUseCase.getProfileCompany().collect { response ->
-                    when (response) {
-                        is Resource.Success -> {
-                            _uiStateCompany.postValue(ProfileCompanyScreenState.Content(response.data))
-                            profileCompany = response.data
-                        }
+                runCatching {
+                    getProfileCompanyUseCase.getProfileCompany().collect { response ->
+                        when (response) {
+                            is Resource.Success -> {
+                                _uiStateCompany.postValue(ProfileCompanyScreenState.Content(response.data))
+                                profileCompany = response.data
+                            }
 
-                        is Resource.Error -> {
-                            _uiStateCompany.postValue(ProfileCompanyScreenState.Error(response.errorType))
+                            is Resource.Error -> {
+                                _uiStateCompany.postValue(ProfileCompanyScreenState.Error(response.errorType))
+                            }
                         }
                     }
                 }

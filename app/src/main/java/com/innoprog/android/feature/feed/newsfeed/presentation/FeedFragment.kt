@@ -23,7 +23,6 @@ import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.feed.newsfeed.di.DaggerFeedComponent
 import com.innoprog.android.feature.feed.newsfeed.domain.models.News
-import com.innoprog.android.feature.mainscreen.presentation.MainFragmentDirections
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
 import com.innoprog.android.uikit.InnoProgChipGroupView
 
@@ -34,7 +33,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     private var listNews: ArrayList<News> = arrayListOf()
     private val newsAdapter: NewsAdapter by lazy {
         NewsAdapter(listNews) { news ->
-            val action = MainFragmentDirections.actionMainFragmentToNewsDetailsFragment(news.id)
+            val action = FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(news.id)
             findNavController().navigate(action)
         }
     }

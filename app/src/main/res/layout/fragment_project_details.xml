@@ -16,9 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/background_primary"
-            android:gravity="center_horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:topBar_left_icon="@drawable/ic_back"
             app:topBar_title="@string/step_1" />
@@ -44,9 +41,9 @@
             style="@style/TextHeadline_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_primary"
-            android:paddingVertical="@dimen/padding_16"
+            android:layout_marginTop="@dimen/padding_16"
             android:text="@string/tell_us_about_the_project"
+            android:textColor="@color/text_primary"
             app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toBottomOf="@id/topbar" />
@@ -55,7 +52,7 @@
             android:id="@+id/projectName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginTop="@dimen/margin_32"
             app:label="@string/name_project"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
@@ -77,7 +74,7 @@
             android:id="@+id/Description"
             android:layout_width="0dp"
             android:layout_height="134dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/margin_8"
             app:label="@string/descriptions"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
@@ -99,35 +96,34 @@
                 style="@style/TextSubtitle_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_primary"
                 android:layout_marginTop="@dimen/margin_16"
-                android:text="@string/logo" />
+                android:text="@string/logo"
+                android:textColor="@color/text_primary" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/logoIcon"
-                app:cardCornerRadius="20dp"
-                android:layout_marginTop="@dimen/margin_16"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16"
+                android:visibility="gone"
+                app:cardCornerRadius="20dp">
 
                 <ImageView
                     android:id="@+id/logoImageView"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:scaleType="centerCrop"
-                    android:visibility="gone"/>
+                    android:importantForAccessibility="no"
+                    android:scaleType="centerCrop" />
 
                 <ImageButton
                     android:id="@+id/deleteLogoButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/delete_logo_button"
-                    android:background="@android:color/transparent"
+                    android:layout_gravity="top|end"
                     android:layout_marginTop="@dimen/margin_16"
                     android:layout_marginEnd="@dimen/margin_16"
-                    android:layout_gravity="top|end"
-                    android:visibility="gone"/>
-
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/delete_logo_button" />
             </androidx.cardview.widget.CardView>
 
 
@@ -157,18 +153,18 @@
             android:id="@+id/btСontinue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_8"
             android:layout_marginHorizontal="@dimen/margin_8"
+            android:layout_marginTop="@dimen/margin_74"
+            android:layout_marginBottom="@dimen/margin_8"
             android:gravity="center"
             app:buttonSize="large"
             app:buttonState="disabled"
             app:buttonText="@string/resume"
             app:buttonType="primary"
-            android:layout_marginTop="@dimen/margin_74"
-            app:layout_constraintTop_toBottomOf="@id/logoContainer"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/logoContainer" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

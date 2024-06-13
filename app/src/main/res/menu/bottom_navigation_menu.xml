@@ -9,7 +9,7 @@
         android:icon="@drawable/ic_projects"
         android:title="@string/projects" />
     <item
-        android:id="@+id/trainingFragment"
+        android:id="@+id/trainingListFragment"
         android:icon="@drawable/ic_training"
         android:title="@string/training" />
     <item
