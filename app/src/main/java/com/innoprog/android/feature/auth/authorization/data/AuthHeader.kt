@@ -1,5 +1,5 @@
 package com.innoprog.android.feature.auth.authorization.data
 
-object AuthorizationBody {
+object AuthHeader {
     var data: String = ""
 }

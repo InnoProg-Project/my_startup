@@ -24,7 +24,7 @@ class AuthorisationRepositoryImpl @Inject constructor(
             Log.d("1234", response.code().toString())
             when (response.code()) {
                 SUCCESS -> {
-                    AuthorizationBody.data = authData
+                    AuthHeader.data = header
                     emit(AuthState.SUCCESS)
                 }
                 ERROR -> emit(AuthState.VERIFICATION_ERROR)
