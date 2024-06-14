@@ -53,7 +53,7 @@
                 android:id="@+id/group_project"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:constraint_referenced_ids="cl_project,title_project" />
 
             <TextView
@@ -92,7 +92,7 @@
                     tools:src="@drawable/course_logo_sample" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/tv_project_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/margin_16"
@@ -105,14 +105,15 @@
                     tools:text="Мой Стартап" />
 
                 <TextView
+                    android:id="@+id/tv_project_area"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="top"
                     android:textAppearance="@style/TextBody_2"
                     android:textColor="@color/text_secondary"
-                    app:layout_constraintEnd_toEndOf="@+id/textView"
-                    app:layout_constraintStart_toStartOf="@+id/textView"
-                    app:layout_constraintTop_toBottomOf="@+id/textView"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_project_name"
+                    app:layout_constraintStart_toStartOf="@+id/tv_project_name"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_project_name"
                     tools:text="Искусственный интеллект" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -186,9 +187,9 @@
                 android:accessibilityTraversalBefore="@id/loadInfoTV"
                 android:foregroundGravity="bottom"
                 android:gravity="center_horizontal"
+                app:buttonState="disabled"
                 app:buttonText="@string/publish"
                 app:buttonType="primary"
-                app:buttonState="disabled"
                 app:layout_constraintBottom_toBottomOf="@+id/bottomBorder"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

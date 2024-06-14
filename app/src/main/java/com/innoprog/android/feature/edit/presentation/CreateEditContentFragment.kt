@@ -14,8 +14,10 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
@@ -101,10 +103,10 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
                 binding.inputText.addTextChangedListener(createTextWatcher)
                 binding.groupProject.visibility = View.GONE
                 binding.saveBV.setOnClickListener {
-                    viewModel.saveIdea(
+                    viewModel.saveNewIdea(
                         binding.inputTitle.getText(),
                         binding.inputText.getText()
-                    )
+                    ) { findNavController().popBackStack() }
                 }
 
             }
@@ -114,13 +116,33 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
                 binding.saveBV.setText(getString(R.string.publish))
                 binding.inputTitle.setHintText(getString(R.string.title_of_news))
                 binding.inputText.setHintText(getString(R.string.text_publish))
+                binding.inputTitle.addTextChangedListener(createTextWatcher)
+                binding.inputText.addTextChangedListener(createTextWatcher)
                 binding.groupProject.visibility = View.VISIBLE
+                binding.saveBV.setOnClickListener {
+                    viewModel.saveNewPublication(
+                        binding.inputTitle.getText(),
+                        binding.inputText.getText()
+                    ) { findNavController().popBackStack() }
+                }
             }
 
             is CreateEditContentState.EditPublication -> {
                 binding.topBar.setTitleText(getText(R.string.edit_publish))
                 binding.saveBV.setText(getString(R.string.save))
                 binding.groupProject.visibility = View.VISIBLE
+                binding.inputTitle.setHintText(getString(R.string.title_of_news))
+                binding.inputText.setHintText(getString(R.string.text_publish))
+                binding.inputTitle.setText(state.publication.title)
+                binding.inputText.setText(state.publication.content)
+                binding.inputTitle.addTextChangedListener(createTextWatcher)
+                binding.inputText.addTextChangedListener(createTextWatcher)
+                binding.saveBV.setOnClickListener {
+                    viewModel.saveModifiedPublication(
+                        binding.inputTitle.getText(),
+                        binding.inputText.getText()
+                    ) { findNavController().popBackStack() }
+                }
             }
 
             is CreateEditContentState.MediaAttachList -> {
@@ -134,6 +156,15 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
             }
 
             is CreateEditContentState.Error -> showError(state.errorMassage)
+            is CreateEditContentState.ProjectInfo -> {
+
+                Glide.with(binding.ivProjectLogo)
+                    .load(state.projectModel.logo)
+                    .placeholder(R.drawable.ic_placeholder_logo)
+                    .into(binding.ivProjectLogo)
+                binding.tvProjectName.text = state.projectModel.name
+                binding.tvProjectArea.text = state.projectModel.area
+            }
         }
     }
 
