@@ -30,7 +30,7 @@ interface ProfileApi {
     @GET("/v1/feed/likes")
     suspend fun getLikes(
         @Query("pageSize") pageSize: Int
-    ):IdeaResponse
+    ): IdeaResponse
 
     @GET("/v1/feed/favorites")
     suspend fun getFavorites(

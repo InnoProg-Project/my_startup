@@ -31,7 +31,7 @@ class ViewHolder(private val binding: ItemNewsBinding) :
                     projectCard.isVisible = false
 
                     //   val url = publication.author.avatarUrl
-                    val placeholderResId = com.innoprog.android.uikit.R.drawable.ic_person
+                    // val placeholderResId = com.innoprog.android.uikit.R.drawable.ic_person
                     /*
                     val imageType =
                         url?.let { ImageLoadingType.ImageNetwork(it, placeholderResId = placeholderResId) }
@@ -73,8 +73,8 @@ class ViewHolder(private val binding: ItemNewsBinding) :
                     tvProjectName.text = "News Project"
                     tvProjectDirection.text = "News Direction"
 
-                    //    val url = publication.author.avatarUrl
-                    val placeholderResId = com.innoprog.android.uikit.R.drawable.ic_person
+                    // val url = publication.author.avatarUrl
+                    // val placeholderResId = com.innoprog.android.uikit.R.drawable.ic_person
                     /*
                     val imageType =
                         url?.let { ImageLoadingType.ImageNetwork(it, placeholderResId = placeholderResId) }

@@ -62,7 +62,7 @@ class ProfileViewModel @Inject constructor(
     fun loadChipAll(authorId: String) {
         viewModelScope.launch {
             chipsInteractor.getAll(authorId).collect { response ->
-                when(response) {
+                when (response) {
                     is Resource.Success -> {
                         _chipsUiState.postValue(ChipsScreenState.All(response.data))
                     }
@@ -78,7 +78,7 @@ class ProfileViewModel @Inject constructor(
     fun loadChipProjects(authorId: String) {
         viewModelScope.launch {
             chipsInteractor.getProjects(authorId).collect { response ->
-                when(response) {
+                when (response) {
                     is Resource.Success -> {
                         _chipsUiState.postValue(ChipsScreenState.Projects(response.data))
                     }
@@ -94,7 +94,7 @@ class ProfileViewModel @Inject constructor(
     fun loadChipIdeas(type: String, authorId: String) {
         viewModelScope.launch {
             chipsInteractor.getIdeas(type, authorId).collect { response ->
-                when(response) {
+                when (response) {
                     is Resource.Success -> {
                         _chipsUiState.postValue(ChipsScreenState.Ideas(response.data))
                     }
@@ -110,7 +110,7 @@ class ProfileViewModel @Inject constructor(
     fun loadChipLiked(pageSize: Int) {
         viewModelScope.launch {
             chipsInteractor.getLikes(pageSize).collect { response ->
-                when(response) {
+                when (response) {
                     is Resource.Success -> {
                         _chipsUiState.postValue(ChipsScreenState.Liked(response.data))
                     }
@@ -126,7 +126,7 @@ class ProfileViewModel @Inject constructor(
     fun loadChipFavorites(pageSize: Int) {
         viewModelScope.launch {
             chipsInteractor.getFavorites(pageSize).collect { response ->
-                when(response) {
+                when (response) {
                     is Resource.Success -> {
                         _chipsUiState.postValue(ChipsScreenState.Favorites(response.data))
                     }

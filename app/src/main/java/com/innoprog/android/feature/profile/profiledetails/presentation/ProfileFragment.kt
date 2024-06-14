@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentProfileBinding
@@ -108,11 +107,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
             override fun onChipSelected(chipIndex: Int) {
                 user?.let { user ->
                     when (chipIndex) {
-                        0 -> viewModel.loadChipAll(authorId = user.userId)
-                        1 -> viewModel.loadChipProjects(authorId = user.userId)
-                        2 -> viewModel.loadChipIdeas(type = TYPE_IDEA, authorId = user.userId)
-                        3 -> viewModel.loadChipLiked(pageSize = PAGE_SIZE)
-                        4 -> viewModel.loadChipFavorites(pageSize = PAGE_SIZE)
+                        FIRST -> viewModel.loadChipAll(authorId = user.userId)
+                        SECOND -> viewModel.loadChipProjects(authorId = user.userId)
+                        THIRD -> viewModel.loadChipIdeas(type = TYPE_IDEA, authorId = user.userId)
+                        FOURTH -> viewModel.loadChipLiked(pageSize = PAGE_SIZE)
+                        FIFTH -> viewModel.loadChipFavorites(pageSize = PAGE_SIZE)
                     }
                 }
             }
@@ -128,12 +127,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
 
     private fun initAdapter() {
         with(binding) {
-            recyclerAll.layoutManager = LinearLayoutManager(context)
-            recyclerProjects.layoutManager = LinearLayoutManager(context)
-            recyclerIdeas.layoutManager = LinearLayoutManager(context)
-            recyclerLikes.layoutManager = LinearLayoutManager(context)
-            recyclerFavorites.layoutManager = LinearLayoutManager(context)
-
             recyclerAll.adapter = adapter
             recyclerProjects.adapter = adapter
             recyclerIdeas.adapter = adapter
@@ -179,7 +172,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
             is ChipsScreenState.Favorites -> showUserFavorites()
 
             is ChipsScreenState.Error -> showPlaceholder()
-
         }
     }
 
@@ -283,5 +275,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
         private const val FAVORITES = "Избранное"
         private const val PAGE_SIZE = 10
         private const val TYPE_IDEA = "IDEA"
+        private const val FIRST = 0
+        private const val SECOND = 1
+        private const val THIRD = 2
+        private const val FOURTH = 3
+        private const val FIFTH = 4
     }
 }
