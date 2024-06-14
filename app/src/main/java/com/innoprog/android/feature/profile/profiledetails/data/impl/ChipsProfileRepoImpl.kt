@@ -1,10 +1,10 @@
 package com.innoprog.android.feature.profile.profiledetails.data.impl
 
-import com.innoprog.android.feature.feed.newsfeed.domain.models.News
-import com.innoprog.android.feature.profile.profiledetails.data.network.NewsResponse
+import com.innoprog.android.feature.profile.profiledetails.data.network.IdeaResponse
 import com.innoprog.android.feature.profile.profiledetails.data.network.ProjectResponse
 import com.innoprog.android.feature.profile.profiledetails.data.network.Request
 import com.innoprog.android.feature.profile.profiledetails.domain.ChipsProfileRepo
+import com.innoprog.android.feature.profile.profiledetails.domain.models.FeedWrapper
 import com.innoprog.android.feature.profile.profiledetails.domain.models.Project
 import com.innoprog.android.network.data.ApiConstants
 import com.innoprog.android.network.data.NetworkClient
@@ -18,70 +18,97 @@ class ChipsProfileRepoImpl @Inject constructor(
     private val network: NetworkClient
 ) : ChipsProfileRepo {
 
-    override suspend fun getAll(authorId: String): Flow<Resource<List<News>>> = flow {
+    override suspend fun getAll(authorId: String): Flow<Resource<List<FeedWrapper>>> = flow {
         val response = network.doRequest(Request.GetAll(authorId))
 
-        if (response is NewsResponse && response.resultCode == ApiConstants.SUCCESS_CODE) {
-            val list: List<News> = response.results.map {
-                News(
-                    it.id,
-                    it.type,
-                    it.author,
-                    it.projectId,
-                    it.coverUrl,
-                    it.title,
-                    it.content,
-                    it.publishedAt,
-                    it.likesCount,
-                    it.commentsCount
-                )
+        if (response is IdeaResponse && response.resultCode == ApiConstants.SUCCESS_CODE) {
+            val list: List<FeedWrapper> = response.results.map {
+                when (it.type) {
+                    IDEA -> FeedWrapper.Idea(
+                        it.id,
+                        it.type,
+                        it.author,
+                        it.projectId,
+                        it.title,
+                        it.content,
+                        it.publishedAt,
+                        it.likesCount,
+                        it.commentsCount,
+                        it.attachments,
+                        it.isLiked,
+                        it.isFavorite
+                    )
+
+                    NEWS -> FeedWrapper.News(
+                        it.id,
+                        it.type,
+                        it.author,
+                        it.projectId,
+                        it.title,
+                        it.content,
+                        it.publishedAt,
+                        it.likesCount,
+                        it.commentsCount,
+                        it.attachments,
+                        it.isLiked,
+                        it.isFavorite
+                    )
+
+                    else -> throw IllegalArgumentException("Unknown feed item type: ${it.type}")
+                }
             }
             emit(Resource.Success(list))
         } else
             emit(Resource.Error(getErrorType(response.resultCode)))
     }
 
-    override suspend fun getProjects(userId: String): Flow<Resource<List<Project>>> = flow {
-        val response = network.doRequest(Request.GetProjects(userId))
+    override suspend fun getProjects(userId: String): Flow<Resource<List<Project>>> =
+        flow {
+            val response = network.doRequest(Request.GetProjects(userId))
 
-        if (response is ProjectResponse && response.resultCode == ApiConstants.SUCCESS_CODE) {
-            val projectList: List<Project> = response.results.map {
-                Project(
-                    it.id,
-                    it.name,
-                    it.shortDescription,
-                    it.description,
-                    it.logoFilePath,
-                    it.publicationsCount,
-                    it.area,
-                    it.financingStage,
-                    it.deadline,
-                    it.siteUrls,
-                    it.documentUrls,
-                    it.projectAttachments
-                )
-            }
-            emit(Resource.Success(projectList))
-        } else
-            emit(Resource.Error(getErrorType(response.resultCode)))
-    }
+            if (response is ProjectResponse && response.resultCode == ApiConstants.SUCCESS_CODE) {
+                val projectList: List<Project> = response.results.map {
+                    Project(
+                        it.id,
+                        it.name,
+                        it.shortDescription,
+                        it.description,
+                        it.logoFilePath,
+                        it.publicationsCount,
+                        it.area,
+                        it.financingStage,
+                        it.deadline,
+                        it.siteUrls,
+                        it.documentUrls,
+                        it.projectAttachments
+                    )
+                }
+                emit(Resource.Success(projectList))
+            } else
+                emit(Resource.Error(getErrorType(response.resultCode)))
+        }
 
-    override suspend fun getIdeas(type: String, userId: String): Flow<Resource<List<News>>> = flow {
+    override suspend fun getIdeas(
+        type: String,
+        userId: String
+    ): Flow<Resource<List<FeedWrapper.Idea>>> = flow {
         val response = network.doRequest(Request.GetIdeas(type, userId))
 
-        if (response is NewsResponse && response.resultCode == ApiConstants.SUCCESS_CODE) {
-            val ideaList: List<News> = response.results.map {
-                News(
+        if (response is IdeaResponse && response.resultCode == ApiConstants.SUCCESS_CODE) {
+            val ideaList: List<FeedWrapper.Idea> = response.results.map {
+                FeedWrapper.Idea(
                     it.id,
                     it.type,
                     it.author,
                     it.projectId,
-                    it.coverUrl,
                     it.title,
                     it.content,
                     it.publishedAt,
                     it.likesCount,
-                    it.commentsCount
+                    it.commentsCount,
+                    it.attachments,
+                    it.isLiked,
+                    it.isFavorite
                 )
             }
             emit(Resource.Success(ideaList))
@@ -89,48 +116,90 @@ class ChipsProfileRepoImpl @Inject constructor(
             emit(Resource.Error(getErrorType(response.resultCode)))
     }
 
-    override suspend fun getLikes(lastId: String, pageSize: Int): Flow<Resource<List<News>>> =
+    override suspend fun getLikes(pageSize: Int): Flow<Resource<List<FeedWrapper>>> =
         flow {
-            val response = network.doRequest(Request.GetLikes(lastId, pageSize))
+            val response = network.doRequest(Request.GetLikes(pageSize))
 
-            if (response is NewsResponse && response.resultCode == ApiConstants.SUCCESS_CODE) {
-                val likesList: List<News> = response.results.map {
-                    News(
-                        it.id,
-                        it.type,
-                        it.author,
-                        it.projectId,
-                        it.coverUrl,
-                        it.title,
-                        it.content,
-                        it.publishedAt,
-                        it.likesCount,
-                        it.commentsCount
-                    )
+            if (response is IdeaResponse && response.resultCode == ApiConstants.SUCCESS_CODE) {
+                val likesList: List<FeedWrapper> = response.results.map {
+                    when (it.type) {
+                        IDEA -> FeedWrapper.Idea(
+                            it.id,
+                            it.type,
+                            it.author,
+                            it.projectId,
+                            it.title,
+                            it.content,
+                            it.publishedAt,
+                            it.likesCount,
+                            it.commentsCount,
+                            it.attachments,
+                            it.isLiked,
+                            it.isFavorite
+                        )
+
+                        NEWS -> FeedWrapper.News(
+                            it.id,
+                            it.type,
+                            it.author,
+                            it.projectId,
+                            it.title,
+                            it.content,
+                            it.publishedAt,
+                            it.likesCount,
+                            it.commentsCount,
+                            it.attachments,
+                            it.isLiked,
+                            it.isFavorite
+                        )
+
+                        else -> throw IllegalArgumentException("Unknown feed item type: ${it.type}")
+                    }
                 }
                 emit(Resource.Success(likesList))
             } else
                 emit(Resource.Error(getErrorType(response.resultCode)))
         }
 
-    override suspend fun getFavorites(lastId: String, pageSize: Int): Flow<Resource<List<News>>> =
+    override suspend fun getFavorites(pageSize: Int): Flow<Resource<List<FeedWrapper>>> =
         flow {
-            val response = network.doRequest(Request.GetFavorites(lastId, pageSize))
+            val response = network.doRequest(Request.GetFavorites(pageSize))
 
-            if (response is NewsResponse && response.resultCode == ApiConstants.SUCCESS_CODE) {
-                val favList: List<News> = response.results.map {
-                    News(
-                        it.id,
-                        it.type,
-                        it.author,
-                        it.projectId,
-                        it.coverUrl,
-                        it.title,
-                        it.content,
-                        it.publishedAt,
-                        it.likesCount,
-                        it.commentsCount
-                    )
+            if (response is IdeaResponse && response.resultCode == ApiConstants.SUCCESS_CODE) {
+                val favList: List<FeedWrapper> = response.results.map {
+                    when (it.type) {
+                        IDEA -> FeedWrapper.Idea(
+                            it.id,
+                            it.type,
+                            it.author,
+                            it.projectId,
+                            it.title,
+                            it.content,
+                            it.publishedAt,
+                            it.likesCount,
+                            it.commentsCount,
+                            it.attachments,
+                            it.isLiked,
+                            it.isFavorite
+                        )
+
+                        NEWS -> FeedWrapper.News(
+                            it.id,
+                            it.type,
+                            it.author,
+                            it.projectId,
+                            it.title,
+                            it.content,
+                            it.publishedAt,
+                            it.likesCount,
+                            it.commentsCount,
+                            it.attachments,
+                            it.isLiked,
+                            it.isFavorite
+                        )
+
+                        else -> throw IllegalArgumentException("Unknown feed item type: ${it.type}")
+                    }
                 }
                 emit(Resource.Success(favList))
             } else
@@ -143,5 +212,11 @@ class ChipsProfileRepoImpl @Inject constructor(
         ApiConstants.CAPTCHA_REQUIRED -> ErrorType.CAPTCHA_REQUIRED
         ApiConstants.NOT_FOUND -> ErrorType.NOT_FOUND
         else -> ErrorType.UNEXPECTED
+    }
+
+    companion object {
+
+        private const val IDEA = "IDEA"
+        private const val NEWS = "NEWS"
     }
 }

@@ -39,11 +39,11 @@ class RetrofitClient @Inject constructor(
                     }
 
                     is Request.GetLikes -> {
-                        service.getLikes(lastId = dto.lastId, pageSize = PAGE_SIZE)
+                        service.getLikes(pageSize = PAGE_SIZE)
                     }
 
                     is Request.GetFavorites -> {
-                        service.getFavorites(lastId = dto.lastId, pageSize = PAGE_SIZE)
+                        service.getFavorites(pageSize = PAGE_SIZE)
                     }
 
                     else -> {

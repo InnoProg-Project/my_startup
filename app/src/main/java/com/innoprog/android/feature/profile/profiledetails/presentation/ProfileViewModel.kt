@@ -107,9 +107,9 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun loadChipLikes(lastId: String, pageSize: Int) {
+    fun loadChipLiked(pageSize: Int) {
         viewModelScope.launch {
-            chipsInteractor.getLikes(lastId, pageSize).collect { response ->
+            chipsInteractor.getLikes(pageSize).collect { response ->
                 when(response) {
                     is Resource.Success -> {
                         _chipsUiState.postValue(ChipsScreenState.Liked(response.data))
@@ -123,9 +123,9 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun loadChipFavorites(lastId: String, pageSize: Int) {
+    fun loadChipFavorites(pageSize: Int) {
         viewModelScope.launch {
-            chipsInteractor.getFavorites(lastId, pageSize).collect { response ->
+            chipsInteractor.getFavorites(pageSize).collect { response ->
                 when(response) {
                     is Resource.Success -> {
                         _chipsUiState.postValue(ChipsScreenState.Favorites(response.data))

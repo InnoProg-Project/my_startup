@@ -14,7 +14,7 @@ interface ProfileApi {
     @GET("/v1/feed")
     suspend fun getAll(
         @Query("authorId") authorId: String
-    ): NewsResponse
+    ): IdeaResponse
 
     @GET("/v1/projects")
     suspend fun getProjects(
@@ -25,17 +25,15 @@ interface ProfileApi {
     suspend fun getIdeas(
         @Query("type") type: String,
         @Query("authorId") authorId: String
-    ): NewsResponse
+    ): IdeaResponse
 
     @GET("/v1/feed/likes")
     suspend fun getLikes(
-        @Query("lastId") lastId: String,
         @Query("pageSize") pageSize: Int
-    ): NewsResponse
+    ):IdeaResponse
 
     @GET("/v1/feed/favorites")
     suspend fun getFavorites(
-        @Query("lastId") lastId: String,
         @Query("pageSize") pageSize: Int
-    ): NewsResponse
+    ): IdeaResponse
 }
