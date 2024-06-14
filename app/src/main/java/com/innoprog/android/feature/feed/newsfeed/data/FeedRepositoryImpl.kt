@@ -18,20 +18,20 @@ class FeedRepositoryImpl @Inject constructor() : FeedRepository {
     val author = Author(
         "3fa85f64-5717-4562-b3fc-2c963f66afa6",
         "https://img.freepik.com/free-vector/ai-technology-microchip-background-" +
-            "vector-digital-transformation-concept_53876-112222.jpg",
+                "vector-digital-transformation-concept_53876-112222.jpg",
         "Юлия Анисимова",
         company
     )
 
     val news = News(
         id = "1",
-        type = "idea",
+        type = "IDEA",
         author = author,
         projectId = "1",
         coverUrl = "",
         title = "Как мы помогаем родителям в воспитании детей ",
         content = "Этот надежный помощник предназначен для облегчения путей родительства и " +
-            "обеспечения гармоничного развития маленьких личностей",
+                "обеспечения гармоничного развития маленьких личностей",
         publishedAt = 24,
         likesCount = 24,
         commentsCount = 24,
@@ -39,15 +39,15 @@ class FeedRepositoryImpl @Inject constructor() : FeedRepository {
 
     val news2 = News(
         id = "2",
-        type = "project",
+        type = "NEWS",
         author = author,
         projectId = "2",
         coverUrl = "https://img.freepik.com/free-vector/ai-technology-microchip-background-" +
-            "vector-digital-transformation-concept_53876-112222.jpg",
+                "vector-digital-transformation-concept_53876-112222.jpg",
         title = "Искусственный интеллект",
         content = "Иску́сственный интелле́кт — свойство искусственных интеллектуальных систем " +
-            "выполнять творческие функции, которые традиционно считаются прерогативой " +
-            "человека (не следует путать с искусственным сознанием)",
+                "выполнять творческие функции, которые традиционно считаются прерогативой " +
+                "человека (не следует путать с искусственным сознанием)",
         publishedAt = 24,
         likesCount = 24,
         commentsCount = 24,

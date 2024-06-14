@@ -25,7 +25,7 @@ class NewsViewHolder(private val binding: ItemNewsBinding) :
             tvPublicationTitle.text = news.title
             tvPublicationContent.text = news.content
 
-            if (news.type == "idea") {
+            if (news.type == "IDEA") {
                 ivIdea.isVisible = true
                 projectCard.isVisible = false
             } else {
@@ -36,7 +36,7 @@ class NewsViewHolder(private val binding: ItemNewsBinding) :
                     .with(itemView)
                     .load(
                         "https://img.freepik.com/free-vector/ai-technology-microchip-" +
-                            "background-vector-digital-transformation-concept_53876-112222.jpg"
+                                "background-vector-digital-transformation-concept_53876-112222.jpg"
                     )
                     .placeholder(R.drawable.ic_placeholder_logo)
                     .centerCrop()

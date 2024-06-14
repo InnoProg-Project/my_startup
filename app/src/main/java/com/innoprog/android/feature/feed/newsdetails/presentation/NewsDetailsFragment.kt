@@ -30,7 +30,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewModel>() {
+open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewModel>() {
 
     override val viewModel by injectViewModel<NewsDetailsViewModel>()
     private var galleryAdapter: ImageGalleryAdapter? = null
@@ -72,7 +72,11 @@ class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewMod
             }
 
             newsTopBar.setRightIconClickListener {
-                Toast.makeText(requireContext(), "Добавлено/удалено из избранного", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    requireContext(),
+                    "Добавлено/удалено из избранного",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
 
@@ -154,6 +158,8 @@ class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewMod
                 rvComments.isVisible = false
                 tvNoCommentsPlaceholder.isVisible = true
             }
+
+            setIdeaAttributes()
         }
     }
 
@@ -206,7 +212,7 @@ class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewMod
                     .with(requireContext())
                     .load(
                         "https://img.freepik.com/free-vector/ai-technology-microchip-" +
-                            "background-vector-digital-transformation-concept_53876-112222.jpg"
+                                "background-vector-digital-transformation-concept_53876-112222.jpg"
                     )
                     .placeholder(R.drawable.ic_placeholder_logo)
                     .centerCrop()
@@ -220,6 +226,10 @@ class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewMod
                 projectCard.isVisible = false
             }
         }
+    }
+
+    open fun setIdeaAttributes() {
+        //Для изменения отображения в IdeaDetailsFragment
     }
 
     companion object {

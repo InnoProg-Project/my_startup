@@ -33,10 +33,12 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     private var listNews: ArrayList<News> = arrayListOf()
     private val newsAdapter: NewsAdapter by lazy {
         NewsAdapter(listNews) { news ->
-            val action = FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(news.id)
-            findNavController().navigate(action)
+            publicationTypeIndicator(news.id, news.type)
+            //val action = FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(news.id)
+            //findNavController().navigate(action)
         }
     }
+
     override fun diComponent(): ScreenComponent {
         val appComponent = AppComponentHolder.getComponent()
         return DaggerFeedComponent.builder()
@@ -225,9 +227,20 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         inputMethodManager?.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
     }
 
+    private fun publicationTypeIndicator(newsId: String, newsType: String) {
+        if (newsType == NEWS) {
+            val action = FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(newsId)
+            findNavController().navigate(action)
+        } else {
+            val action = FeedFragmentDirections.actionFeedFragmentToIdeaDetailsFragment(newsId)
+            findNavController().navigate(action)
+        }
+    }
+
     companion object {
         private const val ALL_CONTENT = "Всё"
         private const val PROJECT = "Проекты"
         private const val IDEAS = "Идеи"
+        private const val NEWS = "NEWS"
     }
 }
