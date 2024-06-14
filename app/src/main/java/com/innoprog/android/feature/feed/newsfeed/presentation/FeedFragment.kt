@@ -34,8 +34,8 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     private val newsAdapter: NewsAdapter by lazy {
         NewsAdapter(listNews) { news ->
             publicationTypeIndicator(news.id, news.type)
-            //val action = FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(news.id)
-            //findNavController().navigate(action)
+            // val action = FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(news.id)
+            // findNavController().navigate(action)
         }
     }
 
