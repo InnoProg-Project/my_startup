@@ -27,23 +27,23 @@ class RetrofitClient @Inject constructor(
                     }
 
                     is Request.GetAll -> {
-                        service.getAll(authorId = dto.authorId)
+                        IdeaResponse(service.getAll(authorId = dto.authorId))
                     }
 
                     is Request.GetProjects -> {
-                        service.getProjects(authorId = dto.authorId)
+                        ProjectResponse(service.getProjects(authorId = dto.authorId))
                     }
 
                     is Request.GetIdeas -> {
-                        service.getIdeas(type = IDEA, authorId = dto.authorId)
+                        IdeaResponse(service.getIdeas(type = IDEA, authorId = dto.authorId))
                     }
 
                     is Request.GetLikes -> {
-                        service.getLikes(pageSize = PAGE_SIZE)
+                        IdeaResponse(service.getLikes(pageSize = PAGE_SIZE))
                     }
 
                     is Request.GetFavorites -> {
-                        service.getFavorites(pageSize = PAGE_SIZE)
+                        IdeaResponse(service.getFavorites(pageSize = PAGE_SIZE))
                     }
 
                     else -> {
