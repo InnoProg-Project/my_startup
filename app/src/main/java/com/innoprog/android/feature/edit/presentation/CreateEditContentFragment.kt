@@ -36,17 +36,6 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
 
     private var mediaAttachAdapter: MediaAttachRecyclerAdapter? = null
 
-    private val createTextWatcher = object : TextWatcher {
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            checkingText()
-        }
-
-        override fun afterTextChanged(p0: Editable?) {}
-
-    }
-
     override fun diComponent(): ScreenComponent {
         val appComponent = AppComponentHolder.getComponent()
         return DaggerCreateEditContentComponent
@@ -93,14 +82,16 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
     }
 
     private fun render(state: CreateEditContentState) {
+
+        binding.inputTitle.addTextChangedListener(selectTextWatcher(state))
+        binding.inputText.addTextChangedListener(selectTextWatcher(state))
+
         when (state) {
             is CreateEditContentState.CreateIdea -> {
                 binding.topBar.setTitleText(getText(R.string.create_idea))
                 binding.saveBV.setText(getString(R.string.publish))
                 binding.inputTitle.setHintText(getString(R.string.title_of_idea))
                 binding.inputText.setHintText(getString(R.string.text_idea))
-                binding.inputTitle.addTextChangedListener(createTextWatcher)
-                binding.inputText.addTextChangedListener(createTextWatcher)
                 binding.groupProject.visibility = View.GONE
                 binding.saveBV.setOnClickListener {
                     viewModel.saveNewIdea(
@@ -116,8 +107,6 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
                 binding.saveBV.setText(getString(R.string.publish))
                 binding.inputTitle.setHintText(getString(R.string.title_of_news))
                 binding.inputText.setHintText(getString(R.string.text_publish))
-                binding.inputTitle.addTextChangedListener(createTextWatcher)
-                binding.inputText.addTextChangedListener(createTextWatcher)
                 binding.groupProject.visibility = View.VISIBLE
                 binding.saveBV.setOnClickListener {
                     viewModel.saveNewPublication(
@@ -135,8 +124,6 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
                 binding.inputText.setHintText(getString(R.string.text_publish))
                 binding.inputTitle.setText(state.publication.title)
                 binding.inputText.setText(state.publication.content)
-                binding.inputTitle.addTextChangedListener(createTextWatcher)
-                binding.inputText.addTextChangedListener(createTextWatcher)
                 binding.saveBV.setOnClickListener {
                     viewModel.saveModifiedPublication(
                         binding.inputTitle.getText(),
@@ -217,10 +204,33 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
         Toast.makeText(requireContext(), errorMassage, Toast.LENGTH_SHORT).show()
     }
 
-    private fun checkingText() {
-        binding.saveBV.stateIsEnabled(
-            binding.inputTitle.getText().isNotBlank() && binding.inputText.getText().isNotBlank()
-        )
+    private fun selectTextWatcher(state: CreateEditContentState): TextWatcher {
+        return object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                when (state) {
+                    is CreateEditContentState.EditPublication -> {
+                        binding.saveBV.stateIsEnabled(
+                            binding.inputTitle.getText().isNotBlank()
+                                    && binding.inputText.getText().isNotBlank()
+                                    && binding.inputText.getText() != state.publication.content
+                                    && binding.inputTitle.getText() != state.publication.title
+                        )
+                    }
+
+                    else -> {
+                        binding.saveBV.stateIsEnabled(
+                            binding.inputTitle.getText().isNotBlank() && binding.inputText.getText()
+                                .isNotBlank()
+                        )
+                    }
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+
+        }
     }
 
 }
