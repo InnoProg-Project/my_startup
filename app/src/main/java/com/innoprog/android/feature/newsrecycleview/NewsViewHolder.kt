@@ -7,6 +7,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.innoprog.android.R
 import com.innoprog.android.databinding.ItemNewsBinding
 import com.innoprog.android.feature.feed.newsfeed.domain.models.News
+import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
 import com.innoprog.android.uikit.ImageLoadingType
 
 class NewsViewHolder(private val binding: ItemNewsBinding) :
@@ -25,7 +26,7 @@ class NewsViewHolder(private val binding: ItemNewsBinding) :
             tvPublicationTitle.text = news.title
             tvPublicationContent.text = news.content
 
-            if (news.type == "IDEA") {
+            if (news.type == PublicationType.IDEA.toString()) {
                 ivIdea.isVisible = true
                 projectCard.isVisible = false
             } else {

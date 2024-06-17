@@ -23,6 +23,7 @@ import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.feed.newsfeed.di.DaggerFeedComponent
 import com.innoprog.android.feature.feed.newsfeed.domain.models.News
+import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
 import com.innoprog.android.uikit.InnoProgChipGroupView
 
@@ -34,8 +35,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     private val newsAdapter: NewsAdapter by lazy {
         NewsAdapter(listNews) { news ->
             publicationTypeIndicator(news.id, news.type)
-            // val action = FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(news.id)
-            // findNavController().navigate(action)
         }
     }
 
@@ -228,7 +227,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     }
 
     private fun publicationTypeIndicator(newsId: String, newsType: String) {
-        if (newsType == NEWS) {
+        if (newsType == PublicationType.NEWS.toString()) {
             val action = FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(newsId)
             findNavController().navigate(action)
         } else {
@@ -241,6 +240,5 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         private const val ALL_CONTENT = "Всё"
         private const val PROJECT = "Проекты"
         private const val IDEAS = "Идеи"
-        private const val NEWS = "NEWS"
     }
 }

@@ -124,7 +124,7 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
         Toast.makeText(requireContext(), "Ошибка", Toast.LENGTH_SHORT).show()
     }
 
-    private fun showContent(newsDetails: NewsDetailsModel) {
+    open fun showContent(newsDetails: NewsDetailsModel) {
         binding.apply {
             initImageGallery()
 
@@ -158,8 +158,6 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
                 rvComments.isVisible = false
                 tvNoCommentsPlaceholder.isVisible = true
             }
-
-            setIdeaAttributes()
         }
     }
 
@@ -226,10 +224,6 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
                 projectCard.isVisible = false
             }
         }
-    }
-
-    open fun setIdeaAttributes() {
-        // Для изменения отображения в IdeaDetailsFragment
     }
 
     companion object {
