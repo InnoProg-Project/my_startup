@@ -18,6 +18,7 @@ import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.feed.anyProjectDetails.di.DaggerAnyProjectDetailsComponent
 import com.innoprog.android.feature.feed.anyProjectDetails.domain.models.AnyProjectDetailsModel
+import com.innoprog.android.feature.feed.anyProjectDetails.domain.models.DocumentModel
 import com.innoprog.android.feature.imagegalleryadapter.ImageGalleryAdapter
 import com.innoprog.android.feature.training.common.VerticalSpaceDecorator
 import com.innoprog.android.uikit.R
@@ -86,8 +87,8 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position -> }.attach()
     }
 
-    private fun initDocumentsRecyclerView() {
-        documentAdapter = DocumentAdapter { url ->
+    private fun initDocumentsRecyclerView(documentsList: List<DocumentModel>) {
+        documentAdapter = DocumentAdapter(documentsList) { url ->
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
         }
         binding.rvDocuments.addItemDecoration(decorator)
@@ -114,9 +115,9 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
         binding.apply {
             initImageGallery()
             loadProjectInfo(anyProjectDetails)
-            initDocumentsRecyclerView()
             if (anyProjectDetails.documents != null) {
-                documentAdapter?.items = anyProjectDetails.documents
+                val documentsList = anyProjectDetails.documents
+                initDocumentsRecyclerView(documentsList)
             }
             tvShortDescription.text = anyProjectDetails.shortDescription
             tvDescription.text = anyProjectDetails.description

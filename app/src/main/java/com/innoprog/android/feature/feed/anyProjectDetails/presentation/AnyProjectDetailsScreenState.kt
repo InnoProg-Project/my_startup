@@ -8,7 +8,7 @@ sealed interface AnyProjectDetailsScreenState {
 
     class Error(val type: ErrorType) : AnyProjectDetailsScreenState
 
-    data class Content(
+    class Content(
         val anyProjectDetails: AnyProjectDetailsModel
     ) : AnyProjectDetailsScreenState
 }

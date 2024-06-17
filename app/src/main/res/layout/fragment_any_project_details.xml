@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_primary"
+    android:orientation="vertical"
     tools:context=".feature.feed.anyProjectDetails.presentation.AnyProjectDetailsFragment">
 
     <com.innoprog.android.uikit.InnoProgTopBarView
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
         app:topBar_left_icon="@drawable/ic_back"
         app:topBar_title="@string/project" />
 
@@ -19,8 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/margin_16"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBar">
+        android:layout_weight="1">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -64,11 +63,12 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_end="@dimen/margin_16" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/projectCard"
-                android:layout_width="@dimen/size_0"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_24"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
                 app:layout_constraintStart_toStartOf="@+id/leftGuideline"
                 app:layout_constraintTop_toBottomOf="@+id/viewPager">
@@ -77,42 +77,41 @@
                     android:id="@+id/ivProjectLogo"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvProjectDirection"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tvProjectName"
+                    android:layout_gravity="center_vertical"
                     tools:src="@drawable/ic_launcher_playstore" />
 
-                <TextView
-                    android:id="@+id/tvProjectName"
-                    style="@style/TextHeadline_2"
-                    android:layout_width="@dimen/size_0"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_16"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColor="@color/text_primary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/ivProjectLogo"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Мой стартап Мой стартап Мой стартапМой стартап Мой стартап Мой стартап Мой стартап" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvProjectDirection"
-                    style="@style/TextBody_2"
-                    android:layout_width="@dimen/size_0"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_4"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColor="@color/text_secondary"
-                    app:layout_constraintEnd_toEndOf="@+id/tvProjectName"
-                    app:layout_constraintStart_toStartOf="@+id/tvProjectName"
-                    app:layout_constraintTop_toBottomOf="@+id/tvProjectName"
-                    tools:text="Искусственный интеллект Искусственный интеллект Искусственный интеллект Искусственный интеллект" />
+                    <TextView
+                        android:id="@+id/tvProjectName"
+                        style="@style/TextHeadline_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/text_primary"
+                        tools:text="Мой стартап Мой стартап Мой стартапМой стартап Мой стартап Мой стартап Мой стартап" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/tvProjectDirection"
+                        style="@style/TextBody_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_4"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColor="@color/text_secondary"
+                        tools:text="Искусственный интеллект Искусственный интеллект Искусственный интеллект Искусственный интеллект" />
+                </LinearLayout>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tvShortDescription"
@@ -242,11 +241,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvDeadline"
                 tools:text="12 марта 2026" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/LinksContainer"
-                android:layout_width="@dimen/size_0"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_24"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
                 app:layout_constraintStart_toStartOf="@+id/leftGuideline"
                 app:layout_constraintTop_toBottomOf="@id/tvDeadlineValue">
@@ -257,8 +257,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/links"
-                    android:textColor="@color/text_primary"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textColor="@color/text_primary" />
 
                 <TextView
                     android:id="@+id/tvLinkToWeb"
@@ -267,8 +266,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_16"
                     android:text="@string/link_to_web"
-                    android:textColor="@color/text_secondary"
-                    app:layout_constraintTop_toBottomOf="@id/tvLinks" />
+                    android:textColor="@color/text_secondary" />
 
                 <TextView
                     android:id="@+id/tvLinkToWebValue"
@@ -277,7 +275,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_4"
                     android:textColor="@color/text_primary"
-                    app:layout_constraintTop_toBottomOf="@id/tvLinkToWeb"
                     tools:text="@string/link_to_web_example" />
 
                 <TextView
@@ -286,8 +283,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_16"
-                    android:text="@string/link_to_app"
-                    app:layout_constraintTop_toBottomOf="@id/tvLinkToWebValue" />
+                    android:text="@string/link_to_app" />
 
                 <TextView
                     android:id="@+id/tvLinkToAppValue"
@@ -296,7 +292,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_4"
                     android:textColor="@color/text_primary"
-                    app:layout_constraintTop_toBottomOf="@id/tvLinkToApp"
                     tools:text="@string/link_to_app_example" />
 
                 <TextView
@@ -305,9 +300,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_16"
-                    android:textColor="@color/text_secondary"
                     android:text="@string/link_to_social_network"
-                    app:layout_constraintTop_toBottomOf="@id/tvLinkToAppValue" />
+                    android:textColor="@color/text_secondary" />
 
                 <TextView
                     android:id="@+id/tvLinkToSocialNetworkValue"
@@ -316,13 +310,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_4"
                     android:textColor="@color/text_primary"
-                    app:layout_constraintTop_toBottomOf="@id/tvLinkToSocialNetwork"
                     tools:text="@string/link_to_social_network_example" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
