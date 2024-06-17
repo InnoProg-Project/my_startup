@@ -14,7 +14,7 @@ class NetworkModule {
 
     @Provides
     fun provideOkHttpClient(
-        authorizationDataRepository: AuthorizationDataRepositoryImpl
+        authorizationDataRepository: AuthorizationDataRepository
     ): OkHttpClient =
         OkHttpClient.Builder()
             .callTimeout(ApiConstants.CALL_TIMEOUT.toLong(), TimeUnit.SECONDS)

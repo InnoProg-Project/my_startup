@@ -3,7 +3,6 @@ package com.innoprog.android.feature.auth.authorization.domain
 import com.innoprog.android.feature.auth.authorization.domain.model.AuthState
 import com.innoprog.android.network.domain.AuthorizationDataRepository
 import kotlinx.coroutines.flow.Flow
-import java.util.Base64
 import javax.inject.Inject
 
 class AuthorisationUseCaseImpl @Inject constructor(
@@ -12,9 +11,7 @@ class AuthorisationUseCaseImpl @Inject constructor(
 ) :
     AuthorisationUseCase {
     override fun verify(login: String, password: String): Flow<AuthState> {
-        val authData = "$login:$password"
-        val header = "Basic " + Base64.getEncoder().encodeToString(authData.toByteArray())
-        dataRepository.setData(header)
+        dataRepository.setData(login, password)
         return repository.verify()
     }
 }
