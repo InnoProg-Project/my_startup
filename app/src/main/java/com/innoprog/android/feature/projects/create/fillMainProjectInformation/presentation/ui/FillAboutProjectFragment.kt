@@ -13,13 +13,13 @@ import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.databinding.FragmentProjectDetailsBinding
 import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.feature.projects.create.fillMainProjectInformation.presentation.FillAboutProjectViewModel
 import com.innoprog.android.feature.projects.create.fillMainProjectInformation.di.DaggerFillAboutProjectComponent
+import com.innoprog.android.feature.projects.create.fillMainProjectInformation.presentation.FillAboutProjectViewModel
 import com.innoprog.android.feature.projects.create.fillMainProjectInformation.presentation.model.FillAboutProjectEvent
 import kotlinx.coroutines.launch
 
-class FillAboutProjectFragment
-    : BaseFragment<FragmentProjectDetailsBinding, FillAboutProjectViewModel>() {
+class FillAboutProjectFragment :
+    BaseFragment<FragmentProjectDetailsBinding, FillAboutProjectViewModel>() {
 
     private val imagePicker = registerForActivityResult(
         ActivityResultContracts.GetContent()
