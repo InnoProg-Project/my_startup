@@ -25,7 +25,7 @@ class FeedRepositoryImpl @Inject constructor() : FeedRepository {
 
     val news = News(
         id = "1",
-        type = "idea",
+        type = "IDEA",
         author = author,
         projectId = "1",
         coverUrl = "",
@@ -39,7 +39,7 @@ class FeedRepositoryImpl @Inject constructor() : FeedRepository {
 
     val news2 = News(
         id = "2",
-        type = "project",
+        type = "NEWS",
         author = author,
         projectId = "2",
         coverUrl = "https://img.freepik.com/free-vector/ai-technology-microchip-background-" +
