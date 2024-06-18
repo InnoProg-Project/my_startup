@@ -9,15 +9,15 @@ data class CourseShortDto(
     @SerializedName("title")
     val title: String,
     @SerializedName("direction")
-    val direction: String,
+    val direction: String?,
     @SerializedName("description")
-    val description: String,
+    val description: String?,
     @SerializedName("author")
     val author: String,
     @SerializedName("publishedAt")
     val publishedAt: String,
     @SerializedName("usefulLinks")
-    val usefulLinks: String,
+    val usefulLinks: String?,
     @SerializedName("attachments")
     val attachments: List<AttachmentDto>
 )
@@ -25,9 +25,9 @@ data class CourseShortDto(
 fun CourseShortDto.mapToDomain(): CourseShort {
     return CourseShort(
         id = id,
-        direction = direction,
+        direction = direction ?: "",
         title = title,
-        description = description,
+        description = description  ?: "",
         authorName = author,
         createdDate = publishedAt.substring(0, publishedAt.indexOf('T'))
     )
