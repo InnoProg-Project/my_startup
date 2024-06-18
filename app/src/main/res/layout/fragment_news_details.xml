@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:topBar_left_icon="@drawable/ic_back"
         app:topBar_right_icon="@drawable/ic_add_to_farvorites"
-        app:topBar_title="Публикация" />
+        app:topBar_title="@string/publication" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

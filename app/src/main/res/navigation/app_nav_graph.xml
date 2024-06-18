@@ -258,9 +258,24 @@
         android:name="com.innoprog.android.feature.feed.projectScreen.presentation.AnyProjectFragment"
         android:label="fragment_any_project"
         tools:layout="@layout/fragment_any_project">
+        <argument
+            android:name="projectId"
+            app:argType="string" />
         <action
             android:id="@+id/action_projectFragment_to_newsDetailsFragment"
             app:destination="@id/newsDetailsFragment" />
+        <action
+            android:id="@+id/action_projectFragment_to_anyProjectDetailsFragment"
+            app:destination="@id/anyProjectDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/anyProjectDetailsFragment"
+        android:name="com.innoprog.android.feature.feed.anyProjectDetails.presentation.AnyProjectDetailsFragment"
+        android:label="AnyProjectDetailsFragment"
+        tools:layout="@layout/fragment_any_project_details">
+        <argument
+            android:name="projectId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/fillAboutProjectFragment"
