@@ -88,6 +88,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_feedFragment_to_createEditContentFragment"
+            app:destination="@id/createEditContentFragment" />
     </fragment>
 
     <fragment
@@ -286,6 +289,9 @@
         <argument
             android:name="typeContent"
             app:argType="com.innoprog.android.feature.edit.presentation.TypeContentArgs" />
+        <action
+            android:id="@+id/action_createEditContentFragment_to_videoPlayerFragment"
+            app:destination="@id/videoPlayerFragment" />
     </fragment>
 
 </navigation>

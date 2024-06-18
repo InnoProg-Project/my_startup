@@ -3,6 +3,7 @@ package com.innoprog.android.uikit
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.LayerDrawable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.text.method.TransformationMethod
 import android.util.AttributeSet
@@ -233,6 +234,10 @@ class InnoProgInputView @JvmOverloads constructor(
 
     fun setSingleLine(singleLine: Boolean) {
         editTextView.isSingleLine = singleLine
+    }
+
+    fun setMaxOfCharacters (maxLength : Int){
+        editTextView.filters = arrayOf(InputFilter.LengthFilter(maxLength))
     }
 
     companion object {

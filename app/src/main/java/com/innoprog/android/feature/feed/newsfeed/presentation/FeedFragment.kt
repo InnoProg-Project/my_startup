@@ -21,6 +21,7 @@ import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentFeedBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
+import com.innoprog.android.feature.edit.presentation.TypeContentArgs
 import com.innoprog.android.feature.feed.newsfeed.di.DaggerFeedComponent
 import com.innoprog.android.feature.feed.newsfeed.domain.models.News
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
@@ -68,9 +69,8 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
 
     private fun setUiListeners() {
         binding.btnCreateIdea.setOnClickListener {
-
             findNavController().navigate(
-                MainFragmentDirections.actionMainFragmentToCreateEditContentFragment(
+                FeedFragmentDirections.actionFeedFragmentToCreateEditContentFragment(
                     TypeContentArgs.CreateIdea
                 )
             )

@@ -63,7 +63,6 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         viewModel.state.observe(viewLifecycleOwner) {
             render(it)
         }
@@ -78,6 +77,9 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
         }
 
         binding.loadBV.setOnClickListener { loadMedia() }
+
+        binding.inputTitle.setMaxOfCharacters(MAX_TITLE_LENGTH)
+        binding.inputText.setMaxOfCharacters(MAX_CONTENT_LENGTH)
 
     }
 
@@ -231,6 +233,11 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
             override fun afterTextChanged(p0: Editable?) {}
 
         }
+    }
+
+    companion object {
+        const val MAX_TITLE_LENGTH = 255
+        const val MAX_CONTENT_LENGTH = 10000
     }
 
 }
