@@ -25,15 +25,24 @@ class RootActivity : AppCompatActivity() {
             when (dest.id) {
                 R.id.feedFragment, R.id.profileFragment, R.id.trainingListFragment, R.id.projectsFragment -> {
                     if (dest.id != R.id.profileFragment) {
-                        window.statusBarColor = ContextCompat.getColor(this, com.innoprog.android.uikit.R.color.background_secondary)
+                        window.statusBarColor = ContextCompat.getColor(
+                            this,
+                            com.innoprog.android.uikit.R.color.background_secondary
+                        )
                     } else {
-                        window.statusBarColor = ContextCompat.getColor(this, com.innoprog.android.uikit.R.color.background_primary)
+                        window.statusBarColor = ContextCompat.getColor(
+                            this,
+                            com.innoprog.android.uikit.R.color.background_primary
+                        )
                     }
                     binding.bottomNavigationView.isVisible = true
                 }
 
                 else -> {
-                    window.statusBarColor = ContextCompat.getColor(this, com.innoprog.android.uikit.R.color.background_primary)
+                    window.statusBarColor = ContextCompat.getColor(
+                        this,
+                        com.innoprog.android.uikit.R.color.background_primary
+                    )
                     binding.bottomNavigationView.isVisible = false
                 }
             }

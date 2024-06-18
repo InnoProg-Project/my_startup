@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
-class FillAboutProjectViewModel @Inject constructor(): BaseViewModel() {
+class FillAboutProjectViewModel @Inject constructor() : BaseViewModel() {
     private val _state = MutableStateFlow(FillAboutProjectState())
     val state: StateFlow<FillAboutProjectState> get() = _state.asStateFlow()
 
