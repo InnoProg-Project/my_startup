@@ -27,7 +27,7 @@ fun CourseShortDto.mapToDomain(): CourseShort {
         id = id,
         direction = direction ?: "",
         title = title,
-        description = description  ?: "",
+        description = description ?: "",
         authorName = author,
         createdDate = publishedAt.substring(0, publishedAt.indexOf('T'))
     )
