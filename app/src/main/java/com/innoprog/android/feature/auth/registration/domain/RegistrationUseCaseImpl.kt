@@ -6,9 +6,7 @@ import javax.inject.Inject
 
 class RegistrationUseCaseImpl @Inject constructor(private val repository: RegistrationRepository) :
     RegistrationUseCase {
-    override fun registration(
-        registrationValue: RegistrationModel
-    ): Flow<Pair<Boolean, String?>> {
-        return repository.registration(registrationValue)
+    override fun registration(registrationData: RegistrationModel): Flow<Pair<Boolean, String?>> {
+        return repository.registration(registrationData)
     }
 }

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_secondary"
+    android:orientation="vertical"
+    tools:context=".feature.feed.projectScreen.presentation.AnyProjectFragment">
+
+    <com.innoprog.android.uikit.InnoProgTopBarView
+        android:id="@+id/projectTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:topBar_left_icon="@drawable/ic_back"
+        app:topBar_title="@string/project" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/padding_8"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/projectCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/margin_8"
+            android:background="@drawable/bg_project_card_white"
+            android:paddingHorizontal="@dimen/padding_16"
+            android:paddingTop="@dimen/padding_12"
+            android:paddingBottom="@dimen/padding_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/projectTopBar">
+
+            <ImageView
+                android:id="@+id/ivProjectLogo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvProjectDirection"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvProjectName"
+                tools:src="@drawable/ic_launcher_playstore" />
+
+            <TextView
+                android:id="@+id/tvProjectName"
+                style="@style/TextHeadline_3"
+                android:layout_width="@dimen/size_0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/text_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivProjectLogo"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Мой стартап Мой стартап Мой стартапМой стартап Мой стартап Мой стартап Мой стартап" />
+
+            <TextView
+                android:id="@+id/tvProjectDirection"
+                style="@style/TextBody_2"
+                android:layout_width="@dimen/size_0"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintEnd_toEndOf="@+id/tvProjectName"
+                app:layout_constraintStart_toStartOf="@+id/tvProjectName"
+                app:layout_constraintTop_toBottomOf="@+id/tvProjectName"
+                tools:text="Искусственный интеллект Искусственный интеллект Искусственный интеллект Искусственный интеллект" />
+
+            <TextView
+                android:id="@+id/tvProjectDescription"
+                style="@style/TextBody_1"
+                android:layout_width="@dimen/size_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_12"
+                android:textColor="@color/text_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvProjectDirection"
+                tools:text="Проект для помощи генерации идей и изучения проектов" />
+
+            <com.innoprog.android.uikit.InnoProgButtonView
+                android:id="@+id/btnProjectDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16"
+                android:gravity="center"
+                app:buttonSize="medium"
+                app:buttonState="enabled"
+                app:buttonText="@string/project_details"
+                app:buttonType="def"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvProjectDescription" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tvProjectNews"
+            style="@style/TextHeadline_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_8"
+            android:text="@string/project_news"
+            android:textColor="@color/text_primary"
+            tools:text="Публикации о проекте (25)" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPublications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/margin_8"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="4"
+            tools:listitem="@layout/item_news" />
+
+    </LinearLayout>
+
+</LinearLayout>

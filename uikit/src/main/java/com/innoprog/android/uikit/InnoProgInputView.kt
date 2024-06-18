@@ -106,6 +106,9 @@ class InnoProgInputView @JvmOverloads constructor(
     fun setInputType(type: Int) {
         editTextView.inputType = type
     }
+    fun setCaptionText(text: String) {
+        captionTextView.text = text
+    }
 
     fun setTransformationMethod(method: TransformationMethod) {
         editTextView.transformationMethod = method
@@ -224,12 +227,15 @@ class InnoProgInputView @JvmOverloads constructor(
         }
     }
 
+    fun setCaption(text: String) {
+        captionTextView.text = text
+    }
+
     fun setSingleLine(singleLine: Boolean) {
         editTextView.isSingleLine = singleLine
     }
 
     companion object {
-
         const val FULL_VISIBLE = 1f
         const val VISIBILITY_40_PERCENT = 0.4f
 
