@@ -26,7 +26,7 @@ class NewsViewHolder(private val binding: ItemNewsBinding) :
             tvPublicationTitle.text = news.title
             tvPublicationContent.text = news.content
 
-            if (news.type == PublicationType.IDEA.toString()) {
+            if (news.type == PublicationType.IDEA.value) {
                 ivIdea.isVisible = true
                 projectCard.isVisible = false
             } else {

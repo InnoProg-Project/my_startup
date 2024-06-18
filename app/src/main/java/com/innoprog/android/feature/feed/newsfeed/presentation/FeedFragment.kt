@@ -227,7 +227,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     }
 
     private fun publicationTypeIndicator(newsId: String, newsType: String) {
-        if (newsType == PublicationType.NEWS.toString()) {
+        if (newsType == PublicationType.NEWS.value) {
             val action = FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(newsId)
             findNavController().navigate(action)
         } else {
