@@ -8,9 +8,16 @@ import com.innoprog.android.databinding.ItemProjectDocumentBinding
 import com.innoprog.android.feature.feed.anyProjectDetails.domain.models.DocumentModel
 
 class DocumentAdapter(
-    private val documentsList: List<DocumentModel>,
     private val onDocumentClickListener: (url: String) -> Unit
 ) : Adapter<DocumentViewHolder>() {
+
+    private val documentsList = mutableListOf<DocumentModel>()
+
+    fun setItems(newList: List<DocumentModel>) {
+        documentsList.clear()
+        documentsList.addAll(newList)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DocumentViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

@@ -88,11 +88,12 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
     }
 
     private fun initDocumentsRecyclerView(documentsList: List<DocumentModel>) {
-        documentAdapter = DocumentAdapter(documentsList) { url ->
+        documentAdapter = DocumentAdapter { url ->
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
         }
         binding.rvDocuments.addItemDecoration(decorator)
         binding.rvDocuments.adapter = documentAdapter
+        documentAdapter?.setItems(documentsList)
     }
 
     private fun updateUI(state: AnyProjectDetailsScreenState) {

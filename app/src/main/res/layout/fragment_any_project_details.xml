@@ -63,55 +63,46 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_end="@dimen/margin_16" />
 
-            <LinearLayout
-                android:id="@+id/projectCard"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_24"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+            <ImageView
+                android:id="@+id/ivProjectLogo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/tvProjectDirection"
                 app:layout_constraintStart_toStartOf="@+id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@+id/viewPager">
+                app:layout_constraintTop_toTopOf="@+id/tvProjectName"
+                tools:src="@drawable/ic_launcher_playstore" />
 
-                <ImageView
-                    android:id="@+id/ivProjectLogo"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_vertical"
-                    tools:src="@drawable/ic_launcher_playstore" />
+            <TextView
+                android:id="@+id/tvProjectName"
+                style="@style/TextHeadline_2"
+                android:layout_width="@dimen/size_0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_24"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/text_primary"
+                app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+                app:layout_constraintStart_toEndOf="@+id/ivProjectLogo"
+                app:layout_constraintTop_toBottomOf="@+id/viewPager"
+                tools:text="Мой стартап Мой стартап Мой стартапМой стартап Мой стартап Мой стартап Мой стартап" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_16"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tvProjectName"
-                        style="@style/TextHeadline_2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textColor="@color/text_primary"
-                        tools:text="Мой стартап Мой стартап Мой стартапМой стартап Мой стартап Мой стартап Мой стартап" />
-
-                    <TextView
-                        android:id="@+id/tvProjectDirection"
-                        style="@style/TextBody_2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_4"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textColor="@color/text_secondary"
-                        tools:text="Искусственный интеллект Искусственный интеллект Искусственный интеллект Искусственный интеллект" />
-                </LinearLayout>
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tvProjectDirection"
+                style="@style/TextBody_2"
+                android:layout_width="@dimen/size_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_4"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+                app:layout_constraintStart_toStartOf="@+id/tvProjectName"
+                app:layout_constraintTop_toBottomOf="@+id/tvProjectName"
+                tools:text="Искусственный интеллект Искусственный интеллект Искусственный интеллект Искусственный интеллект" />
 
             <TextView
                 android:id="@+id/tvShortDescription"
@@ -122,7 +113,7 @@
                 android:textColor="@color/text_primary"
                 app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
                 app:layout_constraintStart_toStartOf="@+id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@+id/projectCard"
+                app:layout_constraintTop_toBottomOf="@+id/tvProjectDirection"
                 tools:text="Помощник в воспитании детей" />
 
             <TextView
@@ -241,78 +232,88 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvDeadline"
                 tools:text="12 марта 2026" />
 
-            <LinearLayout
-                android:id="@+id/LinksContainer"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/tvLinks"
+                style="@style/TextSubtitle_1"
+                android:layout_width="@dimen/size_0"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_24"
-                android:orientation="vertical"
+                android:text="@string/links"
+                android:textColor="@color/text_primary"
                 app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
                 app:layout_constraintStart_toStartOf="@+id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/tvDeadlineValue">
+                app:layout_constraintTop_toBottomOf="@+id/tvDeadlineValue" />
 
-                <TextView
-                    android:id="@+id/tvLinks"
-                    style="@style/TextSubtitle_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/links"
-                    android:textColor="@color/text_primary" />
+            <TextView
+                android:id="@+id/tvLinkToWeb"
+                style="@style/TextBody_2"
+                android:layout_width="@dimen/size_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16"
+                android:text="@string/link_to_web"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+                app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+                app:layout_constraintTop_toBottomOf="@+id/tvLinks" />
 
-                <TextView
-                    android:id="@+id/tvLinkToWeb"
-                    style="@style/TextBody_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_16"
-                    android:text="@string/link_to_web"
-                    android:textColor="@color/text_secondary" />
+            <TextView
+                android:id="@+id/tvLinkToWebValue"
+                style="@style/TextBody_1"
+                android:layout_width="@dimen/size_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_4"
+                android:textColor="@color/text_primary"
+                app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+                app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+                app:layout_constraintTop_toBottomOf="@+id/tvLinkToWeb"
+                tools:text="@string/link_to_web_example" />
 
-                <TextView
-                    android:id="@+id/tvLinkToWebValue"
-                    style="@style/TextBody_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_4"
-                    android:textColor="@color/text_primary"
-                    tools:text="@string/link_to_web_example" />
+            <TextView
+                android:id="@+id/tvLinkToApp"
+                style="@style/TextBody_2"
+                android:layout_width="@dimen/size_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16"
+                android:text="@string/link_to_app"
+                app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+                app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+                app:layout_constraintTop_toBottomOf="@+id/tvLinkToWebValue" />
 
-                <TextView
-                    android:id="@+id/tvLinkToApp"
-                    style="@style/TextBody_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_16"
-                    android:text="@string/link_to_app" />
+            <TextView
+                android:id="@+id/tvLinkToAppValue"
+                style="@style/TextBody_1"
+                android:layout_width="@dimen/size_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_4"
+                android:textColor="@color/text_primary"
+                app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+                app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+                app:layout_constraintTop_toBottomOf="@+id/tvLinkToApp"
+                tools:text="@string/link_to_app_example" />
 
-                <TextView
-                    android:id="@+id/tvLinkToAppValue"
-                    style="@style/TextBody_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_4"
-                    android:textColor="@color/text_primary"
-                    tools:text="@string/link_to_app_example" />
+            <TextView
+                android:id="@+id/tvLinkToSocialNetwork"
+                style="@style/TextBody_2"
+                android:layout_width="@dimen/size_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16"
+                android:text="@string/link_to_social_network"
+                android:textColor="@color/text_secondary"
+                app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+                app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+                app:layout_constraintTop_toBottomOf="@+id/tvLinkToAppValue" />
 
-                <TextView
-                    android:id="@+id/tvLinkToSocialNetwork"
-                    style="@style/TextBody_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_16"
-                    android:text="@string/link_to_social_network"
-                    android:textColor="@color/text_secondary" />
-
-                <TextView
-                    android:id="@+id/tvLinkToSocialNetworkValue"
-                    style="@style/TextBody_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_4"
-                    android:textColor="@color/text_primary"
-                    tools:text="@string/link_to_social_network_example" />
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tvLinkToSocialNetworkValue"
+                style="@style/TextBody_1"
+                android:layout_width="@dimen/size_0"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_4"
+                android:textColor="@color/text_primary"
+                app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
+                app:layout_constraintStart_toStartOf="@+id/leftGuideline"
+                app:layout_constraintTop_toBottomOf="@+id/tvLinkToSocialNetwork"
+                tools:text="@string/link_to_social_network_example" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
