@@ -1,5 +1,7 @@
 package com.innoprog.android.feature.profile.profiledetails.data.network
 
+import com.innoprog.android.feature.profile.common.ProfileCompanyResponse
+import com.innoprog.android.feature.profile.common.ProfileResponse
 import retrofit2.http.GET
 
 interface ProfileApi {

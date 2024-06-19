@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.profile.editingprofile.data
+package com.innoprog.android.feature.profile.editingprofile.data.network
 
 import com.google.gson.annotations.SerializedName
 

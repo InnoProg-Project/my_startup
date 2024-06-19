@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.profile.profiledetails.data.network
+package com.innoprog.android.feature.profile.common
 
 import com.google.gson.annotations.SerializedName
 import com.innoprog.android.feature.profile.profiledetails.domain.models.CommunicationChannel

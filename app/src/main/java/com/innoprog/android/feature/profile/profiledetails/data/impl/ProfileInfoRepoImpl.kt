@@ -1,11 +1,11 @@
 package com.innoprog.android.feature.profile.profiledetails.data.impl
 
 import com.innoprog.android.db.RoomDB
+import com.innoprog.android.feature.profile.common.ProfileCompanyResponse
+import com.innoprog.android.feature.profile.common.ProfileResponse
 import com.innoprog.android.feature.profile.profiledetails.data.db.ProfileCompanyEntity
 import com.innoprog.android.feature.profile.profiledetails.data.db.ProfileEntity
 import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileApi
-import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileCompanyResponse
-import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileResponse
 import com.innoprog.android.feature.profile.profiledetails.domain.ProfileInfoRepo
 import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
 import com.innoprog.android.feature.profile.profiledetails.domain.models.ProfileCompany
@@ -40,7 +40,7 @@ class ProfileInfoRepoImpl @Inject constructor(
             }
 
             ApiConstants.SUCCESS_CODE -> {
-                with(response as ProfileResponse) {
+                with(response) {
                     val result = mapToProfile(this)
                     emit(Resource.Success(result))
                 }
@@ -69,7 +69,7 @@ class ProfileInfoRepoImpl @Inject constructor(
             }
 
             ApiConstants.SUCCESS_CODE -> {
-                with(response as ProfileCompanyResponse) {
+                with(response) {
                     val result = mapToProfileCompany(this)
                     emit(Resource.Success(result))
                 }

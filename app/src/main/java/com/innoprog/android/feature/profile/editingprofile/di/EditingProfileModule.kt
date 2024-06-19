@@ -2,7 +2,7 @@ package com.innoprog.android.feature.profile.editingprofile.di
 
 import androidx.lifecycle.ViewModel
 import com.innoprog.android.di.ViewModelKey
-import com.innoprog.android.feature.profile.editingprofile.data.EditingProfileApi
+import com.innoprog.android.feature.profile.editingprofile.data.network.EditingProfileApi
 import com.innoprog.android.feature.profile.editingprofile.data.impl.EditProfileInfoRepoImpl
 import com.innoprog.android.feature.profile.editingprofile.domain.EditProfileCompanyUseCase
 import com.innoprog.android.feature.profile.editingprofile.domain.EditProfileInfoRepo
