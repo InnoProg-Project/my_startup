@@ -31,11 +31,11 @@ class RetrofitClient @Inject constructor(
                     }
 
                     is Request.GetProjects -> {
-                        NewsResponse(service.getProjects(type = NEWS, authorId = dto.authorId))
+                        ChipsResponse(service.getProjects(type = NEWS, authorId = dto.authorId))
                     }
 
                     is Request.GetIdeas -> {
-                        IdeaResponse(service.getIdeas(type = IDEA, authorId = dto.authorId))
+                        ChipsResponse(service.getIdeas(type = IDEA, authorId = dto.authorId))
                     }
 
                     is Request.GetLikes -> {
