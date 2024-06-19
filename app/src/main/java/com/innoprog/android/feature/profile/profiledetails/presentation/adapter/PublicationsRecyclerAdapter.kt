@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.profile.profiledetails.presentation
+package com.innoprog.android.feature.profile.profiledetails.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,7 @@ import com.innoprog.android.feature.profile.profiledetails.domain.models.FeedWra
 
 class PublicationsRecyclerAdapter(
     var publications: ArrayList<FeedWrapper>,
-    private val onNewsClick: (FeedWrapper) -> Unit
+    private val onPublicationClick: (FeedWrapper) -> Unit
 ) : RecyclerView.Adapter<PublicationsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PublicationsViewHolder {
@@ -19,7 +19,7 @@ class PublicationsRecyclerAdapter(
     override fun onBindViewHolder(holder: PublicationsViewHolder, position: Int) {
         holder.bind(publications[position])
         holder.itemView.setOnClickListener {
-            onNewsClick.invoke(publications[position])
+            onPublicationClick.invoke(publications[position])
         }
     }
 

@@ -107,4 +107,3 @@ fun FeedDto.mapToDomain(): FeedWrapper {
         }
     }
 }
-

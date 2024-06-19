@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.profile.profiledetails.presentation
+package com.innoprog.android.feature.profile.profiledetails.presentation.adapter
 
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -7,6 +7,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.innoprog.android.R
 import com.innoprog.android.databinding.ItemNewsBinding
 import com.innoprog.android.feature.profile.profiledetails.domain.models.FeedWrapper
+import com.innoprog.android.uikit.ImageLoadingType
 
 class PublicationsViewHolder(private val binding: ItemNewsBinding) :
     RecyclerView.ViewHolder(binding.root) {
@@ -29,6 +30,10 @@ class PublicationsViewHolder(private val binding: ItemNewsBinding) :
 
                     ivIdea.isVisible = true
                     projectCard.isVisible = false
+
+                    val placeholderResId = com.innoprog.android.uikit.R.drawable.ic_person
+                    val imageType = ImageLoadingType.ImageDrawable(placeholderResId)
+                    publicationAuthorAvatar.loadImage(imageType)
 
                     tvPublicationAuthorName.text = publication.author.name
                     tvCommentsCount.text = publication.commentsCount.toString()
@@ -62,16 +67,9 @@ class PublicationsViewHolder(private val binding: ItemNewsBinding) :
                     tvProjectName.text = "News Project"
                     tvProjectDirection.text = "News Direction"
 
-                    // val url = publication.author.avatarUrl
-                    // val placeholderResId = com.innoprog.android.uikit.R.drawable.ic_person
-                    /*
-                    val imageType =
-                        url?.let { ImageLoadingType.ImageNetwork(it, placeholderResId = placeholderResId) }
-                    if (imageType!= null) {
-                        publicationAuthorAvatar.loadImage(imageType)
-                    }
-
-                     */
+                    val placeholderResId = com.innoprog.android.uikit.R.drawable.ic_person
+                    val imageType = ImageLoadingType.ImageDrawable(placeholderResId)
+                    publicationAuthorAvatar.loadImage(imageType)
 
                     tvPublicationAuthorName.text = publication.author.name
                     tvCommentsCount.text = publication.commentsCount.toString()

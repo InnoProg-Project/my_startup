@@ -13,11 +13,11 @@ import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentProfileBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.feature.feed.newsfeed.presentation.FeedFragmentDirections
 import com.innoprog.android.feature.profile.profiledetails.di.DaggerProfileComponent
 import com.innoprog.android.feature.profile.profiledetails.domain.models.FeedWrapper
 import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
 import com.innoprog.android.feature.profile.profiledetails.domain.models.ProfileCompany
+import com.innoprog.android.feature.profile.profiledetails.presentation.adapter.PublicationsRecyclerAdapter
 import com.innoprog.android.uikit.InnoProgChipGroupView
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
@@ -32,13 +32,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
             when (publication) {
                 is FeedWrapper.Idea -> {
                     val action =
-                        FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(publication.id)
+                        ProfileFragmentDirections.actionProfileFragmentToIdeaDetailsFragment(publication.id)
                     findNavController().navigate(action)
                 }
 
                 is FeedWrapper.News -> {
                     val action =
-                        FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(publication.id)
+                        ProfileFragmentDirections.actionProfileFragmentToNewsDetailsFragment(publication.id)
                     findNavController().navigate(action)
                 }
             }
@@ -206,8 +206,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
             is ChipsScreenState.Liked -> {
                 publications.clear()
                 publications.addAll(chipsScreenState.liked)
-                Log.d("ProfileFragment", "Publications list size: ${publications.size}")
-                Log.d("ProfileFragment", "Publications list: $publications")
+                Log.d("ProfileFragment", "list size: ${publications.size}")
+                Log.d("ProfileFragment", "list: $publications")
                 publicationsAdapter.notifyDataSetChanged()
                 Log.d("ProfileFragment", "NotifyDataSetChanged called")
                 showUserLiked()
