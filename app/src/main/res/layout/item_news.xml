@@ -101,7 +101,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/ivProjectLogo"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Мой стартап Мой стартап Мой стартапМой стартап Мой стартап Мой стартап Мой стартап" />
+                tools:text="Мой стартап" />
 
             <TextView
                 android:id="@+id/tvProjectDirection"
@@ -115,7 +115,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tvProjectName"
                 app:layout_constraintTop_toBottomOf="@id/tvProjectName"
-                tools:text="Искусственный интеллект Искусственный интеллект Искусственный интеллект Искусственный интеллект" />
+                tools:text="Искусственный интеллект" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

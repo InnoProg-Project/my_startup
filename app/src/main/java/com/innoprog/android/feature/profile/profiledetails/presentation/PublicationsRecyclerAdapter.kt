@@ -6,24 +6,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.innoprog.android.databinding.ItemNewsBinding
 import com.innoprog.android.feature.profile.profiledetails.domain.models.FeedWrapper
 
-class RecyclerAdapter(
-    var publicationList: ArrayList<FeedWrapper>,
+class PublicationsRecyclerAdapter(
+    var publications: ArrayList<FeedWrapper>,
     private val onNewsClick: (FeedWrapper) -> Unit
-) : RecyclerView.Adapter<ViewHolder>() {
+) : RecyclerView.Adapter<PublicationsViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PublicationsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return ViewHolder(ItemNewsBinding.inflate(layoutInflater, parent, false))
+        return PublicationsViewHolder(ItemNewsBinding.inflate(layoutInflater, parent, false))
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(publicationList[position])
+    override fun onBindViewHolder(holder: PublicationsViewHolder, position: Int) {
+        holder.bind(publications[position])
         holder.itemView.setOnClickListener {
-            onNewsClick.invoke(publicationList[position])
+            onNewsClick.invoke(publications[position])
         }
     }
 
     override fun getItemCount(): Int {
-        return publicationList.size
+        return publications.size
     }
 }

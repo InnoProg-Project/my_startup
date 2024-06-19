@@ -7,7 +7,9 @@ import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.feature.profile.profiledetails.domain.ChipsInteractor
 import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileCompanyUseCase
 import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileUseCase
+import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,113 +30,142 @@ class ProfileViewModel @Inject constructor(
     val chipsUiState: LiveData<ChipsScreenState> = _chipsUiState
 
     fun loadProfile() {
-        viewModelScope.launch {
-            getProfileUseCase.getProfile().collect { response ->
-                when (response) {
-                    is Resource.Success -> {
-                        _uiState.postValue(ProfileScreenState.Content(response.data))
-                    }
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching {
+                getProfileUseCase.getProfile().collect { response ->
+                    when (response) {
+                        is Resource.Success -> {
+                            _uiState.postValue(ProfileScreenState.Content(response.data))
+                        }
 
-                    is Resource.Error -> {
-                        _uiState.postValue(ProfileScreenState.Error(response.errorType))
+                        is Resource.Error -> {
+                            _uiState.postValue(ProfileScreenState.Error(response.errorType))
+                        }
                     }
                 }
+            }.onFailure {
+                _uiState.postValue(ProfileScreenState.Error(type = ErrorType.NO_CONNECTION))
             }
         }
     }
 
     fun loadProfileCompany() {
-        viewModelScope.launch {
-            getProfileCompanyUseCase.getProfileCompany().collect { response ->
-                when (response) {
-                    is Resource.Success -> {
-                        _uiStateCompany.postValue(ProfileCompanyScreenState.Content(response.data))
-                    }
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching {
+                getProfileCompanyUseCase.getProfileCompany().collect { response ->
+                    when (response) {
+                        is Resource.Success -> {
+                            _uiStateCompany.postValue(ProfileCompanyScreenState.Content(response.data))
+                        }
 
-                    is Resource.Error -> {
-                        _uiStateCompany.postValue(ProfileCompanyScreenState.Error(response.errorType))
+                        is Resource.Error -> {
+                            _uiStateCompany.postValue(ProfileCompanyScreenState.Error(response.errorType))
+                        }
                     }
                 }
+            }.onFailure {
+                _uiStateCompany.postValue(ProfileCompanyScreenState.Error(type = ErrorType.NO_CONNECTION))
             }
         }
     }
 
     fun loadChipAll(authorId: String) {
-        viewModelScope.launch {
-            chipsInteractor.getAll(authorId).collect { response ->
-                when (response) {
-                    is Resource.Success -> {
-                        _chipsUiState.postValue(ChipsScreenState.All(response.data))
-                    }
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching {
+                chipsInteractor.getAll(authorId).collect { response ->
+                    when (response) {
+                        is Resource.Success -> {
+                            _chipsUiState.postValue(ChipsScreenState.All(response.data))
+                        }
 
-                    is Resource.Error -> {
-                        _chipsUiState.postValue(ChipsScreenState.Error(response.errorType))
+                        is Resource.Error -> {
+                            _chipsUiState.postValue(ChipsScreenState.Error(response.errorType))
+                        }
                     }
                 }
+            }.onFailure {
+                _chipsUiState.postValue(ChipsScreenState.Error(type = ErrorType.NO_CONNECTION))
             }
         }
     }
 
-    fun loadChipProjects(authorId: String) {
-        viewModelScope.launch {
-            chipsInteractor.getProjects(authorId).collect { response ->
-                when (response) {
-                    is Resource.Success -> {
-                        _chipsUiState.postValue(ChipsScreenState.Projects(response.data))
-                    }
+    fun loadChipProjects(type: String, authorId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching {
+                chipsInteractor.getProjects(type, authorId).collect { response ->
+                    when (response) {
+                        is Resource.Success -> {
+                            _chipsUiState.postValue(ChipsScreenState.Projects(response.data))
+                        }
 
-                    is Resource.Error -> {
-                        _chipsUiState.postValue(ChipsScreenState.Error(response.errorType))
+                        is Resource.Error -> {
+                            _chipsUiState.postValue(ChipsScreenState.Error(response.errorType))
+                        }
                     }
                 }
+            }.onFailure {
+                _chipsUiState.postValue((ChipsScreenState.Error(type = ErrorType.NO_CONNECTION)))
             }
         }
     }
 
     fun loadChipIdeas(type: String, authorId: String) {
-        viewModelScope.launch {
-            chipsInteractor.getIdeas(type, authorId).collect { response ->
-                when (response) {
-                    is Resource.Success -> {
-                        _chipsUiState.postValue(ChipsScreenState.Ideas(response.data))
-                    }
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching {
 
-                    is Resource.Error -> {
-                        _chipsUiState.postValue(ChipsScreenState.Error(response.errorType))
+                chipsInteractor.getIdeas(type, authorId).collect { response ->
+                    when (response) {
+                        is Resource.Success -> {
+                            _chipsUiState.postValue(ChipsScreenState.Ideas(response.data))
+                        }
+
+                        is Resource.Error -> {
+                            _chipsUiState.postValue(ChipsScreenState.Error(response.errorType))
+                        }
                     }
                 }
+            }.onFailure {
+                _chipsUiState.postValue(ChipsScreenState.Error(type = ErrorType.NO_CONNECTION))
             }
         }
     }
 
     fun loadChipLiked(pageSize: Int) {
-        viewModelScope.launch {
-            chipsInteractor.getLikes(pageSize).collect { response ->
-                when (response) {
-                    is Resource.Success -> {
-                        _chipsUiState.postValue(ChipsScreenState.Liked(response.data))
-                    }
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching {
+                chipsInteractor.getLikes(pageSize).collect { response ->
+                    when (response) {
+                        is Resource.Success -> {
+                            _chipsUiState.postValue(ChipsScreenState.Liked(response.data))
+                        }
 
-                    is Resource.Error -> {
-                        _chipsUiState.postValue(ChipsScreenState.Error(response.errorType))
+                        is Resource.Error -> {
+                            _chipsUiState.postValue(ChipsScreenState.Error(response.errorType))
+                        }
                     }
                 }
+            }.onFailure {
+                _chipsUiState.postValue(ChipsScreenState.Error(type = ErrorType.NO_CONNECTION))
             }
         }
     }
 
     fun loadChipFavorites(pageSize: Int) {
-        viewModelScope.launch {
-            chipsInteractor.getFavorites(pageSize).collect { response ->
-                when (response) {
-                    is Resource.Success -> {
-                        _chipsUiState.postValue(ChipsScreenState.Favorites(response.data))
-                    }
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching {
+                chipsInteractor.getFavorites(pageSize).collect { response ->
+                    when (response) {
+                        is Resource.Success -> {
+                            _chipsUiState.postValue(ChipsScreenState.Favorites(response.data))
+                        }
 
-                    is Resource.Error -> {
-                        _chipsUiState.postValue(ChipsScreenState.Error(response.errorType))
+                        is Resource.Error -> {
+                            _chipsUiState.postValue(ChipsScreenState.Error(response.errorType))
+                        }
                     }
                 }
+            }.onFailure {
+                _chipsUiState.postValue(ChipsScreenState.Error(type = ErrorType.NO_CONNECTION))
             }
         }
     }

@@ -8,7 +8,7 @@ import com.innoprog.android.R
 import com.innoprog.android.databinding.ItemNewsBinding
 import com.innoprog.android.feature.profile.profiledetails.domain.models.FeedWrapper
 
-class ViewHolder(private val binding: ItemNewsBinding) :
+class PublicationsViewHolder(private val binding: ItemNewsBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     private val radius = binding.root.resources.getDimensionPixelSize(R.dimen.corner_radius_8)
@@ -29,17 +29,6 @@ class ViewHolder(private val binding: ItemNewsBinding) :
 
                     ivIdea.isVisible = true
                     projectCard.isVisible = false
-
-                    //   val url = publication.author.avatarUrl
-                    // val placeholderResId = com.innoprog.android.uikit.R.drawable.ic_person
-                    /*
-                    val imageType =
-                        url?.let { ImageLoadingType.ImageNetwork(it, placeholderResId = placeholderResId) }
-                    if (imageType!= null) {
-                        publicationAuthorAvatar.loadImage(imageType)
-                    }
-
-                     */
 
                     tvPublicationAuthorName.text = publication.author.name
                     tvCommentsCount.text = publication.commentsCount.toString()

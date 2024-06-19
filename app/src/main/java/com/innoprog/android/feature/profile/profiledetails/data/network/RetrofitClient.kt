@@ -27,11 +27,11 @@ class RetrofitClient @Inject constructor(
                     }
 
                     is Request.GetAll -> {
-                        IdeaResponse(service.getAll(authorId = dto.authorId))
+                        ChipsResponse(service.getAll(authorId = dto.authorId))
                     }
 
                     is Request.GetProjects -> {
-                        ProjectResponse(service.getProjects(authorId = dto.authorId))
+                        NewsResponse(service.getProjects(type = NEWS, authorId = dto.authorId))
                     }
 
                     is Request.GetIdeas -> {
@@ -39,11 +39,11 @@ class RetrofitClient @Inject constructor(
                     }
 
                     is Request.GetLikes -> {
-                        IdeaResponse(service.getLikes(pageSize = PAGE_SIZE))
+                        ChipsResponse(service.getLikes(pageSize = PAGE_SIZE))
                     }
 
                     is Request.GetFavorites -> {
-                        IdeaResponse(service.getFavorites(pageSize = PAGE_SIZE))
+                        ChipsResponse(service.getFavorites(pageSize = PAGE_SIZE))
                     }
 
                     else -> {
@@ -60,6 +60,7 @@ class RetrofitClient @Inject constructor(
     companion object {
 
         private const val IDEA = "IDEA"
+        private const val NEWS = "NEWS"
         private const val PAGE_SIZE = 50
     }
 }

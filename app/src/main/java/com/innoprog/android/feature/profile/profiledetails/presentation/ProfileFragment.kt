@@ -1,6 +1,7 @@
 package com.innoprog.android.feature.profile.profiledetails.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,18 +24,20 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
     override val viewModel by injectViewModel<ProfileViewModel>()
 
     private var user: Profile? = null
+    private var publications: ArrayList<FeedWrapper> = arrayListOf()
 
-    private var publicationList: ArrayList<FeedWrapper> = arrayListOf()
-
-    private val adapter: RecyclerAdapter by lazy {
-        RecyclerAdapter(publicationList) { publication ->
+    private val publicationsAdapter: PublicationsRecyclerAdapter by lazy {
+        PublicationsRecyclerAdapter(publications) { publication ->
             when (publication) {
                 is FeedWrapper.Idea -> {
-                    val action = FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(publication.id)
+                    val action =
+                        FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(publication.id)
                     findNavController().navigate(action)
                 }
+
                 is FeedWrapper.News -> {
-                    val action = FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(publication.id)
+                    val action =
+                        FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(publication.id)
                     findNavController().navigate(action)
                 }
             }
@@ -69,7 +72,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
 
         initChips()
 
-        initAdapter()
+        initAdapters()
+        Log.d("ProfileFragment", "RecyclerView initialized")
+
     }
 
     private fun observeData() {
@@ -101,17 +106,21 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
     private fun initChips() {
         val chipTitles = listOf(ALL_CONTENT, PROJECT, IDEAS, LIKES, FAVORITES)
         binding.chips.setChips(chipTitles)
-        binding.chips.selectChip(0)
+        binding.chips.selectChip(INDEX_1)
         binding.chips.setOnChipSelectListener(object :
             InnoProgChipGroupView.OnChipSelectListener {
             override fun onChipSelected(chipIndex: Int) {
                 user?.let { user ->
                     when (chipIndex) {
-                        FIRST -> viewModel.loadChipAll(authorId = user.userId)
-                        SECOND -> viewModel.loadChipProjects(authorId = user.userId)
-                        THIRD -> viewModel.loadChipIdeas(type = TYPE_IDEA, authorId = user.userId)
-                        FOURTH -> viewModel.loadChipLiked(pageSize = PAGE_SIZE)
-                        FIFTH -> viewModel.loadChipFavorites(pageSize = PAGE_SIZE)
+                        INDEX_1 -> viewModel.loadChipAll(authorId = user.userId)
+                        INDEX_2 -> viewModel.loadChipProjects(
+                            type = TYPE_NEWS,
+                            authorId = user.userId
+                        )
+
+                        INDEX_3 -> viewModel.loadChipIdeas(type = TYPE_IDEA, authorId = user.userId)
+                        INDEX_4 -> viewModel.loadChipLiked(pageSize = PAGE_SIZE)
+                        INDEX_5 -> viewModel.loadChipFavorites(pageSize = PAGE_SIZE)
                     }
                 }
             }
@@ -125,14 +134,16 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
         }
     }
 
-    private fun initAdapter() {
+    private fun initAdapters() {
         with(binding) {
-            recyclerAll.adapter = adapter
-            recyclerProjects.adapter = adapter
-            recyclerIdeas.adapter = adapter
-            recyclerLikes.adapter = adapter
-            recyclerFavorites.adapter = adapter
+            recyclerAll.adapter = publicationsAdapter
+            recyclerProjects.adapter = publicationsAdapter
+            recyclerIdeas.adapter = publicationsAdapter
+            recyclerLikes.adapter = publicationsAdapter
+            recyclerFavorites.adapter = publicationsAdapter
         }
+        Log.d("ProfileFragment", "Publications adapter initialized")
+
     }
 
     private fun render(screenState: ProfileScreenState) {
@@ -161,15 +172,55 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
 
     private fun renderChips(chipsScreenState: ChipsScreenState) {
         when (chipsScreenState) {
-            is ChipsScreenState.All -> showAllContent()
+            is ChipsScreenState.All -> {
+                publications.clear()
+                publications.addAll(chipsScreenState.content)
+                Log.d("ProfileFragment", "list size: ${publications.size}")
+                Log.d("ProfileFragment", "list: $publications")
+                publicationsAdapter.notifyDataSetChanged()
+                Log.d("ProfileFragment", "NotifyDataSetChanged called")
+                showAllContent()
+            }
 
-            is ChipsScreenState.Projects -> showUserProjects()
+            is ChipsScreenState.Projects -> {
+                publications.clear()
+                publications.addAll(chipsScreenState.projects)
+                Log.d("ProfileFragment", "list size: ${publications.size}")
+                Log.d("ProfileFragment", "list: $publications")
+                publicationsAdapter.notifyDataSetChanged()
+                Log.d("ProfileFragment", "NotifyDataSetChanged called")
+                showUserProjects()
+            }
 
-            is ChipsScreenState.Ideas -> showUserIdeas()
+            is ChipsScreenState.Ideas -> {
+                publications.clear()
+                publications.addAll(chipsScreenState.ideas)
+                Log.d("ProfileFragment", "list size: ${publications.size}")
+                Log.d("ProfileFragment", "list: $publications")
+                publicationsAdapter.notifyDataSetChanged()
+                Log.d("ProfileFragment", "NotifyDataSetChanged called")
+                showUserIdeas()
+            }
 
-            is ChipsScreenState.Liked -> showUserLiked()
+            is ChipsScreenState.Liked -> {
+                publications.clear()
+                publications.addAll(chipsScreenState.liked)
+                Log.d("ProfileFragment", "Publications list size: ${publications.size}")
+                Log.d("ProfileFragment", "Publications list: $publications")
+                publicationsAdapter.notifyDataSetChanged()
+                Log.d("ProfileFragment", "NotifyDataSetChanged called")
+                showUserLiked()
+            }
 
-            is ChipsScreenState.Favorites -> showUserFavorites()
+            is ChipsScreenState.Favorites -> {
+                publications.clear()
+                publications.addAll(chipsScreenState.favorites)
+                Log.d("ProfileFragment", "list size: ${publications.size}")
+                Log.d("ProfileFragment", "list: $publications")
+                publicationsAdapter.notifyDataSetChanged()
+                Log.d("ProfileFragment", "NotifyDataSetChanged called")
+                showUserFavorites()
+            }
 
             is ChipsScreenState.Error -> showPlaceholder()
         }
@@ -213,56 +264,58 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
 
     private fun showAllContent() {
         with(binding) {
-            placeholderText.isVisible = false
             recyclerAll.isVisible = true
             recyclerProjects.isVisible = false
             recyclerIdeas.isVisible = false
             recyclerLikes.isVisible = false
             recyclerFavorites.isVisible = false
+            placeholderText.isVisible = false
+
         }
     }
 
     private fun showUserProjects() {
         with(binding) {
-            placeholderText.isVisible = false
             recyclerAll.isVisible = false
             recyclerProjects.isVisible = true
             recyclerIdeas.isVisible = false
             recyclerLikes.isVisible = false
             recyclerFavorites.isVisible = false
+            placeholderText.isVisible = false
         }
     }
 
     private fun showUserIdeas() {
         with(binding) {
-            placeholderText.isVisible = false
             recyclerAll.isVisible = false
             recyclerProjects.isVisible = false
             recyclerIdeas.isVisible = true
             recyclerLikes.isVisible = false
             recyclerFavorites.isVisible = false
+            placeholderText.isVisible = false
         }
     }
 
     private fun showUserLiked() {
         with(binding) {
-            placeholderText.isVisible = false
             recyclerAll.isVisible = false
             recyclerProjects.isVisible = false
             recyclerIdeas.isVisible = false
             recyclerLikes.isVisible = true
             recyclerFavorites.isVisible = false
+            placeholderText.isVisible = false
+
         }
     }
 
     private fun showUserFavorites() {
         with(binding) {
-            placeholderText.isVisible = false
             recyclerAll.isVisible = false
             recyclerProjects.isVisible = false
             recyclerIdeas.isVisible = false
             recyclerLikes.isVisible = false
             recyclerFavorites.isVisible = true
+            placeholderText.isVisible = false
         }
     }
 
@@ -275,10 +328,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
         private const val FAVORITES = "Избранное"
         private const val PAGE_SIZE = 10
         private const val TYPE_IDEA = "IDEA"
-        private const val FIRST = 0
-        private const val SECOND = 1
-        private const val THIRD = 2
-        private const val FOURTH = 3
-        private const val FIFTH = 4
+        private const val TYPE_NEWS = "NEWS"
+        private const val INDEX_1 = 0
+        private const val INDEX_2 = 1
+        private const val INDEX_3 = 2
+        private const val INDEX_4 = 3
+        private const val INDEX_5 = 4
     }
 }
