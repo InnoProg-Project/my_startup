@@ -10,6 +10,4 @@ object ApiConstants {
     const val NO_CONNECTION = -1
     const val CAPTCHA_REQUIRED = 403
     const val NOT_FOUND = 404
-    const val USER_NAME = "testing@gmail.com"
-    const val PASSWORD = "testing"
 }

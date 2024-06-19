@@ -1,5 +1,6 @@
 package com.innoprog.android.network.data
 
+import com.innoprog.android.network.domain.AuthorizationDataRepository
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

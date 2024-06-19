@@ -252,13 +252,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
     }
 
     private fun showPlaceholder() {
-        with(binding) {
-            recyclerAll.isVisible = false
-            recyclerProjects.isVisible = false
-            recyclerIdeas.isVisible = false
-            recyclerLikes.isVisible = false
-            recyclerFavorites.isVisible = false
-            placeholderText.isVisible = true
+        if (publicationsAdapter.publications.isNullOrEmpty()) {
+            with(binding) {
+                recyclerAll.isVisible = false
+                recyclerProjects.isVisible = false
+                recyclerIdeas.isVisible = false
+                recyclerLikes.isVisible = false
+                recyclerFavorites.isVisible = false
+                placeholderText.isVisible = true
+            }
         }
     }
 
@@ -269,8 +271,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
             recyclerIdeas.isVisible = false
             recyclerLikes.isVisible = false
             recyclerFavorites.isVisible = false
-            placeholderText.isVisible = false
-
+            showPlaceholder()
         }
     }
 
@@ -281,7 +282,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
             recyclerIdeas.isVisible = false
             recyclerLikes.isVisible = false
             recyclerFavorites.isVisible = false
-            placeholderText.isVisible = false
+            showPlaceholder()
         }
     }
 
@@ -292,7 +293,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
             recyclerIdeas.isVisible = true
             recyclerLikes.isVisible = false
             recyclerFavorites.isVisible = false
-            placeholderText.isVisible = false
+            showPlaceholder()
         }
     }
 
@@ -304,7 +305,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
             recyclerLikes.isVisible = true
             recyclerFavorites.isVisible = false
             placeholderText.isVisible = false
-
+            showPlaceholder()
         }
     }
 
@@ -315,7 +316,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
             recyclerIdeas.isVisible = false
             recyclerLikes.isVisible = false
             recyclerFavorites.isVisible = true
-            placeholderText.isVisible = false
+            showPlaceholder()
         }
     }
 
