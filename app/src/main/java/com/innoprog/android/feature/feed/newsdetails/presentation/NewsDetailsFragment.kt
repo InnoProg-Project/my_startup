@@ -30,7 +30,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewModel>() {
+open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewModel>() {
 
     override val viewModel by injectViewModel<NewsDetailsViewModel>()
     private var galleryAdapter: ImageGalleryAdapter? = null
@@ -72,7 +72,11 @@ class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewMod
             }
 
             newsTopBar.setRightIconClickListener {
-                Toast.makeText(requireContext(), "Добавлено/удалено из избранного", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    requireContext(),
+                    "Добавлено/удалено из избранного",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
 
@@ -120,7 +124,7 @@ class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewMod
         Toast.makeText(requireContext(), "Ошибка", Toast.LENGTH_SHORT).show()
     }
 
-    private fun showContent(newsDetails: NewsDetailsModel) {
+    open fun showContent(newsDetails: NewsDetailsModel) {
         binding.apply {
             initImageGallery()
 

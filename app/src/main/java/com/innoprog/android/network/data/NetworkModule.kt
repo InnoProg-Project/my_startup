@@ -12,14 +12,26 @@ import java.util.concurrent.TimeUnit
 class NetworkModule {
 
     @Provides
-    fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
-        .callTimeout(ApiConstants.CALL_TIMEOUT.toLong(), TimeUnit.SECONDS)
-        .readTimeout(ApiConstants.READ_TIMEOUT.toLong(), TimeUnit.SECONDS)
-        .addInterceptor(AuthInterceptor())
-        .addInterceptor(HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        })
-        .build()
+    fun provideOkHttpClient(
+        authorizationDataRepository: AuthorizationDataRepository
+    ): OkHttpClient =
+        OkHttpClient.Builder()
+            .callTimeout(ApiConstants.CALL_TIMEOUT.toLong(), TimeUnit.SECONDS)
+            .readTimeout(ApiConstants.READ_TIMEOUT.toLong(), TimeUnit.SECONDS)
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
+            .addInterceptor { chain ->
+                chain.run {
+                    proceed(
+                        request()
+                            .newBuilder()
+                            .addHeader("X-Authorization", authorizationDataRepository.execute())
+                            .build()
+                    )
+                }
+            }
+            .build()
 
     @Provides
     fun provideRetrofit(
@@ -31,5 +43,10 @@ class NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
+    }
+
+    @Provides
+    fun provideAuthorisationDataRepository(repository: AuthorizationDataRepositoryImpl): AuthorizationDataRepository {
+        return repository
     }
 }
