@@ -5,5 +5,5 @@ import com.innoprog.android.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface EditProfileCompanyUseCase {
-    suspend fun editProfileCompany(): Flow<Resource<ProfileCompany>>
+    suspend fun editProfileCompany(name: String, url: String, role: String): Flow<Resource<ProfileCompany>>
 }
