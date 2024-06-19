@@ -1,5 +1,6 @@
 package com.innoprog.android.feature.profile.profiledetails.presentation
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -74,9 +75,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
 
         initAdapters()
         Log.d("ProfileFragment", "RecyclerView initialized")
-
     }
 
+    @Suppress("NAME_SHADOWING")
     private fun observeData() {
         viewModel.uiState.observe(viewLifecycleOwner) { state ->
             when (state) {
@@ -143,7 +144,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
             recyclerFavorites.adapter = publicationsAdapter
         }
         Log.d("ProfileFragment", "Publications adapter initialized")
-
     }
 
     private fun render(screenState: ProfileScreenState) {
@@ -170,6 +170,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun renderChips(chipsScreenState: ChipsScreenState) {
         when (chipsScreenState) {
             is ChipsScreenState.All -> {
@@ -252,7 +253,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
     }
 
     private fun showPlaceholder() {
-        if (publicationsAdapter.publications.isNullOrEmpty()) {
+        if (publicationsAdapter.publications.isEmpty()) {
             with(binding) {
                 recyclerAll.isVisible = false
                 recyclerProjects.isVisible = false
