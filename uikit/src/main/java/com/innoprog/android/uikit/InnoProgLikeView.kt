@@ -45,10 +45,11 @@ class InnoProgLikeView @JvmOverloads constructor(
     }
 
     fun click() {
-        if (liked)
+        if (liked) {
             unlike()
-        else
+        } else {
             like()
+        }
     }
 
     private fun like() {

@@ -43,7 +43,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)
 
-    //Glide
+    // Glide
     implementation(libs.glide)
     ksp(libs.glide.compiler)
 }

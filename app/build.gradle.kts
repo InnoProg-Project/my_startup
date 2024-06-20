@@ -52,25 +52,25 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)
 
-    //JetpackNavigation
+    // JetpackNavigation
     implementation(libs.bundles.navigation)
 
-    //Dagger2
+    // Dagger2
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
 
-    //Retrofit & Interceptor
+    // Retrofit & Interceptor
     implementation(libs.bundles.retrofit2)
 
-    //Glide
+    // Glide
     implementation(libs.glide)
     ksp(libs.glide.compiler)
 
-    //Room
+    // Room
     implementation(libs.bundles.room)
     ksp(libs.room.compiler)
 
-    //VideoPlayer
+    // VideoPlayer
     implementation(libs.bundles.exoplayer)
 
 

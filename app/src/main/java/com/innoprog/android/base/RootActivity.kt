@@ -9,13 +9,15 @@ import androidx.navigation.ui.setupWithNavController
 import com.innoprog.android.R
 import com.innoprog.android.databinding.ActivityRootBinding
 
+@Suppress("Detekt.MagicNumber", "Detekt.LateinitVariables")
 class RootActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityRootBinding
+    private val binding: ActivityRootBinding by lazy {
+        ActivityRootBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRootBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.rootFragmentContainerView) as NavHostFragment

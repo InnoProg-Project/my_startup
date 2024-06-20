@@ -3,7 +3,6 @@ package com.innoprog.android.feature.training.courseInformation.presentation
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.innoprog.android.databinding.ItemTrainingDocumentBinding
 import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformationDocumentModel
 
@@ -14,7 +13,13 @@ class DocumentRecyclerViewAdapter(private val onDocumentClickListener: (url: Str
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DocumentViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return DocumentViewHolder(ItemTrainingDocumentBinding.inflate(layoutInflater, parent, false))
+        return DocumentViewHolder(
+            ItemTrainingDocumentBinding.inflate(
+                layoutInflater,
+                parent,
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int {
@@ -26,12 +31,5 @@ class DocumentRecyclerViewAdapter(private val onDocumentClickListener: (url: Str
         holder.itemView.setOnClickListener {
             onDocumentClickListener(items[position].documentURL)
         }
-    }
-}
-
-class DocumentViewHolder(private val binding: ItemTrainingDocumentBinding) : ViewHolder(binding.root) {
-
-    fun bind(item: CourseInformationDocumentModel) {
-        binding.documentTitleTV.text = item.documentTitle
     }
 }

@@ -68,7 +68,14 @@ internal class SmsCodeSymbolView(context: Context) :
     private fun updateState(state: State) = with(state) {
         textAnimator?.cancel()
         if (symbol == null && isActive && showCursor) {
-            textAnimator = ObjectAnimator.ofInt(textPaint, "alpha", FULL, FULL, ZERO, ZERO)
+            textAnimator = ObjectAnimator.ofInt(
+                textPaint,
+                "alpha",
+                FULL,
+                FULL,
+                ZERO,
+                ZERO
+            )
                 .apply {
                     duration = cursorAlphaAnimDuration
                     startDelay = cursorAlphaAnimStartDelay
@@ -77,8 +84,16 @@ internal class SmsCodeSymbolView(context: Context) :
                     addUpdateListener { invalidate() }
                 }
         } else {
-            val startAlpha = if (symbol == null) FULL else ZERO
-            val endAlpha = if (symbol == null) ZERO else FULL
+            val startAlpha = if (symbol == null) {
+                FULL
+            } else {
+                ZERO
+            }
+            val endAlpha = if (symbol == null) {
+                ZERO
+            } else {
+                FULL
+            }
             textAnimator = ObjectAnimator.ofInt(textPaint, "alpha", startAlpha, endAlpha)
                 .apply {
                     duration = textPaintAlphaAnimDuration
@@ -132,15 +147,18 @@ internal class SmsCodeSymbolView(context: Context) :
     private val y = itemWidth / 2 + textPaint.textSize / 2 - textPaint.descent()
     private fun Canvas.drawInputText() {
         drawText(
-            if (state.isActive && showCursor) cursorSymbol else state.symbol?.toString()
-                ?: "",
+            if (state.isActive && showCursor) {
+                cursorSymbol
+            } else {
+                state.symbol?.toString() ?: ""
+            },
             backgroundRect.width() / 2 + borderPaint.strokeWidth / 2,
             y,
             textPaint
         )
     }
 
-    companion object {
+    private companion object {
         const val textPaintAlphaAnimDuration = 25L
         const val cursorAlphaAnimDuration = 500L
         const val cursorAlphaAnimStartDelay = 200L
