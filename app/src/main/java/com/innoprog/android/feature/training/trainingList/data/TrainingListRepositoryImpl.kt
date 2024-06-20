@@ -42,9 +42,7 @@ class TrainingListRepositoryImpl @Inject constructor(
             }
         }.onFailure { exception ->
             Log.e(TAG, "error -> ${exception.localizedMessage}")
-            if (exception is SocketTimeoutException) {
-                emit(Result.Error(GetCourseListError.NO_CONNECTION))
-            }
+            emit(Result.Error(GetCourseListError.NO_CONNECTION))
         }
     }
 

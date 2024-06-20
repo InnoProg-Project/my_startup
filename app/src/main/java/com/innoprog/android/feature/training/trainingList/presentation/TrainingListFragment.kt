@@ -17,10 +17,9 @@ import com.innoprog.android.uikit.R
 class TrainingListFragment : BaseFragment<FragmentTrainingListBinding, BaseViewModel>() {
     override val viewModel by injectViewModel<TrainingListViewModel>()
     private val trainingAdapter = TrainingRecyclerViewAdapter { courseId ->
-        viewModel.navigateTo(
-            com.innoprog.android.R.id.courseInformationFragment,
-            bundleOf(COURSE_KEY to courseId)
-        )
+        val direction = TrainingListFragmentDirections
+            .actionTrainingListFragmentToCourseInformationFragment(courseId)
+        viewModel.navigateTo(direction)
     }
 
     override fun diComponent(): ScreenComponent {
@@ -53,11 +52,21 @@ class TrainingListFragment : BaseFragment<FragmentTrainingListBinding, BaseViewM
 
     private fun render(state: TrainingListState) {
         when (state) {
+            is TrainingListState.EmptyList -> {
+                hideProgress()
+                binding.trainingRecyclerView.visibility = View.INVISIBLE
+                binding.trainingNoCoursesPlaceholderIcon.visibility = View.VISIBLE
+                binding.trainingNoCoursesPlaceholderTV.visibility = View.VISIBLE
+            }
+
             is TrainingListState.Error -> {
                 hideProgress()
                 binding.trainingRecyclerView.visibility = View.INVISIBLE
                 binding.trainingNoCoursesPlaceholderIcon.visibility = View.VISIBLE
                 binding.trainingNoCoursesPlaceholderTV.visibility = View.VISIBLE
+            }
+
+            is TrainingListState.UnAuthorisedError -> {
             }
 
             is TrainingListState.Content -> {

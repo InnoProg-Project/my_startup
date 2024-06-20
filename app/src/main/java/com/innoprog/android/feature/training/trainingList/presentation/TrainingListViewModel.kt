@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.innoprog.android.base.BaseViewModel
+import com.innoprog.android.feature.training.trainingList.domain.model.GetCourseListError
+import com.innoprog.android.feature.training.trainingList.domain.model.mapToUI
 import com.innoprog.android.feature.training.trainingList.domain.useCase.GetTrainingListUseCase
 import com.innoprog.android.util.Result
 import kotlinx.coroutines.Dispatchers
@@ -25,8 +27,11 @@ class TrainingListViewModel @Inject constructor(
                 getTrainingListUseCase.execute().collect { result ->
                     withContext(Dispatchers.Main) {
                         when (result) {
-                            is Result.Error -> setState(TrainingListState.Error)
-                            is Result.Success -> setState(TrainingListState.Content(result.data))
+                            is Result.Error -> renderError(result.error)
+                            is Result.Success -> {
+                                if (result.data.isEmpty()) setState(TrainingListState.EmptyList)
+                                else setState(TrainingListState.Content(result.data.map { it.mapToUI() }))
+                            }
                         }
                     }
                 }
@@ -37,6 +42,16 @@ class TrainingListViewModel @Inject constructor(
                     exception.printStackTrace()
                 }
             }
+        }
+    }
+
+    private fun renderError(error: GetCourseListError) {
+        when (error) {
+            GetCourseListError.UNAUTHORIZED -> setState(TrainingListState.UnAuthorisedError)
+            GetCourseListError.NOT_FOUND -> setState(TrainingListState.EmptyList)
+            GetCourseListError.NO_CONNECTION -> setState(TrainingListState.Error)
+            else -> setState(TrainingListState.Error)
+
         }
     }
 
