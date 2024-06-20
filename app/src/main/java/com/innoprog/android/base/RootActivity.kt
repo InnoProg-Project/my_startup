@@ -9,7 +9,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.innoprog.android.R
 import com.innoprog.android.databinding.ActivityRootBinding
 
-@Suppress("Detekt.MagicNumber", "Detekt.LateinitVariables")
 class RootActivity : AppCompatActivity() {
 
     private val binding: ActivityRootBinding by lazy {
