@@ -35,7 +35,7 @@ class ProfileInfoRepoImpl @Inject constructor(
             )
         )
         when (response.resultCode) {
-            ApiConstants.NO_INTERNET_CONNECTION_CODE -> {
+            ApiConstants.NO_CONNECTION -> {
                 emit(Resource.Error(ErrorType.NO_CONNECTION))
             }
 
@@ -64,7 +64,7 @@ class ProfileInfoRepoImpl @Inject constructor(
             )
         )
         when (response.resultCode) {
-            ApiConstants.NO_INTERNET_CONNECTION_CODE -> {
+            ApiConstants.NO_CONNECTION -> {
                 emit(Resource.Error(ErrorType.NO_CONNECTION))
             }
 
