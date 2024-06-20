@@ -12,9 +12,18 @@ class ChooseProjectDirectionAdapter : Adapter<ChooseProjectDirectionViewHolder>(
 
     var items = mutableListOf<ProjectDirectionModel>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChooseProjectDirectionViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ChooseProjectDirectionViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return ChooseProjectDirectionViewHolder(ItemProjectDirectionBinding.inflate(layoutInflater, parent, false))
+        return ChooseProjectDirectionViewHolder(
+            ItemProjectDirectionBinding.inflate(
+                layoutInflater,
+                parent,
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int = items.size
@@ -33,13 +42,15 @@ class ChooseProjectDirectionAdapter : Adapter<ChooseProjectDirectionViewHolder>(
     }
 }
 
-class ChooseProjectDirectionViewHolder(private val binding: ItemProjectDirectionBinding) : ViewHolder(binding.root) {
+class ChooseProjectDirectionViewHolder(private val binding: ItemProjectDirectionBinding) :
+    ViewHolder(binding.root) {
 
     fun bind(item: ProjectDirectionModel) {
         binding.courseDirectionTV.text = item.title
-        if (item.isSelected)
+        if (item.isSelected) {
             binding.iconSelected.visibility = View.VISIBLE
-        else
+        } else {
             binding.iconSelected.visibility = View.GONE
+        }
     }
 }

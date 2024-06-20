@@ -6,11 +6,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(
-    dependencies = [AppComponent::class],
-    modules = [FeedModule::class]
-)
-
+@Component(dependencies = [AppComponent::class], modules = [FeedModule::class])
 interface FeedComponent : ScreenComponent {
     @Component.Builder
     interface Builder {

@@ -64,7 +64,9 @@ class RegistrationViewModel @Inject constructor(
             passwordStateLiveData.postValue(InputState.CORRECT)
             this.password = password
         } else {
-            if (password.isEmpty()) passwordStateLiveData.postValue(InputState.DEFAULT) else {
+            if (password.isEmpty()) {
+                passwordStateLiveData.postValue(InputState.DEFAULT)
+            } else {
                 passwordStateLiveData.postValue(InputState.ERROR)
                 this.password = null
             }
@@ -72,16 +74,30 @@ class RegistrationViewModel @Inject constructor(
     }
 
     private fun verify(): Boolean {
-        return if ((userName.isNullOrEmpty() || password.isNullOrEmpty()) || email.isNullOrEmpty()) {
+        return if (userName.isNullOrEmpty() || password.isNullOrEmpty() || email.isNullOrEmpty()) {
             processResult(
                 RegistrationState.InputError(
-                    RegistrationModel(userName, phone, email, password)
+                    RegistrationModel(
+                        userName,
+                        phone,
+                        email,
+                        password
+                    )
                 )
             )
             false
         } else {
-            val registrationPhone = if (phone.isNullOrEmpty()) null else phone
-            input = RegistrationModel(userName, registrationPhone, email, password)
+            val registrationPhone = if (phone.isNullOrEmpty()) {
+                null
+            } else {
+                phone
+            }
+            input = RegistrationModel(
+                userName,
+                registrationPhone,
+                email,
+                password
+            )
             true
         }
     }

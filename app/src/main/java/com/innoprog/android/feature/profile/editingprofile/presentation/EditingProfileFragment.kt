@@ -31,7 +31,6 @@ class EditingProfileFragment : BaseFragment<FragmentEditingProfileBinding, BaseV
     }
 
     private fun initButton() {
-
         binding.tvChangePhoto.setOnClickListener {
             viewModel.navigateTo(R.id.action_editingProfileFragment_to_editingProfileBottomSheetFragment2)
         }

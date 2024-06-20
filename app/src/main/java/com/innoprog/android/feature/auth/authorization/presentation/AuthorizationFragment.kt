@@ -76,12 +76,15 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
     private fun navigateNext() {
         val direction =
             AuthorizationFragmentDirections.actionAuthorizationFragmentToFeedFragment()
-        findNavController().navigate(direction, navOptions {
-            launchSingleTop = true
-            popUpTo(R.id.nav_graph) {
-                inclusive = true
+        findNavController().navigate(
+            direction,
+            navOptions {
+                launchSingleTop = true
+                popUpTo(R.id.nav_graph) {
+                    inclusive = true
+                }
             }
-        })
+        )
     }
 
     private fun renderError(message: String) {
