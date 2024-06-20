@@ -5,7 +5,9 @@ import okhttp3.MultipartBody
 
 
 data class EditDto(
+    @SerializedName("data")
     val data: EditableDataDto,
+    @SerializedName("attachments")
     val attachments: List<MultipartBody.Part>
 )
 sealed interface EditableDataDto {

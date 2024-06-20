@@ -148,7 +148,7 @@ class CreateEditContentFragment : BaseFragment<FragmentCreateEditContentBinding,
             is CreateEditContentState.ProjectInfo -> {
 
                 Glide.with(binding.ivProjectLogo)
-                    .load(state.projectModel.logo)
+                    .load(state.projectModel.logoUrl)
                     .placeholder(R.drawable.ic_placeholder_logo)
                     .into(binding.ivProjectLogo)
                 binding.tvProjectName.text = state.projectModel.name

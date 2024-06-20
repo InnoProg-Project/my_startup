@@ -39,6 +39,8 @@ class EditContentNetworkClientImpl @Inject constructor(
         }
     }
 
+    //override suspend fun getProject()
+
     private fun isConnected(): Boolean {
         val connectivityManager = context.getSystemService(
             Context.CONNECTIVITY_SERVICE
