@@ -17,7 +17,6 @@ class FeedRepositoryImpl @Inject constructor(private val networkClient: NetworkC
     FeedRepository {
 
     override fun getNewsFeed(): Flow<Resource<List<News>>> = flow {
-
         val response = networkClient.loadNewsFeed()
 
         runCatching {

@@ -17,7 +17,6 @@ class RetrofitNetworkClient @Inject constructor(
     NetworkClient {
 
     override suspend fun loadNewsFeed(): Response {
-
         if (!isConnected()) {
             return Response().apply { resultCode = ApiConstants.NO_INTERNET_CONNECTION_CODE }
         }
