@@ -44,7 +44,6 @@ class FeedRepositoryImpl @Inject constructor(private val networkClient: NetworkC
             } else {
                 emit(Resource.Error(ErrorType.UNEXPECTED))
             }
-
         }
     }
 }

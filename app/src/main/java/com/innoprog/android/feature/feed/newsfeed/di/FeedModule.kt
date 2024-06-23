@@ -16,7 +16,7 @@ import dagger.Provides
 import dagger.multibindings.IntoMap
 import retrofit2.Retrofit
 
-@Module (includes = [FeedModule.FeedApiModule::class])
+@Module(includes = [FeedModule.FeedApiModule::class])
 interface FeedModule {
     @IntoMap
     @ViewModelKey(FeedViewModel::class)

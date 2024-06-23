@@ -25,7 +25,6 @@ import com.innoprog.android.feature.feed.newsfeed.domain.models.News
 import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
 import com.innoprog.android.uikit.InnoProgChipGroupView
-import com.innoprog.android.util.ErrorType
 
 class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
 
@@ -98,7 +97,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         when (state) {
             is FeedScreenState.Loading -> showLoading()
             is FeedScreenState.Content -> showContent(state.newsFeed)
-            is FeedScreenState.Error -> showError(state.type)
+            is FeedScreenState.Error -> showError()
         }
     }
 
@@ -106,7 +105,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         Toast.makeText(requireContext(), "Загрузка", Toast.LENGTH_SHORT).show()
     }
 
-    private fun showError(type: ErrorType) {
+    private fun showError() {
         Toast.makeText(requireContext(), "FeedScreenState Ошибка", Toast.LENGTH_SHORT).show()
     }
 

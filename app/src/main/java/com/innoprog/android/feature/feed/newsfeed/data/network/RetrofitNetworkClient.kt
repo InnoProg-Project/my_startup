@@ -7,6 +7,7 @@ import com.innoprog.android.network.data.ApiConstants
 import com.innoprog.android.network.data.Response
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import javax.inject.Inject
 
 class RetrofitNetworkClient @Inject constructor(
@@ -27,8 +28,8 @@ class RetrofitNetworkClient @Inject constructor(
                 FeedResponse(results = response.body()!!).apply {
                     resultCode = ApiConstants.SUCCESS_CODE
                 }
-            } catch (e: Throwable) {
-                Response().apply { resultCode = ApiConstants.BAD_REQUEST_CODE }
+            } catch (exception: HttpException) {
+                Response().apply { resultCode = exception.code() }
             }
         }
     }
