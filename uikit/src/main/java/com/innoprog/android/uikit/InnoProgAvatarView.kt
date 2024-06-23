@@ -14,7 +14,11 @@ class InnoProgAvatarView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
-) : FrameLayout(context, attrs, defStyleAttr) {
+) : FrameLayout(
+    context,
+    attrs,
+    defStyleAttr
+) {
 
     private val imageView by lazy { findViewById<ShapeableImageView>(R.id.avatar_image) }
 
@@ -57,7 +61,6 @@ class InnoProgAvatarView @JvmOverloads constructor(
     }
 
     fun loadImage(imageType: ImageLoadingType) {
-
         when (imageType) {
             is ImageLoadingType.ImageNetwork -> {
                 val request = Glide.with(context)
@@ -67,7 +70,6 @@ class InnoProgAvatarView @JvmOverloads constructor(
             }
 
             is ImageLoadingType.ImageDrawable -> {
-
                 val drawable =
                     ResourcesCompat.getDrawable(context.resources, imageType.drawableResId, null)
                 drawable?.let {

@@ -13,6 +13,7 @@ class NewsViewHolder(private val binding: ItemNewsBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     private val radius = binding.root.resources.getDimensionPixelSize(R.dimen.corner_radius_8)
+    @Suppress("Detekt.LongMethod")
     fun bind(news: News) {
         binding.apply {
             Glide

@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
+@Suppress("Detekt.StringLiteralDuplication")
 class AnyProjectRepositoryImpl @Inject constructor() : AnyProjectRepository {
 
     val company = Company(

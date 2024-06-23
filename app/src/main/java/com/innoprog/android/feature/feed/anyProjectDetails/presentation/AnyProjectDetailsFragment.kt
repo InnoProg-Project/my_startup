@@ -131,7 +131,8 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
     }
 
     private fun loadProjectInfo(anyProjectDetails: AnyProjectDetailsModel) {
-        val radius = binding.root.resources.getDimensionPixelSize(com.innoprog.android.R.dimen.corner_radius_8)
+        val radius =
+            binding.root.resources.getDimensionPixelSize(com.innoprog.android.R.dimen.corner_radius_8)
         binding.apply {
             Glide
                 .with(requireContext())

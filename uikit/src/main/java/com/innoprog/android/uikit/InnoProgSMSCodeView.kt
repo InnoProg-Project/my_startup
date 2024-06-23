@@ -78,7 +78,7 @@ class InnoProgSMSCodeView @JvmOverloads constructor(
             symbolSubviews.forEachIndexed { index, view ->
                 view.state = SmsCodeSymbolView.State(
                     symbol = enteredCode.getOrNull(index),
-                    isActive = (enteredCode.length == index)
+                    isActive = enteredCode.length == index
                 )
             }
         }
@@ -94,9 +94,9 @@ class InnoProgSMSCodeView @JvmOverloads constructor(
             val symbolView = SmsCodeSymbolView(context)
             symbolView.updateStyle(setStyle(inputState))
             symbolView.state =
-                SmsCodeSymbolView.State(isActive = (i == enteredCode.length && !isDisable))
+                SmsCodeSymbolView.State(isActive = i == enteredCode.length && !isDisable)
             addView(symbolView)
-            if (i < codeLength.dec()) {
+            if (i < codeLength - 1) {
                 val space = Space(context).apply {
                     layoutParams = ViewGroup.LayoutParams(
                         resources.getDimensionPixelSize(R.dimen.sms_item_indent),
@@ -158,9 +158,14 @@ class InnoProgSMSCodeView @JvmOverloads constructor(
 
             override fun deleteSurroundingText(beforeLength: Int, afterLength: Int): Boolean {
                 return if (beforeLength == 1 && afterLength == 0) {
-                    sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL)) &&
-                        sendKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL))
-                } else super.deleteSurroundingText(beforeLength, afterLength)
+                    sendKeyEvent(
+                        KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL)
+                    ) && sendKeyEvent(
+                        KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL)
+                    )
+                } else {
+                    super.deleteSurroundingText(beforeLength, afterLength)
+                }
             }
         }
     }
@@ -214,10 +219,13 @@ class InnoProgSMSCodeView @JvmOverloads constructor(
                 requestFocus()
                 showKeyboard()
             }
-        } else enteredCode = "2222"
+        } else {
+            enteredCode = "2222"
+        }
     }
-    companion object {
-        private const val KEYBOARD_AUTO_SHOW_DELAY = 500L
-        private const val DEFAULT_LENGTH = 4
+
+    private companion object {
+        const val KEYBOARD_AUTO_SHOW_DELAY = 500L
+        const val DEFAULT_LENGTH = 4
     }
 }
