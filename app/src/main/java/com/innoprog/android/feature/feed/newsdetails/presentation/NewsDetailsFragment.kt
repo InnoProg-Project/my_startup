@@ -24,7 +24,6 @@ import com.innoprog.android.feature.feed.newsdetails.di.DaggerNewsDetailsCompone
 import com.innoprog.android.feature.feed.newsdetails.domain.models.CommentModel
 import com.innoprog.android.feature.feed.newsdetails.domain.models.NewsDetailsModel
 import com.innoprog.android.feature.imagegalleryadapter.ImageGalleryAdapter
-import com.innoprog.android.uikit.ImageLoadingType
 import okhttp3.internal.format
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -133,11 +132,6 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
             tvNewsComments.text = newsDetails.commentsCount.toString()
             newsLikesView.setLikeCount(newsDetails.likesCount)
             tvNewsPublicationDate.text = getFormattedDate(newsDetails.publishedAt)
-
-            val avatarUrl = newsDetails.author.avatarUrl
-            val placeholderResId = com.innoprog.android.uikit.R.drawable.ic_person
-            loadAvatar(avatarUrl, placeholderResId)
-
             tvNewsAuthorName.text = newsDetails.author.name
 
             val newsAuthorPosition =
@@ -167,19 +161,6 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
         val outputFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy в HH:mm", Locale("ru"))
         val dateTime = LocalDateTime.parse(inputDate, inputFormatter)
         return dateTime.format(outputFormatter)
-    }
-
-    private fun loadAvatar(avatarUrl: String?, placeholderResId: Int) {
-        val imageType =
-            avatarUrl?.let {
-                ImageLoadingType.ImageNetwork(
-                    it,
-                    placeholderResId = placeholderResId
-                )
-            }
-        if (imageType != null) {
-            binding.newsAuthorAvatar.loadImage(imageType)
-        }
     }
 
     private fun initRecyclerView(commentsList: List<CommentModel>) {

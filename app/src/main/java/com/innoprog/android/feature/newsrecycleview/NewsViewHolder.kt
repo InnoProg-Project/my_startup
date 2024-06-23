@@ -8,7 +8,6 @@ import com.innoprog.android.R
 import com.innoprog.android.databinding.ItemNewsBinding
 import com.innoprog.android.feature.feed.newsfeed.domain.models.News
 import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
-import com.innoprog.android.uikit.ImageLoadingType
 
 class NewsViewHolder(private val binding: ItemNewsBinding) :
     RecyclerView.ViewHolder(binding.root) {
@@ -46,14 +45,6 @@ class NewsViewHolder(private val binding: ItemNewsBinding) :
 
                 tvProjectName.text = "Искусственный интеллект"
                 tvProjectDirection.text = "Искусственный интеллект"
-            }
-
-            val url = news.author.avatarUrl
-            val placeholderResId = com.innoprog.android.uikit.R.drawable.ic_person
-            val imageType =
-                url?.let { ImageLoadingType.ImageNetwork(it, placeholderResId = placeholderResId) }
-            if (imageType != null) {
-                publicationAuthorAvatar.loadImage(imageType)
             }
 
             tvPublicationAuthorName.text = news.author.name

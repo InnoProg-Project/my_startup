@@ -3,7 +3,6 @@ package com.innoprog.android.feature.feed.newsfeed.presentation
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -26,6 +25,7 @@ import com.innoprog.android.feature.feed.newsfeed.domain.models.News
 import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
 import com.innoprog.android.uikit.InnoProgChipGroupView
+import com.innoprog.android.util.ErrorType
 
 class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
 
@@ -98,7 +98,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         when (state) {
             is FeedScreenState.Loading -> showLoading()
             is FeedScreenState.Content -> showContent(state.newsFeed)
-            is FeedScreenState.Error -> showError()
+            is FeedScreenState.Error -> showError(state.type)
         }
     }
 
@@ -106,8 +106,8 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         Toast.makeText(requireContext(), "Загрузка", Toast.LENGTH_SHORT).show()
     }
 
-    private fun showError() {
-        Toast.makeText(requireContext(), "Ошибка", Toast.LENGTH_SHORT).show()
+    private fun showError(type: ErrorType) {
+        Toast.makeText(requireContext(), "FeedScreenState Ошибка", Toast.LENGTH_SHORT).show()
     }
 
     private fun showContent(newsFeed: List<News>) {
@@ -213,7 +213,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
             ) {
                 editText.text?.clear()
                 editText.requestFocus()
-                Log.d("Search_click", "Clear button clicked")
                 return@setOnTouchListener true
             }
             return@setOnTouchListener false

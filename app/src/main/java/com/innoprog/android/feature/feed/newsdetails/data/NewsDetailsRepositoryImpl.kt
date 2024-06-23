@@ -17,8 +17,6 @@ class NewsDetailsRepositoryImpl @Inject constructor() : NewsDetailsRepository {
 
     private val author = Author(
         "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        "https://img.freepik.com/free-vector/ai-technology-microchip-background-" +
-            "vector-digital-transformation-concept_53876-112222.jpg",
         "Юлия Анисимова",
         company
     )
