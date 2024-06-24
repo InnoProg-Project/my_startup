@@ -115,6 +115,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="courseId"
+            app:argType="string" />
     </fragment>
 
     <dialog
@@ -279,7 +282,7 @@
         android:label="fragment_training_list"
         tools:layout="@layout/fragment_training_list" >
         <action
-            android:id="@+id/action_trainingListFragment_to_courseInformationFragment2"
+            android:id="@+id/action_trainingListFragment_to_courseInformationFragment"
             app:destination="@id/courseInformationFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"

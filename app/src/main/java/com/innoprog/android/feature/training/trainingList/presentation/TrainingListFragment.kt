@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentTrainingListBinding
@@ -17,8 +16,10 @@ import com.innoprog.android.uikit.R
 class TrainingListFragment : BaseFragment<FragmentTrainingListBinding, BaseViewModel>() {
     override val viewModel by injectViewModel<TrainingListViewModel>()
     private val trainingAdapter = TrainingRecyclerViewAdapter { courseId ->
-        val direction = TrainingListFragmentDirections
-            .actionTrainingListFragmentToCourseInformationFragment(courseId)
+        val direction =
+            TrainingListFragmentDirections.actionTrainingListFragmentToCourseInformationFragment(
+                courseId
+            )
         viewModel.navigateTo(direction)
     }
 
