@@ -156,10 +156,14 @@ class InnoProgButtonView @JvmOverloads constructor(
         requestLayout()
     }
 
+    @Suppress("Detekt.LongMethod")
     private fun updateIconsSize(size: ButtonSize) {
         val iconSize =
-            if (size == ButtonSize.SMALL) resources.getDimensionPixelSize(R.dimen.button_icon_size_16)
-            else resources.getDimensionPixelSize(R.dimen.button_icon_size_20)
+            if (size == ButtonSize.SMALL) {
+                resources.getDimensionPixelSize(R.dimen.button_icon_size_16)
+            } else {
+                resources.getDimensionPixelSize(R.dimen.button_icon_size_20)
+            }
         val iconMargin = when (size) {
             ButtonSize.LARGE -> resources.getDimensionPixelSize(R.dimen.button_padding_14)
             ButtonSize.MEDIUM -> resources.getDimensionPixelSize(R.dimen.button_padding_14)

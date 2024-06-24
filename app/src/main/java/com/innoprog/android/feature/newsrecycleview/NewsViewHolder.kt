@@ -7,12 +7,14 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.innoprog.android.R
 import com.innoprog.android.databinding.ItemNewsBinding
 import com.innoprog.android.feature.feed.newsfeed.domain.models.News
+import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
 import com.innoprog.android.uikit.ImageLoadingType
 
 class NewsViewHolder(private val binding: ItemNewsBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     private val radius = binding.root.resources.getDimensionPixelSize(R.dimen.corner_radius_8)
+    @Suppress("Detekt.LongMethod")
     fun bind(news: News) {
         binding.apply {
             Glide
@@ -25,7 +27,7 @@ class NewsViewHolder(private val binding: ItemNewsBinding) :
             tvPublicationTitle.text = news.title
             tvPublicationContent.text = news.content
 
-            if (news.type == "idea") {
+            if (news.type == PublicationType.IDEA.value) {
                 ivIdea.isVisible = true
                 projectCard.isVisible = false
             } else {

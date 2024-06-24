@@ -23,6 +23,7 @@ import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.feed.newsfeed.di.DaggerFeedComponent
 import com.innoprog.android.feature.feed.newsfeed.domain.models.News
+import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
 import com.innoprog.android.uikit.InnoProgChipGroupView
 
@@ -33,10 +34,10 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     private var listNews: ArrayList<News> = arrayListOf()
     private val newsAdapter: NewsAdapter by lazy {
         NewsAdapter(listNews) { news ->
-            val action = FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(news.id)
-            findNavController().navigate(action)
+            publicationTypeIndicator(news.id, news.type)
         }
     }
+
     override fun diComponent(): ScreenComponent {
         val appComponent = AppComponentHolder.getComponent()
         return DaggerFeedComponent.builder()
@@ -133,7 +134,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
                 0,
                 0
             )
-            editText.setOnTouchListener { _, motionEvent ->
+            editText.setOnTouchListener { _, _ ->
                 false
             }
         } else {
@@ -201,6 +202,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     }
 
     @SuppressLint("ClickableViewAccessibility")
+    @Suppress("Detekt.LabeledExpression")
     private fun clearSearchBar() {
         val editText = binding.etSearch
         val iconClear = ContextCompat.getDrawable(requireContext(), R.drawable.ic_delete)
@@ -208,7 +210,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
 
         editText.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP && event.rawX >=
-                ((editText.right - editText.compoundPaddingEnd - iconWidth))
+                editText.right - editText.compoundPaddingEnd - iconWidth
             ) {
                 editText.text?.clear()
                 editText.requestFocus()
@@ -223,6 +225,16 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         val inputMethodManager =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
         inputMethodManager?.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
+    }
+
+    private fun publicationTypeIndicator(newsId: String, newsType: String) {
+        if (newsType == PublicationType.NEWS.value) {
+            val action = FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(newsId)
+            findNavController().navigate(action)
+        } else {
+            val action = FeedFragmentDirections.actionFeedFragmentToIdeaDetailsFragment(newsId)
+            findNavController().navigate(action)
+        }
     }
 
     companion object {

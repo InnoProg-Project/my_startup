@@ -6,12 +6,9 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(
-    dependencies = [AppComponent::class],
-    modules = [AnyProjectModule::class]
-)
-
+@Component(dependencies = [AppComponent::class], modules = [AnyProjectModule::class])
 interface AnyProjectComponent : ScreenComponent {
+
     @Component.Builder
     interface Builder {
         fun build(): AnyProjectComponent
