@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/error_image_error_message_description"
+        tools:src="@drawable/ic_server_error_125" />
+
+    <TextView
+        style="@style/TextHeadline_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        tools:text="@string/error_not_found_message" />
+
+    <com.innoprog.android.uikit.InnoProgButtonView
+        android:id="@+id/btLoadingLogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16"
+        android:gravity="center"
+        app:buttonSize="large"
+        app:buttonState="enabled"
+        app:buttonText="@string/error_repeat_request"
+        app:buttonType="primary" />
+
+</LinearLayout>
