@@ -1,6 +1,7 @@
-package com.innoprog.android.feature.projects.data.api
+package com.innoprog.android.feature.projects.projectsScreen.data.api
 
 import com.innoprog.android.feature.projects.data.dto.ProjectDto
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -10,5 +11,5 @@ interface ProjectApiService {
         @Query("userId") userId: String,
         @Query("lastId") lastId: String?,
         @Query("pageSize") pageSize: Int
-    ): List<ProjectDto>
+    ): Response<List<ProjectDto>>
 }
