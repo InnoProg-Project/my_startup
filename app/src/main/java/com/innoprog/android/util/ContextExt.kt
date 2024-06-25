@@ -12,8 +12,10 @@ fun Context.isInternetReachable(): Boolean {
     }
 
     return activeNetwork?.let {
-        it.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                it.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-                it.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+        val hasWifiTransport = it.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+        val hasCellularTransport = it.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+        val hasEthernetTransport = it.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+
+        hasWifiTransport || hasCellularTransport || hasEthernetTransport
     } ?: false
 }

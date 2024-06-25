@@ -1,12 +1,10 @@
 package com.innoprog.android.feature.projects.projectsScreen.domain.impl
 
 import com.innoprog.android.feature.projects.data.converter.convert
-import com.innoprog.android.feature.projects.domain.api.ProjectRepository
 import com.innoprog.android.feature.projects.domain.models.Project
 import com.innoprog.android.feature.projects.projectsScreen.domain.api.GetProjectListUseCase
+import com.innoprog.android.feature.projects.projectsScreen.domain.api.ProjectRepository
 import com.innoprog.android.util.Resource
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class GetProjectListUseCaseImpl @Inject constructor(
@@ -18,6 +16,7 @@ class GetProjectListUseCaseImpl @Inject constructor(
                 val projects = resource.data.map { it.convert() }
                 Resource.Success(projects)
             }
+
             is Resource.Error -> resource
         }
     }

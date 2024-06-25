@@ -15,6 +15,7 @@ import com.innoprog.android.databinding.FragmentProjectsBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.projects.domain.models.Project
+import com.innoprog.android.feature.projects.projectsScreen.presentation.adapter.ProjectsScreenAdapter
 import com.innoprog.android.util.ErrorScreenState
 import kotlinx.coroutines.launch
 
@@ -32,7 +33,11 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentProjectsBinding {
-        return FragmentProjectsBinding.inflate(inflater, container, false)
+        return FragmentProjectsBinding.inflate(
+            inflater,
+            container,
+            false
+        )
     }
 
     override fun subscribe() {
@@ -75,10 +80,7 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
             is ProjectsScreenState.Content -> showContent(state.projects)
             is ProjectsScreenState.Empty -> showEmpty()
             is ProjectsScreenState.Loading -> showEmpty() // заменить на экран загрузки
-            is ProjectsScreenState.Error -> {
-                renderError()
-                fetchErrorScreen(state.errorType)
-            }
+            is ProjectsScreenState.Error -> renderError(state.errorType)
         }
     }
 
@@ -107,14 +109,25 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
         }
     }
 
-    private fun renderError() = with(binding) {
-        listOf(
-            ivEmptyListPlaceholder, tvEmptyListPlaceholder, ipbtnCreateFisrtProject,
-            ipbtenCreateNewProject, tvProjectList
-        ).forEach {
-            it.isVisible = false
+    private fun renderError(errorState: ErrorScreenState) = with(binding) {
+        if (errorState == ErrorScreenState.UNAUTHORIZED) {
+            val direction = ProjectsScreenFragmentDirections
+                .actionProjectsFragmentToAuthorizationFragment()
+            viewModel.navigateTo(direction)
+        } else {
+            listOf(
+                ivEmptyListPlaceholder,
+                tvEmptyListPlaceholder,
+                ipbtnCreateFisrtProject,
+                ipbtenCreateNewProject,
+                tvProjectList,
+                tvProjectsTitle
+            ).forEach {
+                it.isVisible = false
+            }
+            fetchErrorScreen(errorState)
+            layoutErrorScreen.isVisible = true
         }
-        layoutErrorScreen.isVisible = true
     }
 
     private fun fetchErrorScreen(errorState: ErrorScreenState) {

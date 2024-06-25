@@ -5,7 +5,7 @@ import com.innoprog.android.util.ErrorScreenState
 
 sealed interface ProjectsScreenState {
     data object Empty : ProjectsScreenState
-    data object Loading: ProjectsScreenState
+    data object Loading : ProjectsScreenState
     data class Error(val errorType: ErrorScreenState) : ProjectsScreenState
     data class Content(val projects: List<Project>) : ProjectsScreenState
 }

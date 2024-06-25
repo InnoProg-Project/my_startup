@@ -1,12 +1,10 @@
-package com.innoprog.android.feature.projects.projectsScreen.presentation
+package com.innoprog.android.feature.projects.projectsScreen.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.innoprog.android.databinding.ItemProjectBinding
 import com.innoprog.android.feature.projects.domain.models.Project
-import com.innoprog.android.feature.projects.projectsScreen.domain.model.ProjectScreenModel
-import com.innoprog.android.feature.projects.projectsScreen.presentation.adapter.ProjectsScreenViewHolder
 
 class ProjectsScreenAdapter(
     val onItemClickListener: (id: String) -> Unit

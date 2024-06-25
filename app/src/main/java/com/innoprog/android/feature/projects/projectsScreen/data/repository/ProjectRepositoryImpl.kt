@@ -1,15 +1,19 @@
 package com.innoprog.android.feature.projects.projectsScreen.data.repository
 
+import android.util.Log
+import com.google.gson.JsonParseException
 import com.innoprog.android.feature.projects.data.dto.ProjectDto
-import com.innoprog.android.feature.projects.domain.api.ProjectRepository
 import com.innoprog.android.feature.projects.projectsScreen.data.network.ProjectListNetworkClient
 import com.innoprog.android.feature.projects.projectsScreen.data.network.ProjectListResponse
+import com.innoprog.android.feature.projects.projectsScreen.domain.api.ProjectRepository
 import com.innoprog.android.network.data.ApiConstants
 import com.innoprog.android.util.ErrorHandler
 import com.innoprog.android.util.ErrorHandlerImpl
 import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
 import retrofit2.HttpException
+import java.io.IOException
+import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 class ProjectRepositoryImpl @Inject constructor(
@@ -25,13 +29,24 @@ class ProjectRepositoryImpl @Inject constructor(
                     Resource.Success(projects ?: emptyList())
                 }
 
-                ApiConstants.NO_INTERNET_CONNECTION_CODE -> Resource.Error(ErrorType.NO_CONNECTION)
                 else -> errorHandler.handleErrorCode(response.resultCode)
             }
         } catch (e: HttpException) {
+            Log.e(ERROR_TAG, e.toString())
             errorHandler.handleHttpException(e)
-        } catch (e: Exception) {
-            Resource.Error(ErrorType.UNKNOWN_ERROR)
+        } catch (e: IOException) {
+            Log.e(ERROR_TAG, e.toString())
+            Resource.Error(ErrorType.NO_CONNECTION)
+        } catch (e: JsonParseException) {
+            Log.e(ERROR_TAG, e.toString())
+            Resource.Error(ErrorType.UNEXPECTED)
+        } catch (e: SocketTimeoutException) {
+            Log.e(ERROR_TAG, e.toString())
+            Resource.Error(ErrorType.NO_CONNECTION)
         }
+    }
+
+    private companion object {
+        const val ERROR_TAG = "ProjectRepository"
     }
 }

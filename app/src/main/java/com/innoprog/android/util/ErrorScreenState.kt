@@ -13,4 +13,5 @@ enum class ErrorScreenState(val messageResource: Int, val imageResource: Int) {
         com.innoprog.android.uikit.R.string.error_server_problems_message,
         com.innoprog.android.uikit.R.drawable.ic_error_server_error_125
     ),
+    UNAUTHORIZED(-1, -1)
 }

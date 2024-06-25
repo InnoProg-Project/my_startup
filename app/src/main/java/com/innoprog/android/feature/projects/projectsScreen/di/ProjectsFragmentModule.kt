@@ -2,12 +2,12 @@ package com.innoprog.android.feature.projects.projectsScreen.di
 
 import androidx.lifecycle.ViewModel
 import com.innoprog.android.di.ViewModelKey
-import com.innoprog.android.feature.projects.domain.api.ProjectRepository
 import com.innoprog.android.feature.projects.projectsScreen.data.network.ProjectApiService
 import com.innoprog.android.feature.projects.projectsScreen.data.network.ProjectListNetworkClient
 import com.innoprog.android.feature.projects.projectsScreen.data.network.ProjectListNetworkClientImpl
 import com.innoprog.android.feature.projects.projectsScreen.data.repository.ProjectRepositoryImpl
 import com.innoprog.android.feature.projects.projectsScreen.domain.api.GetProjectListUseCase
+import com.innoprog.android.feature.projects.projectsScreen.domain.api.ProjectRepository
 import com.innoprog.android.feature.projects.projectsScreen.domain.impl.GetProjectListUseCaseImpl
 import com.innoprog.android.feature.projects.projectsScreen.presentation.ProjectsScreenViewModel
 import dagger.Binds
@@ -25,13 +25,13 @@ interface ProjectsFragmentModule {
     fun bindVM(impl: ProjectsScreenViewModel): ViewModel
 
     @Binds
-    fun bindNetworkCliend(impl: ProjectListNetworkClientImpl) : ProjectListNetworkClient
+    fun bindNetworkCliend(impl: ProjectListNetworkClientImpl): ProjectListNetworkClient
 
     @Binds
-    fun bundRepository(impl: ProjectRepositoryImpl) : ProjectRepository
+    fun bundRepository(impl: ProjectRepositoryImpl): ProjectRepository
 
     @Binds
-    fun bindProjectListUseCase(impl: GetProjectListUseCaseImpl) : GetProjectListUseCase
+    fun bindProjectListUseCase(impl: GetProjectListUseCaseImpl): GetProjectListUseCase
 
     @Module
     class ProjectApiModule {

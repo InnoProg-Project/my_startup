@@ -26,8 +26,13 @@ class ProjectsScreenViewModel @Inject constructor(
         viewModelScope.launch {
             when (val result = getProjectListUseCase.execute()) {
                 is Resource.Success -> {
-                    _state.value = ProjectsScreenState.Content(result.data)
+                    _state.value = if (result.data.isEmpty()) {
+                        ProjectsScreenState.Empty
+                    } else {
+                        ProjectsScreenState.Content(result.data)
+                    }
                 }
+
                 is Resource.Error -> {
                     _state.value = renderError(result.errorType)
                 }
@@ -35,10 +40,12 @@ class ProjectsScreenViewModel @Inject constructor(
         }
     }
 
-    private fun renderError(errorType: ErrorType) : ProjectsScreenState.Error {
-        return when(errorType) {
+    private fun renderError(errorType: ErrorType): ProjectsScreenState.Error {
+        return when (errorType) {
             ErrorType.NO_CONNECTION -> ProjectsScreenState.Error(ErrorScreenState.NO_INTERNET)
             ErrorType.NOT_FOUND -> ProjectsScreenState.Error(ErrorScreenState.NOT_FOUND)
+            ErrorType.INTERNAL_SERVER_ERROR -> ProjectsScreenState.Error(ErrorScreenState.SERVER_ERROR)
+            ErrorType.UNAUTHORIZED -> ProjectsScreenState.Error(ErrorScreenState.SERVER_ERROR)
             else -> ProjectsScreenState.Error(ErrorScreenState.SERVER_ERROR)
         }
     }
