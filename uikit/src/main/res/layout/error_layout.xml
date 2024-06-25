@@ -8,23 +8,25 @@
     android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/iv_error_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/error_image_error_message_description"
-        tools:src="@drawable/ic_server_error_125" />
+        tools:src="@drawable/ic_error_server_error_125" />
 
     <TextView
-        style="@style/TextHeadline_1"
+        android:id="@+id/tv_error_message"
+        style="@style/tv_error_text_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         tools:text="@string/error_not_found_message" />
 
     <com.innoprog.android.uikit.InnoProgButtonView
-        android:id="@+id/btLoadingLogo"
+        android:id="@+id/ipbtn_repeat_request"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_16"
+        android:layout_margin="@dimen/margin_16"
         android:gravity="center"
         app:buttonSize="large"
         app:buttonState="enabled"

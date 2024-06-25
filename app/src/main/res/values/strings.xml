@@ -111,11 +111,4 @@
 
     <!-- FillAboutProjectScreen -->
     <string name="err_pick_photo">Не удалось прикрепить фото</string>
-
-<!--  Error screen  -->
-    <string name="error_image_error_message_description">Изображение сообщения об ошибке</string>
-    <string name="error_no_internet_message">Нет соединения с интернетом</string>
-    <string name="error_server_problems_message">Ошибка сервера</string>
-    <string name="error_not_found_message">Страница не найдена</string>
-    <string name="error_repeat_request">Повторить запрос</string>
 </resources>
