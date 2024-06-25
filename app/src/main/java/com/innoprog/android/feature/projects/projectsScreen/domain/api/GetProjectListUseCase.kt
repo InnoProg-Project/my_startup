@@ -5,9 +5,5 @@ import com.innoprog.android.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface GetProjectListUseCase {
-    suspend fun execute(
-        userId: String,
-        lastId: String?,
-        pageSize: Int
-    ): Flow<Resource<List<Project>>>
+    suspend fun execute(): Resource<List<Project>>
 }

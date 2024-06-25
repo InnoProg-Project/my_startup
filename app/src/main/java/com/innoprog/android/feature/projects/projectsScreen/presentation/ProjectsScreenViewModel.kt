@@ -19,21 +19,17 @@ class ProjectsScreenViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     init {
-        viewModelScope.launch {
-            renderState()
-        }
+        getProjectList()
     }
 
-
-    private suspend fun renderState() {
-        getProjectListUseCase.execute("01", null, 10).collect { resource ->
-            when (resource) {
+    fun getProjectList() {
+        viewModelScope.launch {
+            when (val result = getProjectListUseCase.execute()) {
                 is Resource.Success -> {
-                    _state.value = ProjectsScreenState.Content(resource.data)
+                    _state.value = ProjectsScreenState.Content(result.data)
                 }
-
                 is Resource.Error -> {
-                    _state.value = renderError(resource as ErrorType)
+                    _state.value = renderError(result.errorType)
                 }
             }
         }
