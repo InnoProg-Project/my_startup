@@ -20,18 +20,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/projectPlaceholderIV"
+        android:id="@+id/iv_empty_list_placeholder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_cube"
-        app:layout_constraintBottom_toTopOf="@id/projectPlaceholderTV"
+        app:layout_constraintBottom_toTopOf="@id/tv_empty_list_placeholder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvProjects"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:visibility="gone" />
 
     <TextView
-        android:id="@+id/projectPlaceholderTV"
+        android:id="@+id/tv_empty_list_placeholder"
         style="@style/TextHeadline_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,13 +40,13 @@
         android:gravity="center"
         android:text="@string/projects_tell_about_your_project"
         android:textColor="@color/text_primary"
-        app:layout_constraintBottom_toBottomOf="@id/createFirstProjectButton"
+        app:layout_constraintBottom_toBottomOf="@id/ipbtn_create_fisrt_project"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/projectPlaceholderIV" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_empty_list_placeholder" />
 
     <com.innoprog.android.uikit.InnoProgButtonView
-        android:id="@+id/createFirstProjectButton"
+        android:id="@+id/ipbtn_create_fisrt_project"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_24"
@@ -54,10 +55,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/projectPlaceholderTV" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_empty_list_placeholder" />
 
     <com.innoprog.android.uikit.InnoProgButtonView
-        android:id="@+id/createNewProjectButton"
+        android:id="@+id/ipbten_create_new_project"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_8"
@@ -69,7 +70,7 @@
         tools:layout_editor_absoluteX="4dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/projectsRV"
+        android:id="@+id/tv_project_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/margin_8"
@@ -77,9 +78,14 @@
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createNewProjectButton"
+        app:layout_constraintTop_toBottomOf="@+id/ipbten_create_new_project"
         tools:itemCount="2"
         tools:layout_editor_absoluteX="8dp"
         tools:listitem="@layout/item_project" />
+
+    <include
+        android:id="@+id/layout_error_screen"
+        layout="@layout/error_layout"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

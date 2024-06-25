@@ -48,6 +48,8 @@ abstract class BaseFragment<T : ViewBinding, VM : BaseViewModel> : Fragment() {
                 navEvent?.navigate(this@BaseFragment)
             }
         }
+        initViews()
+        subscribe()
     }
 
     override fun onDestroyView() {
@@ -55,4 +57,7 @@ abstract class BaseFragment<T : ViewBinding, VM : BaseViewModel> : Fragment() {
         _binding = null
         viewModel.setState(null)
     }
+
+    open protected fun initViews() = Unit
+    open protected fun subscribe() = Unit
 }
