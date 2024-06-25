@@ -1,17 +1,24 @@
 package com.innoprog.android.feature.feed.newsdetails.data
 
+import com.innoprog.android.feature.feed.newsdetails.data.network.CommentsResponse
+import com.innoprog.android.feature.feed.newsdetails.data.network.NewsDetailsResponse
+import com.innoprog.android.feature.feed.newsdetails.data.network.mapToCommentModel
 import com.innoprog.android.feature.feed.newsdetails.domain.NewsDetailsRepository
 import com.innoprog.android.feature.feed.newsdetails.domain.models.CommentModel
 import com.innoprog.android.feature.feed.newsdetails.domain.models.NewsDetailsModel
-import com.innoprog.android.feature.feed.newsfeed.domain.models.Author
-import com.innoprog.android.feature.feed.newsfeed.domain.models.Company
-import com.innoprog.android.feature.training.trainingList.domain.ErrorStatus
+import com.innoprog.android.network.data.ApiConstants
+import com.innoprog.android.util.ErrorType
+import com.innoprog.android.util.Resource
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 @Suppress("Detekt.Indentation")
-class NewsDetailsRepositoryImpl @Inject constructor() : NewsDetailsRepository {
+class NewsDetailsRepositoryImpl @Inject constructor(private val networkClient: NetworkClient) :
+    NewsDetailsRepository {
 
-    private val company = Company(
+    /*private val company = Company(
         "HighTechCorp",
         "CEO"
     )
@@ -55,9 +62,60 @@ class NewsDetailsRepositoryImpl @Inject constructor() : NewsDetailsRepository {
         isLiked = false,
         isFavorite = false,
         comments = listOf(comment, comment, comment, comment, comment)
-    )
+    )*/
 
-    override suspend fun getNewsDetails(id: String): Pair<NewsDetailsModel?, ErrorStatus?> {
-        return Pair(newsDetails, null)
+    override suspend fun getNewsDetails(id: String): Resource<NewsDetailsModel> {
+        return runCatching {
+            val response = networkClient.getNewsDetails(id)
+            when (response.resultCode) {
+                ApiConstants.NO_INTERNET_CONNECTION_CODE -> {
+                    Resource.Error(ErrorType.NO_CONNECTION)
+                }
+
+                ApiConstants.SUCCESS_CODE -> {
+                    with(response as NewsDetailsResponse) {
+                        val newsDetails = results.map { it.mapToNewsDetailsModel }
+                        Resource.Success(newsDetails)
+                    }
+                }
+
+                else -> {
+                    Resource.Error(ErrorType.UNEXPECTED)
+                }
+            }
+        }.onFailure { exception ->
+            if (exception is SocketTimeoutException) {
+                Resource.Error(ErrorType.NO_CONNECTION)
+            } else {
+                Resource.Error(ErrorType.UNEXPECTED)
+            }
+        }
+    }
+
+    override fun getComments(newsId: String): Flow<Resource<List<CommentModel>>> = flow {
+        val response = networkClient.getComments(newsId)
+        runCatching {
+            when (response.resultCode) {
+                ApiConstants.NO_INTERNET_CONNECTION_CODE -> {
+                    emit(Resource.Error(ErrorType.NO_CONNECTION))
+                }
+                ApiConstants.SUCCESS_CODE -> {
+                    with(response as CommentsResponse) {
+                        val data = results.map { it.mapToCommentModel() }
+                        emit(Resource.Success(data))
+                    }
+                }
+                else -> {
+                    emit(Resource.Error(ErrorType.BAD_REQUEST))
+                }
+            }
+        }.onFailure { exception ->
+            if (exception is SocketTimeoutException) {
+                emit(Resource.Error(ErrorType.NO_CONNECTION))
+            } else {
+                emit(Resource.Error(ErrorType.UNEXPECTED))
+            }
+        }
+
     }
 }
