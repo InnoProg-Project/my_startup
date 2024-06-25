@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.projects.projectsScreen.data.api
+package com.innoprog.android.feature.projects.projectsScreen.data.network
 
 import com.innoprog.android.feature.projects.data.dto.ProjectDto
 import retrofit2.Response
