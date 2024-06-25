@@ -1,6 +1,9 @@
 package com.innoprog.android.feature.feed.newsfeed.data.network
 
 import com.google.gson.annotations.SerializedName
+import com.innoprog.android.feature.feed.newsfeed.domain.models.Author
+import com.innoprog.android.feature.feed.newsfeed.domain.models.Company
+import com.innoprog.android.feature.feed.newsfeed.domain.models.News
 
 data class NewsDto(
     @SerializedName("id")
@@ -53,3 +56,41 @@ data class Attachments(
     @SerializedName("type")
     val type: String
 )
+
+fun NewsDto.mapToNews(): News {
+    return News(
+        id = id,
+        type = type,
+        author = createAuthor(author),
+        projectId = projectId,
+        coverUrl = createUrls(attachments),
+        title = title,
+        content = content,
+        publishedAt = publishedAt,
+        likesCount = likesCount,
+        commentsCount = commentsCount
+    )
+}
+
+private fun createUrls(urlList: List<Attachments>): List<String> {
+    return urlList.map { it.filePath }
+}
+
+private fun createAuthor(authorDto: AuthorDto): Author {
+    return authorDto.let {
+        Author(
+            id = it.id,
+            name = it.name,
+            company = createCompany(it.company)
+        )
+    }
+}
+
+private fun createCompany(companyDto: CompanyDto): Company {
+    return companyDto.let {
+        Company(
+            companyName = it.companyName,
+            role = it.role,
+        )
+    }
+}

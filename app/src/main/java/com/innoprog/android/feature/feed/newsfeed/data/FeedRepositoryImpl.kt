@@ -1,8 +1,8 @@
 package com.innoprog.android.feature.feed.newsfeed.data
 
-import com.innoprog.android.feature.feed.newsfeed.data.converters.NewsDtoMapper
 import com.innoprog.android.feature.feed.newsfeed.data.network.FeedResponse
 import com.innoprog.android.feature.feed.newsfeed.data.network.NetworkClient
+import com.innoprog.android.feature.feed.newsfeed.data.network.mapToNews
 import com.innoprog.android.feature.feed.newsfeed.domain.FeedRepository
 import com.innoprog.android.feature.feed.newsfeed.domain.models.News
 import com.innoprog.android.network.data.ApiConstants
@@ -27,8 +27,7 @@ class FeedRepositoryImpl @Inject constructor(private val networkClient: NetworkC
 
                 ApiConstants.SUCCESS_CODE -> {
                     with(response as FeedResponse) {
-                        val newsDtoMapper = NewsDtoMapper()
-                        val data = results.map { newsDtoMapper.newsDtoToNews(it) }
+                        val data = results.map { it.mapToNews() }
                         emit(Resource.Success(data))
                     }
                 }

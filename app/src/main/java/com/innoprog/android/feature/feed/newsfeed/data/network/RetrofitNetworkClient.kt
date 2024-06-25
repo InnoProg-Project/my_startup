@@ -17,7 +17,7 @@ class RetrofitNetworkClient @Inject constructor(
     NetworkClient {
 
     override suspend fun loadNewsFeed(): Response {
-        if (!isConnected()) {
+        if (!context.checkInternetAvailability()) {
             return Response().apply { resultCode = ApiConstants.NO_INTERNET_CONNECTION_CODE }
         }
 
@@ -33,19 +33,14 @@ class RetrofitNetworkClient @Inject constructor(
         }
     }
 
-    private fun isConnected(): Boolean {
-        val connectivityManager = context.getSystemService(
-            Context.CONNECTIVITY_SERVICE
-        ) as ConnectivityManager
-        val capabilities =
-            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        if (capabilities != null) {
-            when {
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> return true
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> return true
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> return true
-            }
+    fun Context.checkInternetAvailability(): Boolean {
+        val connectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork =
+            connectivityManager.activeNetwork?.let { connectivityManager.getNetworkCapabilities(it) } ?: return false
+        return when {
+            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            else -> false
         }
-        return false
     }
 }
