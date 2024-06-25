@@ -19,7 +19,7 @@ class CourseInformationViewModel @Inject constructor(
         setState(CourseInformationState.Load)
     }
 
-    fun getCourseInformation(courseId: Int) {
+    fun getCourseInformation(courseId: String) {
         viewModelScope.launch {
             getCourseInformationUseCase.execute(courseId).collect {
                 if (it.first != null) {
