@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -51,6 +52,7 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        hideButtons()
 
         setUiListeners()
 
@@ -145,5 +147,10 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
             tvProjectName.text = anyProjectDetails.name
             tvProjectDirection.text = anyProjectDetails.area
         }
+    }
+
+    private fun hideButtons() = with(binding) {
+        ibtnvEditDocuments.isVisible = false
+        ibtnvEditDocuments.isVisible = false
     }
 }
