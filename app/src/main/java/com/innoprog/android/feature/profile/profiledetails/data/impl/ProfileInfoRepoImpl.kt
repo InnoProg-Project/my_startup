@@ -20,6 +20,7 @@ import javax.inject.Inject
 class ProfileInfoRepoImpl @Inject constructor(
     private val network: NetworkClient,
     private val roomDB: RoomDB
+
 ) : ProfileInfoRepo {
 
     override suspend fun loadProfile(): Flow<Resource<Profile>> = flow {

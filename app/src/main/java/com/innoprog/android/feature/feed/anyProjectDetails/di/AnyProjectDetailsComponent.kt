@@ -10,7 +10,6 @@ import javax.inject.Singleton
     dependencies = [AppComponent::class],
     modules = [AnyProjectDetailsModule::class]
 )
-
 interface AnyProjectDetailsComponent : ScreenComponent {
     @Component.Builder
     interface Builder {

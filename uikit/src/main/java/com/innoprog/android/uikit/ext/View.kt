@@ -12,7 +12,6 @@ inline fun AttributeSet.applyStyleable(
     @StyleableRes styleableResId: IntArray,
     action: TypedArray.() -> Unit
 ) {
-
     val typedArray = context.obtainStyledAttributes(this, styleableResId)
     typedArray.action()
     typedArray.recycle()

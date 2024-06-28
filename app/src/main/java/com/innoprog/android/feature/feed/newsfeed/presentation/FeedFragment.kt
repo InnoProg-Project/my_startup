@@ -134,7 +134,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
                 0,
                 0
             )
-            editText.setOnTouchListener { _, motionEvent ->
+            editText.setOnTouchListener { _, _ ->
                 false
             }
         } else {
@@ -202,6 +202,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     }
 
     @SuppressLint("ClickableViewAccessibility")
+    @Suppress("Detekt.LabeledExpression")
     private fun clearSearchBar() {
         val editText = binding.etSearch
         val iconClear = ContextCompat.getDrawable(requireContext(), R.drawable.ic_delete)
@@ -209,7 +210,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
 
         editText.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP && event.rawX >=
-                ((editText.right - editText.compoundPaddingEnd - iconWidth))
+                editText.right - editText.compoundPaddingEnd - iconWidth
             ) {
                 editText.text?.clear()
                 editText.requestFocus()
