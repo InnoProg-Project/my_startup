@@ -74,7 +74,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
         initChips()
 
         initAdapters()
-        Log.d("ProfileFragment", "RecyclerView initialized")
     }
 
     @Suppress("NAME_SHADOWING")
@@ -143,7 +142,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
             recyclerLikes.adapter = publicationsAdapter
             recyclerFavorites.adapter = publicationsAdapter
         }
-        Log.d("ProfileFragment", "Publications adapter initialized")
     }
 
     private fun render(screenState: ProfileScreenState) {
@@ -176,40 +174,28 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
             is ChipsScreenState.All -> {
                 publications.clear()
                 publications.addAll(chipsScreenState.content)
-                Log.d("ProfileFragment", "list size: ${publications.size}")
-                Log.d("ProfileFragment", "list: $publications")
                 publicationsAdapter.notifyDataSetChanged()
-                Log.d("ProfileFragment", "NotifyDataSetChanged called")
                 showAllContent()
             }
 
             is ChipsScreenState.Projects -> {
                 publications.clear()
                 publications.addAll(chipsScreenState.projects)
-                Log.d("ProfileFragment", "list size: ${publications.size}")
-                Log.d("ProfileFragment", "list: $publications")
                 publicationsAdapter.notifyDataSetChanged()
-                Log.d("ProfileFragment", "NotifyDataSetChanged called")
                 showUserProjects()
             }
 
             is ChipsScreenState.Ideas -> {
                 publications.clear()
                 publications.addAll(chipsScreenState.ideas)
-                Log.d("ProfileFragment", "list size: ${publications.size}")
-                Log.d("ProfileFragment", "list: $publications")
                 publicationsAdapter.notifyDataSetChanged()
-                Log.d("ProfileFragment", "NotifyDataSetChanged called")
                 showUserIdeas()
             }
 
             is ChipsScreenState.Liked -> {
                 publications.clear()
                 publications.addAll(chipsScreenState.liked)
-                Log.d("ProfileFragment", "list size: ${publications.size}")
-                Log.d("ProfileFragment", "list: $publications")
                 publicationsAdapter.notifyDataSetChanged()
-                Log.d("ProfileFragment", "NotifyDataSetChanged called")
                 showUserLiked()
             }
 

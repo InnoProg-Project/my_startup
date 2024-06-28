@@ -24,7 +24,6 @@ class ProfileInfoRepoImpl @Inject constructor(
 ) : ProfileInfoRepo {
 
     override suspend fun loadProfile(): Flow<Resource<Profile>> = flow {
-
         val apiResponse =
             network.doRequest(Request.GetProfile)
 

@@ -13,7 +13,6 @@ class RetrofitClient @Inject constructor(
 ) : NetworkClient {
 
     override suspend fun doRequest(dto: Any): Response {
-
         var response = Response()
         return withContext(Dispatchers.IO) {
             try {
