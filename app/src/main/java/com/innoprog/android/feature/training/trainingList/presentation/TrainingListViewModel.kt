@@ -31,7 +31,9 @@ class TrainingListViewModel @Inject constructor(
                             is Result.Success -> {
                                 if (result.data.isEmpty()) {
                                     setState(TrainingListState.EmptyList)
-                                } else setState(TrainingListState.Content(result.data.map { it.mapToUI() }))
+                                } else {
+                                    setState(TrainingListState.Content(result.data.map { it.mapToUI() }))
+                                }
                             }
                         }
                     }
