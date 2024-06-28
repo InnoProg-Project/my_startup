@@ -36,7 +36,8 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
     }
 
     override fun createBinding(
-        inflater: LayoutInflater, container: ViewGroup?
+        inflater: LayoutInflater,
+        container: ViewGroup?
     ): FragmentCourseInformationBinding {
         return FragmentCourseInformationBinding.inflate(inflater, container, false)
     }
