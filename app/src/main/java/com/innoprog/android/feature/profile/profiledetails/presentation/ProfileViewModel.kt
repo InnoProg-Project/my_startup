@@ -104,7 +104,7 @@ class ProfileViewModel @Inject constructor(
                     }
                 }
             }.onFailure {
-                _chipsUiState.postValue((ChipsScreenState.Error(type = ErrorType.NO_CONNECTION)))
+                _chipsUiState.postValue(ChipsScreenState.Error(ErrorType.NO_CONNECTION))
             }
         }
     }
@@ -112,7 +112,6 @@ class ProfileViewModel @Inject constructor(
     fun loadChipIdeas(type: String, authorId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
-
                 chipsInteractor.getIdeas(type, authorId).collect { response ->
                     when (response) {
                         is Resource.Success -> {

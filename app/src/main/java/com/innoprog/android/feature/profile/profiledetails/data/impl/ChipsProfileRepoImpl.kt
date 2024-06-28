@@ -23,8 +23,9 @@ class ChipsProfileRepoImpl @Inject constructor(
 
             if (response is ChipsResponse && response.resultCode == ApiConstants.SUCCESS_CODE) {
                 emit(Resource.Success(response.results.map { it.mapToDomain() }))
-            } else
+            } else {
                 emit(Resource.Error(getErrorType(response.resultCode)))
+            }
         }
     }
 
@@ -40,8 +41,9 @@ class ChipsProfileRepoImpl @Inject constructor(
                     it.mapToDomain() as FeedWrapper.News
                 }
                 emit(Resource.Success(projects))
-            } else
+            } else {
                 emit(Resource.Error(getErrorType(response.resultCode)))
+            }
         }
     }
 
@@ -57,8 +59,9 @@ class ChipsProfileRepoImpl @Inject constructor(
                     it.mapToDomain() as FeedWrapper.Idea
                 }
                 emit(Resource.Success(ideas))
-            } else
+            } else {
                 emit(Resource.Error(getErrorType(response.resultCode)))
+            }
         }
     }
 
@@ -68,8 +71,9 @@ class ChipsProfileRepoImpl @Inject constructor(
 
             if (response is ChipsResponse && response.resultCode == ApiConstants.SUCCESS_CODE) {
                 emit(Resource.Success(response.results.map { it.mapToDomain() }))
-            } else
+            } else {
                 emit(Resource.Error(getErrorType(response.resultCode)))
+            }
         }
     }
 
@@ -79,8 +83,9 @@ class ChipsProfileRepoImpl @Inject constructor(
 
             if (response is ChipsResponse && response.resultCode == ApiConstants.SUCCESS_CODE) {
                 emit(Resource.Success(response.results.map { it.mapToDomain() }))
-            } else
+            } else {
                 emit(Resource.Error(getErrorType(response.resultCode)))
+            }
         }
     }
 

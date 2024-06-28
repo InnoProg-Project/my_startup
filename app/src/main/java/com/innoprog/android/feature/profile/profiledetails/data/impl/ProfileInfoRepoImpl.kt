@@ -38,8 +38,9 @@ class ProfileInfoRepoImpl @Inject constructor(
                     authorities = apiResponse.authorities
                 )
             )
-        } else
+        } else {
             emit(Resource.Error(getErrorType(apiResponse.resultCode)))
+        }
     }
 
     override suspend fun loadProfileCompany(): Flow<Resource<ProfileCompany>> = flow {
@@ -55,8 +56,9 @@ class ProfileInfoRepoImpl @Inject constructor(
                     role = response.role
                 )
             )
-        } else
+        } else {
             emit(Resource.Error(getErrorType(response.resultCode)))
+        }
     }
 
     private fun mapToProfile(response: ProfileResponse): Profile {

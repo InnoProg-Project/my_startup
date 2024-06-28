@@ -2,7 +2,6 @@ package com.innoprog.android.feature.profile.profiledetails.presentation
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -202,10 +201,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
             is ChipsScreenState.Favorites -> {
                 publications.clear()
                 publications.addAll(chipsScreenState.favorites)
-                Log.d("ProfileFragment", "list size: ${publications.size}")
-                Log.d("ProfileFragment", "list: $publications")
                 publicationsAdapter.notifyDataSetChanged()
-                Log.d("ProfileFragment", "NotifyDataSetChanged called")
                 showUserFavorites()
             }
 
