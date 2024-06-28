@@ -126,8 +126,12 @@
         android:label="@string/label_bottom_sheet_profile"
         tools:layout="@layout/bottom_sheet_profile">
         <argument
-            android:name="userId"
-            app:argType="string" />
+            android:name="user"
+            app:argType="com.innoprog.android.feature.profile.profiledetails.domain.models.Profile" />
+        <argument
+            android:name="userCompany"
+            app:argType="com.innoprog.android.feature.profile.profiledetails.domain.models.ProfileCompany" />
+
         <action
             android:id="@+id/action_profile_bottom_sheet_to_editingProfileFragment"
             app:destination="@id/editingProfileFragment"
@@ -157,8 +161,11 @@
         android:label="fragment_editing_profile"
         tools:layout="@layout/fragment_editing_profile">
         <argument
-            android:name="userId"
-            app:argType="string" />
+            android:name="user"
+            app:argType="com.innoprog.android.feature.profile.profiledetails.domain.models.Profile" />
+        <argument
+            android:name="userCompany"
+            app:argType="com.innoprog.android.feature.profile.profiledetails.domain.models.ProfileCompany" />
         <action
             android:id="@+id/action_editingProfileFragment_to_dialogForDeleteAccountFragment2"
             app:destination="@id/dialogForDeleteAccountFragment2" />
@@ -176,8 +183,8 @@
         android:label="DialogForDeleteAccountFragment"
         tools:layout="@layout/fragment_dialog_for_delete_account">
         <argument
-            android:name="userId"
-            app:argType="string" />
+            android:name="userCompany"
+            app:argType="com.innoprog.android.feature.profile.profiledetails.domain.models.ProfileCompany" />
         <action
             android:id="@+id/action_dialogForDeleteAccountFragment2_to_editingProfileFragment"
             app:destination="@id/editingProfileFragment"

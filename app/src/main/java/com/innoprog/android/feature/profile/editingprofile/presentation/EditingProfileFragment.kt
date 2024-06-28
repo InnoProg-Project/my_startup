@@ -1,12 +1,12 @@
 package com.innoprog.android.feature.profile.editingprofile.presentation
 
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.navArgs
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
@@ -66,9 +66,12 @@ class EditingProfileFragment : BaseFragment<FragmentEditingProfileBinding, BaseV
     }
 
     private fun render(screenState: ProfileScreenState) {
+        val infoArgs: EditingProfileFragmentArgs by navArgs()
+        val userInfo = infoArgs.user
+
         when (screenState) {
             is ProfileScreenState.Content -> {
-                fillViews(screenState.profileInfo)
+                fillViews(userInfo)
             }
 
             is ProfileScreenState.Error -> {
@@ -78,9 +81,12 @@ class EditingProfileFragment : BaseFragment<FragmentEditingProfileBinding, BaseV
     }
 
     private fun renderCompany(screenState: ProfileCompanyScreenState) {
+        val infoArgs: EditingProfileFragmentArgs by navArgs()
+        val userCompany = infoArgs.userCompany
+
         when (screenState) {
             is ProfileCompanyScreenState.Content -> {
-                fillViewsCompany(screenState.profileCompany)
+                fillViewsCompany(userCompany)
             }
 
             is ProfileCompanyScreenState.Error -> {
@@ -183,15 +189,6 @@ class EditingProfileFragment : BaseFragment<FragmentEditingProfileBinding, BaseV
             })
 
         }
-    }
-
-    private fun hideKeyboard() {
-        val view = requireActivity().currentFocus
-        if (view != null) {
-            val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(view.windowToken, 0)
-        }
-
     }
 
     private fun initButtonSave() {

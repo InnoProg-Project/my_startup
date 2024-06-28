@@ -9,10 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.innoprog.android.base.BaseBottomSheetFragment
 import com.innoprog.android.databinding.BottomSheetProfileBinding
+import com.innoprog.android.feature.profile.editingprofile.presentation.EditingProfileFragmentArgs
 import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
+import com.innoprog.android.feature.profile.profiledetails.domain.models.ProfileCompany
 import com.innoprog.android.uikit.R
 
 class BottomSheetProfile : BaseBottomSheetFragment<BottomSheetProfileBinding>() {
@@ -24,14 +27,16 @@ class BottomSheetProfile : BaseBottomSheetFragment<BottomSheetProfileBinding>() 
         return BottomSheetProfileBinding.inflate(inflater, container, false)
     }
 
-    private var user: Profile? = null
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val infoArgs: EditingProfileFragmentArgs by navArgs()
+        val userInfo = infoArgs.user
+        val company = infoArgs.userCompany
+
         initButton()
 
-        user?.let { navigateTo(it.userId) }
+        navigateTo(userInfo, company)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -51,10 +56,10 @@ class BottomSheetProfile : BaseBottomSheetFragment<BottomSheetProfileBinding>() 
         }
     }
 
-    private fun navigateTo(userId: String) {
+    private fun navigateTo(user: Profile, userCompany: ProfileCompany) {
         with(binding) {
             editText.setOnClickListener {
-                val direction = BottomSheetProfileDirections.actionProfileBottomSheetToEditingProfileFragment(userId)
+                val direction = BottomSheetProfileDirections.actionProfileBottomSheetToEditingProfileFragment(user, userCompany)
                 findNavController().navigate(direction)
             }
 
