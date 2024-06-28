@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.innoprog.android.base.BaseBottomSheetFragment
 import com.innoprog.android.databinding.BottomSheetProfileBinding
+import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
 import com.innoprog.android.uikit.R
 
 class BottomSheetProfile : BaseBottomSheetFragment<BottomSheetProfileBinding>() {

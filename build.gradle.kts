@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.navigation.safeargs) apply false
     alias(libs.plugins.detekt)
+    alias(libs.plugins.kotlinParcelize) apply false
 }
 
 

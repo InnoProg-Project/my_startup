@@ -3,9 +3,12 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.ksp)
     alias(libs.plugins.navigation.safeargs)
+    alias(libs.plugins.kotlinParcelize)
+
 }
 
 android {
+
     namespace = "com.innoprog.android"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
@@ -75,4 +78,5 @@ dependencies {
 
 
     implementation(project(":uikit"))
+
 }

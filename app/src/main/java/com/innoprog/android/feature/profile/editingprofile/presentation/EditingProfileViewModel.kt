@@ -64,8 +64,4 @@ class EditingProfileViewModel @Inject constructor(
             }
         }
     }
-
-    fun fetchUserData(userId: String) {
-
-    }
 }
