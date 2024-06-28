@@ -20,6 +20,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
 
     override val viewModel by injectViewModel<ProfileViewModel>()
 
+    private var user: Profile? = null
+
     override fun diComponent(): ScreenComponent {
         val appComponent = AppComponentHolder.getComponent()
         return DaggerProfileComponent
@@ -44,7 +46,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
 
         viewModel.loadProfileCompany()
 
-        initTopBar()
+        user?.let { initTopBar(it.userId) }
 
         initChips()
     }
@@ -70,9 +72,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
         })
     }
 
-    private fun initTopBar() {
+    private fun initTopBar(userId: String) {
         binding.topbarProfile.setRightIconClickListener {
-            val direction = ProfileFragmentDirections.actionProfileFragmentToProfileBottomSheet()
+            val direction = ProfileFragmentDirections.actionProfileFragmentToProfileBottomSheet(userId)
             findNavController().navigate(direction)
         }
     }

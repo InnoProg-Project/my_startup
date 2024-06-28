@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.innoprog.android.base.BaseBottomSheetFragment
 import com.innoprog.android.databinding.BottomSheetProfileBinding
+import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
 import com.innoprog.android.uikit.R
 
 class BottomSheetProfile : BaseBottomSheetFragment<BottomSheetProfileBinding>() {
@@ -23,12 +24,14 @@ class BottomSheetProfile : BaseBottomSheetFragment<BottomSheetProfileBinding>() 
         return BottomSheetProfileBinding.inflate(inflater, container, false)
     }
 
+    private var user: Profile? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initButton()
 
-        navigateTo()
+        user?.let { navigateTo(it.userId) }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -48,25 +51,22 @@ class BottomSheetProfile : BaseBottomSheetFragment<BottomSheetProfileBinding>() 
         }
     }
 
-    private fun navigateTo() {
+    private fun navigateTo(userId: String) {
         with(binding) {
             editText.setOnClickListener {
-                findNavController().navigate(
-                    com.innoprog.android
-                        .R.id.action_profile_bottom_sheet_to_editingProfileFragment
-                )
+                val direction = BottomSheetProfileDirections.actionProfileBottomSheetToEditingProfileFragment(userId)
+                findNavController().navigate(direction)
             }
 
             infoText.setOnClickListener {
-                findNavController().navigate(com.innoprog.android
-                    .R.id.action_profile_bottom_sheet_to_aboutAppFragment)
+                val direction = BottomSheetProfileDirections.actionProfileBottomSheetToAboutAppFragment()
+                findNavController().navigate(direction)
+
             }
 
             docksText.setOnClickListener {
-                findNavController().navigate(
-                    com.innoprog.android
-                        .R.id.action_profile_bottom_sheet_to_legalDocumentsFragment
-                )
+                val direction = BottomSheetProfileDirections.actionProfileBottomSheetToLegalDocumentsFragment()
+                findNavController().navigate(direction)
             }
         }
     }

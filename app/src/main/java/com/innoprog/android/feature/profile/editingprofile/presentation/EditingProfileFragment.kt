@@ -1,10 +1,12 @@
 package com.innoprog.android.feature.profile.editingprofile.presentation
 
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
@@ -15,6 +17,7 @@ import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.profile.editingprofile.di.DaggerEditingProfileComponent
 import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
 import com.innoprog.android.feature.profile.profiledetails.domain.models.ProfileCompany
+import com.innoprog.android.feature.profile.profiledetails.presentation.BottomSheetProfileArgs.Companion.fromBundle
 import com.innoprog.android.feature.profile.profiledetails.presentation.ProfileCompanyScreenState
 import com.innoprog.android.feature.profile.profiledetails.presentation.ProfileScreenState
 import com.innoprog.android.feature.projects.projectdetails.presentation.TextChangedListener
@@ -22,6 +25,13 @@ import com.innoprog.android.feature.projects.projectdetails.presentation.TextCha
 class EditingProfileFragment : BaseFragment<FragmentEditingProfileBinding, BaseViewModel>() {
 
     override val viewModel by injectViewModel<EditingProfileViewModel>()
+
+    private val user by lazy {
+        arguments?.let { args ->
+            EditingProfileFragmentDirections.fromBundle(args).userId
+        }
+    }
+
 
     override fun diComponent(): ScreenComponent {
         val appComponent = AppComponentHolder.getComponent()
@@ -46,6 +56,12 @@ class EditingProfileFragment : BaseFragment<FragmentEditingProfileBinding, BaseV
         initTopBar()
 
         observeData()
+
+        initProfileInfoInput()
+
+        initProfileCompanyInput()
+
+        initButtonSave()
     }
 
     private fun observeData() {
@@ -82,11 +98,10 @@ class EditingProfileFragment : BaseFragment<FragmentEditingProfileBinding, BaseV
         }
     }
 
-    private fun fillViews(profile: Profile) {
+    private fun fillViews() {
         with(binding) {
-            inputFIO.setText(profile.name)
-            inputAboutMe.setText(profile.about)
-            viewModel.editProfile(profile.name, profile.about)
+            inputFIO.setText(user.name)
+            inputAboutMe.setText(user.about)
         }
     }
 
@@ -102,7 +117,6 @@ class EditingProfileFragment : BaseFragment<FragmentEditingProfileBinding, BaseV
             inputCompanyName.setText(company.name)
             inputJobTitle.setText(company.role)
             inputLinkToWebSite.setText(company.url)
-            viewModel.editProfileCompany(company.name, company.url, company.role)
         }
     }
 
@@ -115,24 +129,26 @@ class EditingProfileFragment : BaseFragment<FragmentEditingProfileBinding, BaseV
     }
 
     private fun initButton() {
+        with(binding) {
 
-        binding.tvChangePhoto.setOnClickListener {
-            viewModel.navigateTo(R.id.action_editingProfileFragment_to_editingProfileBottomSheetFragment2)
-        }
+            tvChangePhoto.setOnClickListener {
+                viewModel.navigateTo(R.id.action_editingProfileFragment_to_editingProfileBottomSheetFragment2)
+            }
 
-        binding.buttonExit.setOnClickListener {
-            viewModel.navigateTo(R.id.action_editingProfileFragment_to_dialogForExitFragment2)
-        }
+            buttonExit.setOnClickListener {
+                viewModel.navigateTo(R.id.action_editingProfileFragment_to_dialogForExitFragment2)
+            }
 
-        binding.buttonDelete.setButtonColor(
-            ContextCompat.getColor(
-                requireContext(),
-                com.innoprog.android.uikit.R.color.dark
+            buttonDelete.setButtonColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    com.innoprog.android.uikit.R.color.dark
+                )
             )
-        )
 
-        binding.buttonDelete.setOnClickListener {
-            viewModel.navigateTo(R.id.action_editingProfileFragment_to_dialogForDeleteAccountFragment2)
+            buttonDelete.setOnClickListener {
+                viewModel.navigateTo(R.id.action_editingProfileFragment_to_dialogForDeleteAccountFragment2)
+            }
         }
     }
 
@@ -142,21 +158,72 @@ class EditingProfileFragment : BaseFragment<FragmentEditingProfileBinding, BaseV
         }
     }
 
-    private fun initProfileInfoInput(name: String, about: String) {
+    private fun initProfileInfoInput() {
         with(binding) {
             inputFIO.setInputType(InputType.TYPE_CLASS_TEXT)
             inputAboutMe.setInputType(InputType.TYPE_CLASS_TEXT)
             inputFIO.addTextChangedListener(object : TextChangedListener {
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                    viewModel.editProfile(s.toString(name))
                 }
             })
-            inputAboutMe.addTextChangedListener((object : TextChangedListener {
+            inputAboutMe.addTextChangedListener(object : TextChangedListener {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    viewModel.editProfile(s.toString(about))
                 }
-            }))
+            })
         }
     }
 
+    private fun initProfileCompanyInput() {
+        with(binding) {
+            inputCompanyName.setInputType(InputType.TYPE_CLASS_TEXT)
+            inputLinkToWebSite.setInputType(InputType.TYPE_CLASS_TEXT)
+            inputJobTitle.setInputType(InputType.TYPE_CLASS_TEXT)
+            inputCompanyName.addTextChangedListener(object : TextChangedListener {
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                }
+            })
+            inputLinkToWebSite.addTextChangedListener(object : TextChangedListener {
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+            })
+            inputJobTitle.addTextChangedListener(object : TextChangedListener {
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+            })
+
+        }
+    }
+
+    private fun hideKeyboard() {
+        val view = requireActivity().currentFocus
+        if (view != null) {
+            val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+
+    }
+
+    private fun initButtonSave() {
+        with(binding) {
+            val name = inputFIO.toString()
+            val about = inputAboutMe.toString()
+            val companyTitle = inputCompanyName.toString()
+            val url = inputLinkToWebSite.toString()
+            val role = inputJobTitle.toString()
+
+            buttonSave.setOnClickListener {
+                viewModel.editProfile(
+                    name = name,
+                    about = about
+                )
+                viewModel.editProfileCompany(
+                    name = companyTitle,
+                    url = url,
+                    role = role
+                )
+            }
+        }
+    }
 }
+
+
