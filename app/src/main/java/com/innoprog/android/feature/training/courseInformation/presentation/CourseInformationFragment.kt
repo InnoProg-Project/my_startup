@@ -26,7 +26,7 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
     private val courseId by lazy {
         arguments?.let { args ->
             CourseInformationFragmentArgs.fromBundle(args).courseId
-        } ?: ""
+        }
     }
 
     private var videoAdapter: VideoAdapter? = null
@@ -53,7 +53,7 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
 
         initVideoRecyclerView()
         initDocumentsRecyclerView()
-        courseId.let { viewModel.getCourseInformation(it) }
+        courseId?.let { viewModel.getCourseInformation(it) }
     }
 
     private fun initVideoRecyclerView() {
