@@ -184,22 +184,27 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
 
     private fun initRecyclerView(commentsList: List<CommentModel>) {
         commentsAdapter =
-            CommentsAdapter(commentsList, object : CommentsAdapter.OnClickListener {
-                override fun onItemClick(
-                    position: Int,
-                    comment: CommentModel,
-                    context: Context
-                ) {
-                    val itemView = binding.rvComments.layoutManager?.findViewByPosition(position)
-                    itemView?.setBackgroundColor(Color.parseColor("#F0F0F0"))
-                    itemView?.findViewById<TextView>(R.id.tvDeleteComment)?.visibility =
-                        View.VISIBLE
+            CommentsAdapter(
+                commentsList,
+                object : CommentsAdapter.OnClickListener {
+                    override fun onItemClick(
+                        position: Int,
+                        comment: CommentModel,
+                        context: Context
+                    ) {
+                        val itemView =
+                            binding.rvComments.layoutManager?.findViewByPosition(position)
+                        itemView?.setBackgroundColor(Color.parseColor("#F0F0F0"))
+                        itemView?.findViewById<TextView>(R.id.tvDeleteComment)?.visibility =
+                            View.VISIBLE
+                    }
                 }
-            })
+            )
 
         binding.rvComments.adapter = commentsAdapter
     }
 
+    @Suppress("Detekt.Indentation")
     private fun loadProjectInfo(newsDetails: NewsDetailsModel) {
         val radius = binding.root.resources.getDimensionPixelSize(R.dimen.corner_radius_10)
         binding.apply {
@@ -210,7 +215,7 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
                     .with(requireContext())
                     .load(
                         "https://img.freepik.com/free-vector/ai-technology-microchip-" +
-                            "background-vector-digital-transformation-concept_53876-112222.jpg"
+                                "background-vector-digital-transformation-concept_53876-112222.jpg"
                     )
                     .placeholder(R.drawable.ic_placeholder_logo)
                     .centerCrop()

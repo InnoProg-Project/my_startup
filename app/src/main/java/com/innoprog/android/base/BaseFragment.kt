@@ -20,9 +20,8 @@ abstract class BaseFragment<T : ViewBinding, VM : BaseViewModel> : Fragment() {
     protected val binding get() = _binding!!
 
     open val viewModelFactory: ViewModelProvider.Factory by lazy {
-        with(diComponent()) {
-            return@with viewModelFactory
-        }
+        val component = diComponent()
+        component.viewModelFactory
     }
 
     protected abstract fun diComponent(): ScreenComponent

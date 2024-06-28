@@ -170,12 +170,15 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
 
     private fun forwardNavigate() {
         val direction = RegistrationFragmentDirections.actionRegistrationFragmentToFeedFragment()
-        viewModel.navigateTo(direction, navOptions {
-            launchSingleTop = true
-            popUpTo(R.id.nav_graph) {
-                inclusive = true
+        viewModel.navigateTo(
+            direction,
+            navOptions {
+                launchSingleTop = true
+                popUpTo(R.id.nav_graph) {
+                    inclusive = true
+                }
             }
-        })
+        )
     }
 
     private fun render(state: RegistrationState) {
@@ -196,15 +199,15 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
     }
 
     private fun drawError(state: RegistrationState.InputError) {
-        if (state.registrationData.userName.isNullOrEmpty()) binding.ivName.renderState(
-            InnoProgInputViewState.ERROR
-        )
-        if (state.registrationData.email.isNullOrEmpty()) binding.ivEmail.renderState(
-            InnoProgInputViewState.ERROR
-        )
-        if (state.registrationData.password.isNullOrEmpty()) binding.ivPassword.renderState(
-            InnoProgInputViewState.ERROR
-        )
+        if (state.registrationData.userName.isNullOrEmpty()) {
+            binding.ivName.renderState(InnoProgInputViewState.ERROR)
+        }
+        if (state.registrationData.email.isNullOrEmpty()) {
+            binding.ivEmail.renderState(InnoProgInputViewState.ERROR)
+        }
+        if (state.registrationData.password.isNullOrEmpty()) {
+            binding.ivPassword.renderState(InnoProgInputViewState.ERROR)
+        }
         Toast.makeText(
             requireContext(),
             getString(R.string.registration_error),

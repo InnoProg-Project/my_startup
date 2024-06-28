@@ -1,26 +1,16 @@
 package com.innoprog.android.feature.profile.editingprofile.presentation
 
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentEditingProfileBinding
-import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.profile.editingprofile.di.DaggerEditingProfileComponent
-import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
-import com.innoprog.android.feature.profile.profiledetails.domain.models.ProfileCompany
-import com.innoprog.android.feature.profile.profiledetails.presentation.BottomSheetProfileArgs.Companion.fromBundle
-import com.innoprog.android.feature.profile.profiledetails.presentation.ProfileCompanyScreenState
-import com.innoprog.android.feature.profile.profiledetails.presentation.ProfileScreenState
-import com.innoprog.android.feature.projects.projectdetails.presentation.TextChangedListener
 
 class EditingProfileFragment : BaseFragment<FragmentEditingProfileBinding, BaseViewModel>() {
 
