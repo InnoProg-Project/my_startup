@@ -9,7 +9,6 @@ import com.innoprog.android.feature.training.trainingList.domain.model.GetCourse
 import com.innoprog.android.util.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 class TrainingListRepositoryImpl @Inject constructor(
