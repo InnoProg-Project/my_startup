@@ -3,7 +3,9 @@ package com.innoprog.android.feature.feed.newsdetails.di
 import androidx.lifecycle.ViewModel
 import com.innoprog.android.di.ViewModelKey
 import com.innoprog.android.feature.feed.newsdetails.data.NewsDetailsRepositoryImpl
+import com.innoprog.android.feature.feed.newsdetails.data.network.NetworkClient
 import com.innoprog.android.feature.feed.newsdetails.data.network.NewsDetailsApi
+import com.innoprog.android.feature.feed.newsdetails.data.network.RetrofitNetworkClient
 import com.innoprog.android.feature.feed.newsdetails.domain.NewsDetailsInteractor
 import com.innoprog.android.feature.feed.newsdetails.domain.NewsDetailsInteractorImpl
 import com.innoprog.android.feature.feed.newsdetails.domain.NewsDetailsRepository
@@ -26,6 +28,9 @@ interface NewsDetailsModule {
 
     @Binds
     fun bindNewsDetailsInteractor(newsDetailsInteractorImpl: NewsDetailsInteractorImpl): NewsDetailsInteractor
+
+    @Binds
+    fun bindNetworkClient(impl: RetrofitNetworkClient): NetworkClient
 
     @Module
     class NewsDetailsApiModule {

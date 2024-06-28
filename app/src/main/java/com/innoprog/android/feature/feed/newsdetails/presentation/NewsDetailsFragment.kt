@@ -111,7 +111,7 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
     private fun updateUI(state: NewsDetailsScreenState) {
         when (state) {
             is NewsDetailsScreenState.Loading -> showLoading()
-            is NewsDetailsScreenState.Content -> state.newsDetails?.let { showContent(it) }
+            is NewsDetailsScreenState.Content -> showContent(state.newsDetails)
             is NewsDetailsScreenState.Error -> showError()
         }
     }
@@ -134,10 +134,6 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
             newsLikesView.setLikeCount(newsDetails.likesCount)
             tvNewsPublicationDate.text = getFormattedDate(newsDetails.publishedAt)
 
-            val avatarUrl = newsDetails.author.avatarUrl
-            val placeholderResId = com.innoprog.android.uikit.R.drawable.ic_person
-            loadAvatar(avatarUrl, placeholderResId)
-
             tvNewsAuthorName.text = newsDetails.author.name
 
             val newsAuthorPosition =
@@ -150,36 +146,24 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
 
             tvComments.text = format(getString(R.string.comments), newsDetails.commentsCount)
 
-            if (newsDetails.comments != null) {
+            /*if (newsDetails.comments != null) {
                 rvComments.isVisible = true
                 val commentsList = newsDetails.comments
                 initRecyclerView(commentsList)
             } else {
                 rvComments.isVisible = false
                 tvNoCommentsPlaceholder.isVisible = true
-            }
+            }*/
         }
     }
 
     private fun getFormattedDate(inputDate: String): String {
         val inputFormatter =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS", Locale.getDefault())
+
         val outputFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy в HH:mm", Locale("ru"))
         val dateTime = LocalDateTime.parse(inputDate, inputFormatter)
         return dateTime.format(outputFormatter)
-    }
-
-    private fun loadAvatar(avatarUrl: String?, placeholderResId: Int) {
-        val imageType =
-            avatarUrl?.let {
-                ImageLoadingType.ImageNetwork(
-                    it,
-                    placeholderResId = placeholderResId
-                )
-            }
-        if (imageType != null) {
-            binding.newsAuthorAvatar.loadImage(imageType)
-        }
     }
 
     private fun initRecyclerView(commentsList: List<CommentModel>) {
@@ -194,7 +178,7 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
                     ) {
                         val itemView =
                             binding.rvComments.layoutManager?.findViewByPosition(position)
-                        itemView?.setBackgroundColor(Color.parseColor("#F0F0F0"))
+                        itemView?.setBackgroundColor(Color.parseColor(com.innoprog.android.uikit.R.color.background_secondary.toString()))
                         itemView?.findViewById<TextView>(R.id.tvDeleteComment)?.visibility =
                             View.VISIBLE
                     }

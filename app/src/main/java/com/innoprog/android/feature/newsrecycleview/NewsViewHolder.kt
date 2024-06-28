@@ -49,14 +49,6 @@ class NewsViewHolder(private val binding: ItemNewsBinding) :
                 tvProjectDirection.text = "Искусственный интеллект"
             }
 
-            val url = news.author.avatarUrl
-            val placeholderResId = com.innoprog.android.uikit.R.drawable.ic_person
-            val imageType =
-                url?.let { ImageLoadingType.ImageNetwork(it, placeholderResId = placeholderResId) }
-            if (imageType != null) {
-                publicationAuthorAvatar.loadImage(imageType)
-            }
-
             tvPublicationAuthorName.text = news.author.name
             tvCommentsCount.text = news.commentsCount.toString()
             tvLikesCount.text = news.likesCount.toString()

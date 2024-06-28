@@ -5,17 +5,16 @@ data class News(
     val type: String,
     val author: Author,
     val projectId: String?,
-    val coverUrl: String?,
+    val coverUrl: List<String>?,
     val title: String,
     val content: String,
-    val publishedAt: Long,
-    val likesCount: Long,
-    val commentsCount: Long,
+    val publishedAt: String,
+    val likesCount: Int,
+    val commentsCount: Int,
 )
 
 data class Author(
     val id: String,
-    val avatarUrl: String?,
     val name: String,
     val company: Company
 )

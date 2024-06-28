@@ -1,6 +1,6 @@
 package com.innoprog.android.feature.feed.newsdetails.data.network
 
-import com.innoprog.android.network.data.Response
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 

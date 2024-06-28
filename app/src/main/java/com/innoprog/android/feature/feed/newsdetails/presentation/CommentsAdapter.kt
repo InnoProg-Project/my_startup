@@ -37,7 +37,7 @@ class CommentsAdapter(
 class CommentsViewHolder(private val binding: ItemCommentBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(comment: CommentModel, onCommentClickListener: CommentsAdapter.OnClickListener, context: Context) {
         binding.apply {
-            tvCommentAuthorName.text = comment.commentAuthor
+            tvCommentAuthorName.text = comment.commentAuthor.name
             tvCommentContent.text = comment.commentContent
 
             itemView.setOnClickListener {

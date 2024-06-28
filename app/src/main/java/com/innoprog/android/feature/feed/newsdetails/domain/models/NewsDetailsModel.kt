@@ -13,7 +13,6 @@ data class NewsDetailsModel(
     val commentsCount: Int,
     val isLiked: Boolean,
     val isFavorite: Boolean,
-    val comments: List<CommentModel>?
 )
 
 data class Author(

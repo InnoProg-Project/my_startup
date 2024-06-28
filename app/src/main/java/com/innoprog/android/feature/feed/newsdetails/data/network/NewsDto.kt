@@ -1,0 +1,100 @@
+package com.innoprog.android.feature.feed.newsdetails.data.network
+
+import com.google.gson.annotations.SerializedName
+import com.innoprog.android.feature.feed.newsdetails.domain.models.Author
+import com.innoprog.android.feature.feed.newsdetails.domain.models.Company
+import com.innoprog.android.feature.feed.newsdetails.domain.models.NewsDetailsModel
+
+
+data class NewsDto(
+    @SerializedName("id")
+    val id: String,
+    @SerializedName("type")
+    val type: String,
+    @SerializedName("author")
+    val author: AuthorDto,
+    @SerializedName("projectId")
+    val projectId: String,
+    @SerializedName("title")
+    val title: String,
+    @SerializedName("content")
+    val content: String,
+    @SerializedName("publishedAt")
+    val publishedAt: String,
+    @SerializedName("likesCount")
+    val likesCount: Int,
+    @SerializedName("commentsCount")
+    val commentsCount: Int,
+    @SerializedName("attachments")
+    val attachments: List<AttachmentDto>,
+    @SerializedName("isLiked")
+    val isLiked: Boolean,
+    @SerializedName("isFavorited")
+    val isFavorited: Boolean,
+)
+
+data class AuthorDto(
+    @SerializedName("id")
+    val id: String,
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("company")
+    val company: CompanyDto
+)
+
+data class CompanyDto(
+    @SerializedName("name")
+    val companyName: String,
+    @SerializedName("role")
+    val role: String
+)
+
+data class AttachmentDto(
+    @SerializedName("id")
+    val id: String,
+    @SerializedName("filePath")
+    val filePath: String,
+    @SerializedName("type")
+    val type: String
+)
+
+fun NewsDto.mapToNewsDetails(): NewsDetailsModel {
+    return NewsDetailsModel(
+        id = id,
+        type = type,
+        author = createAuthor(author),
+        projectId = projectId,
+        coverUrl = createUrls(attachments),
+        title = title,
+        content = content,
+        publishedAt = publishedAt,
+        likesCount = likesCount,
+        commentsCount = commentsCount,
+        isLiked = isLiked,
+        isFavorite = isFavorited,
+    )
+}
+
+private fun createUrls(urlList: List<AttachmentDto>): List<String> {
+    return urlList.map { it.filePath }
+}
+
+private fun createAuthor(authorDto: AuthorDto): Author {
+    return authorDto.let {
+        Author(
+            id = it.id,
+            name = it.name,
+            company = createCompany(it.company)
+        )
+    }
+}
+
+private fun createCompany(companyDto: CompanyDto): Company {
+    return companyDto.let {
+        Company(
+            companyName = it.companyName,
+            role = it.role,
+        )
+    }
+}
+
