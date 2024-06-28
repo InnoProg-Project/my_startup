@@ -1,9 +1,16 @@
 package com.innoprog.android.util
 
 enum class ErrorType {
-    NOT_FOUND,
     NO_CONNECTION,
-    UNEXPECTED,
+    NOT_FOUND,
     BAD_REQUEST,
-    CAPTCHA_REQUIRED
+    UNAUTHORIZED,
+    FORBIDDEN,
+    CONFLICT,
+    UNEXPECTED,
+    UNPROCESSABLE_ENTITY,
+    INTERNAL_SERVER_ERROR,
+    BAD_GATEWAY,
+    CAPTCHA_REQUIRED,
+    UNKNOWN_ERROR
 }
