@@ -1,6 +1,7 @@
 package com.innoprog.android.feature.projects.projectsScreen.presentation
 
 import DaggerProjectsFragmentComponent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -14,6 +15,7 @@ import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentProjectsBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
+import com.innoprog.android.feature.feed.userprojectscreen.presentation.UserProjectDetailsFragment
 import com.innoprog.android.feature.projects.domain.models.Project
 import com.innoprog.android.feature.projects.projectsScreen.presentation.adapter.ProjectsScreenAdapter
 import com.innoprog.android.util.ErrorScreenState
@@ -27,7 +29,9 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
             .appComponent(AppComponentHolder.getComponent())
             .build()
 
-    private val adapter = ProjectsScreenAdapter {} // Добавить переход на экран проекта
+    private val adapter = ProjectsScreenAdapter { projectId ->
+        navigateToProjectDetails(projectId)
+    }
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -139,5 +143,16 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
             findViewById<TextView>(com.innoprog.android.uikit.R.id.tv_error_message)
                 .setText(errorTextRes)
         }
+    }
+
+    private fun navigateToProjectDetails(projectId: String) {
+        val bundle = Bundle().apply {
+            putString(UserProjectDetailsFragment.USER_PROJECT_DETAILS, projectId)
+        }
+
+        findNavController().navigate(
+            R.id.action_projectsFragment_to_userProjectDetailsFragment,
+            bundle
+        )
     }
 }
