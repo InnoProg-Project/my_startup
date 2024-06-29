@@ -16,6 +16,7 @@
         app:topBar_title="@string/project" />
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsv_project_details_body"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/margin_16"
@@ -347,5 +348,10 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/layout_error_screen"
+        layout="@layout/error_layout"
+        android:visibility="gone" />
 
 </LinearLayout>
