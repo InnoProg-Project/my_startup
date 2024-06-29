@@ -149,8 +149,7 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
         val bundle = Bundle().apply {
             putString(UserProjectDetailsFragment.USER_PROJECT_DETAILS, projectId)
         }
-
-        findNavController().navigate(
+        viewModel.navigateTo(
             R.id.action_projectsFragment_to_userProjectDetailsFragment,
             bundle
         )
