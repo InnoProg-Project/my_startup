@@ -61,6 +61,10 @@ class UserProjectDetailsFragment :
 
     }
 
+    /**
+     * Подключить этот метод после подключения api
+     */
+    @Suppress("Detekt.UnusedPrivateMember")
     private fun renderState(state: UserProjectDetailsState) {
         when (state) {
             is UserProjectDetailsState.Content -> fetchData(state.project)
@@ -152,6 +156,7 @@ class UserProjectDetailsFragment :
 /**
  * Хардкод пока не подключим апи
  */
+@Suppress("Detekt.MaxLineLength")
 val imageList = listOf(
     "https://images.unsplash.com/photo-1718585708744-573c54a2c38c?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "https://images.unsplash.com/photo-1719216325263-9070d79336c3?q=80&w=2828&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",

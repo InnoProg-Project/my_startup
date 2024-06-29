@@ -20,7 +20,10 @@ class UserProjectViewModel @Inject constructor() : BaseViewModel() {
         }
     }
 
-
+    /**
+     * Подключить этот метод после подключения api
+     */
+    @Suppress("Detekt.UnusedPrivateMember")
     private fun renderError(errorType: ErrorType) = UserProjectDetailsState.Error(
         when (errorType) {
             ErrorType.NO_CONNECTION -> ErrorScreenState.NO_INTERNET
