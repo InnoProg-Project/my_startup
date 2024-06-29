@@ -108,6 +108,9 @@
         <action
             android:id="@+id/action_projectsFragment_to_authorizationFragment"
             app:destination="@id/authorizationFragment" />
+        <action
+            android:id="@+id/action_projectsFragment_to_userProjectDetailsFragment"
+            app:destination="@id/userProjectDetailsFragment" />
     </fragment>
 
     <fragment
@@ -306,6 +309,15 @@
         <argument
             android:name="newsId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/userProjectDetailsFragment"
+        android:name="com.innoprog.android.feature.feed.userprojectscreen.presentation.UserProjectDetailsFragment"
+        android:label="UserProjectDetailsFragment"
+        tools:layout="@layout/fragment_any_project_details">
+        <action
+            android:id="@+id/action_userProjectDetailsFragment_to_authorizationFragment"
+            app:destination="@id/authorizationFragment" />
     </fragment>
 
 </navigation>
