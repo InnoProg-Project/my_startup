@@ -161,18 +161,22 @@ class UserProjectDetailsFragment :
                 etProjectDescription.setText(tvProjectDescription.text)
                 viewSwitcherDescription.showNext()
                 etProjectDescription.requestFocus()
-                ibtnvEditDescription.setText(resources.getString(com.innoprog.android.R.string.user_project_details_save))
+                ibtnvEditDescription.setText(
+                    resources.getString(com.innoprog.android.R.string.user_project_details_save)
+                )
             } else {
                 tvProjectDescription.text = etProjectDescription.text
                 viewSwitcherDescription.showPrevious()
-                ibtnvEditDescription.setText(resources.getString(com.innoprog.android.R.string.user_project_details_edit))
+                ibtnvEditDescription.setText(
+                    resources.getString(com.innoprog.android.R.string.user_project_details_edit)
+                )
             }
         }
     }
 
     private fun handleDocumentEditor() = with(binding) {
         ibtnvEditDocuments.setOnClickListener {
-            // TODO добвить обработку редактирования документов
+            // !добвить обработку редактирования документов
         }
     }
 
