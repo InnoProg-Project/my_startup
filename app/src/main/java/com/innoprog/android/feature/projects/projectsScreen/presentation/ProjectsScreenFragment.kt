@@ -1,5 +1,6 @@
 package com.innoprog.android.feature.projects.projectsScreen.presentation
 
+import DaggerProjectsComponent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,8 +20,7 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
 
     private val adapter by lazy {
         ProjectsScreenAdapter(requireContext()) {
-            val action = ProjectsScreenFragmentDirections.actionProjectsFragmentToProjectFragment(it, true)
-            findNavController().navigate(action)
+            viewModel.openProject(it)
         }
     }
 
@@ -36,6 +36,11 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
         viewModel.state.observe(viewLifecycleOwner) {
             render(it)
         }
+
+        viewModel.getShowProjectTrigger().observe(viewLifecycleOwner) {
+            openProject(it)
+        }
+
         binding.projectsRV.adapter = adapter
         binding.createNewProjectButton.setOnClickListener {
             val direction = ProjectsScreenFragmentDirections
@@ -71,5 +76,13 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
         binding.createFirstProjectButton.visibility = View.VISIBLE
         binding.createNewProjectButton.visibility = View.GONE
         binding.projectsRV.visibility = View.GONE
+    }
+
+    private fun openProject(projectId: String) {
+        val action = ProjectsScreenFragmentDirections.actionProjectsFragmentToProjectFragment(
+            projectId,
+            true
+        )
+        findNavController().navigate(action)
     }
 }
