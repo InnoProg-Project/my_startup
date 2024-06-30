@@ -2,6 +2,7 @@ package com.innoprog.android.feature.projects.projectsScreen.presentation
 
 import DaggerProjectsFragmentComponent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -66,6 +67,14 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
                 com.innoprog.android.uikit.R.id.ipbtn_repeat_request
             ).setOnClickListener {
                 viewModel.getProjectList()
+            }
+
+            layoutErrorScreen.setOnClickListener {
+                val bundle = Bundle().apply {
+                    putString(UserProjectDetailsFragment.USER_PROJECT_DETAILS, "123")
+                }
+                Log.d("MyLog", "click")
+                viewModel.navigateTo(R.id.action_projectsFragment_to_userProjectDetailsFragment, bundle)
             }
         }
     }

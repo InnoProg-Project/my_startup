@@ -122,7 +122,7 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
                 initDocumentsRecyclerView(documentsList)
             }
             tvShortDescription.text = anyProjectDetails.shortDescription
-            tvDescription.text = anyProjectDetails.description
+            tvProjectDirection.text = anyProjectDetails.description
             tvFinancingStageValue.text = anyProjectDetails.financingStage
             tvDeadlineValue.text = anyProjectDetails.deadline
             tvLinkToWebValue.text = anyProjectDetails.siteUrls[0]

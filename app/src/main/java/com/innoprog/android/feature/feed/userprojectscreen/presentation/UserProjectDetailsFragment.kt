@@ -25,6 +25,9 @@ import com.innoprog.android.uikit.R
 import com.innoprog.android.util.ErrorScreenState
 import kotlinx.coroutines.launch
 
+/**
+ * Фрагмент получает id через bundle и должен отправлять запрос в api
+ */
 class UserProjectDetailsFragment :
     BaseFragment<FragmentAnyProjectDetailsBinding, UserProjectViewModel>() {
 
@@ -58,7 +61,8 @@ class UserProjectDetailsFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.getProjectDetails(projectId)
         }
-
+        handleTextEditor()
+        handleDocumentEditor()
     }
 
     /**
@@ -82,7 +86,7 @@ class UserProjectDetailsFragment :
             initDocumentsRecyclerView(documentsList)
         }
         tvShortDescription.text = details.shortDescription
-        tvDescription.text = details.description
+        tvProjectDirection.text = details.description
         tvFinancingStageValue.text = details.financingStage
         tvDeadlineValue.text = details.deadline
         tvLinkToWebValue.text = details.siteUrls[0]
@@ -145,6 +149,30 @@ class UserProjectDetailsFragment :
                 .setImageResource(errorImageRes)
             findViewById<TextView>(R.id.tv_error_message)
                 .setText(errorTextRes)
+        }
+    }
+
+    /**
+     * Метод слушает клики по кнопке редактирования описания, изменяет текст кнопки и view
+     */
+    private fun handleTextEditor() = with(binding) {
+        ibtnvEditDescription.setOnClickListener {
+            if (viewSwitcherDescription.currentView == tvProjectDescription) {
+                etProjectDescription.setText(tvProjectDescription.text)
+                viewSwitcherDescription.showNext()
+                etProjectDescription.requestFocus()
+                ibtnvEditDescription.setText(resources.getString(com.innoprog.android.R.string.user_project_details_save))
+            } else {
+                tvProjectDescription.text = etProjectDescription.text
+                viewSwitcherDescription.showPrevious()
+                ibtnvEditDescription.setText(resources.getString(com.innoprog.android.R.string.user_project_details_edit))
+            }
+        }
+    }
+
+    private fun handleDocumentEditor() = with(binding) {
+        ibtnvEditDocuments.setOnClickListener {
+            // TODO добвить обработку редактирования документов
         }
     }
 
