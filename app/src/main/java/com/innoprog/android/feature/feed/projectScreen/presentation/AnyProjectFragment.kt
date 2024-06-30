@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.innoprog.android.R
@@ -57,7 +58,10 @@ class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel
             updateUI(it)
         }
 
-        viewModel.getAnyProject("1")
+        val args: AnyProjectFragmentArgs by navArgs()
+        val projectId = args.projectId
+
+        viewModel.getAnyProject(args.projectId, args.itsCustomProject)
 
         binding.rvPublications.adapter = newsAdapter
     }
@@ -108,6 +112,7 @@ class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel
             tvProjectDescription.text = anyProject.shortDescription
             tvProjectNews.text =
                 format(getString(R.string.project_news), anyProject.publicationsCount)
+            innoProgButtonView.isVisible = anyProject.itsCustomProject
 
             if (anyProject.projectNews != null) {
                 rvPublications.isVisible = true

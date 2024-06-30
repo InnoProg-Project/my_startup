@@ -59,6 +59,10 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
             updateUI(it)
         }
 
+        viewModel.getShowProjectTrigger().observe(viewLifecycleOwner) {
+            openProject(it)
+        }
+
         val args: NewsDetailsFragmentArgs by navArgs()
         val newsId = args.newsId
 
@@ -88,9 +92,14 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
             }
 
             projectCard.setOnClickListener {
-                findNavController().navigate(R.id.action_newsDetailsFragment_to_projectFragment)
+                viewModel.openProject()
             }
         }
+    }
+
+    private fun openProject(projectId: String) {
+        val action = NewsDetailsFragmentDirections.actionNewsDetailsFragmentToProjectFragment(projectId, false)
+        findNavController().navigate(action)
     }
 
     private fun initImageGallery() {

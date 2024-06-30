@@ -111,4 +111,5 @@
 
     <!-- FillAboutProjectScreen -->
     <string name="err_pick_photo">Не удалось прикрепить фото</string>
+    <string name="create_news">Создать публикацию</string>
 </resources>

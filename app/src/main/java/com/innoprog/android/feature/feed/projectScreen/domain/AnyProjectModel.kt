@@ -17,5 +17,7 @@ data class AnyProjectModel(
     @SerializedName("area")
     val area: String,
     @SerializedName("projectNews")
-    val projectNews: List<News>?
+    val projectNews: List<News>?,
+    @SerializedName("itsCustomProject")
+    val itsCustomProject: Boolean = false
 )

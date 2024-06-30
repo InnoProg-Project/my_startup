@@ -18,7 +18,10 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
     override fun diComponent(): ScreenComponent = DaggerProjectsComponent.builder().build()
 
     private val adapter by lazy {
-        ProjectsScreenAdapter(requireContext()) {} // Добавить переход на экран проекта
+        ProjectsScreenAdapter(requireContext()) {
+            val action = ProjectsScreenFragmentDirections.actionProjectsFragmentToProjectFragment(it, true)
+            findNavController().navigate(action)
+        }
     }
 
     override fun createBinding(

@@ -105,6 +105,16 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="projectId"
+            app:argType="string" />
+        <argument
+            android:name="itsCustomProject"
+            app:argType="boolean"
+            android:defaultValue="false"/>
+        <action
+            android:id="@+id/action_projectsFragment_to_projectFragment"
+            app:destination="@id/projectFragment" />
     </fragment>
 
     <fragment
@@ -261,6 +271,10 @@
         <argument
             android:name="projectId"
             app:argType="string" />
+        <argument
+            android:name="itsCustomProject"
+            app:argType="boolean"
+            android:defaultValue="false"/>
         <action
             android:id="@+id/action_projectFragment_to_newsDetailsFragment"
             app:destination="@id/newsDetailsFragment" />

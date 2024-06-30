@@ -17,13 +17,19 @@ class AnyProjectViewModel @Inject constructor(private val anyProjectInteractor: 
     private val _screenState = MutableLiveData<AnyProjectScreenState>()
     val screenState: LiveData<AnyProjectScreenState> = _screenState
 
-    fun getAnyProject(id: String) {
+    fun getAnyProject(id: String, itsCustomProject: Boolean = false) {
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
                 anyProjectInteractor.getAnyProject(id).collect { response ->
                     when (response) {
                         is Resource.Success -> {
-                            setState(AnyProjectScreenState.Content(response.data))
+                            setState(
+                                AnyProjectScreenState.Content(
+                                    response.data.copy(
+                                        itsCustomProject = itsCustomProject
+                                    )
+                                )
+                            )
                         }
 
                         is Resource.Error -> {
