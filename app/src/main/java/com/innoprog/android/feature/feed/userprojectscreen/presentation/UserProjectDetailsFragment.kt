@@ -58,17 +58,17 @@ class UserProjectDetailsFragment :
     }
 
     override fun subscribe() {
+        viewModel.getProjectDetails(projectId)
+
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getProjectDetails(projectId)
+            viewModel.state.collect { state ->
+                renderState(state)
+            }
         }
         handleTextEditor()
         handleDocumentEditor()
     }
 
-    /**
-     * Подключить этот метод после подключения api
-     */
-    @Suppress("Detekt.UnusedPrivateMember")
     private fun renderState(state: UserProjectDetailsState) {
         when (state) {
             is UserProjectDetailsState.Content -> fetchData(state.project)
@@ -86,7 +86,7 @@ class UserProjectDetailsFragment :
             initDocumentsRecyclerView(documentsList)
         }
         tvShortDescription.text = details.shortDescription
-        tvProjectDirection.text = details.description
+        tvProjectDescription.text = details.description
         tvFinancingStageValue.text = details.financingStage
         tvDeadlineValue.text = details.deadline
         tvLinkToWebValue.text = details.siteUrls[0]

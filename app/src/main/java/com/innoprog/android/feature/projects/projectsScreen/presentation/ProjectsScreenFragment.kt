@@ -68,13 +68,21 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
             ).setOnClickListener {
                 viewModel.getProjectList()
             }
-
-            layoutErrorScreen.setOnClickListener {
-                val bundle = Bundle().apply {
-                    putString(UserProjectDetailsFragment.USER_PROJECT_DETAILS, "123")
+            listOf(
+                ivEmptyListPlaceholder,
+                tvEmptyListPlaceholder,
+                ipbtnCreateFisrtProject
+            ).forEach {
+                it.setOnClickListener {
+                    val bundle = Bundle().apply {
+                        putString(UserProjectDetailsFragment.USER_PROJECT_DETAILS, "123")
+                    }
+                    Log.d("MyLog", "click")
+                    viewModel.navigateTo(
+                        R.id.action_projectsFragment_to_userProjectDetailsFragment,
+                        bundle
+                    )
                 }
-                Log.d("MyLog", "click")
-                viewModel.navigateTo(R.id.action_projectsFragment_to_userProjectDetailsFragment, bundle)
             }
         }
     }

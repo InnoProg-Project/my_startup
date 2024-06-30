@@ -41,10 +41,10 @@ val project = AnyProjectDetailsModel(
     name = "Project Name",
     projectLogoFilePath = "",
     area = "Russia",
-    shortDescription = "shortDescription",
-    description = "description",
+    shortDescription = "shortDescription project",
+    description = "Long description of project",
     documents = listOf(),
     financingStage = "",
     deadline = "2024-09-29",
-    siteUrls = listOf()
+    siteUrls = listOf("https://www.youtube.com/", "https://leetcode.com/", "https://www.instagram.com/")
 )
