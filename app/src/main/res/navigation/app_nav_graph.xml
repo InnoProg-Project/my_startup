@@ -234,11 +234,6 @@
         android:name="com.innoprog.android.feature.training.videoPlayer.presentation.VideoPlayerFragment"
         android:label="VideoPlayerFragment" />
     <fragment
-        android:id="@+id/projectDetailsFragment"
-        android:name="com.innoprog.android.feature.projects.projectdetails.presentation.ProjectDetailsFragment"
-        android:label="ProjectDetailsFragment"
-        tools:layout="@layout/fragment_project_details" />
-    <fragment
         android:id="@+id/newsDetailsFragment"
         android:name="com.innoprog.android.feature.feed.newsdetails.presentation.NewsDetailsFragment"
         android:label="fragment_news_details"
@@ -261,7 +256,7 @@
     </fragment>
     <fragment
         android:id="@+id/fillAboutProjectFragment"
-        android:name="com.innoprog.android.feature.projects.create.fillMainProjectInformation.presentation.ui.FillAboutProjectFragment"
+        android:name="com.innoprog.android.feature.projects.create.presentation.ui.FillAboutProjectFragment"
         android:label="FillAboutProjectFragment"
         tools:layout="@layout/fragment_project_details" />
     <fragment

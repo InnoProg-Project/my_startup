@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="step_1">Шаг 1</string>
+    <string name="step_2">Шаг 2</string>
+    <string name="step_3">Шаг 3</string>
+    <string name="step_4">Шаг 4</string>
+    <string name="step_5">Шаг 5</string>
     <string name="doc_docx_pdf_10">Документы загружаются в форматах: doc, docx, pdf. Размер одного документа не более 10Мб.</string>
     <string name="descriptions">Описание (необязательно)</string>
     <string name="tell_us_about_the_project">Расскажите о проекте</string>
@@ -9,4 +13,6 @@
     <string name="logo">Логотип</string>
     <string name="loading_logo">Загрузить логотип</string>
     <string name="resume">Продолжить</string>
+    <string name="download_media">Загрузите фото/видео</string>
+    <string name="download_description">Картинки загружаются в форматах: png, jpg, jpeg. Размер одной картинки не более 3Мб.\nВидео загружаются в форматах: mp4, mov. Размер одного видео не более 10Мб.</string>
 </resources>

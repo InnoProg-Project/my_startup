@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.projects.create.fillMainProjectInformation.presentation.ui
+package com.innoprog.android.feature.projects.create.presentation.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -14,8 +14,8 @@ import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.databinding.FragmentProjectDetailsBinding
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.projects.create.fillMainProjectInformation.di.DaggerFillAboutProjectComponent
-import com.innoprog.android.feature.projects.create.fillMainProjectInformation.presentation.FillAboutProjectViewModel
-import com.innoprog.android.feature.projects.create.fillMainProjectInformation.presentation.model.FillAboutProjectEvent
+import com.innoprog.android.feature.projects.create.presentation.FillAboutProjectViewModel
+import com.innoprog.android.feature.projects.create.presentation.model.FillAboutProjectEvent
 import kotlinx.coroutines.launch
 
 class FillAboutProjectFragment :

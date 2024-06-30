@@ -1,8 +1,8 @@
-package com.innoprog.android.feature.projects.create.fillMainProjectInformation.presentation
+package com.innoprog.android.feature.projects.create.presentation
 
 import com.innoprog.android.base.BaseViewModel
-import com.innoprog.android.feature.projects.create.fillMainProjectInformation.presentation.model.FillAboutProjectEvent
-import com.innoprog.android.feature.projects.create.fillMainProjectInformation.presentation.model.FillAboutProjectState
+import com.innoprog.android.feature.projects.create.presentation.model.FillAboutProjectEvent
+import com.innoprog.android.feature.projects.create.presentation.model.FillAboutProjectState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
