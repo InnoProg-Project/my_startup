@@ -7,6 +7,6 @@ import com.innoprog.android.feature.training.courseInformation.domain.model.Cour
 class DocumentViewHolder(private val binding: ItemTrainingDocumentBinding) :
     ViewHolder(binding.root) {
     fun bind(item: CourseInformationDocumentModel) {
-        binding.documentTitleTV.text = item.documentTitle
+        binding.documentTitleTV.text = item.documentId
     }
 }
