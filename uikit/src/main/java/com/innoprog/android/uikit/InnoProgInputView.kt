@@ -3,9 +3,12 @@ package com.innoprog.android.uikit
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.LayerDrawable
+import android.os.Parcel
+import android.os.Parcelable
 import android.text.TextWatcher
 import android.text.method.TransformationMethod
 import android.util.AttributeSet
+import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -135,6 +138,22 @@ class InnoProgInputView @JvmOverloads constructor(
         rightIcon.setImageDrawable(getDrawable(context, src))
     }
 
+    override fun onSaveInstanceState(): Parcelable? {
+        val superState = super.onSaveInstanceState()
+        val savedState = SavedState(superState)
+        savedState.text = editTextView.text.toString()
+        return savedState
+    }
+
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        if (state !is SavedState) {
+            super.onRestoreInstanceState(state)
+            return
+        }
+        super.onRestoreInstanceState(state.superState)
+        editTextView.setText(state.text)
+    }
+
     fun renderState(state: InnoProgInputViewState) {
         when (state) {
             InnoProgInputViewState.INACTIVE -> {
@@ -259,5 +278,33 @@ class InnoProgInputView @JvmOverloads constructor(
 
         const val SP_12 = 12f
         const val SP_16 = 16f
+    }
+}
+
+private class SavedState : View.BaseSavedState {
+    var text: String? = null
+
+    constructor(superState: Parcelable?) : super(superState)
+
+    private constructor(`in`: Parcel) : super(`in`) {
+        text = `in`.readString()
+    }
+
+    override fun writeToParcel(out: Parcel, flags: Int) {
+        super.writeToParcel(out, flags)
+        out.writeString(text)
+    }
+
+    companion object {
+        @JvmField
+        val CREATOR: Parcelable.Creator<SavedState> = object : Parcelable.Creator<SavedState> {
+            override fun createFromParcel(`in`: Parcel): SavedState {
+                return SavedState(`in`)
+            }
+
+            override fun newArray(size: Int): Array<SavedState?> {
+                return arrayOfNulls(size)
+            }
+        }
     }
 }
