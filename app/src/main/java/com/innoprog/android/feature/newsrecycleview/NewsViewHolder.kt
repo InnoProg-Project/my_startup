@@ -55,8 +55,8 @@ class NewsViewHolder(private val binding: ItemNewsBinding, private val viewModel
                         }
 
                         is Resource.Error -> {
-                            tvProjectName.text = "Ошибка загрузки"
-                            tvProjectDirection.text = ""
+                            tvProjectName.text = R.string.err_project_info.toString()
+                            tvProjectDirection.text = R.string.err_project_info.toString()
                         }
                     }
                 }
