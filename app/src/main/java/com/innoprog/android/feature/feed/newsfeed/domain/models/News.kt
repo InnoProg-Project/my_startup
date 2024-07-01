@@ -5,7 +5,7 @@ data class News(
     val type: String,
     val author: Author,
     val projectId: String?,
-    val coverUrl: List<String>?,
+    val coverUrl: String?,
     val title: String,
     val content: String,
     val publishedAt: String,

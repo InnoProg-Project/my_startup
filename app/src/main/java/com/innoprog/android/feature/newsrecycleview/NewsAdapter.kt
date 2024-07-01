@@ -5,15 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.innoprog.android.databinding.ItemNewsBinding
 import com.innoprog.android.feature.feed.newsfeed.domain.models.News
+import com.innoprog.android.feature.feed.newsfeed.presentation.FeedViewModel
 
 class NewsAdapter(
     var newsList: ArrayList<News>,
+    private val viewModel: FeedViewModel,
     private val onNewsClick: (News) -> Unit
 ) : RecyclerView.Adapter<NewsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        return NewsViewHolder(ItemNewsBinding.inflate(layoutInflater, parent, false))
+        val binding = ItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return NewsViewHolder(binding, viewModel)
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {

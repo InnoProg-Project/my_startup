@@ -33,10 +33,29 @@ class RetrofitNetworkClient @Inject constructor(
         }
     }
 
+    override suspend fun getProjectDetails(projectId: String): Response {
+        if (!context.checkInternetAvailability()) {
+            return Response().apply { resultCode = ApiConstants.NO_INTERNET_CONNECTION_CODE }
+        }
+
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiService.getProjectDetails(projectId)
+                ProjectResponse(results = response.body()!!).apply {
+                    resultCode = ApiConstants.SUCCESS_CODE
+                }
+            } catch (exception: HttpException) {
+                Response().apply { resultCode = exception.code() }
+            }
+        }
+    }
+
     fun Context.checkInternetAvailability(): Boolean {
-        val connectivityManager = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork =
-            connectivityManager.activeNetwork?.let { connectivityManager.getNetworkCapabilities(it) } ?: return false
+            connectivityManager.activeNetwork?.let { connectivityManager.getNetworkCapabilities(it) }
+                ?: return false
         return when {
             activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
             activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true

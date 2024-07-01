@@ -1,6 +1,7 @@
 package com.innoprog.android.feature.feed.newsfeed.data.network
 
 import com.google.gson.annotations.SerializedName
+import com.innoprog.android.feature.feed.newsfeed.domain.models.AttachmentType
 import com.innoprog.android.feature.feed.newsfeed.domain.models.Author
 import com.innoprog.android.feature.feed.newsfeed.domain.models.Company
 import com.innoprog.android.feature.feed.newsfeed.domain.models.News
@@ -72,8 +73,8 @@ fun NewsDto.mapToNews(): News {
     )
 }
 
-private fun createUrls(urlList: List<Attachments>): List<String> {
-    return urlList.map { it.filePath }
+private fun createUrls(urlList: List<Attachments>): String? {
+    return urlList.firstOrNull { it.type == AttachmentType.IMAGE.value }?.filePath
 }
 
 private fun createAuthor(authorDto: AuthorDto): Author {

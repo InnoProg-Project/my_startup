@@ -8,11 +8,14 @@ import com.innoprog.android.R
 import com.innoprog.android.databinding.ItemNewsBinding
 import com.innoprog.android.feature.feed.newsfeed.domain.models.News
 import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
+import com.innoprog.android.feature.feed.newsfeed.presentation.FeedViewModel
+import com.innoprog.android.util.Resource
 
-class NewsViewHolder(private val binding: ItemNewsBinding) :
+class NewsViewHolder(private val binding: ItemNewsBinding, private val viewModel: FeedViewModel) :
     RecyclerView.ViewHolder(binding.root) {
 
     private val radius = binding.root.resources.getDimensionPixelSize(R.dimen.corner_radius_8)
+
     @Suppress("Detekt.LongMethod")
     fun bind(news: News) {
         binding.apply {
@@ -33,19 +36,30 @@ class NewsViewHolder(private val binding: ItemNewsBinding) :
                 ivIdea.isVisible = false
                 projectCard.isVisible = true
 
-                Glide
-                    .with(itemView)
-                    .load(
-                        "https://img.freepik.com/free-vector/ai-technology-microchip-" +
-                            "background-vector-digital-transformation-concept_53876-112222.jpg"
-                    )
-                    .placeholder(R.drawable.ic_placeholder_logo)
-                    .centerCrop()
-                    .transform(RoundedCorners(radius))
-                    .into(ivProjectLogo)
+                news.projectId?.let { viewModel.loadProjectDetails(it) }
 
-                tvProjectName.text = "Искусственный интеллект"
-                tvProjectDirection.text = "Искусственный интеллект"
+                viewModel.projectDetails.observeForever { resource ->
+                    when (resource) {
+                        is Resource.Success -> {
+                            val project = resource.data
+                            Glide
+                                .with(itemView)
+                                .load(project.logoUrl)
+                                .placeholder(R.drawable.ic_placeholder_logo)
+                                .centerCrop()
+                                .transform(RoundedCorners(radius))
+                                .into(ivProjectLogo)
+
+                            tvProjectName.text = project.name
+                            tvProjectDirection.text = project.area
+                        }
+
+                        is Resource.Error -> {
+                            tvProjectName.text = "Ошибка загрузки"
+                            tvProjectDirection.text = ""
+                        }
+                    }
+                }
             }
 
             tvPublicationAuthorName.text = news.author.name

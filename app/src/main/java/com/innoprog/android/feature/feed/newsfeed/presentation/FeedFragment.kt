@@ -32,7 +32,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
 
     private var listNews: ArrayList<News> = arrayListOf()
     private val newsAdapter: NewsAdapter by lazy {
-        NewsAdapter(listNews) { news ->
+        NewsAdapter(listNews, viewModel) { news ->
             publicationTypeIndicator(news.id, news.type)
         }
     }

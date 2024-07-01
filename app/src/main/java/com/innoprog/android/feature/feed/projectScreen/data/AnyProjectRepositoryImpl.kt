@@ -29,7 +29,7 @@ class AnyProjectRepositoryImpl @Inject constructor() : AnyProjectRepository {
         type = "idea",
         author = author,
         projectId = "1",
-        coverUrl = arrayListOf(),
+        coverUrl = "",
         title = "Как мы помогаем родителям в воспитании детей ",
         content = "Этот надежный помощник предназначен для облегчения путей родительства и " +
             "обеспечения гармоничного развития маленьких личностей",
@@ -43,10 +43,9 @@ class AnyProjectRepositoryImpl @Inject constructor() : AnyProjectRepository {
         type = "project",
         author = author,
         projectId = "2",
-        coverUrl = arrayListOf(
-            "https://img.freepik.com/free-vector/ai-technology-microchip-background-" +
-                "vector-digital-transformation-concept_53876-112222.jpg"
-        ),
+        coverUrl =
+        "https://img.freepik.com/free-vector/ai-technology-microchip-background-" +
+            "vector-digital-transformation-concept_53876-112222.jpg",
         title = "Искусственный интеллект",
         content = "Иску́сственный интелле́кт — свойство искусственных интеллектуальных систем " +
             "выполнять творческие функции, которые традиционно считаются прерогативой " +

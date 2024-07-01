@@ -15,7 +15,7 @@ data class NewsEntity(
     @ColumnInfo(name = "project_id")
     val projectId: String?,
     @ColumnInfo(name = "cover_url")
-    val coverUrl: List<String>?,
+    val coverUrl: String?,
     val title: String,
     val content: String,
     @ColumnInfo(name = "published_at")
