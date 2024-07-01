@@ -8,14 +8,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
-import com.innoprog.android.databinding.FragmentUploadImageAndVideoBinding
+import com.innoprog.android.databinding.FragmentProjectUploadImageAndVideoBinding
 import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.feature.projects.create.fillMainProjectInformation.di.DaggerFillAboutProjectComponent
+import com.innoprog.android.feature.projects.create.di.DaggerFillAboutProjectComponent
 import com.innoprog.android.feature.projects.create.presentation.FillAboutProjectViewModel
 import com.innoprog.android.feature.projects.create.presentation.model.FillAboutProjectEvent
 
 class UploadMediaFilesFragment :
-    BaseFragment<FragmentUploadImageAndVideoBinding, FillAboutProjectViewModel>() {
+    BaseFragment<FragmentProjectUploadImageAndVideoBinding, FillAboutProjectViewModel>() {
     private val imagePicker = registerForActivityResult(
         ActivityResultContracts.GetContent()
     ) { uri ->
@@ -38,11 +38,14 @@ class UploadMediaFilesFragment :
     override fun createBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentUploadImageAndVideoBinding {
-        return FragmentUploadImageAndVideoBinding.inflate(inflater, container, false)
+    ): FragmentProjectUploadImageAndVideoBinding {
+        return FragmentProjectUploadImageAndVideoBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.btResume.setOnClickListener {
+            viewModel.navigateTo(R.id.action_uploadMediaFilesFragment_to_chooseProjectDirectionFragment)
+        }
     }
 }

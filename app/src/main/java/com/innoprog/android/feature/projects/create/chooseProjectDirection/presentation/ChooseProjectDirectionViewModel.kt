@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.projects.chooseProjectDirection.presentation
+package com.innoprog.android.feature.projects.create.chooseProjectDirection.presentation
 
 import com.innoprog.android.base.BaseViewModel
 import javax.inject.Inject

@@ -3,19 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".feature.projects.create.presentation.ui.UploadMediaFilesFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.innoprog.android.uikit.InnoProgTopBarView
-            android:id="@+id/topbar_additional_information"
+            android:id="@+id/topbar_upload_media"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:topBar_left_icon="@drawable/ic_back" />
+            app:topBar_left_icon="@drawable/ic_back"
+            tools:topBar_title="@string/step_2"/>
 
         <TextView
             android:id="@+id/uploadPhotoAndVideoTV"
@@ -25,7 +27,7 @@
             android:layout_marginHorizontal="@dimen/margin_8"
             android:text="@string/upload_photo_or_video"
             android:textColor="@color/text_primary"
-            app:layout_constraintTop_toBottomOf="topbar_additional_information" />
+            app:layout_constraintTop_toBottomOf="@id/topbar_upload_media" />
 
         <TextView
             android:id="@+id/optionalTV"
@@ -70,6 +72,7 @@
             app:layout_constraintTop_toBottomOf="@id/uploadButton" />
 
         <com.innoprog.android.uikit.InnoProgButtonView
+            android:id="@+id/bt_resume"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_8"

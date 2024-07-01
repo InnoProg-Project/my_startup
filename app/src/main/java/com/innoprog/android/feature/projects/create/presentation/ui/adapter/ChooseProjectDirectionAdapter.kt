@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.projects.chooseProjectDirection.presentation
+package com.innoprog.android.feature.projects.create.presentation.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.innoprog.android.databinding.ItemProjectDirectionBinding
-import com.innoprog.android.feature.projects.chooseProjectDirection.domain.model.ProjectDirectionModel
+import com.innoprog.android.feature.projects.create.domain.ProjectDirectionModel
 
 class ChooseProjectDirectionAdapter : Adapter<ChooseProjectDirectionViewHolder>() {
 

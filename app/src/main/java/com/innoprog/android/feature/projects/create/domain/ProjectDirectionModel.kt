@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.projects.chooseProjectDirection.domain.model
+package com.innoprog.android.feature.projects.create.domain
 
 data class ProjectDirectionModel(
     val title: String,

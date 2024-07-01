@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_primary">
+    android:background="@color/background_primary"
+    tools:context=".feature.projects.create.presentation.ui.ChooseProjectDirectionFragment">
 
     <com.innoprog.android.uikit.InnoProgTopBarView
         android:id="@+id/topBar"
@@ -14,7 +15,7 @@
         android:gravity="center_horizontal"
         app:layout_constraintTop_toTopOf="parent"
         app:topBar_left_icon="@drawable/ic_back"
-        app:topBar_title="" />
+        app:topBar_title="@string/step_3" />
 
     <TextView
         android:id="@+id/chooseProjectDirectionTV"
@@ -33,13 +34,13 @@
         android:layout_marginVertical="@dimen/padding_8"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/innoProgButtonView"
+        app:layout_constraintBottom_toTopOf="@+id/bv_resume"
         app:layout_constraintTop_toBottomOf="@id/chooseProjectDirectionTV"
         tools:itemCount="5"
         tools:listitem="@layout/item_project_direction" />
 
     <com.innoprog.android.uikit.InnoProgButtonView
-        android:id="@+id/innoProgButtonView"
+        android:id="@+id/bv_resume"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_16"

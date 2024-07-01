@@ -13,7 +13,7 @@ import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.databinding.FragmentProjectDetailsBinding
 import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.feature.projects.create.fillMainProjectInformation.di.DaggerFillAboutProjectComponent
+import com.innoprog.android.feature.projects.create.di.DaggerFillAboutProjectComponent
 import com.innoprog.android.feature.projects.create.presentation.FillAboutProjectViewModel
 import com.innoprog.android.feature.projects.create.presentation.model.FillAboutProjectEvent
 import kotlinx.coroutines.launch
@@ -52,7 +52,7 @@ class FillAboutProjectFragment :
         Log.v(TAG, "starting $TAG")
         binding.btLoadingLogo.setOnClickListener { imagePicker.launch(MIME_TYPE) }
         binding.topbar.setLeftIconClickListener { viewModel.navigateUp() }
-        binding.deleteLogoButton.setOnClickListener {
+        binding.btDeleteLogo.setOnClickListener {
             viewModel.obtainEvent(FillAboutProjectEvent.UnPinePhoto)
         }
         lifecycleScope.launch {
@@ -63,12 +63,15 @@ class FillAboutProjectFragment :
                     binding.btLoadingLogo.isVisible = true
                     binding.tvDocDox.isVisible = true
                 } else {
-                    binding.logoImageView.setImageURI(state.pinedLogoUri)
+                    binding.ivLogo.setImageURI(state.pinedLogoUri)
                     binding.logoIcon.isVisible = true
                     binding.tvDocDox.isVisible = false
                     binding.btLoadingLogo.isVisible = false
                 }
             }
+        }
+        binding.btResume.setOnClickListener{
+            viewModel.navigateTo(R.id.action_fillAboutProjectFragment_to_uploadMediaFilesFragment)
         }
     }
 

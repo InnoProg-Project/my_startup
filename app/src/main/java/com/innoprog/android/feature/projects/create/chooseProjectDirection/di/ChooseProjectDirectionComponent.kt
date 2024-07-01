@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.projects.chooseProjectDirection.di
+package com.innoprog.android.feature.projects.create.chooseProjectDirection.di
 
 import com.innoprog.android.di.ScreenComponent
 import dagger.Component
