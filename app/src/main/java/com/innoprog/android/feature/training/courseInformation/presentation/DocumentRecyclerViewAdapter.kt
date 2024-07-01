@@ -9,7 +9,7 @@ import com.innoprog.android.feature.training.courseInformation.domain.model.Cour
 class DocumentRecyclerViewAdapter(private val onDocumentClickListener: (url: String) -> Unit) :
     Adapter<DocumentViewHolder>() {
 
-    var items = listOf<CourseInformationDocumentModel>()
+    var items = mutableListOf<CourseInformationDocumentModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DocumentViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -31,5 +31,11 @@ class DocumentRecyclerViewAdapter(private val onDocumentClickListener: (url: Str
         holder.itemView.setOnClickListener {
             onDocumentClickListener(items[position].documentURL)
         }
+    }
+
+    fun setDocumentList(documentList: List<CourseInformationDocumentModel>) {
+        items.clear()
+        items.addAll(documentList)
+        notifyDataSetChanged()
     }
 }

@@ -6,7 +6,8 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(dependencies = [AppComponent::class],
+@Component(
+    dependencies = [AppComponent::class],
     modules = [CourseInformationModule::class]
 )
 interface CourseInformationComponent : ScreenComponent {

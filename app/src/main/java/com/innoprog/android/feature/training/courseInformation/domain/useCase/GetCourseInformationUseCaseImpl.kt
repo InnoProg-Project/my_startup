@@ -20,7 +20,6 @@ class GetCourseInformationUseCaseImpl @Inject constructor(
     }
 
     override fun getVideo(listAttachments: List<Attachments>?): List<CourseInformationVideoModel> {
-
         val result = ArrayList<CourseInformationVideoModel>()
         listAttachments?.forEach { attachments ->
             if (attachments.type == AttachmentsType.VIDEO.value) {

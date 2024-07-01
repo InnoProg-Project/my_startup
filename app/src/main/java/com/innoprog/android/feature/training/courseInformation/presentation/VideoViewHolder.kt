@@ -1,7 +1,6 @@
 package com.innoprog.android.feature.training.courseInformation.presentation
 
 import android.content.Context
-import android.util.Log
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.innoprog.android.R
@@ -20,8 +19,6 @@ class VideoViewHolder(
         }
         binding.videoDescriptionTV.text = item.videoId
 
-        Log.e("video2", "${item.videoURL}")
-        Log.e("video3", "${item.videoId}")
         Glide.with(context)
             .load(item.videoURL)
             .fitCenter()

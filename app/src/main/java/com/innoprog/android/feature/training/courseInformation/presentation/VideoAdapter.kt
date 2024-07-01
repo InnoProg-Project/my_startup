@@ -1,6 +1,7 @@
 package com.innoprog.android.feature.training.courseInformation.presentation
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
@@ -12,7 +13,7 @@ class VideoAdapter(
     private val onVideoClickListener: (String) -> Unit
 ) : Adapter<VideoViewHolder>() {
 
-    var items = listOf<CourseInformationVideoModel>()
+    var items = mutableListOf<CourseInformationVideoModel>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return VideoViewHolder(
@@ -28,6 +29,13 @@ class VideoAdapter(
 
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
         holder.bind(items[position])
+    }
+
+    fun setVideoList(videoList: List<CourseInformationVideoModel>) {
+        items.clear()
+        items.addAll(videoList)
+        Log.e("setVideoList", "$items")
+        notifyDataSetChanged()
     }
 }
 

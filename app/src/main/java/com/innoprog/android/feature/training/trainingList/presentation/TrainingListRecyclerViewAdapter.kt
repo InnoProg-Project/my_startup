@@ -5,10 +5,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.innoprog.android.databinding.ItemTrainingBinding
-import com.innoprog.android.feature.training.trainingList.domain.model.CourseShort
 import com.innoprog.android.feature.training.trainingList.presentation.model.CoursesItem
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class TrainingRecyclerViewAdapter(
     private val onItemClickListener: (courseId: String) -> Unit = {}

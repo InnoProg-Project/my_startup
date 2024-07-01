@@ -28,7 +28,7 @@ class CourseInformationViewModel @Inject constructor(
     fun getCourseInformation(courseId: String) {
         viewModelScope.launch {
             runCatching {
-                getCourseInformationUseCase.execute(courseId).collect {response ->
+                getCourseInformationUseCase.execute(courseId).collect { response ->
                     when (response) {
                         is Resource.Success -> {
                             setState(CourseInformationState.Content(response.data!!))
@@ -44,15 +44,15 @@ class CourseInformationViewModel @Inject constructor(
         }
     }
 
-    fun getVideo(listAttachments: List<Attachments>): List<CourseInformationVideoModel>{
+    fun getVideo(listAttachments: List<Attachments>): List<CourseInformationVideoModel> {
         return getCourseInformationUseCase.getVideo(listAttachments)
     }
 
-    fun getImage(listAttachments: List<Attachments>?): List<CourseInformationImageModel>{
+    fun getImage(listAttachments: List<Attachments>?): List<CourseInformationImageModel> {
         return getCourseInformationUseCase.getImage(listAttachments)
     }
 
-    fun getDocument(listAttachments: List<Attachments>): List<CourseInformationDocumentModel>{
+    fun getDocument(listAttachments: List<Attachments>): List<CourseInformationDocumentModel> {
         return getCourseInformationUseCase.getDocument(listAttachments)
     }
 
