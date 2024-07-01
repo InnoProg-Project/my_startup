@@ -23,8 +23,11 @@ class InnoProgInputView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
-) : ConstraintLayout(context, attrs, defStyleAttr) {
-
+) : ConstraintLayout(
+    context,
+    attrs,
+    defStyleAttr
+) {
     private var state: InnoProgInputViewState = InnoProgInputViewState.INACTIVE
 
     private val editTextView by lazy { findViewById<EditText>(R.id.edit_text) }
@@ -34,9 +37,18 @@ class InnoProgInputView @JvmOverloads constructor(
     private val rightIcon by lazy { findViewById<ImageView>(R.id.right_icon) }
     private val backgroundEditTextView by lazy { findViewById<ConstraintLayout>(R.id.background_edit_text_view) }
 
-    private lateinit var layerDrawable: LayerDrawable
+    private val layerDrawable: LayerDrawable by lazy {
+        AppCompatResources.getDrawable(
+            context,
+            R.drawable.inno_prog_input_view_background
+        ) as LayerDrawable
+    }
 
-    private val constraintSet by lazy { ConstraintSet().apply { clone(backgroundEditTextView) } }
+    private val constraintSet by lazy {
+        ConstraintSet().apply {
+            clone(backgroundEditTextView)
+        }
+    }
 
     private val focusChangeListener by lazy {
         OnFocusChangeListener { _, hasFocus ->
@@ -48,19 +60,23 @@ class InnoProgInputView @JvmOverloads constructor(
     }
 
     init {
-        inflate(context, R.layout.inno_prog_input_view, this)
+        inflate(
+            context,
+            R.layout.inno_prog_input_view,
+            this
+        )
         attrs?.applyStyleable(context, R.styleable.InnoProgInputView) {
 
-            layerDrawable = AppCompatResources
-                .getDrawable(context, R.drawable.inno_prog_input_view_background) as LayerDrawable
             layerDrawable.findDrawableByLayerId(R.id.rectangle_background)
                 .setTint(context.getColor(R.color.text_field_fill))
             backgroundEditTextView.background = layerDrawable
 
-            when (getInt(
-                R.styleable.InnoProgInputView_state,
-                InnoProgInputViewState.INACTIVE.number
-            )) {
+            when (
+                getInt(
+                    R.styleable.InnoProgInputView_state,
+                    InnoProgInputViewState.INACTIVE.number
+                )
+            ) {
                 InnoProgInputViewState.DISABLED.number -> {
                     state = InnoProgInputViewState.DISABLED
                 }
@@ -107,6 +123,7 @@ class InnoProgInputView @JvmOverloads constructor(
     fun setInputType(type: Int) {
         editTextView.inputType = type
     }
+
     fun setCaptionText(text: String) {
         captionTextView.text = text
     }
@@ -193,7 +210,8 @@ class InnoProgInputView @JvmOverloads constructor(
         constraintSet.clear(R.id.hint_empty, ConstraintSet.BOTTOM)
 
         constraintSet.setMargin(
-            R.id.hint_empty, ConstraintSet.TOP,
+            R.id.hint_empty,
+            ConstraintSet.TOP,
             resources.getDimensionPixelSize(R.dimen.margin_5)
         )
 
@@ -240,7 +258,7 @@ class InnoProgInputView @JvmOverloads constructor(
         editTextView.filters = arrayOf(InputFilter.LengthFilter(maxLength))
     }
 
-    companion object {
+    private companion object {
         const val FULL_VISIBLE = 1f
         const val VISIBILITY_40_PERCENT = 0.4f
 

@@ -28,6 +28,8 @@ class AuthorizationViewModel @Inject constructor(private val useCase: Authorisat
                     stateLiveData.postValue(AuthState.CONNECTION_ERROR)
                 }
             }
-        } else stateLiveData.postValue(AuthState.INPUT_ERROR)
+        } else {
+            stateLiveData.postValue(AuthState.INPUT_ERROR)
+        }
     }
 }

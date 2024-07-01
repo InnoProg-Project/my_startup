@@ -3,6 +3,7 @@ package com.innoprog.android.network.data
 import com.innoprog.android.network.domain.AuthorizationDataRepository
 import dagger.Module
 import dagger.Provides
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -15,24 +16,26 @@ class NetworkModule {
     @Provides
     fun provideOkHttpClient(
         authorizationDataRepository: AuthorizationDataRepository
-    ): OkHttpClient =
-        OkHttpClient.Builder()
+    ): OkHttpClient {
+        val loggingInterceptor = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+
+        val authorizationInterceptor = { chain: Interceptor.Chain ->
+            val request = chain.request()
+                .newBuilder()
+                .addHeader("X-Authorization", authorizationDataRepository.execute())
+                .build()
+            chain.proceed(request)
+        }
+
+        return OkHttpClient.Builder()
             .callTimeout(ApiConstants.CALL_TIMEOUT.toLong(), TimeUnit.SECONDS)
             .readTimeout(ApiConstants.READ_TIMEOUT.toLong(), TimeUnit.SECONDS)
-            .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
-            .addInterceptor { chain ->
-                chain.run {
-                    proceed(
-                        request()
-                            .newBuilder()
-                            .addHeader("X-Authorization", authorizationDataRepository.execute())
-                            .build()
-                    )
-                }
-            }
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor(authorizationInterceptor)
             .build()
+    }
 
     @Provides
     fun provideRetrofit(
