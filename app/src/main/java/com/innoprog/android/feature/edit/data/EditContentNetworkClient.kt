@@ -7,4 +7,5 @@ interface EditContentNetworkClient {
 
     suspend fun createIdea(dto: EditDto): Response
 
+    suspend fun getProjectById(id: String): Response
 }

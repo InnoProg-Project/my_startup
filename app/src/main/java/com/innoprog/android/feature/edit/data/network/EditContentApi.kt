@@ -1,10 +1,13 @@
 package com.innoprog.android.feature.edit.data.network
 
 import com.innoprog.android.feature.edit.data.dto.EditDto
+import com.innoprog.android.feature.edit.data.dto.ProjectResponse
 import com.innoprog.android.network.data.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface EditContentApi {
     @Multipart
@@ -12,4 +15,7 @@ interface EditContentApi {
     suspend fun createContent(
         @Body body: EditDto
     ): Response
+
+    @GET("/v1/project/{projectId}")
+    suspend fun getProjectById(@Path("projectId") projectId: String): ProjectResponse
 }

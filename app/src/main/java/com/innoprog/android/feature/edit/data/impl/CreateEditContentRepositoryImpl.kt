@@ -2,10 +2,13 @@ package com.innoprog.android.feature.edit.data.impl
 
 import com.innoprog.android.feature.edit.data.CreateEditContentRepository
 import com.innoprog.android.feature.edit.data.EditContentNetworkClient
+import com.innoprog.android.feature.edit.data.dto.EditContentAdapter
+import com.innoprog.android.feature.edit.data.dto.ProjectResponse
 import com.innoprog.android.feature.edit.domain.model.IdeaModel
 import com.innoprog.android.feature.edit.domain.model.MediaAttachmentsModel
 import com.innoprog.android.feature.edit.domain.model.ProjectModel
 import com.innoprog.android.feature.edit.domain.model.PublicationModel
+import com.innoprog.android.network.data.ApiConstants
 import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +21,8 @@ import javax.inject.Singleton
 
 @Singleton
 class CreateEditContentRepositoryImpl @Inject constructor(
-    private val networkClient: EditContentNetworkClient
+    private val networkClient: EditContentNetworkClient,
+    private val adapter: EditContentAdapter
 ) : CreateEditContentRepository {
 
     private val mediaListOfPath = mutableListOf<String>()
@@ -70,8 +74,27 @@ class CreateEditContentRepositoryImpl @Inject constructor(
 
     }
 
-    override fun getProjectById(id: String): Flow<ProjectModel> {
-        return flow { }
+    override fun getProjectById(id: String): Flow<Resource<ProjectModel>> {
+        return flow {
+            val response = networkClient.getProjectById(id)
+
+            when (response.resultCode) {
+                ApiConstants.NO_INTERNET_CONNECTION_CODE -> {
+                    emit(Resource.Error(ErrorType.NO_CONNECTION))
+                }
+
+                ApiConstants.SUCCESS_CODE -> {
+                    with(response as ProjectResponse) {
+                        val result = adapter.mapToProjectModel(this)
+                        emit(Resource.Success(result))
+                    }
+                }
+
+                else -> {
+                    emit(Resource.Error(ErrorType.BAD_REQUEST))
+                }
+            }
+        }
     }
 
     override suspend fun updatePublication(publicationModel: PublicationModel) {

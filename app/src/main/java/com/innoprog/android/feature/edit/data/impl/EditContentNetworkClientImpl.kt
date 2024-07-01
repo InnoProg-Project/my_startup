@@ -39,7 +39,23 @@ class EditContentNetworkClientImpl @Inject constructor(
         }
     }
 
-    //override suspend fun getProject()
+    override suspend fun getProjectById(id: String): Response {
+        if (!isConnected()) {
+            return Response().apply { resultCode = NO_INTERNET_CONNECTION_CODE }
+        }
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = api.getProjectById(id)
+                response.apply { resultCode = SUCCESS_CODE }
+            } catch (e: IOException) {
+                Log.d("response", "IOException: ${e.message}")
+                Response().apply { resultCode = BAD_REQUEST_CODE }
+            } catch (e: HttpException) {
+                Log.d("response", "HttpException: ${e.message}")
+                Response().apply { resultCode = BAD_REQUEST_CODE }
+            }
+        }
+    }
 
     private fun isConnected(): Boolean {
         val connectivityManager = context.getSystemService(

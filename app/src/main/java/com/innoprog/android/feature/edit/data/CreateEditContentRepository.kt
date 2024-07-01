@@ -12,7 +12,7 @@ interface CreateEditContentRepository {
 
     suspend fun createPublication(publicationModel: PublicationModel)
 
-    fun getProjectById(id: String): Flow<ProjectModel>
+    fun getProjectById(id: String): Flow<Resource<ProjectModel>>
 
     suspend fun updatePublication(publicationModel: PublicationModel)
 
