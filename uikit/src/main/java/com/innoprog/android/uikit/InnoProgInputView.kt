@@ -3,6 +3,7 @@ package com.innoprog.android.uikit
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.LayerDrawable
+import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
 import android.text.TextWatcher
@@ -67,6 +68,9 @@ class InnoProgInputView @JvmOverloads constructor(
             R.layout.inno_prog_input_view,
             this
         )
+
+        editTextView.id = View.generateViewId()
+
         attrs?.applyStyleable(context, R.styleable.InnoProgInputView) {
 
             layerDrawable.findDrawableByLayerId(R.id.rectangle_background)
@@ -138,20 +142,18 @@ class InnoProgInputView @JvmOverloads constructor(
         rightIcon.setImageDrawable(getDrawable(context, src))
     }
 
-    override fun onSaveInstanceState(): Parcelable? {
-        val superState = super.onSaveInstanceState()
-        val savedState = SavedState(superState)
-        savedState.text = editTextView.text.toString()
-        return savedState
+    override fun onSaveInstanceState(): Parcelable {
+        val superState = super.onSaveInstanceState() ?: Bundle()
+        return SavedState(superState).apply {
+            text = editTextView.text.toString()
+        }
     }
 
     override fun onRestoreInstanceState(state: Parcelable?) {
-        if (state !is SavedState) {
-            super.onRestoreInstanceState(state)
-            return
-        }
-        super.onRestoreInstanceState(state.superState)
-        editTextView.setText(state.text)
+        (state as? SavedState)?.let {
+            editTextView.setText(it.text)
+            super.onRestoreInstanceState(it.superState)
+        } ?: super.onRestoreInstanceState(state)
     }
 
     fun renderState(state: InnoProgInputViewState) {
@@ -278,6 +280,8 @@ class InnoProgInputView @JvmOverloads constructor(
 
         const val SP_12 = 12f
         const val SP_16 = 16f
+
+        const val KEY_SUPER_STATE = "superState"
     }
 }
 
@@ -286,8 +290,8 @@ private class SavedState : View.BaseSavedState {
 
     constructor(superState: Parcelable?) : super(superState)
 
-    private constructor(`in`: Parcel) : super(`in`) {
-        text = `in`.readString()
+    private constructor(inParcel: Parcel) : super(inParcel) {
+        text = inParcel.readString()
     }
 
     override fun writeToParcel(out: Parcel, flags: Int) {
