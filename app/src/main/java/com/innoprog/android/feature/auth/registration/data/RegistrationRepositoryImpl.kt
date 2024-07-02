@@ -9,6 +9,7 @@ import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import javax.inject.Inject
 
+@Suppress("Detekt.StringLiteralDuplication")
 class RegistrationRepositoryImpl @Inject constructor(private val api: RegistrationApi) :
     RegistrationRepository {
 

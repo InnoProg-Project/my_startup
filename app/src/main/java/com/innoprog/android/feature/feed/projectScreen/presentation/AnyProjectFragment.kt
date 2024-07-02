@@ -69,8 +69,10 @@ class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel
             }
 
             btnProjectDetails.setOnClickListener {
-                Toast.makeText(requireContext(), "Открытие деталей проекта", Toast.LENGTH_SHORT)
-                    .show()
+                val action = AnyProjectFragmentDirections.actionProjectFragmentToAnyProjectDetailsFragment(
+                    id.toString()
+                )
+                findNavController().navigate(action)
             }
         }
     }

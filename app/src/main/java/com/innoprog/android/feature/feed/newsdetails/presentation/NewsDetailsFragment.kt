@@ -30,7 +30,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewModel>() {
+open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewModel>() {
 
     override val viewModel by injectViewModel<NewsDetailsViewModel>()
     private var galleryAdapter: ImageGalleryAdapter? = null
@@ -72,7 +72,11 @@ class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewMod
             }
 
             newsTopBar.setRightIconClickListener {
-                Toast.makeText(requireContext(), "Добавлено/удалено из избранного", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    requireContext(),
+                    "Добавлено/удалено из избранного",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
 
@@ -120,7 +124,7 @@ class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewMod
         Toast.makeText(requireContext(), "Ошибка", Toast.LENGTH_SHORT).show()
     }
 
-    private fun showContent(newsDetails: NewsDetailsModel) {
+    open fun showContent(newsDetails: NewsDetailsModel) {
         binding.apply {
             initImageGallery()
 
@@ -180,22 +184,27 @@ class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewMod
 
     private fun initRecyclerView(commentsList: List<CommentModel>) {
         commentsAdapter =
-            CommentsAdapter(commentsList, object : CommentsAdapter.OnClickListener {
-                override fun onItemClick(
-                    position: Int,
-                    comment: CommentModel,
-                    context: Context
-                ) {
-                    val itemView = binding.rvComments.layoutManager?.findViewByPosition(position)
-                    itemView?.setBackgroundColor(Color.parseColor("#F0F0F0"))
-                    itemView?.findViewById<TextView>(R.id.tvDeleteComment)?.visibility =
-                        View.VISIBLE
+            CommentsAdapter(
+                commentsList,
+                object : CommentsAdapter.OnClickListener {
+                    override fun onItemClick(
+                        position: Int,
+                        comment: CommentModel,
+                        context: Context
+                    ) {
+                        val itemView =
+                            binding.rvComments.layoutManager?.findViewByPosition(position)
+                        itemView?.setBackgroundColor(Color.parseColor("#F0F0F0"))
+                        itemView?.findViewById<TextView>(R.id.tvDeleteComment)?.visibility =
+                            View.VISIBLE
+                    }
                 }
-            })
+            )
 
         binding.rvComments.adapter = commentsAdapter
     }
 
+    @Suppress("Detekt.Indentation")
     private fun loadProjectInfo(newsDetails: NewsDetailsModel) {
         val radius = binding.root.resources.getDimensionPixelSize(R.dimen.corner_radius_10)
         binding.apply {
@@ -206,7 +215,7 @@ class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewMod
                     .with(requireContext())
                     .load(
                         "https://img.freepik.com/free-vector/ai-technology-microchip-" +
-                            "background-vector-digital-transformation-concept_53876-112222.jpg"
+                                "background-vector-digital-transformation-concept_53876-112222.jpg"
                     )
                     .placeholder(R.drawable.ic_placeholder_logo)
                     .centerCrop()

@@ -1,26 +1,39 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
-    id("com.android.application") version "8.3.2" apply false
-    id("org.jetbrains.kotlin.android") version "1.9.0" apply false
-    id("com.android.library") version "8.3.2" apply false
-    id("io.gitlab.arturbosch.detekt").version("1.23.3")
+    alias(libs.plugins.androidApplication) apply false
+    alias(libs.plugins.jetbrainsKotlinAndroid) apply false
+    alias(libs.plugins.androidLibrary) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.navigation.safeargs) apply false
+    alias(libs.plugins.detekt)
 }
 
-detekt {
-    toolVersion = "1.23.3"
-    config.from(files("config/detekt/detekt.yml"))
+
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+    parallel = true
+    autoCorrect = false
+    disableDefaultRuleSets = false
     buildUponDefaultConfig = true
+
+    jvmTarget = JavaVersion.valueOf(libs.versions.java.get()).toString()
+
+    setSource(files(projectDir))
+    include("**/*.kt")
+    include("**/*.kts")
+    exclude("**/resources/**")
+    exclude("**/build/**")
+
+    reports {
+        xml.required.set(false)
+        html.required.set(true)
+        txt.required.set(true)
+        sarif.required.set(false)
+        md.required.set(false)
+    }
+
+    config.setFrom(files(project.rootDir.resolve("config/detekt/detekt.yml")))
 }
 
 dependencies {
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.3")
-}
-
-buildscript {
-    repositories {
-        google()
-    }
-    dependencies {
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.7")
-    }
+    add("detekt", libs.bundles.staticAnalysis.detekt)
 }
