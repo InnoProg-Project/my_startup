@@ -128,7 +128,7 @@
 
 
             <com.innoprog.android.uikit.InnoProgButtonView
-                android:id="@+id/btLoadingLogo"
+                android:id="@+id/bt_loading_logo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_16"

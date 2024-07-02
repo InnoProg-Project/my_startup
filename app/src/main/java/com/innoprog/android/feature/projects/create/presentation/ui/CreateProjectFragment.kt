@@ -63,23 +63,23 @@ class CreateProjectFragment :
 
     private fun renderStep(step: Int) {
         when (step) {
-            1 -> {
+            STEP_ONE -> {
                 binding.topbar.setTitleText(getString(R.string.step_1))
                 binding.tvStepTitle.text = getString(R.string.projects_tell_about_your_project)
                 // viewModel.obtainEvent(FillAboutProjectEvent.UnPinePhoto)
             }
 
-            2 -> {
+            STEP_TWO -> {
                 binding.topbar.setTitleText(getString(R.string.step_2))
                 binding.tvStepTitle.text = getString(R.string.upload_photo_or_video)
             }
 
-            3 -> {
+            STEP_THREE -> {
                 binding.topbar.setTitleText(getString(R.string.step_3))
                 binding.tvStepTitle.text = getString(R.string.choose_project_direction)
             }
 
-            4 -> {
+            STEP_FOUR -> {
                 binding.topbar.setTitleText(getString(R.string.step_4))
                 binding.tvStepTitle.text = getString(R.string.documents)
                 clickListener =  { url ->
@@ -88,7 +88,7 @@ class CreateProjectFragment :
                 binding.rvStepScreen.adapter = adapter
             }
 
-            5 -> {
+            STEPS_SIZE -> {
                 binding.topbar.setTitleText(getString(R.string.step_5))
                 binding.tvStepTitle.text = getString(R.string.additional_information)
             }
@@ -111,5 +111,9 @@ class CreateProjectFragment :
 
     companion object {
         const val STEPS_SIZE = 5
+        const val STEP_ONE = 1
+        const val STEP_TWO = 2
+        const val STEP_THREE = 3
+        const val STEP_FOUR = 4
     }
 }
