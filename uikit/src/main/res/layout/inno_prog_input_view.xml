@@ -30,42 +30,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_placeholder" />
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/hint_empty"-->
-        <!--            style="@style/TextBody_1"-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="8dp"-->
-        <!--            android:layout_marginTop="@dimen/margin_14"-->
-        <!--            android:layout_marginEnd="8dp"-->
-        <!--            android:backgroundTint="@android:color/transparent"-->
-        <!--            android:singleLine="true"-->
-        <!--            android:textColor="@color/text_secondary"-->
-        <!--            android:textSize="16sp"-->
-        <!--            android:visibility="gone"-->
-        <!--            app:layout_constraintEnd_toStartOf="@+id/right_icon"-->
-        <!--            app:layout_constraintStart_toEndOf="@+id/left_icon"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            tools:text="Label" />-->
-
-        <!--        <EditText-->
-        <!--            android:id="@+id/edit_text"-->
-        <!--            style="@style/TextBody_1"-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="@dimen/margin_8"-->
-        <!--            android:layout_marginBottom="@dimen/margin_8"-->
-        <!--            android:background="@android:color/transparent"-->
-        <!--            android:gravity="top|start"-->
-        <!--            android:textColor="@color/text_primary"-->
-        <!--            android:textCursorDrawable="@null"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toStartOf="@+id/right_icon"-->
-        <!--            app:layout_constraintHeight_min="wrap"-->
-        <!--            app:layout_constraintStart_toEndOf="@id/left_icon"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            tools:text="Filled text" />-->
-
         <com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/til_edit"
