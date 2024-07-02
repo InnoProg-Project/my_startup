@@ -287,7 +287,7 @@
     </fragment>
     <fragment
         android:id="@+id/editingDocksFragment"
-        android:name="com.innoprog.android.feature.projects.create.presentation.ui.EditingDocksFragment"
+        android:name="com.innoprog.android.feature.projects.create.presentation.ui.AttachDocksFragment"
         android:label="fragment_project_attach_docks"
         tools:layout="@layout/fragment_project_attach_docks" >
         <action

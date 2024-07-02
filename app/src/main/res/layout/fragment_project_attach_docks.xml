@@ -1,34 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_primary"
-    tools:context=".feature.projects.create.presentation.ui.EditingDocksFragment">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/left_border"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/margin_16" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/right_border"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="@dimen/margin_16" />
-
-    <com.innoprog.android.uikit.InnoProgTopBarView
-        android:id="@+id/topbar_editing_docks"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:topBar_left_icon="@drawable/ic_back"
-        tools:topBar_title="@string/editing_docks_step_4" />
+    android:orientation="vertical"
+    tools:context=".feature.projects.create.presentation.ui.AttachDocksFragment">
 
     <TextView
         android:id="@+id/docks"
@@ -39,39 +17,32 @@
         android:text="@string/documents"
         android:textColor="@color/text_primary"
         app:layout_constraintStart_toEndOf="@id/left_border"
-        app:layout_constraintTop_toBottomOf="@id/topbar_editing_docks" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/title_hint"
         style="@style/TextBody_1"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_8"
         android:layout_marginBottom="@dimen/margin_16"
         android:text="@string/editing_docks_attach_docks"
-        android:textColor="@color/text_secondary"
-        app:layout_constraintEnd_toEndOf="@+id/right_border"
-        app:layout_constraintStart_toStartOf="@id/left_border"
-        app:layout_constraintTop_toBottomOf="@+id/docks" />
+        android:textColor="@color/text_secondary"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/docks_recycler"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/margin_8"
         android:orientation="vertical"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/download_docks"
-        app:layout_constraintEnd_toEndOf="@id/right_border"
-        app:layout_constraintStart_toStartOf="@id/left_border"
-        app:layout_constraintTop_toBottomOf="@id/title_hint"
         tools:itemCount="3"
         tools:listitem="@layout/item_docks" />
 
     <com.innoprog.android.uikit.InnoProgButtonView
         android:id="@+id/download_docks"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/margin_16"
         android:gravity="center_horizontal"
@@ -79,37 +50,16 @@
         app:buttonSize="large"
         app:buttonText="@string/editing_docks_download_dock"
         app:buttonTextColor="@color/accent_secondary"
-        app:buttonType="def"
-        app:layout_constraintEnd_toEndOf="@id/right_border"
-        app:layout_constraintStart_toStartOf="@id/left_border"
-        app:layout_constraintTop_toBottomOf="@id/docks_recycler" />
+        app:buttonType="def" />
 
     <TextView
         android:id="@+id/download_hint"
         style="@style/TextCaption_1"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_16"
         android:text="@string/editing_docks_download_hint_text"
-        android:textColor="@color/text_secondary"
-        app:layout_constraintEnd_toEndOf="@id/right_border"
-        app:layout_constraintStart_toStartOf="@id/left_border"
-        app:layout_constraintTop_toBottomOf="@id/download_docks" />
+        android:textColor="@color/text_secondary" />
+</LinearLayout>
 
-    <com.innoprog.android.uikit.InnoProgButtonView
-        android:id="@+id/button_continue"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_margin="@dimen/margin_8"
-        app:buttonSize="large"
-        app:buttonState="enabled"
-        app:buttonTextColor="@color/text_primary"
-        app:buttonType="primary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:buttonText="@string/save"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
 

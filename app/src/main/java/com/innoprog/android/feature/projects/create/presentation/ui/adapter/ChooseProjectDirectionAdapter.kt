@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.innoprog.android.databinding.ItemProjectDirectionBinding
-import com.innoprog.android.feature.projects.create.domain.ProjectDirectionModel
+import com.innoprog.android.feature.projects.create.domain.model.ProjectDirectionModel
 
 class ChooseProjectDirectionAdapter : Adapter<ChooseProjectDirectionViewHolder>() {
 

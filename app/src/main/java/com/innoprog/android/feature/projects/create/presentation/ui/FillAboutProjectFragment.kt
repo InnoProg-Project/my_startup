@@ -7,19 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.innoprog.android.R
-import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.databinding.FragmentProjectDetailsBinding
-import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.feature.projects.create.di.DaggerFillAboutProjectComponent
-import com.innoprog.android.feature.projects.create.presentation.FillAboutProjectViewModel
 import com.innoprog.android.feature.projects.create.presentation.model.FillAboutProjectEvent
 import kotlinx.coroutines.launch
 
-class FillAboutProjectFragment :
-    BaseFragment<FragmentProjectDetailsBinding, FillAboutProjectViewModel>() {
+class FillAboutProjectFragment : Fragment() {
 
     private val imagePicker = registerForActivityResult(
         ActivityResultContracts.GetContent()
@@ -33,11 +29,6 @@ class FillAboutProjectFragment :
                 Snackbar.LENGTH_SHORT
             ).show()
         }
-    }
-    override val viewModel by injectViewModel<FillAboutProjectViewModel>()
-
-    override fun diComponent(): ScreenComponent {
-        return DaggerFillAboutProjectComponent.builder().build()
     }
 
     override fun createBinding(
@@ -70,7 +61,7 @@ class FillAboutProjectFragment :
                 }
             }
         }
-        binding.btResume.setOnClickListener{
+        binding.btResume.setOnClickListener {
             viewModel.navigateTo(R.id.action_fillAboutProjectFragment_to_uploadMediaFilesFragment)
         }
     }

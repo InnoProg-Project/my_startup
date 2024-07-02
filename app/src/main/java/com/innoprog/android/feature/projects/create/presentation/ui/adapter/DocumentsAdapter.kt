@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.projects.create.editingdocks
+package com.innoprog.android.feature.projects.create.presentation.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
