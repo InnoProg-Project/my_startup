@@ -34,6 +34,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/iv_edit_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:layout_marginBottom="@dimen/margin_8"
+                android:padding="@dimen/padding_8"
+                android:src="@drawable/ic_pencil_in_circle_32"
+                app:layout_constraintBottom_toBottomOf="@id/viewPager"
+                app:layout_constraintEnd_toEndOf="@id/viewPager" />
+
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="wrap_content"
@@ -139,8 +150,8 @@
                     style="@style/TextBody_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary"
-                    android:background="@null" />
+                    android:background="@null"
+                    android:textColor="@color/text_primary" />
             </ViewSwitcher>
 
             <com.innoprog.android.uikit.InnoProgButtonView
