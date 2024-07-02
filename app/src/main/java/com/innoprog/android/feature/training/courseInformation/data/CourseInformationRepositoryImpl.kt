@@ -10,10 +10,8 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class CourseInformationRepositoryImpl @Inject constructor() : CourseInformationRepository {
-
     private val video = CourseInformationVideoModel(COURSE_VIDEO_URL, COURSE_VIDEO_DESCRIPTION)
     private val document = CourseInformationDocumentModel(COURSE_DOCUMENT_URL, COURSE_DOCUMENT_TITLE)
-
     private val courseModel = CourseInformationModel(
         COURSE_ID,
         COURSE_LOGO_URL,
@@ -28,13 +26,12 @@ class CourseInformationRepositoryImpl @Inject constructor() : CourseInformationR
         listOf(document, document),
     )
 
-    override fun getCourseInformation(courseId: Int): Flow<Pair<CourseInformationModel?, ErrorStatus?>> = flow {
+    override fun getCourseInformation(courseId: String): Flow<Pair<CourseInformationModel?, ErrorStatus?>> = flow {
         emit(Pair(courseModel, null))
     }
 
     companion object {
-
-        const val COURSE_ID = 123
+        const val COURSE_ID = "123"
         const val COURSE_LOGO_URL =
             "https://s3-alpha-sig.figma.com/img/204c/9620/c0610d5f7c4375333f671aa481fd5913?Expires=1712534400&Key" +
                 "-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=KKrsA83EgNNT~NKXXk9w2i6I72VU36gajM8TZKvm2nlbDLzAIPmG" +
