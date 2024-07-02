@@ -30,11 +30,24 @@
         app:topBar_left_icon="@drawable/ic_back"
         tools:topBar_title=" " />
 
-    <include
-        android:id="@+id/news_title"
+    <TextView
+        android:id="@+id/tv_step_title"
+        style="@style/TextHeadline_2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        layout="@layout/fragment_project_details"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_16"
+        android:text="@string/choose_project_direction"
+        android:textColor="@color/text_primary"
+        app:layout_constraintTop_toBottomOf="@id/topbar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/step_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_project_direction"
+        android:textColor="@color/text_primary"
+        app:layout_constraintTop_toBottomOf="@id/tv_step_title"
+        tools:ignore="MissingConstraints" />
 
     <com.innoprog.android.uikit.InnoProgButtonView
         android:id="@+id/bv_resume"

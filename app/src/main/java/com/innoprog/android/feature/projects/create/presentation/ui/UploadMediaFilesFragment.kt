@@ -1,17 +1,10 @@
 package com.innoprog.android.feature.projects.create.presentation.ui
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.databinding.FragmentProjectUploadImageAndVideoBinding
-import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.feature.projects.create.di.DaggerFillAboutProjectComponent
-import com.innoprog.android.feature.projects.create.presentation.FillAboutProjectViewModel
 import com.innoprog.android.feature.projects.create.presentation.model.FillAboutProjectEvent
 
 class UploadMediaFilesFragment :
@@ -27,25 +20,6 @@ class UploadMediaFilesFragment :
                 context?.getString(R.string.err_pick_photo) ?: "",
                 Snackbar.LENGTH_SHORT
             ).show()
-        }
-    }
-    override val viewModel by injectViewModel<FillAboutProjectViewModel>()
-
-    override fun diComponent(): ScreenComponent {
-        return DaggerFillAboutProjectComponent.builder().build()
-    }
-
-    override fun createBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentProjectUploadImageAndVideoBinding {
-        return FragmentProjectUploadImageAndVideoBinding.inflate(inflater, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.btResume.setOnClickListener {
-            viewModel.navigateTo(R.id.action_uploadMediaFilesFragment_to_chooseProjectDirectionFragment)
         }
     }
 }

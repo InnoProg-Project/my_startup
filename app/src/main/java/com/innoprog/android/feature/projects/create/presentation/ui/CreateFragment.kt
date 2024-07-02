@@ -11,6 +11,7 @@ import com.innoprog.android.databinding.FragmentProjectCreateBinding
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.projects.create.di.DaggerCreateProjectComponent
 import com.innoprog.android.feature.projects.create.presentation.CreateProjectViewModel
+import com.innoprog.android.feature.projects.create.presentation.ui.adapter.DocumentsAdapter
 
 class CreateFragment :
     BaseFragment<FragmentProjectCreateBinding, BaseViewModel>() {
@@ -18,6 +19,9 @@ class CreateFragment :
     override fun diComponent(): ScreenComponent {
         return DaggerCreateProjectComponent.builder().build()
     }
+
+    private var stepNumber = 0
+    private var adapter: DocumentsAdapter? = null
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -29,14 +33,49 @@ class CreateFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initTopBar()
+        renderStep(stepNumber)
         binding.bvResume.setOnClickListener {
-            viewModel.navigateTo(R.id.action_editingDocksFragment_to_additionalInformationFragment)
+            if (stepNumber < STEPS_SIZE) {
+                stepNumber++
+                renderStep(stepNumber)
+            } else {
+                viewModel.createProject()
+            }
         }
     }
 
+    private fun renderStep(step: Int){
+        when(step){
+            1 -> {
+                binding.topbar.setTitleText(getString(R.string.step_1))
+                binding.tvStepTitle.text = getString(R.string.projects_tell_about_your_project)
+            }
+            2 -> {
+                binding.topbar.setTitleText(getString(R.string.step_2))
+                binding.tvStepTitle.text = getString(R.string.upload_photo_or_video)
+            }
+            3 ->{
+                binding.topbar.setTitleText(getString(R.string.step_3))
+                binding.tvStepTitle.text = getString(R.string.choose_project_direction)
+            }
+            4 ->{
+                binding.topbar.setTitleText(getString(R.string.step_4))
+                binding.tvStepTitle.text = getString(R.string.documents)
+            }
+            5 ->{
+                binding.topbar.setTitleText(getString(R.string.step_5))
+                binding.tvStepTitle.text = getString(R.string.additional_information)
+            }
+        }
+    }
     fun initTopBar() {
         binding.topbar.setLeftIconClickListener {
             viewModel.navigateUp()
+            adapter
         }
+    }
+
+    companion object {
+        const val STEPS_SIZE = 5
     }
 }

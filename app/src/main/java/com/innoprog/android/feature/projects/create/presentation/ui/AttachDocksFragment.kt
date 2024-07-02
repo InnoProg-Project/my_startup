@@ -6,18 +6,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.constraintlayout.widget.ConstraintSet.Layout
 import com.innoprog.android.databinding.FragmentProjectAttachDocksBinding
 import com.innoprog.android.feature.projects.create.presentation.ui.adapter.DocumentsAdapter
 
-class AttachDocksFragment : Fragment() {
+class AttachDocksFragment : Layout() {
     private var _binding: FragmentProjectAttachDocksBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProjectAttachDocksBinding.inflate(inflater, container, false)
         return binding.root
