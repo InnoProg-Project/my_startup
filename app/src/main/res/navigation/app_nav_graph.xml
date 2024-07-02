@@ -88,6 +88,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_feedFragment_to_ideaDetailsFragment"
+            app:destination="@id/ideaDetailsFragment"/>
     </fragment>
 
     <fragment
@@ -96,12 +99,12 @@
         android:label="fragment_projects"
         tools:layout="@layout/fragment_projects">
         <action
-            android:id="@+id/action_projectsFragment_to_fillAboutProjectFragment"
-            app:destination="@id/fillAboutProjectFragment"
+            android:id="@+id/action_projectsFragment_to_createProjectFragment"
+            app:destination="@id/createProjectFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment
@@ -251,6 +254,14 @@
             app:destination="@id/projectFragment" />
     </fragment>
     <fragment
+        android:id="@+id/ideaDetailsFragment"
+        android:name="com.innoprog.android.feature.feed.ideaDetails.presentation.IdeaDetailsFragment"
+        android:label="IdeaDetailsFragment">
+        <argument
+            android:name="newsId"
+            app:argType="string" />
+    </fragment>
+    <fragment
         android:id="@+id/projectFragment"
         android:name="com.innoprog.android.feature.feed.projectScreen.presentation.AnyProjectFragment"
         android:label="fragment_any_project"
@@ -275,15 +286,6 @@
             app:argType="string" />
     </fragment>
     <fragment
-        android:id="@+id/fillAboutProjectFragment"
-        android:name="com.innoprog.android.feature.projects.create.presentation.ui.FillAboutProjectFragment"
-        android:label="FillAboutProjectFragment"
-        tools:layout="@layout/fragment_project_details" >
-        <action
-            android:id="@+id/action_fillAboutProjectFragment_to_uploadMediaFilesFragment"
-            app:destination="@id/uploadMediaFilesFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/profileFragment"
         android:name="com.innoprog.android.feature.profile.profiledetails.presentation.ProfileFragment"
         android:label="fragment_profile"
@@ -298,35 +300,9 @@
         android:label="fragment_training_list"
         tools:layout="@layout/fragment_training_list" />
     <fragment
-        android:id="@+id/uploadMediaFilesFragment"
-        android:name="com.innoprog.android.feature.projects.create.presentation.ui.UploadMediaFilesFragment"
-        android:label="UploadMediaFilesFragment" >
-        <action
-            android:id="@+id/action_uploadMediaFilesFragment_to_chooseProjectDirectionFragment"
-            app:destination="@id/chooseProjectDirectionFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/editingDocksFragment"
-        android:name="com.innoprog.android.feature.projects.create.presentation.ui.AttachDocksFragment"
-        android:label="fragment_project_attach_docks"
-        tools:layout="@layout/fragment_project_attach_docks" >
-        <action
-            android:id="@+id/action_editingDocksFragment_to_additionalInformationFragment"
-            app:destination="@id/additionalInformationFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/chooseProjectDirectionFragment"
-        android:name="com.innoprog.android.feature.projects.create.presentation.ui.ChooseProjectDirectionFragment"
-        android:label="fragment_project_choose_direction"
-        tools:layout="@layout/fragment_project_choose_direction" >
-        <action
-            android:id="@+id/action_chooseProjectDirectionFragment_to_editingDocksFragment"
-            app:destination="@id/editingDocksFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/additionalInformationFragment"
-        android:name="com.innoprog.android.feature.projects.create.presentation.ui.AdditionalInformationFragment"
-        android:label="fragment_project_additional_information"
-        tools:layout="@layout/fragment_project_additional_information" />
+        android:id="@+id/createProjectFragment"
+        android:name="com.innoprog.android.feature.projects.create.presentation.ui.CreateProjectFragment"
+        android:label="fragment_project_create"
+        tools:layout="@layout/fragment_project_create" />
 
 </navigation>

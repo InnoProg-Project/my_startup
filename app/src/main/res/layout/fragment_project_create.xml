@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_primary"
-    tools:context=".feature.projects.create.presentation.ui.AttachDocksFragment">
+    tools:context=".feature.projects.create.presentation.ui.CreateProjectFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/left_border"
@@ -33,20 +33,24 @@
     <TextView
         android:id="@+id/tv_step_title"
         style="@style/TextHeadline_2"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_16"
+        android:layout_marginVertical="@dimen/margin_16"
         android:text="@string/choose_project_direction"
         android:textColor="@color/text_primary"
-        app:layout_constraintTop_toBottomOf="@id/topbar" />
+        app:layout_constraintTop_toBottomOf="@id/topbar"
+        app:layout_constraintStart_toEndOf="@id/left_border"
+        app:layout_constraintEnd_toStartOf="@id/right_border"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/step_screen"
-        android:layout_width="wrap_content"
+        android:id="@+id/rv_step_screen"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/choose_project_direction"
         android:textColor="@color/text_primary"
         app:layout_constraintTop_toBottomOf="@id/tv_step_title"
+        app:layout_constraintStart_toEndOf="@id/left_border"
+        app:layout_constraintEnd_toStartOf="@id/right_border"
         tools:ignore="MissingConstraints" />
 
     <com.innoprog.android.uikit.InnoProgButtonView

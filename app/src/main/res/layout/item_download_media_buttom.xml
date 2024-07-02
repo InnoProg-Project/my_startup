@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.innoprog.android.uikit.InnoProgButtonView
+        android:id="@+id/uploadButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_8"
+        android:gravity="center"
+        app:buttonLeftIcon="@drawable/ic_add_image"
+        app:buttonSize="large"
+        app:buttonTextColor="@color/accent_secondary"
+        app:buttonType="def"
+        tools:buttonText="@string/upload_photo_or_video" />
+
+    <TextView
+        android:id="@+id/uploadDescription"
+        style="@style/TextCaption_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_8"
+        android:text="@string/upload_decription"
+        android:textColor="@color/text_secondary" />
+
+</LinearLayout>

@@ -2,22 +2,25 @@ package com.innoprog.android.feature.projects.create.presentation.ui
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.innoprog.android.R
 import com.innoprog.android.databinding.FragmentProjectDetailsBinding
 import com.innoprog.android.feature.projects.create.presentation.model.FillAboutProjectEvent
 import kotlinx.coroutines.launch
 
-class FillAboutProjectFragment : Fragment() {
+class FillAboutProject(val binding: FragmentProjectDetailsBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
-    private val imagePicker = registerForActivityResult(
+    fun bind(deleteClickListener: () -> Unit) {
+
+    }
+
+    val imagePicker = registerForActivityResult(
         ActivityResultContracts.GetContent()
     ) { uri ->
         if (uri != null) {
@@ -31,24 +34,14 @@ class FillAboutProjectFragment : Fragment() {
         }
     }
 
-    override fun createBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentProjectDetailsBinding {
-        return FragmentProjectDetailsBinding.inflate(inflater, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.v(TAG, "starting $TAG")
         binding.btLoadingLogo.setOnClickListener { imagePicker.launch(MIME_TYPE) }
-        binding.topbar.setLeftIconClickListener { viewModel.navigateUp() }
         binding.btDeleteLogo.setOnClickListener {
-            viewModel.obtainEvent(FillAboutProjectEvent.UnPinePhoto)
+
         }
         lifecycleScope.launch {
             viewModel.state.collect { state ->
-                Log.v(TAG, "state = $state")
                 if (state.pinedLogoUri == null) {
                     binding.logoIcon.isVisible = false
                     binding.btLoadingLogo.isVisible = true
@@ -61,13 +54,9 @@ class FillAboutProjectFragment : Fragment() {
                 }
             }
         }
-        binding.btResume.setOnClickListener {
-            viewModel.navigateTo(R.id.action_fillAboutProjectFragment_to_uploadMediaFilesFragment)
-        }
     }
 
     companion object {
         private const val MIME_TYPE = "image/*"
-        private val TAG = FillAboutProjectFragment::class.simpleName
     }
 }
