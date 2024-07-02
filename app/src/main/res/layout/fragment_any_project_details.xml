@@ -128,31 +128,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvProjectDirection"
                 tools:text="Помощник в воспитании детей" />
 
-            <ViewSwitcher
-                android:id="@+id/view_switcher_description"
+            <TextView
+                android:id="@+id/tv_project_description"
+                style="@style/TextBody_1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_16"
+                android:textColor="@color/text_primary"
                 app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
                 app:layout_constraintStart_toStartOf="@+id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@+id/tvShortDescription">
-
-                <TextView
-                    android:id="@+id/tv_project_description"
-                    style="@style/TextBody_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary"
-                    tools:text="Образовательный уровень родителей зачастую влияет на будущее детей больше, чем их успеваемость в школе. Сотрудники Института образования НИУ ВШЭ выяснили, какую роль играет этот фактор в том выборе, который школьник делает после 9 и 11 классов. Как следует из результатов исследования, далеко не всегда этот выбор продиктован академической успеваемостью. Семья с высоким уровнем образования  помогает школьнику выбрать такие стратегии, которые позволяют получить хорошее образование даже при невысокой успеваемости. И наоборот: дети из семей с невысоким образовательным уровнем чаще готовы согласиться на меньшее или отказаться от тех возможностей, которые открывают им текущие образовательные результаты." />
-
-                <EditText
-                    android:id="@+id/et_project_description"
-                    style="@style/TextBody_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:textColor="@color/text_primary" />
-            </ViewSwitcher>
+                app:layout_constraintTop_toBottomOf="@+id/tvShortDescription"
+                tools:text="Образовательный уровень родителей зачастую влияет на будущее детей больше, чем их успеваемость в школе. Сотрудники Института образования НИУ ВШЭ выяснили, какую роль играет этот фактор в том выборе, который школьник делает после 9 и 11 классов. Как следует из результатов исследования, далеко не всегда этот выбор продиктован академической успеваемостью. Семья с высоким уровнем образования  помогает школьнику выбрать такие стратегии, которые позволяют получить хорошее образование даже при невысокой успеваемости. И наоборот: дети из семей с невысоким образовательным уровнем чаще готовы согласиться на меньшее или отказаться от тех возможностей, которые открывают им текущие образовательные результаты." />
 
             <com.innoprog.android.uikit.InnoProgButtonView
                 android:id="@+id/ibtnv_edit_description"
@@ -166,7 +151,7 @@
                 app:buttonType="def"
                 app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
                 app:layout_constraintStart_toStartOf="@+id/leftGuideline"
-                app:layout_constraintTop_toBottomOf="@id/view_switcher_description" />
+                app:layout_constraintTop_toBottomOf="@id/tv_project_description" />
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/divider1"

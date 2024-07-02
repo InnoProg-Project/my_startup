@@ -3,9 +3,11 @@ package com.innoprog.android.feature.feed.userprojectscreen.presentation
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -65,8 +67,7 @@ class UserProjectDetailsFragment :
                 renderState(state)
             }
         }
-        handleTextEditor()
-        handleDocumentEditor()
+        clickListeners()
     }
 
     private fun renderState(state: UserProjectDetailsState) {
@@ -74,7 +75,7 @@ class UserProjectDetailsFragment :
             is UserProjectDetailsState.Content -> fetchData(state.project)
             is UserProjectDetailsState.Empty -> showEmpty()
             is UserProjectDetailsState.Loading -> showEmpty()
-            is UserProjectDetailsState.Error -> renderError(state.errorType)
+            is UserProjectDetailsState.Error -> handleError(state.errorType)
         }
     }
 
@@ -121,7 +122,7 @@ class UserProjectDetailsFragment :
         galleryAdapter.setImageList(imageList)
         binding.viewPager.adapter = galleryAdapter
 
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position -> }.attach()
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { _, _ -> }.attach()
     }
 
     private fun showEmpty() = with(binding) {
@@ -129,7 +130,7 @@ class UserProjectDetailsFragment :
         layoutErrorScreen.isVisible = true
     }
 
-    private fun renderError(errorState: ErrorScreenState) = with(binding) {
+    private fun handleError(errorState: ErrorScreenState) = with(binding) {
         if (errorState == ErrorScreenState.UNAUTHORIZED) {
             val direction = ProjectsScreenFragmentDirections
                 .actionProjectsFragmentToAuthorizationFragment()
@@ -152,31 +153,38 @@ class UserProjectDetailsFragment :
         }
     }
 
-    /**
-     * Метод слушает клики по кнопке редактирования описания, изменяет текст кнопки и view
-     */
-    private fun handleTextEditor() = with(binding) {
-        ibtnvEditDescription.setOnClickListener {
-            if (viewSwitcherDescription.currentView == tvProjectDescription) {
-                etProjectDescription.setText(tvProjectDescription.text)
-                viewSwitcherDescription.showNext()
-                etProjectDescription.requestFocus()
-                ibtnvEditDescription.setText(
-                    resources.getString(com.innoprog.android.R.string.user_project_details_save)
-                )
-            } else {
-                tvProjectDescription.text = etProjectDescription.text
-                viewSwitcherDescription.showPrevious()
-                ibtnvEditDescription.setText(
-                    resources.getString(com.innoprog.android.R.string.user_project_details_edit)
-                )
-            }
+    private fun clickListeners() = with(binding) {
+        listOf(
+            ibtnvEditDescription,
+            ibtnvEditDocuments,
+            ivEditIcon
+        ).forEach {
+            it.setOnClickListener(onClickListener())
+        }
+
+        topBar.setLeftIconClickListener {
+            viewModel.navigateUp()
         }
     }
 
-    private fun handleDocumentEditor() = with(binding) {
-        ibtnvEditDocuments.setOnClickListener {
-            // !добвить обработку редактирования документов
+    private fun onClickListener() = View.OnClickListener {
+        with(binding) {
+            when (it) {
+                ibtnvEditDescription -> Toast.makeText(
+                    requireContext(),
+                    "to step 1 creating project",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                ibtnvEditDocuments -> Toast.makeText(
+                    requireContext(),
+                    "to documents edit",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                ivEditIcon -> Toast.makeText(requireContext(), "to step 2 creating project", Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
     }
 
