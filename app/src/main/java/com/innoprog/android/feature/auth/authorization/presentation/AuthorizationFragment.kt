@@ -7,7 +7,6 @@ import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
@@ -76,9 +75,10 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
     private fun navigateNext() {
         val direction =
             AuthorizationFragmentDirections.actionAuthorizationFragmentToFeedFragment()
-        findNavController().navigate(
-            direction,
-            navOptions {
+
+        viewModel.navigateTo(
+            direction = direction,
+            navOptions = navOptions {
                 launchSingleTop = true
                 popUpTo(R.id.nav_graph) {
                     inclusive = true

@@ -1,10 +1,10 @@
 package com.innoprog.android.feature.projects.projectsScreen.presentation
 
+import DaggerProjectsComponent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
@@ -37,7 +37,7 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
         binding.createNewProjectButton.setOnClickListener {
             val direction = ProjectsScreenFragmentDirections
                 .actionProjectsFragmentToFillAboutProjectFragment()
-            findNavController().navigate(direction)
+            viewModel.navigateTo(direction)
         }
         binding.createFirstProjectButton.setOnClickListener {
             viewModel.navigateTo(R.id.fillAboutProjectFragment)
