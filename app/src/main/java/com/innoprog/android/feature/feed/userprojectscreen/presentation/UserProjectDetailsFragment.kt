@@ -1,6 +1,7 @@
 package com.innoprog.android.feature.feed.userprojectscreen.presentation
 
 import android.content.Intent
+import android.icu.text.SimpleDateFormat
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,7 @@ import com.innoprog.android.feature.training.common.VerticalSpaceDecorator
 import com.innoprog.android.uikit.R
 import com.innoprog.android.util.ErrorScreenState
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 /**
  * Фрагмент получает id через bundle и должен отправлять запрос в api
@@ -89,7 +91,7 @@ class UserProjectDetailsFragment :
         tvShortDescription.text = details.shortDescription
         tvProjectDescription.text = details.description
         tvFinancingStageValue.text = details.financingStage
-        tvDeadlineValue.text = details.deadline
+        tvDeadlineValue.text = formatDate(details.deadline)
         tvLinkToWebValue.text = details.siteUrls[0]
         tvLinkToAppValue.text = details.siteUrls[1]
         tvLinkToSocialNetworkValue.text = details.siteUrls[2]
@@ -182,10 +184,21 @@ class UserProjectDetailsFragment :
                     Toast.LENGTH_SHORT
                 ).show()
 
-                ivEditIcon -> Toast.makeText(requireContext(), "to step 2 creating project", Toast.LENGTH_SHORT)
+                ivEditIcon -> Toast.makeText(
+                    requireContext(),
+                    "to step 2 creating project",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
         }
+    }
+
+    private fun formatDate(inputDate: String): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("dd MMMM yyyy", Locale("ru"))
+        val date = inputFormat.parse(inputDate)
+        return outputFormat.format(date)
     }
 
     companion object {
