@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface GetCourseInformationUseCase {
 
-    fun execute(courseId: Int): Flow<Pair<CourseInformationModel?, ErrorStatus?>>
+    fun execute(courseId: String): Flow<Pair<CourseInformationModel?, ErrorStatus?>>
 }

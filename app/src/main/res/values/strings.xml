@@ -112,4 +112,9 @@
     <!-- FillAboutProjectScreen -->
     <string name="err_pick_photo">Не удалось прикрепить фото</string>
     <string name="create_news">Создать публикацию</string>
+
+    <!-- CourseListScreen -->
+    <string name="course_list_lbl_progress_description">Ищем курсы</string>
+
+    <string name="user_project_details_edit">Редактировать</string>
 </resources>

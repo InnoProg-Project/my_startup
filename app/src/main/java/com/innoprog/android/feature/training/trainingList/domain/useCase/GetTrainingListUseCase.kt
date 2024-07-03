@@ -1,10 +1,16 @@
 package com.innoprog.android.feature.training.trainingList.domain.useCase
 
-import com.innoprog.android.feature.training.trainingList.domain.ErrorStatus
-import com.innoprog.android.feature.training.trainingList.domain.model.TrainingListModel
+import com.innoprog.android.feature.training.trainingList.domain.TrainingListRepository
+import com.innoprog.android.feature.training.trainingList.domain.model.CourseShort
+import com.innoprog.android.feature.training.trainingList.domain.model.GetCourseListError
+import com.innoprog.android.util.Result
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-interface GetTrainingListUseCase {
-
-    fun execute(): Flow<Pair<List<TrainingListModel>?, ErrorStatus?>>
+class GetTrainingListUseCase @Inject constructor(
+    private val repository: TrainingListRepository
+) {
+    fun execute(): Flow<Result<List<CourseShort>, GetCourseListError>> {
+        return repository.getTrainingList()
+    }
 }

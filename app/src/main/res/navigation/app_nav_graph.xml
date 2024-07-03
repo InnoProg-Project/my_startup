@@ -115,6 +115,12 @@
         <action
             android:id="@+id/action_projectsFragment_to_projectFragment"
             app:destination="@id/projectFragment" />
+        <action
+            android:id="@+id/action_projectsFragment_to_authorizationFragment"
+            app:destination="@id/authorizationFragment" />
+        <action
+            android:id="@+id/action_projectsFragment_to_userProjectDetailsFragment"
+            app:destination="@id/userProjectDetailsFragment" />
     </fragment>
 
     <fragment
@@ -128,6 +134,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="courseId"
+            app:argType="string" />
     </fragment>
 
     <dialog
@@ -309,7 +318,15 @@
         android:id="@+id/trainingListFragment"
         android:name="com.innoprog.android.feature.training.trainingList.presentation.TrainingListFragment"
         android:label="fragment_training_list"
-        tools:layout="@layout/fragment_training_list" />
+        tools:layout="@layout/fragment_training_list">
+    <action
+        android:id="@+id/action_trainingListFragment_to_courseInformationFragment"
+        app:destination="@id/courseInformationFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/ideaDetailsFragment"
         android:name="com.innoprog.android.feature.feed.ideaDetails.presentation.IdeaDetailsFragment"
@@ -317,6 +334,15 @@
         <argument
             android:name="newsId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/userProjectDetailsFragment"
+        android:name="com.innoprog.android.feature.feed.userprojectscreen.presentation.UserProjectDetailsFragment"
+        android:label="UserProjectDetailsFragment"
+        tools:layout="@layout/fragment_any_project_details">
+        <action
+            android:id="@+id/action_userProjectDetailsFragment_to_authorizationFragment"
+            app:destination="@id/authorizationFragment" />
     </fragment>
 
 </navigation>
