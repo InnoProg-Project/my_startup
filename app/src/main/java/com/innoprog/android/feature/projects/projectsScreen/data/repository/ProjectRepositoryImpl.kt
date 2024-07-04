@@ -23,7 +23,6 @@ class ProjectRepositoryImpl @Inject constructor(
     override suspend fun getProjectList(): Resource<List<ProjectDto>> {
         return try {
             val response = networkClient.getProjectList()
-            Log.i("ProjectRepositoryImpl", response.resultCode.toString())
             when (response.resultCode) {
                 ApiConstants.SUCCESS_CODE -> {
                     val projects = (response as? ProjectListResponse)?.result
