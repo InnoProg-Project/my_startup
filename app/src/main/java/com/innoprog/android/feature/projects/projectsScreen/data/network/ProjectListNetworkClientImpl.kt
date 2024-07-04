@@ -1,7 +1,7 @@
 package com.innoprog.android.feature.projects.projectsScreen.data.network
 
 import android.content.Context
-import com.innoprog.android.db.RoomDB
+import com.innoprog.android.feature.profile.profiledetails.data.db.ProfileDao
 import com.innoprog.android.network.data.ApiConstants
 import com.innoprog.android.network.data.Response
 import com.innoprog.android.util.isInternetReachable
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class ProjectListNetworkClientImpl @Inject constructor(
     private val apiService: ProjectApiService,
     private val context: Context,
-    private val roomDB: RoomDB
+    private val profileDao: ProfileDao
 ) : ProjectListNetworkClient {
     override suspend fun getProjectList(): Response {
         if (context.isInternetReachable().not()) {
@@ -28,23 +28,30 @@ class ProjectListNetworkClientImpl @Inject constructor(
                 val response = apiService.getProjectList(
                     userId,
                     null,
-                    PROJECTS_AMOUNT_PER_PAGE
+                    PROJECTS_AMOUNT_PER_PAGE_50
                 )
-                ProjectListResponse(result = response.body() ?: emptyList()).apply {
-                    resultCode = ApiConstants.SUCCESS_CODE
+
+                if (response.isSuccessful) {
+                    ProjectListResponse(result = response.body() ?: emptyList()).apply {
+                        resultCode = ApiConstants.SUCCESS_CODE
+                    }
+                } else {
+                    Response().apply { resultCode = response.code() }
                 }
             } catch (exception: HttpException) {
                 Response().apply { resultCode = exception.code() }
+            } catch (exception: Exception) {
+                Response().apply { resultCode = ApiConstants.INTERNAL_SERVER_ERROR }
             }
         }
     }
 
     private suspend fun getUserId(): String {
-        val profile = roomDB.profileDao().getProfile()
+        val profile = profileDao.getProfile()
         return profile.userId
     }
 
     private companion object {
-        const val PROJECTS_AMOUNT_PER_PAGE = 100
+        const val PROJECTS_AMOUNT_PER_PAGE_50 = 50
     }
 }
