@@ -6,6 +6,7 @@ import com.innoprog.android.feature.projects.projectsScreen.domain.api.GetProjec
 import com.innoprog.android.util.ErrorScreenState
 import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -23,19 +24,27 @@ class ProjectsScreenViewModel @Inject constructor(
     }
 
     fun getProjectList() {
-        viewModelScope.launch {
-            when (val result = getProjectListUseCase.execute()) {
-                is Resource.Success -> {
-                    _state.value = if (result.data.isEmpty()) {
-                        ProjectsScreenState.Empty
-                    } else {
-                        ProjectsScreenState.Content(result.data)
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching {
+                getProjectListUseCase.execute()
+            }.onSuccess { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        _state.emit(
+                            if (result.data.isEmpty()) {
+                                ProjectsScreenState.Empty
+                            } else {
+                                ProjectsScreenState.Content(result.data)
+                            }
+                        )
+                    }
+
+                    is Resource.Error -> {
+                        _state.emit(renderError(result.errorType))
                     }
                 }
-
-                is Resource.Error -> {
-                    _state.value = renderError(result.errorType)
-                }
+            }.onFailure {
+                _state.emit(ProjectsScreenState.Error(ErrorScreenState.SERVER_ERROR))
             }
         }
     }
@@ -45,7 +54,7 @@ class ProjectsScreenViewModel @Inject constructor(
             ErrorType.NO_CONNECTION -> ProjectsScreenState.Error(ErrorScreenState.NO_INTERNET)
             ErrorType.NOT_FOUND -> ProjectsScreenState.Error(ErrorScreenState.NOT_FOUND)
             ErrorType.INTERNAL_SERVER_ERROR -> ProjectsScreenState.Error(ErrorScreenState.SERVER_ERROR)
-            ErrorType.UNAUTHORIZED -> ProjectsScreenState.Error(ErrorScreenState.SERVER_ERROR)
+            ErrorType.UNAUTHORIZED -> ProjectsScreenState.Error(ErrorScreenState.UNAUTHORIZED)
             else -> ProjectsScreenState.Error(ErrorScreenState.SERVER_ERROR)
         }
     }

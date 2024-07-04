@@ -58,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_empty_list_placeholder" />
 
     <com.innoprog.android.uikit.InnoProgButtonView
-        android:id="@+id/ipbten_create_new_project"
+        android:id="@+id/ipbtn_create_new_project"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_8"
@@ -78,7 +78,7 @@
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ipbten_create_new_project"
+        app:layout_constraintTop_toBottomOf="@+id/ipbtn_create_new_project"
         tools:itemCount="2"
         tools:layout_editor_absoluteX="8dp"
         tools:listitem="@layout/item_project" />

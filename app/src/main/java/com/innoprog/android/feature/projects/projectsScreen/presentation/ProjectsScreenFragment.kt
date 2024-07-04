@@ -53,7 +53,7 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
             }
         }
         with(binding) {
-            ipbtenCreateNewProject.setOnClickListener {
+            ipbtnCreateNewProject.setOnClickListener {
                 val direction = ProjectsScreenFragmentDirections
                     .actionProjectsFragmentToFillAboutProjectFragment()
                 findNavController().navigate(direction)
@@ -116,7 +116,7 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
         ).forEach {
             it.isVisible = false
         }
-        listOf(ipbtenCreateNewProject, tvProjectList).forEach {
+        listOf(ipbtnCreateNewProject, tvProjectList).forEach {
             it.isVisible = true
         }
     }
@@ -125,7 +125,7 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
         listOf(ivEmptyListPlaceholder, tvEmptyListPlaceholder, ipbtnCreateFisrtProject).forEach {
             it.isVisible = true
         }
-        listOf(ipbtenCreateNewProject, tvProjectList, layoutErrorScreen).forEach {
+        listOf(ipbtnCreateNewProject, tvProjectList, layoutErrorScreen).forEach {
             it.isVisible = false
         }
     }
@@ -140,7 +140,7 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
                 ivEmptyListPlaceholder,
                 tvEmptyListPlaceholder,
                 ipbtnCreateFisrtProject,
-                ipbtenCreateNewProject,
+                ipbtnCreateNewProject,
                 tvProjectList,
                 tvProjectsTitle
             ).forEach {
