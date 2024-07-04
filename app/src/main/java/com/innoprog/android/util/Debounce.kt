@@ -18,8 +18,13 @@ fun <T> debounceFun(
         }
         if (debounceJob?.isCompleted != false || useLastParam) {
             debounceJob = coroutineScope.launch {
-                delay(delayMillis)
+                if (useLastParam) {
+                    delay(delayMillis)
+                }
                 action(param)
+                if (!useLastParam) {
+                    delay(delayMillis)
+                }
             }
         }
     }
@@ -37,8 +42,13 @@ fun <T> debounceUnitFun(
         }
         if (debounceJob?.isCompleted != false || useLastParam) {
             debounceJob = coroutineScope.launch {
-                delay(delayMillis)
+                if (useLastParam) {
+                    delay(delayMillis)
+                }
                 finalAction(param)
+                if (!useLastParam) {
+                    delay(delayMillis)
+                }
             }
         }
     }
