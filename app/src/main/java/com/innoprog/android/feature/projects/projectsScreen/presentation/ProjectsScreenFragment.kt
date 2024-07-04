@@ -2,7 +2,6 @@ package com.innoprog.android.feature.projects.projectsScreen.presentation
 
 import DaggerProjectsFragmentComponent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -77,7 +76,6 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
                     val bundle = Bundle().apply {
                         putString(UserProjectDetailsFragment.USER_PROJECT_DETAILS, "123")
                     }
-                    Log.d("MyLog", "click")
                     viewModel.navigateTo(
                         R.id.action_projectsFragment_to_userProjectDetailsFragment,
                         bundle
@@ -100,7 +98,7 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
         when (state) {
             is ProjectsScreenState.Content -> showContent(state.projects)
             is ProjectsScreenState.Empty -> showEmpty()
-            is ProjectsScreenState.Loading -> showEmpty() // заменить на экран загрузки
+            is ProjectsScreenState.Loading -> showLoading()
             is ProjectsScreenState.Error -> renderError(state.errorType)
         }
     }
@@ -128,6 +126,17 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
         listOf(ipbtnCreateNewProject, tvProjectList, layoutErrorScreen).forEach {
             it.isVisible = false
         }
+        circularProgress.isVisible = false
+    }
+
+    private fun showLoading() = with(binding) {
+        listOf(ivEmptyListPlaceholder, tvEmptyListPlaceholder, ipbtnCreateFisrtProject).forEach {
+            it.isVisible = false
+        }
+        listOf(ipbtnCreateNewProject, tvProjectList, layoutErrorScreen).forEach {
+            it.isVisible = false
+        }
+        circularProgress.isVisible = true
     }
 
     private fun renderError(errorState: ErrorScreenState) = with(binding) {
@@ -146,6 +155,7 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
             ).forEach {
                 it.isVisible = false
             }
+            circularProgress.isVisible = false
             fetchErrorScreen(errorState)
             layoutErrorScreen.isVisible = true
         }

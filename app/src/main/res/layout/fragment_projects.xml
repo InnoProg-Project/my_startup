@@ -83,6 +83,18 @@
         tools:layout_editor_absoluteX="8dp"
         tools:listitem="@layout/item_project" />
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/circular_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_projects_title"
+        app:trackColor="@color/accent_default" />
+
     <include
         android:id="@+id/layout_error_screen"
         layout="@layout/error_layout"
