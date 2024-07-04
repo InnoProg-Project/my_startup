@@ -2,16 +2,16 @@ package com.innoprog.android.feature.training.trainingList.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.innoprog.android.databinding.ItemTrainingBinding
-import com.innoprog.android.feature.training.trainingList.domain.model.TrainingListModel
-import com.innoprog.android.uikit.ImageLoadingType
+import com.innoprog.android.feature.training.trainingList.presentation.model.CoursesItem
 
 class TrainingRecyclerViewAdapter(
-    private val onItemClickListener: (courseId: Int) -> Unit = {}
+    private val onItemClickListener: (courseId: String) -> Unit = {}
 ) : RecyclerView.Adapter<TrainingListViewHolder>() {
 
-    var items = listOf<TrainingListModel>()
+    var items = listOf<CoursesItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrainingListViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -23,27 +23,28 @@ class TrainingRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: TrainingListViewHolder, position: Int) {
-        holder.bind(items[position])
         holder.itemView.setOnClickListener {
-            onItemClickListener(items[holder.adapterPosition].trainingId)
+            onItemClickListener(items[holder.adapterPosition].id)
         }
+        holder.bind(items[position])
     }
 }
 
-class TrainingListViewHolder(private val binding: ItemTrainingBinding) : RecyclerView.ViewHolder(binding.root) {
+class TrainingListViewHolder(private val binding: ItemTrainingBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: TrainingListModel) {
-        binding.trainingDirection.text = item.trainingDirection
-        binding.trainingTitle.text = item.trainingTitle
-        binding.trainingDescription.text = item.trainingDescription
-        binding.trainingAuthorName.text = item.trainingAuthorName
-        binding.trainingAuthorPosition.text = item.trainingAuthorPosition
-        binding.trainingDate.text = item.trainingDate
-
-        val url = item.trainingAuthorAvatarURL
-        val placeholderResId = com.innoprog.android.uikit.R.drawable.ic_person
-        val imageType =
-            ImageLoadingType.ImageNetwork(url, placeholderResId = placeholderResId)
-        binding.trainingAuthorAvatar.loadImage(imageType)
+    fun bind(item: CoursesItem) {
+        binding.trainingDirection.isVisible = item.direction.isNotEmpty()
+        binding.trainingDirection.text = item.direction
+        binding.trainingTitle.text = item.title
+        binding.trainingDescription.text = item.description
+        binding.trainingAuthorName.text =
+            if (item.authorName.isNotEmpty()) "Anonymous" else item.authorName
+        binding.trainingDate.text = item.createdDate
+        val initials = item.authorName
+            .split(' ')
+            .map { it.first().uppercaseChar() }
+            .joinToString(separator = "", limit = 2)
+        binding.trainingAuthorAvatar.text = initials.ifBlank { "?" }
     }
 }

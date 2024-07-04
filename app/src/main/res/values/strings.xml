@@ -111,4 +111,7 @@
 
     <!-- FillAboutProjectScreen -->
     <string name="err_pick_photo">Не удалось прикрепить фото</string>
+
+    <!-- CourseListScreen -->
+    <string name="course_list_lbl_progress_description">Ищем курсы</string>
 </resources>

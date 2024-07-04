@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import com.innoprog.android.R
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -37,6 +38,18 @@ abstract class BaseViewModel : ViewModel() {
             override fun navigate(fragment: Fragment?) {
                 if (fragment != null) {
                     findNavController(fragment).navigate(direction, navOptions)
+                }
+            }
+        }
+    }
+
+    fun navigateToStart() {
+        _stateFlow.value = object : NavEvent {
+            override fun navigate(fragment: Fragment?) {
+                if (fragment != null) {
+                    val navFragmentId = R.id.authorizationFragment
+                    val navOptions = NavOptions.Builder().setPopUpTo(navFragmentId, true).build()
+                    findNavController(fragment).navigate(navFragmentId, null, navOptions)
                 }
             }
         }
