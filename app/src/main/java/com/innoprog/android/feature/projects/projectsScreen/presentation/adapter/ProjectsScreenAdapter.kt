@@ -7,14 +7,18 @@ import com.innoprog.android.databinding.ItemProjectBinding
 import com.innoprog.android.feature.projects.domain.models.Project
 
 class ProjectsScreenAdapter(
-    val onItemClickListener: (id: String) -> Unit
+    private val onItemClickListener: (id: String) -> Unit
 ) : Adapter<ProjectsScreenViewHolder>() {
 
     private var listItem = listOf<Project>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectsScreenViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return ProjectsScreenViewHolder(ItemProjectBinding.inflate(layoutInflater, parent, false))
+        return ProjectsScreenViewHolder(ItemProjectBinding.inflate(layoutInflater, parent, false)).apply {
+            itemView.setOnClickListener {
+                onItemClickListener(listItem[bindingAdapterPosition].id.toString())
+            }
+        }
     }
 
     override fun getItemCount(): Int = listItem.size

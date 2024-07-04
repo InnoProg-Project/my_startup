@@ -47,6 +47,6 @@ class ProjectRepositoryImpl @Inject constructor(
     }
 
     private companion object {
-        const val ERROR_TAG = "GetProjectListError"
+        val ERROR_TAG = ProjectRepository::class.simpleName
     }
 }
