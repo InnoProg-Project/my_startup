@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
@@ -27,7 +26,8 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
             .appComponent(AppComponentHolder.getComponent())
             .build()
 
-    private val adapter = ProjectsScreenAdapter {} // Добавить переход на экран проекта
+    private val adapter = ProjectsScreenAdapter { projectId ->
+    }
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -51,7 +51,7 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
             ipbtnCreateNewProject.setOnClickListener {
                 val direction = ProjectsScreenFragmentDirections
                     .actionProjectsFragmentToFillAboutProjectFragment()
-                findNavController().navigate(direction)
+                viewModel.navigateTo(direction)
             }
 
             ipbtnCreateFisrtProject.setOnClickListener {
@@ -79,7 +79,7 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
         when (state) {
             is ProjectsScreenState.Content -> showContent(state.projects)
             is ProjectsScreenState.Empty -> showEmpty()
-            is ProjectsScreenState.Loading -> showEmpty() // заменить на экран загрузки
+            is ProjectsScreenState.Loading -> showLoading()
             is ProjectsScreenState.Error -> renderError(state.errorType)
         }
     }
@@ -107,6 +107,17 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
         listOf(ipbtnCreateNewProject, tvProjectList, layoutErrorScreen).forEach {
             it.isVisible = false
         }
+        circularProgress.isVisible = false
+    }
+
+    private fun showLoading() = with(binding) {
+        listOf(ivEmptyListPlaceholder, tvEmptyListPlaceholder, ipbtnCreateFisrtProject).forEach {
+            it.isVisible = false
+        }
+        listOf(ipbtnCreateNewProject, tvProjectList, layoutErrorScreen).forEach {
+            it.isVisible = false
+        }
+        circularProgress.isVisible = true
     }
 
     private fun renderError(errorState: ErrorScreenState) = with(binding) {
@@ -125,6 +136,7 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
             ).forEach {
                 it.isVisible = false
             }
+            circularProgress.isVisible = false
             fetchErrorScreen(errorState)
             layoutErrorScreen.isVisible = true
         }

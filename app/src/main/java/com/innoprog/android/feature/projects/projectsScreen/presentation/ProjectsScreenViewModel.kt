@@ -2,6 +2,7 @@ package com.innoprog.android.feature.projects.projectsScreen.presentation
 
 import androidx.lifecycle.viewModelScope
 import com.innoprog.android.base.BaseViewModel
+import com.innoprog.android.feature.projects.domain.models.Project
 import com.innoprog.android.feature.projects.projectsScreen.domain.api.GetProjectListUseCase
 import com.innoprog.android.util.ErrorScreenState
 import com.innoprog.android.util.ErrorType
@@ -28,26 +29,34 @@ class ProjectsScreenViewModel @Inject constructor(
             runCatching {
                 getProjectListUseCase.execute()
             }.onSuccess { result ->
-                when (result) {
-                    is Resource.Success -> {
-                        _state.emit(
-                            if (result.data.isEmpty()) {
-                                ProjectsScreenState.Empty
-                            } else {
-                                ProjectsScreenState.Content(result.data)
-                            }
-                        )
-                    }
-
-                    is Resource.Error -> {
-                        _state.emit(renderError(result.errorType))
-                    }
-                }
+                handleResult(result)
             }.onFailure {
                 _state.emit(ProjectsScreenState.Error(ErrorScreenState.SERVER_ERROR))
             }
         }
     }
+
+    private suspend fun handleResult(result: Resource<List<Project>>) {
+        when (result) {
+            is Resource.Success -> handleSuccess(result)
+            is Resource.Error -> handleError(result.errorType)
+        }
+    }
+
+    private suspend fun handleSuccess(result: Resource.Success<List<Project>>) {
+        _state.emit(
+            if (result.data.isEmpty()) {
+                ProjectsScreenState.Empty
+            } else {
+                ProjectsScreenState.Content(result.data)
+            }
+        )
+    }
+
+    private suspend fun handleError(errorType: ErrorType) {
+        _state.emit(renderError(errorType))
+    }
+
 
     private fun renderError(errorType: ErrorType): ProjectsScreenState.Error {
         return when (errorType) {
