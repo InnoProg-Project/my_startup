@@ -1,5 +1,7 @@
 package com.innoprog.android.feature.projects.projectsScreen.presentation
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.feature.projects.domain.models.Project
@@ -17,8 +19,9 @@ class ProjectsScreenViewModel @Inject constructor(
     private val getProjectListUseCase: GetProjectListUseCase
 ) : BaseViewModel() {
 
-    private val _state = MutableStateFlow<ProjectsScreenState>(ProjectsScreenState.Loading)
-    val state = _state.asStateFlow()
+    private val _state = MutableLiveData<ProjectsScreenState>(ProjectsScreenState.Loading)
+    val state : LiveData<ProjectsScreenState>
+        get() = _state
 
     init {
         getProjectList()
@@ -31,7 +34,7 @@ class ProjectsScreenViewModel @Inject constructor(
             }.onSuccess { result ->
                 handleResult(result)
             }.onFailure {
-                _state.emit(ProjectsScreenState.Error(ErrorScreenState.SERVER_ERROR))
+                updateState(ProjectsScreenState.Error(ErrorScreenState.SERVER_ERROR))
             }
         }
     }
@@ -44,17 +47,15 @@ class ProjectsScreenViewModel @Inject constructor(
     }
 
     private suspend fun handleSuccess(result: Resource.Success<List<Project>>) {
-        _state.emit(
-            if (result.data.isEmpty()) {
-                ProjectsScreenState.Empty
-            } else {
-                ProjectsScreenState.Content(result.data)
-            }
-        )
+        if (result.data.isEmpty()) {
+            updateState(ProjectsScreenState.Empty)
+        } else {
+            updateState(ProjectsScreenState.Content(result.data))
+        }
     }
 
     private suspend fun handleError(errorType: ErrorType) {
-        _state.emit(renderError(errorType))
+        updateState(renderError(errorType))
     }
 
 
@@ -66,5 +67,9 @@ class ProjectsScreenViewModel @Inject constructor(
             ErrorType.UNAUTHORIZED -> ProjectsScreenState.Error(ErrorScreenState.UNAUTHORIZED)
             else -> ProjectsScreenState.Error(ErrorScreenState.SERVER_ERROR)
         }
+    }
+
+    private fun updateState(state: ProjectsScreenState) {
+        _state.postValue(state)
     }
 }

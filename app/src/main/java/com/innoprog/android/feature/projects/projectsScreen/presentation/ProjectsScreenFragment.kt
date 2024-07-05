@@ -9,7 +9,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
-import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentProjectsBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
@@ -18,7 +17,7 @@ import com.innoprog.android.feature.projects.projectsScreen.presentation.adapter
 import com.innoprog.android.util.ErrorScreenState
 import kotlinx.coroutines.launch
 
-class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewModel>() {
+class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, ProjectsScreenViewModel>() {
 
     override val viewModel by injectViewModel<ProjectsScreenViewModel>()
     override fun diComponent(): ScreenComponent =
@@ -43,8 +42,8 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
     override fun subscribe() {
         super.subscribe()
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.state.collect { state ->
-                render(state)
+            viewModel.state.observe(viewLifecycleOwner) { state ->
+                renderState(state)
             }
         }
         with(binding) {
@@ -75,7 +74,7 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
         binding.tvProjectList.adapter = adapter
     }
 
-    private fun render(state: ProjectsScreenState) {
+    private fun renderState(state: ProjectsScreenState) {
         when (state) {
             is ProjectsScreenState.Content -> showContent(state.projects)
             is ProjectsScreenState.Empty -> showEmpty()
@@ -91,7 +90,8 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
             ivEmptyListPlaceholder,
             tvEmptyListPlaceholder,
             ipbtnCreateFisrtProject,
-            layoutErrorScreen
+            layoutErrorScreen,
+            circularProgress
         ).forEach {
             it.isVisible = false
         }
@@ -121,22 +121,20 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
     }
 
     private fun renderError(errorState: ErrorScreenState) = with(binding) {
+        listOf(
+            ivEmptyListPlaceholder,
+            tvEmptyListPlaceholder,
+            ipbtnCreateFisrtProject,
+            ipbtnCreateNewProject,
+            tvProjectList,
+            tvProjectsTitle,
+            circularProgress
+        ).forEach {
+            it.isVisible = false
+        }
         if (errorState == ErrorScreenState.UNAUTHORIZED) {
-            val direction = ProjectsScreenFragmentDirections
-                .actionProjectsFragmentToAuthorizationFragment()
-            viewModel.navigateTo(direction)
+            viewModel.clearBackStackAndNavigateToAuthorization()
         } else {
-            listOf(
-                ivEmptyListPlaceholder,
-                tvEmptyListPlaceholder,
-                ipbtnCreateFisrtProject,
-                ipbtnCreateNewProject,
-                tvProjectList,
-                tvProjectsTitle
-            ).forEach {
-                it.isVisible = false
-            }
-            circularProgress.isVisible = false
             fetchErrorScreen(errorState)
             layoutErrorScreen.isVisible = true
         }
@@ -153,3 +151,4 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
         }
     }
 }
+
