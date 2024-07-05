@@ -148,7 +148,12 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
     }
 
     private fun hideUnusedItems() = with(binding) {
-        listOf(ibtnvEditDescription, ibtnvEditDocuments, ivEditIcon).forEach {
+        listOf(
+            ibtnvEditDescription,
+            ibtnvEditDocuments,
+            ivEditIcon,
+            ibtnvEditAdditionalInfo
+        ).forEach {
             it.visibility = View.GONE
         }
     }
