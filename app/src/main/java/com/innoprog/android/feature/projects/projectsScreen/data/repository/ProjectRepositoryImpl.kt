@@ -26,7 +26,13 @@ class ProjectRepositoryImpl @Inject constructor(
             val response = networkClient.getProjectList()
             when (response.resultCode) {
                 ApiConstants.SUCCESS_CODE -> {
-                    val projects = (response as? ProjectListResponse)?.result?.map { it.convert() }
+                    val projects = (response as? ProjectListResponse)?.result?.mapNotNull {
+                        runCatching { it.convert() }
+                            .onFailure {
+                                Log.v(ERROR_TAG, "mapping error -> ${it.localizedMessage}")
+                            }
+                            .getOrNull()
+                    }
                     Resource.Success(projects ?: emptyList())
                 }
 

@@ -1,8 +1,10 @@
 package com.innoprog.android.feature.projects.projectsScreen.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.innoprog.android.BuildConfig
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.feature.projects.domain.models.Project
 import com.innoprog.android.feature.projects.projectsScreen.domain.api.GetProjectListUseCase
@@ -31,7 +33,11 @@ class ProjectsScreenViewModel @Inject constructor(
                 getProjectListUseCase.execute()
             }.onSuccess { result ->
                 handleResult(result)
-            }.onFailure {
+            }.onFailure { error ->
+                if (BuildConfig.DEBUG) {
+                    Log.v(TAG, "error -> ${error.localizedMessage}")
+                    error.printStackTrace()
+                }
                 updateState(ProjectsScreenState.Error(ErrorScreenState.SERVER_ERROR))
             }
         }
@@ -69,5 +75,9 @@ class ProjectsScreenViewModel @Inject constructor(
 
     private fun updateState(state: ProjectsScreenState) {
         _state.postValue(state)
+    }
+
+    companion object {
+        private val TAG = ProjectsScreenViewModel::class.simpleName
     }
 }

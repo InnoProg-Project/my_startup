@@ -9,12 +9,13 @@ import com.innoprog.android.feature.projects.domain.models.Project
 class ProjectsScreenAdapter(
     private val onItemClickListener: (id: String) -> Unit
 ) : Adapter<ProjectsScreenViewHolder>() {
-
     private var listItem = listOf<Project>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectsScreenViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return ProjectsScreenViewHolder(ItemProjectBinding.inflate(layoutInflater, parent, false)).apply {
+        return ProjectsScreenViewHolder(
+            binding = ItemProjectBinding.inflate(layoutInflater, parent, false)
+        ).apply {
             itemView.setOnClickListener {
                 onItemClickListener(listItem[bindingAdapterPosition].id.toString())
             }
@@ -25,9 +26,6 @@ class ProjectsScreenAdapter(
 
     override fun onBindViewHolder(holder: ProjectsScreenViewHolder, position: Int) {
         holder.bind(listItem[position])
-        holder.itemView.setOnClickListener {
-            onItemClickListener(listItem[position].id.toString())
-        }
     }
 
     fun setListItems(items: List<Project>) {
