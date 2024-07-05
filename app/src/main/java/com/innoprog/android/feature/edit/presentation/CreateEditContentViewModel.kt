@@ -93,7 +93,6 @@ class CreateEditContentViewModel @Inject constructor(
                 else -> _state.value = CreateEditContentState.MediaAttachList(null)
             }
         }
-
     }
 
     fun saveNewIdea(title: String, content: String, onResult: () -> Unit) {
@@ -138,9 +137,12 @@ class CreateEditContentViewModel @Inject constructor(
 
     private fun getProjectInfo(projectId: String) {
         viewModelScope.launch {
-            _state.value = CreateEditContentState.ProjectInfo(
-                createPublishUseCase.getProjectById(projectId).first()
-            )
+            when (val resource = createPublishUseCase.getProjectById(projectId).first()) {
+                is Resource.Success -> _state.value =
+                    CreateEditContentState.ProjectInfo(resource.data)
+
+                else -> _state.value = CreateEditContentState.MediaAttachList(null)
+            }
         }
     }
 }

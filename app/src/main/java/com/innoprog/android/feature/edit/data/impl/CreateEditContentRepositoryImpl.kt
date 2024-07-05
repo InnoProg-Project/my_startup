@@ -2,8 +2,8 @@ package com.innoprog.android.feature.edit.data.impl
 
 import com.innoprog.android.feature.edit.data.CreateEditContentRepository
 import com.innoprog.android.feature.edit.data.EditContentNetworkClient
-import com.innoprog.android.feature.edit.data.dto.EditContentAdapter
 import com.innoprog.android.feature.edit.data.dto.ProjectResponse
+import com.innoprog.android.feature.edit.data.dto.convert
 import com.innoprog.android.feature.edit.domain.model.IdeaModel
 import com.innoprog.android.feature.edit.domain.model.MediaAttachmentsModel
 import com.innoprog.android.feature.edit.domain.model.ProjectModel
@@ -22,7 +22,6 @@ import javax.inject.Singleton
 @Singleton
 class CreateEditContentRepositoryImpl @Inject constructor(
     private val networkClient: EditContentNetworkClient,
-    private val adapter: EditContentAdapter
 ) : CreateEditContentRepository {
 
     private val mediaListOfPath = mutableListOf<String>()
@@ -85,7 +84,7 @@ class CreateEditContentRepositoryImpl @Inject constructor(
 
                 ApiConstants.SUCCESS_CODE -> {
                     with(response as ProjectResponse) {
-                        val result = adapter.mapToProjectModel(this)
+                        val result = this.convert()
                         emit(Resource.Success(result))
                     }
                 }

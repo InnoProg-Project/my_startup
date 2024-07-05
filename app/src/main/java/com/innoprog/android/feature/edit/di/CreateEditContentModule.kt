@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import com.innoprog.android.di.ViewModelKey
 import com.innoprog.android.feature.edit.data.CreateEditContentRepository
 import com.innoprog.android.feature.edit.data.EditContentNetworkClient
-import com.innoprog.android.feature.edit.data.dto.EditContentAdapter
 import com.innoprog.android.feature.edit.data.impl.CreateEditContentRepositoryImpl
 import com.innoprog.android.feature.edit.data.impl.EditContentNetworkClientImpl
 import com.innoprog.android.feature.edit.data.network.EditContentApi
@@ -42,9 +41,6 @@ interface CreateEditContentModule {
 
     @Binds
     fun bindEditContentNetworkClient(impl: EditContentNetworkClientImpl): EditContentNetworkClient
-
-    @Binds
-    fun bindEditContentAdapter(impl: EditContentAdapter): EditContentAdapter
 
     @Module
     class EditContentApiModule {
