@@ -3,12 +3,12 @@ package com.innoprog.android.feature.feed.userprojectscreen.presentation
 import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -22,7 +22,6 @@ import com.innoprog.android.feature.feed.anyProjectDetails.domain.models.Documen
 import com.innoprog.android.feature.feed.anyProjectDetails.presentation.DocumentAdapter
 import com.innoprog.android.feature.feed.userprojectscreen.di.DaggerUserProjectDetailsComponent
 import com.innoprog.android.feature.imagegalleryadapter.ImageGalleryAdapter
-import com.innoprog.android.feature.projects.projectsScreen.presentation.ProjectsScreenFragmentDirections
 import com.innoprog.android.feature.training.common.VerticalSpaceDecorator
 import com.innoprog.android.uikit.R
 import com.innoprog.android.util.ErrorScreenState
@@ -148,14 +147,14 @@ class UserProjectDetailsFragment :
     }
 
     private fun handleError(errorState: ErrorScreenState) = with(binding) {
+        circularProgress.isVisible = false
+        nsvProjectDetailsBody.isVisible = false
+
         if (errorState == ErrorScreenState.UNAUTHORIZED) {
-            val direction = ProjectsScreenFragmentDirections
-                .actionProjectsFragmentToAuthorizationFragment()
-            viewModel.navigateTo(direction)
+            viewModel.clearBackStackAndNavigateToAuthorization()
         } else {
-            nsvProjectDetailsBody.isVisible = false
-            fetchErrorScreen(errorState)
             layoutErrorScreen.isVisible = true
+            fetchErrorScreen(errorState)
         }
     }
 
@@ -174,7 +173,9 @@ class UserProjectDetailsFragment :
         listOf(
             ibtnvEditDescription,
             ibtnvEditDocuments,
-            ivEditIcon
+            ivEditIcon,
+            ibtnvEditAdditionalInfo,
+            tvProjectDirection
         ).forEach {
             it.setOnClickListener(onClickListener())
         }
@@ -187,24 +188,11 @@ class UserProjectDetailsFragment :
     private fun onClickListener() = View.OnClickListener {
         with(binding) {
             when (it) {
-                ibtnvEditDescription -> Toast.makeText(
-                    requireContext(),
-                    "to step 1 creating project",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                ibtnvEditDocuments -> Toast.makeText(
-                    requireContext(),
-                    "to documents edit",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                ivEditIcon -> Toast.makeText(
-                    requireContext(),
-                    "to step 2 creating project",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
+                ibtnvEditDescription -> Log.i(USER_PROJECT_TAG, "to step 1")
+                ivEditIcon -> Log.i(USER_PROJECT_TAG, "to step 2")
+                tvProjectDirection -> Log.i(USER_PROJECT_TAG, "to step 3")
+                ibtnvEditDocuments -> Log.i(USER_PROJECT_TAG, "to step 4")
+                ibtnvEditAdditionalInfo -> Log.i(USER_PROJECT_TAG, "to step 5")
             }
         }
     }
@@ -218,6 +206,7 @@ class UserProjectDetailsFragment :
 
     companion object {
         const val USER_PROJECT_DETAILS = "user_project_details"
+        private val USER_PROJECT_TAG = UserProjectDetailsFragment::class.java.simpleName
     }
 }
 

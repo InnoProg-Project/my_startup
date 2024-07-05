@@ -30,7 +30,7 @@ class UserProjectViewModel @Inject constructor() : BaseViewModel() {
             ErrorType.NO_CONNECTION -> ErrorScreenState.NO_INTERNET
             ErrorType.NOT_FOUND -> ErrorScreenState.NOT_FOUND
             ErrorType.INTERNAL_SERVER_ERROR -> ErrorScreenState.SERVER_ERROR
-            ErrorType.UNAUTHORIZED -> ErrorScreenState.SERVER_ERROR
+            ErrorType.UNAUTHORIZED -> ErrorScreenState.UNAUTHORIZED
             else -> ErrorScreenState.SERVER_ERROR
         }
     )
