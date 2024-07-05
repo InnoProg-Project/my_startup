@@ -1,5 +1,7 @@
 package com.innoprog.android.feature.feed.newsfeed.data
 
+import android.util.Log
+import com.innoprog.android.BuildConfig
 import com.innoprog.android.feature.feed.newsfeed.data.converters.mapToNewsDomain
 import com.innoprog.android.feature.feed.newsfeed.data.converters.mapToProjectDomain
 import com.innoprog.android.feature.feed.newsfeed.data.network.FeedResponse
@@ -73,9 +75,20 @@ class FeedRepositoryImpl @Inject constructor(private val networkClient: NetworkC
         val projectResponse = networkClient.getProjectDetails(projectId)
 
         return if (projectResponse.resultCode == ApiConstants.SUCCESS_CODE) {
-            (projectResponse as ProjectResponse).results.mapToProjectDomain()
+            runCatching {
+                (projectResponse as ProjectResponse).results.mapToProjectDomain()
+            }.onFailure { exception ->
+                if (BuildConfig.DEBUG) {
+                    Log.e(TAG, "mapping error -> $exception")
+                    exception.printStackTrace()
+                }
+            }.getOrNull()
         } else {
             null
         }
+    }
+
+    companion object {
+        private val TAG = FeedRepository::class.simpleName
     }
 }

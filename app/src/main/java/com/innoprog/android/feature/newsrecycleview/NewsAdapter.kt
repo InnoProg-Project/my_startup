@@ -22,12 +22,7 @@ class NewsAdapter(
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         holder.bind(newsList[position])
-        holder.itemView.setOnClickListener {
-            onNewsClick.invoke(newsList[position])
-        }
     }
 
-    override fun getItemCount(): Int {
-        return newsList.size
-    }
+    override fun getItemCount() = newsList.size
 }

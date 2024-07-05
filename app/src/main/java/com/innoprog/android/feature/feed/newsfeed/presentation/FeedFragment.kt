@@ -27,14 +27,15 @@ import com.innoprog.android.feature.newsrecycleview.NewsAdapter
 import com.innoprog.android.uikit.InnoProgChipGroupView
 
 class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
-
     override val viewModel by injectViewModel<FeedViewModel>()
-
     private var listNews: ArrayList<NewsWithProject> = arrayListOf()
     private val newsAdapter: NewsAdapter by lazy {
         NewsAdapter(listNews) { newsWithProject ->
             publicationTypeIndicator(newsWithProject.news.id, newsWithProject.news.type)
         }
+    }
+    private val textWatcherForEditText = { text: CharSequence?, _: Int, _: Int, _: Int ->
+        changeIconClearVisibility(text)
     }
 
     override fun diComponent(): ScreenComponent {
@@ -71,7 +72,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
             Toast.makeText(requireContext(), "Переход на создание идеи", Toast.LENGTH_SHORT).show()
         }
 
-        binding.etSearch.setOnFocusChangeListener { view, hasFocus ->
+        binding.etSearch.setOnFocusChangeListener { _, _ ->
             startSearch()
         }
 
@@ -116,10 +117,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
             newsAdapter.newsList.addAll(newsFeed)
             newsAdapter.notifyDataSetChanged()
         }
-    }
-
-    val textWatcherForEditText = { text: CharSequence?, start: Int, before: Int, count: Int ->
-        changeIconClearVisibility(text)
     }
 
     @SuppressLint("ClickableViewAccessibility")
