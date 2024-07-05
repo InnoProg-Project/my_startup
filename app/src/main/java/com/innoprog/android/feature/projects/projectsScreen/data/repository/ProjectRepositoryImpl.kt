@@ -2,7 +2,8 @@ package com.innoprog.android.feature.projects.projectsScreen.data.repository
 
 import android.util.Log
 import com.google.gson.JsonParseException
-import com.innoprog.android.feature.projects.data.dto.ProjectDto
+import com.innoprog.android.feature.projects.data.converter.convert
+import com.innoprog.android.feature.projects.domain.models.Project
 import com.innoprog.android.feature.projects.projectsScreen.data.network.ProjectListNetworkClient
 import com.innoprog.android.feature.projects.projectsScreen.data.network.ProjectListResponse
 import com.innoprog.android.feature.projects.projectsScreen.domain.api.ProjectRepository
@@ -20,12 +21,12 @@ class ProjectRepositoryImpl @Inject constructor(
     private val networkClient: ProjectListNetworkClient
 ) : ProjectRepository {
     private val errorHandler: ErrorHandler = ErrorHandlerImpl()
-    override suspend fun getProjectList(): Resource<List<ProjectDto>> {
+    override suspend fun getProjectList(): Resource<List<Project>> {
         return try {
             val response = networkClient.getProjectList()
             when (response.resultCode) {
                 ApiConstants.SUCCESS_CODE -> {
-                    val projects = (response as? ProjectListResponse)?.result
+                    val projects = (response as? ProjectListResponse)?.result?.map { it.convert() }
                     Resource.Success(projects ?: emptyList())
                 }
 
