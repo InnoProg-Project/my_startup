@@ -3,7 +3,6 @@ package com.innoprog.android.feature.feed.newsfeed.presentation
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -22,20 +21,21 @@ import com.innoprog.android.databinding.FragmentFeedBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.feed.newsfeed.di.DaggerFeedComponent
-import com.innoprog.android.feature.feed.newsfeed.domain.models.News
+import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
 import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
 import com.innoprog.android.uikit.InnoProgChipGroupView
 
 class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
-
     override val viewModel by injectViewModel<FeedViewModel>()
-
-    private var listNews: ArrayList<News> = arrayListOf()
+    private var listNews: ArrayList<NewsWithProject> = arrayListOf()
     private val newsAdapter: NewsAdapter by lazy {
-        NewsAdapter(listNews) { news ->
-            publicationTypeIndicator(news.id, news.type)
+        NewsAdapter(listNews) { newsWithProject ->
+            publicationTypeIndicator(newsWithProject.news.id, newsWithProject.news.type)
         }
+    }
+    private val textWatcherForEditText = { text: CharSequence?, _: Int, _: Int, _: Int ->
+        changeIconClearVisibility(text)
     }
 
     override fun diComponent(): ScreenComponent {
@@ -72,7 +72,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
             Toast.makeText(requireContext(), "Переход на создание идеи", Toast.LENGTH_SHORT).show()
         }
 
-        binding.etSearch.setOnFocusChangeListener { view, hasFocus ->
+        binding.etSearch.setOnFocusChangeListener { _, _ ->
             startSearch()
         }
 
@@ -84,7 +84,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     }
 
     private fun initChips() {
-        val chipTitles = listOf(ALL_CONTENT, PROJECT, IDEAS)
+        val chipTitles = resources.getStringArray(R.array.chips).toList()
         binding.cgvFilter.setChips(chipTitles)
         binding.cgvFilter.setOnChipSelectListener(object :
             InnoProgChipGroupView.OnChipSelectListener {
@@ -107,20 +107,16 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     }
 
     private fun showError() {
-        Toast.makeText(requireContext(), "Ошибка", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "FeedScreenState Ошибка", Toast.LENGTH_SHORT).show()
     }
 
-    private fun showContent(newsFeed: List<News>) {
+    private fun showContent(newsFeed: List<NewsWithProject>) {
         binding.apply {
             rvPublications.isVisible = true
             newsAdapter.newsList.clear()
             newsAdapter.newsList.addAll(newsFeed)
             newsAdapter.notifyDataSetChanged()
         }
-    }
-
-    val textWatcherForEditText = { text: CharSequence?, start: Int, before: Int, count: Int ->
-        changeIconClearVisibility(text)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -214,7 +210,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
             ) {
                 editText.text?.clear()
                 editText.requestFocus()
-                Log.d("Search_click", "Clear button clicked")
                 return@setOnTouchListener true
             }
             return@setOnTouchListener false
@@ -235,11 +230,5 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
             val action = FeedFragmentDirections.actionFeedFragmentToIdeaDetailsFragment(newsId)
             findNavController().navigate(action)
         }
-    }
-
-    companion object {
-        private const val ALL_CONTENT = "Всё"
-        private const val PROJECT = "Проекты"
-        private const val IDEAS = "Идеи"
     }
 }

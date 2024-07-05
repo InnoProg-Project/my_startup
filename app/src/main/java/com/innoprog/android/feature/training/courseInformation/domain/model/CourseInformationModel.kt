@@ -1,7 +1,7 @@
 package com.innoprog.android.feature.training.courseInformation.domain.model
 
 data class CourseInformationModel(
-    val courseId: Int,
+    val courseId: String,
     val courseLogoURL: String,
     val courseTitle: String,
     val courseDescription: String,
