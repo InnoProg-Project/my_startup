@@ -65,7 +65,7 @@ class UserProjectDetailsFragment :
         viewModel.getProjectDetails(projectId)
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.state.collect { state ->
+            viewModel.state.observe(viewLifecycleOwner) { state ->
                 renderState(state)
             }
         }
@@ -76,12 +76,13 @@ class UserProjectDetailsFragment :
         when (state) {
             is UserProjectDetailsState.Content -> fetchData(state.project)
             is UserProjectDetailsState.Empty -> showEmpty()
-            is UserProjectDetailsState.Loading -> showEmpty()
+            is UserProjectDetailsState.Loading -> showLoading()
             is UserProjectDetailsState.Error -> handleError(state.errorType)
         }
     }
 
     private fun fetchData(details: AnyProjectDetailsModel) = with(binding) {
+        showContent()
         initImageGallery()
         loadProjectInfo(details)
         if (details.documents != null) {
@@ -95,6 +96,12 @@ class UserProjectDetailsFragment :
         tvLinkToWebValue.text = details.siteUrls[0]
         tvLinkToAppValue.text = details.siteUrls[1]
         tvLinkToSocialNetworkValue.text = details.siteUrls[2]
+    }
+
+    private fun showContent() = with(binding) {
+        nsvProjectDetailsBody.isVisible = true
+        circularProgress.isVisible = false
+        layoutErrorScreen.isVisible = false
     }
 
     private fun loadProjectInfo(anyProjectDetails: AnyProjectDetailsModel) {
@@ -130,6 +137,14 @@ class UserProjectDetailsFragment :
     private fun showEmpty() = with(binding) {
         nsvProjectDetailsBody.isVisible = false
         layoutErrorScreen.isVisible = true
+        circularProgress.isVisible = false
+    }
+
+
+    private fun showLoading() = with(binding) {
+        nsvProjectDetailsBody.isVisible = false
+        layoutErrorScreen.isVisible = false
+        circularProgress.isVisible = true
     }
 
     private fun handleError(errorState: ErrorScreenState) = with(binding) {

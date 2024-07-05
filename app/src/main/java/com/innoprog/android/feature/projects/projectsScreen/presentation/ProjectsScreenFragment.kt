@@ -2,13 +2,13 @@ package com.innoprog.android.feature.projects.projectsScreen.presentation
 
 import DaggerProjectsFragmentComponent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
@@ -47,15 +47,15 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
     override fun subscribe() {
         super.subscribe()
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.state.collect { state ->
-                render(state)
+            viewModel.state.observe(viewLifecycleOwner) { state ->
+                renderState(state)
             }
         }
         with(binding) {
             ipbtnCreateNewProject.setOnClickListener {
                 val direction = ProjectsScreenFragmentDirections
                     .actionProjectsFragmentToFillAboutProjectFragment()
-                findNavController().navigate(direction)
+                viewModel.navigateTo(direction)
             }
 
             ipbtnCreateFisrtProject.setOnClickListener {
@@ -65,6 +65,7 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
             layoutErrorScreen.findViewById<com.innoprog.android.uikit.InnoProgButtonView>(
                 com.innoprog.android.uikit.R.id.ipbtn_repeat_request
             ).setOnClickListener {
+                Log.i("MyLog", "click getProjectList")
                 viewModel.getProjectList()
             }
             listOf(
@@ -94,7 +95,8 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
         binding.tvProjectList.adapter = adapter
     }
 
-    private fun render(state: ProjectsScreenState) {
+    private fun renderState(state: ProjectsScreenState) {
+        Log.i("MyLog", "state = $state")
         when (state) {
             is ProjectsScreenState.Content -> showContent(state.projects)
             is ProjectsScreenState.Empty -> showEmpty()
@@ -151,11 +153,11 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
                 ipbtnCreateFisrtProject,
                 ipbtnCreateNewProject,
                 tvProjectList,
-                tvProjectsTitle
+                tvProjectsTitle,
+                circularProgress
             ).forEach {
                 it.isVisible = false
             }
-            circularProgress.isVisible = false
             fetchErrorScreen(errorState)
             layoutErrorScreen.isVisible = true
         }
