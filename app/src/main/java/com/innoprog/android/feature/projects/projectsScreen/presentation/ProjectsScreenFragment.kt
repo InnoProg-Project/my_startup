@@ -1,8 +1,6 @@
 package com.innoprog.android.feature.projects.projectsScreen.presentation
 
 import DaggerProjectsFragmentComponent
-import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -11,17 +9,15 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
-import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentProjectsBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.feature.feed.userprojectscreen.presentation.UserProjectDetailsFragment
 import com.innoprog.android.feature.projects.domain.models.Project
 import com.innoprog.android.feature.projects.projectsScreen.presentation.adapter.ProjectsScreenAdapter
 import com.innoprog.android.util.ErrorScreenState
 import kotlinx.coroutines.launch
 
-class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewModel>() {
+class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, ProjectsScreenViewModel>() {
 
     override val viewModel by injectViewModel<ProjectsScreenViewModel>()
     override fun diComponent(): ScreenComponent =
@@ -30,7 +26,6 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
             .build()
 
     private val adapter = ProjectsScreenAdapter { projectId ->
-        navigateToProjectDetails(projectId)
     }
 
     override fun createBinding(
@@ -65,23 +60,7 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
             layoutErrorScreen.findViewById<com.innoprog.android.uikit.InnoProgButtonView>(
                 com.innoprog.android.uikit.R.id.ipbtn_repeat_request
             ).setOnClickListener {
-                Log.i("MyLog", "click getProjectList")
                 viewModel.getProjectList()
-            }
-            listOf(
-                ivEmptyListPlaceholder,
-                tvEmptyListPlaceholder,
-                ipbtnCreateFisrtProject
-            ).forEach {
-                it.setOnClickListener {
-                    val bundle = Bundle().apply {
-                        putString(UserProjectDetailsFragment.USER_PROJECT_DETAILS, "123")
-                    }
-                    viewModel.navigateTo(
-                        R.id.action_projectsFragment_to_userProjectDetailsFragment,
-                        bundle
-                    )
-                }
             }
         }
     }
@@ -96,7 +75,6 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
     }
 
     private fun renderState(state: ProjectsScreenState) {
-        Log.i("MyLog", "state = $state")
         when (state) {
             is ProjectsScreenState.Content -> showContent(state.projects)
             is ProjectsScreenState.Empty -> showEmpty()
@@ -112,7 +90,8 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
             ivEmptyListPlaceholder,
             tvEmptyListPlaceholder,
             ipbtnCreateFisrtProject,
-            layoutErrorScreen
+            layoutErrorScreen,
+            circularProgress
         ).forEach {
             it.isVisible = false
         }
@@ -142,22 +121,20 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
     }
 
     private fun renderError(errorState: ErrorScreenState) = with(binding) {
+        listOf(
+            ivEmptyListPlaceholder,
+            tvEmptyListPlaceholder,
+            ipbtnCreateFisrtProject,
+            ipbtnCreateNewProject,
+            tvProjectList,
+            tvProjectsTitle,
+            circularProgress
+        ).forEach {
+            it.isVisible = false
+        }
         if (errorState == ErrorScreenState.UNAUTHORIZED) {
-            val direction = ProjectsScreenFragmentDirections
-                .actionProjectsFragmentToAuthorizationFragment()
-            viewModel.navigateTo(direction)
+            viewModel.clearBackStackAndNavigateToAuthorization()
         } else {
-            listOf(
-                ivEmptyListPlaceholder,
-                tvEmptyListPlaceholder,
-                ipbtnCreateFisrtProject,
-                ipbtnCreateNewProject,
-                tvProjectList,
-                tvProjectsTitle,
-                circularProgress
-            ).forEach {
-                it.isVisible = false
-            }
             fetchErrorScreen(errorState)
             layoutErrorScreen.isVisible = true
         }
@@ -173,14 +150,5 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewMod
                 .setText(errorTextRes)
         }
     }
-
-    private fun navigateToProjectDetails(projectId: String) {
-        val bundle = Bundle().apply {
-            putString(UserProjectDetailsFragment.USER_PROJECT_DETAILS, projectId)
-        }
-        viewModel.navigateTo(
-            R.id.action_projectsFragment_to_userProjectDetailsFragment,
-            bundle
-        )
-    }
 }
+
