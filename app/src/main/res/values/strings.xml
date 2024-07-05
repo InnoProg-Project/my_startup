@@ -114,4 +114,12 @@
 
     <!-- CourseListScreen -->
     <string name="course_list_lbl_progress_description">Ищем курсы</string>
+
+    <string name="err_project_info">Ошибка загрузки</string>
+
+    <string-array name="chips">
+        <item>Всё</item>
+        <item>Проекты</item>
+        <item>Идеи</item>
+    </string-array>
 </resources>
