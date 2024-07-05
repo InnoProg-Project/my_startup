@@ -4,18 +4,20 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.innoprog.android.databinding.ItemNewsBinding
-import com.innoprog.android.feature.feed.newsfeed.domain.models.News
-import com.innoprog.android.feature.feed.newsfeed.presentation.FeedViewModel
+import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
 
 class NewsAdapter(
-    var newsList: ArrayList<News>,
-    private val viewModel: FeedViewModel,
-    private val onNewsClick: (News) -> Unit
+    var newsList: MutableList<NewsWithProject>,
+    private val onNewsClick: (NewsWithProject) -> Unit
 ) : RecyclerView.Adapter<NewsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val binding = ItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return NewsViewHolder(binding, viewModel)
+        val holder = NewsViewHolder(binding)
+        holder.itemView.setOnClickListener {
+            onNewsClick.invoke(newsList[holder.bindingAdapterPosition])
+        }
+        return holder
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {

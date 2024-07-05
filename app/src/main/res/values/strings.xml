@@ -113,4 +113,10 @@
     <string name="err_pick_photo">Не удалось прикрепить фото</string>
 
     <string name="err_project_info">Ошибка загрузки</string>
+
+    <string-array name="chips">
+        <item>Всё</item>
+        <item>Проекты</item>
+        <item>Идеи</item>
+    </string-array>
 </resources>

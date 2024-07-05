@@ -21,7 +21,7 @@ import com.innoprog.android.databinding.FragmentFeedBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.feed.newsfeed.di.DaggerFeedComponent
-import com.innoprog.android.feature.feed.newsfeed.domain.models.News
+import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
 import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
 import com.innoprog.android.uikit.InnoProgChipGroupView
@@ -30,10 +30,10 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
 
     override val viewModel by injectViewModel<FeedViewModel>()
 
-    private var listNews: ArrayList<News> = arrayListOf()
+    private var listNews: ArrayList<NewsWithProject> = arrayListOf()
     private val newsAdapter: NewsAdapter by lazy {
-        NewsAdapter(listNews, viewModel) { news ->
-            publicationTypeIndicator(news.id, news.type)
+        NewsAdapter(listNews) { newsWithProject ->
+            publicationTypeIndicator(newsWithProject.news.id, newsWithProject.news.type)
         }
     }
 
@@ -83,7 +83,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     }
 
     private fun initChips() {
-        val chipTitles = listOf(ALL_CONTENT, PROJECT, IDEAS)
+        val chipTitles = resources.getStringArray(R.array.chips).toList()
         binding.cgvFilter.setChips(chipTitles)
         binding.cgvFilter.setOnChipSelectListener(object :
             InnoProgChipGroupView.OnChipSelectListener {
@@ -109,7 +109,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         Toast.makeText(requireContext(), "FeedScreenState Ошибка", Toast.LENGTH_SHORT).show()
     }
 
-    private fun showContent(newsFeed: List<News>) {
+    private fun showContent(newsFeed: List<NewsWithProject>) {
         binding.apply {
             rvPublications.isVisible = true
             newsAdapter.newsList.clear()
@@ -233,11 +233,5 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
             val action = FeedFragmentDirections.actionFeedFragmentToIdeaDetailsFragment(newsId)
             findNavController().navigate(action)
         }
-    }
-
-    companion object {
-        private const val ALL_CONTENT = "Всё"
-        private const val PROJECT = "Проекты"
-        private const val IDEAS = "Идеи"
     }
 }

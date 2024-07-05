@@ -1,7 +1,6 @@
 package com.innoprog.android.feature.feed.newsfeed.data.network
 
 import com.google.gson.annotations.SerializedName
-import com.innoprog.android.feature.feed.newsfeed.domain.models.Project
 
 data class ProjectDto(
     @SerializedName("id")
@@ -38,12 +37,3 @@ data class Attachment(
     @SerializedName("type")
     val type: String
 )
-
-fun ProjectDto.mapToProject(): Project {
-    return Project(
-        id = id,
-        name = name,
-        area = area,
-        logoUrl = logoFilePath,
-    )
-}
