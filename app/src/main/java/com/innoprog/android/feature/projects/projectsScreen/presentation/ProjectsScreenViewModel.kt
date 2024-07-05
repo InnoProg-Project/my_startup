@@ -10,8 +10,6 @@ import com.innoprog.android.util.ErrorScreenState
 import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,7 +18,7 @@ class ProjectsScreenViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private val _state = MutableLiveData<ProjectsScreenState>(ProjectsScreenState.Loading)
-    val state : LiveData<ProjectsScreenState>
+    val state: LiveData<ProjectsScreenState>
         get() = _state
 
     init {
@@ -39,14 +37,14 @@ class ProjectsScreenViewModel @Inject constructor(
         }
     }
 
-    private suspend fun handleResult(result: Resource<List<Project>>) {
+    private fun handleResult(result: Resource<List<Project>>) {
         when (result) {
             is Resource.Success -> handleSuccess(result)
             is Resource.Error -> handleError(result.errorType)
         }
     }
 
-    private suspend fun handleSuccess(result: Resource.Success<List<Project>>) {
+    private fun handleSuccess(result: Resource.Success<List<Project>>) {
         if (result.data.isEmpty()) {
             updateState(ProjectsScreenState.Empty)
         } else {
@@ -54,7 +52,7 @@ class ProjectsScreenViewModel @Inject constructor(
         }
     }
 
-    private suspend fun handleError(errorType: ErrorType) {
+    private fun handleError(errorType: ErrorType) {
         updateState(renderError(errorType))
     }
 
