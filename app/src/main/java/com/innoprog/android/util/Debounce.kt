@@ -1,5 +1,6 @@
 package com.innoprog.android.util
 
+import android.view.View
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -31,9 +32,9 @@ fun <T> debounceFun(
 }
 
 fun <T> debounceUnitFun(
-    delayMillis: Long,
     coroutineScope: CoroutineScope,
-    useLastParam: Boolean
+    delayMillis: Long = DEFAULT_DELAY,
+    useLastParam: Boolean = false
 ): (T, (T) -> Unit) -> Unit {
     var debounceJob: Job? = null
     return { param: T, finalAction: (T) -> Unit ->
@@ -53,3 +54,31 @@ fun <T> debounceUnitFun(
         }
     }
 }
+
+fun View.setOnDebouncedClickListener(
+    coroutineScope: CoroutineScope,
+    delayMillis: Long = DEFAULT_DELAY,
+    useLastParam: Boolean = false,
+    onClick: (View) -> Unit,
+) {
+    var debounceJob: Job? = null
+
+    setOnClickListener { view ->
+        if (useLastParam) {
+            debounceJob?.cancel()
+        }
+        if (debounceJob?.isCompleted != false || useLastParam) {
+            debounceJob = coroutineScope.launch {
+                if (useLastParam) {
+                    delay(delayMillis)
+                }
+                onClick(view)
+                if (!useLastParam) {
+                    delay(delayMillis)
+                }
+            }
+        }
+    }
+}
+
+const val DEFAULT_DELAY = 300L

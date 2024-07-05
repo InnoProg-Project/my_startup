@@ -15,8 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 abstract class BaseViewModel : ViewModel() {
 
-    private val debounceNavigateTo =
-        debounceUnitFun<Fragment?>(CLICK_DELAY, viewModelScope, false)
+    private val debounceNavigateTo = debounceUnitFun<Fragment?>(viewModelScope)
 
     private val _stateFlow = MutableStateFlow<NavEvent?>(null)
     val stateFlow: StateFlow<NavEvent?> = _stateFlow

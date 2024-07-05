@@ -7,6 +7,7 @@ import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.navOptions
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
@@ -17,6 +18,7 @@ import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.auth.authorization.di.DaggerAuthorizationComponent
 import com.innoprog.android.feature.auth.authorization.domain.model.AuthState
 import com.innoprog.android.uikit.InnoProgInputViewState
+import com.innoprog.android.util.setOnDebouncedClickListener
 
 class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseViewModel>() {
 
@@ -53,7 +55,7 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
             viewModel.navigateTo(R.id.passwordRecoveryFragment)
         }
 
-        binding.btnLogin.setOnClickListener {
+        binding.btnLogin.setOnDebouncedClickListener(lifecycleScope) {
             viewModel.verify(binding.ivLogin.getText(), binding.ivPassword.getText())
         }
 
