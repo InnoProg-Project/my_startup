@@ -27,7 +27,6 @@ class NewsEntityMapper @Inject constructor() {
     private fun createAuthor(authorEntity: AuthorEntity): Author {
         return Author(
             id = authorEntity.id,
-            avatarUrl = authorEntity.avatarUrl,
             name = authorEntity.name,
             company = createCompany(authorEntity.company)
         )
@@ -58,7 +57,6 @@ class NewsEntityMapper @Inject constructor() {
     private fun createAuthorEntity(author: Author): AuthorEntity {
         return AuthorEntity(
             id = author.id,
-            avatarUrl = author.avatarUrl,
             name = author.name,
             company = createCompanyEntity(author.company)
         )
