@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.innoprog.android.R
@@ -19,6 +18,7 @@ import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
 import com.innoprog.android.feature.feed.projectScreen.di.DaggerAnyProjectComponent
 import com.innoprog.android.feature.feed.projectScreen.domain.AnyProjectModel
+import com.innoprog.android.feature.feed.userprojectscreen.presentation.UserProjectDetailsFragment
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
 import okhttp3.internal.format
 
@@ -60,10 +60,10 @@ class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel
             updateUI(it)
         }
 
-        val args: AnyProjectFragmentArgs by navArgs()
-        val projectId = args.projectId
-
-        viewModel.getAnyProject(args.projectId, false)
+        viewModel.getAnyProject(
+            arguments?.getString(UserProjectDetailsFragment.USER_PROJECT_DETAILS) ?: "",
+            arguments?.getBoolean(UserProjectDetailsFragment.CUSTOM_PROJECT) ?: false
+        )
 
         binding.rvPublications.adapter = newsAdapter
     }

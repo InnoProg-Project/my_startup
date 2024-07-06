@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -23,6 +22,7 @@ import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.feed.newsdetails.di.DaggerNewsDetailsComponent
 import com.innoprog.android.feature.feed.newsdetails.domain.models.CommentModel
 import com.innoprog.android.feature.feed.newsdetails.domain.models.NewsDetailsModel
+import com.innoprog.android.feature.feed.userprojectscreen.presentation.UserProjectDetailsFragment
 import com.innoprog.android.feature.imagegalleryadapter.ImageGalleryAdapter
 import okhttp3.internal.format
 import java.time.LocalDateTime
@@ -97,9 +97,14 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
     }
 
     private fun openProject(projectId: String) {
-        val action =
-            NewsDetailsFragmentDirections.actionNewsDetailsFragmentToProjectFragment(projectId)
-        findNavController().navigate(action)
+        val bundle = Bundle().apply {
+            putString(UserProjectDetailsFragment.USER_PROJECT_DETAILS, projectId)
+            putBoolean(UserProjectDetailsFragment.CUSTOM_PROJECT, false)
+        }
+        viewModel.navigateTo(
+            R.id.action_newsDetailsFragment_to_projectFragment,
+            bundle
+        )
     }
 
     private fun initImageGallery() {

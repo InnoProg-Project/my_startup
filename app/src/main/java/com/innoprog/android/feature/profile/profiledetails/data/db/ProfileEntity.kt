@@ -9,6 +9,4 @@ data class ProfileEntity(
     val userId: String,
     val name: String,
     val about: String = "",
-    //val communicationChannels: List<CommunicationChannel>
-    //val authorities: List<String>
 )

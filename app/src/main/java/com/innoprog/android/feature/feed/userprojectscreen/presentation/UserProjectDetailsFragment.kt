@@ -206,6 +206,7 @@ class UserProjectDetailsFragment :
 
     companion object {
         const val USER_PROJECT_DETAILS = "user_project_details"
+        const val CUSTOM_PROJECT = "custom_project"
         private val USER_PROJECT_TAG = UserProjectDetailsFragment::class.java.simpleName
     }
 }

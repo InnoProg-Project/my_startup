@@ -31,8 +31,6 @@ class ProfileInfoRepoImpl @Inject constructor(
                 userId = response.userId,
                 name = response.name,
                 about = response.about ?: "",
-                //communicationChannels = response.communicationChannels,
-                //authorities = response.authorities
             )
         )
         when (response.resultCode) {

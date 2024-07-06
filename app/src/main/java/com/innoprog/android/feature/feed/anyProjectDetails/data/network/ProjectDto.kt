@@ -48,7 +48,6 @@ data class Attachment(
 
 
 fun ProjectDto.mapToDomain(): AnyProjectDetailsModel {
-    //return createAndFillProperties(this, AnyProjectDetailsModel::class)
     return AnyProjectDetailsModel(
         id = id,
         images = images,

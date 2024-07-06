@@ -5,6 +5,13 @@ import kotlin.reflect.full.createInstance
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.isAccessible
 
+@Suppress(
+    "LongMethod",
+    "CyclomaticComplexMethod",
+    "CognitiveComplexMethod",
+    "NestedBlockDepth",
+    "CollapsibleIfStatements"
+)
 inline fun <reified S : Any, reified R : Any> createAndFillProperties(
     source: S,
     receiverClass: KClass<R>,

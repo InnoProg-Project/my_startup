@@ -2,17 +2,14 @@ package com.innoprog.android.feature.projects.projectsScreen.presentation
 
 import DaggerProjectsFragmentComponent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
-import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentProjectsBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
@@ -175,9 +172,10 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, ProjectsScr
     private fun navigateToProjectDetails(projectId: String) {
         val bundle = Bundle().apply {
             putString(UserProjectDetailsFragment.USER_PROJECT_DETAILS, projectId)
+            putBoolean(UserProjectDetailsFragment.CUSTOM_PROJECT, true)
         }
         viewModel.navigateTo(
-            R.id.action_projectsFragment_to_userProjectDetailsFragment,
+            R.id.action_projectsFragment_to_projectFragment,
             bundle
         )
     }
