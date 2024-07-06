@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -19,9 +21,12 @@ import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
 import com.innoprog.android.feature.feed.projectScreen.di.DaggerAnyProjectComponent
 import com.innoprog.android.feature.feed.projectScreen.domain.AnyProjectModel
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
+import com.innoprog.android.util.debounceUnitFun
 import okhttp3.internal.format
 
 class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel>() {
+
+    private val debounceNavigateTo = debounceUnitFun<Fragment?>(lifecycleScope)
 
     override val viewModel by injectViewModel<AnyProjectViewModel>()
 
@@ -32,7 +37,9 @@ class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel
             val action = AnyProjectFragmentDirections.actionProjectFragmentToNewsDetailsFragment(
                 newsWithProject.news.id
             )
-            findNavController().navigate(action)
+            debounceNavigateTo(this) { fragment ->
+                findNavController().navigate(action)
+            }
         }
     }
 
@@ -75,7 +82,9 @@ class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel
                     AnyProjectFragmentDirections.actionProjectFragmentToAnyProjectDetailsFragment(
                         id.toString()
                     )
-                findNavController().navigate(action)
+                debounceNavigateTo(this@AnyProjectFragment) { fragment ->
+                    findNavController().navigate(action)
+                }
             }
         }
     }

@@ -13,6 +13,8 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
@@ -25,8 +27,12 @@ import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
 import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
 import com.innoprog.android.uikit.InnoProgChipGroupView
+import com.innoprog.android.util.debounceUnitFun
 
 class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
+
+    private val debounceNavigateTo = debounceUnitFun<Fragment?>(lifecycleScope)
+
     override val viewModel by injectViewModel<FeedViewModel>()
     private var listNews: ArrayList<NewsWithProject> = arrayListOf()
     private val newsAdapter: NewsAdapter by lazy {
@@ -225,10 +231,14 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     private fun publicationTypeIndicator(newsId: String, newsType: String) {
         if (newsType == PublicationType.NEWS.value) {
             val action = FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(newsId)
-            findNavController().navigate(action)
+            debounceNavigateTo(this) { fragment ->
+                findNavController().navigate(action)
+            }
         } else {
             val action = FeedFragmentDirections.actionFeedFragmentToIdeaDetailsFragment(newsId)
-            findNavController().navigate(action)
+            debounceNavigateTo(this) { fragment ->
+                findNavController().navigate(action)
+            }
         }
     }
 }
