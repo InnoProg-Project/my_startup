@@ -87,12 +87,7 @@ abstract class BaseViewModel : ViewModel() {
             val navOptions = NavOptions.Builder()
                 .setPopUpTo(R.id.nav_graph, inclusive = true)
                 .build()
-
-                navigateTo(R.id.authorizationFragment, null, navOptions)
+            navigateTo(R.id.authorizationFragment, null, navOptions)
         }
-    }
-
-    companion object {
-        const val CLICK_DELAY = 300L
     }
 }
