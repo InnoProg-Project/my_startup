@@ -6,5 +6,5 @@ import retrofit2.http.Path
 
 interface AnyProjectDetailsApi {
     @GET("/v1/projects/{projectId}")
-    suspend fun getProjectById(@Path("projectId") id: String): Response<AnyProjectDetailsResponse>
+    suspend fun getProjectById(@Path("projectId") id: String): Response<ProjectDto>
 }

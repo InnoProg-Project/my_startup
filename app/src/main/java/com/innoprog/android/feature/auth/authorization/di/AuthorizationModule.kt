@@ -8,13 +8,19 @@ import com.innoprog.android.feature.auth.authorization.domain.AuthorisationRepos
 import com.innoprog.android.feature.auth.authorization.domain.AuthorisationUseCase
 import com.innoprog.android.feature.auth.authorization.domain.AuthorisationUseCaseImpl
 import com.innoprog.android.feature.auth.authorization.presentation.AuthorizationViewModel
+import com.innoprog.android.feature.profile.profiledetails.di.ProfileModule
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
 import retrofit2.Retrofit
 
-@Module(includes = [AuthorizationModule.LoginApiModule::class])
+@Module(
+    includes = [
+        AuthorizationModule.LoginApiModule::class,
+        ProfileModule::class
+    ]
+)
 interface AuthorizationModule {
 
     @IntoMap

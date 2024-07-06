@@ -11,3 +11,5 @@ class AnyProjectDetailsInteractorImpl @Inject constructor(private val repository
         return repository.getAnyProjectDetails(id)
     }
 }
+
+

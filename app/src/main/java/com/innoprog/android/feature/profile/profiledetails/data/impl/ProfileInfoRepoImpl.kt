@@ -21,15 +21,18 @@ class ProfileInfoRepoImpl @Inject constructor(
     private val roomDB: RoomDB
 ) : ProfileInfoRepo {
 
-    override suspend fun loadProfile(): Flow<Resource<Profile>> = flow {
-        val response = network.loadProfile()
+    override suspend fun loadProfile(id: String): Flow<Resource<Profile>> = flow {
+        val response = when (id) {
+            "" -> network.loadProfile()
+            else -> network.loadProfileById(id)
+        }
         roomDB.profileDao().saveProfile(
             ProfileEntity(
                 userId = response.userId,
                 name = response.name,
-                about = response.about,
-                communicationChannels = response.communicationChannels,
-                authorities = response.authorities
+                about = response.about ?: "",
+                //communicationChannels = response.communicationChannels,
+                //authorities = response.authorities
             )
         )
         when (response.resultCode) {

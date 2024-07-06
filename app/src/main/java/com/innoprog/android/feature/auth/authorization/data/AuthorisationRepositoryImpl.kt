@@ -11,7 +11,7 @@ import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 class AuthorisationRepositoryImpl @Inject constructor(
-    private val api: LoginApi,
+    private val api: LoginApi
 ) : AuthorisationRepository {
 
     override fun verify(): Flow<AuthState> = flow {
@@ -20,7 +20,12 @@ class AuthorisationRepositoryImpl @Inject constructor(
             Log.d("1234", response.code().toString())
             when (response.code()) {
                 SUCCESS -> {
-                    emit(AuthState.SUCCESS)
+                    response.body()?.let {
+                        if (it == null) emit(AuthState.GET_PROFILE_ERROR)
+
+                        emit(AuthState.Success(it))
+                    }
+
                 }
 
                 ERROR -> emit(AuthState.VERIFICATION_ERROR)

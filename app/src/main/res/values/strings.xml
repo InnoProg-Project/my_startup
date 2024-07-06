@@ -119,6 +119,7 @@
     <string name="user_project_details_edit">Редактировать</string>
 
     <string name="err_project_info">Ошибка загрузки</string>
+    <string name="error_on_get_user_profile_data">Ошибка при получении данных профиля</string>
 
     <string-array name="chips">
         <item>Всё</item>

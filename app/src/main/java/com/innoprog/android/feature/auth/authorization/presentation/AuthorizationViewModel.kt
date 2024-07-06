@@ -1,16 +1,21 @@
 package com.innoprog.android.feature.auth.authorization.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.feature.auth.authorization.domain.AuthorisationUseCase
 import com.innoprog.android.feature.auth.authorization.domain.model.AuthState
+import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class AuthorizationViewModel @Inject constructor(private val useCase: AuthorisationUseCase) :
+class AuthorizationViewModel @Inject constructor(
+    private val useCase: AuthorisationUseCase,
+    private val getProfileUseCase: GetProfileUseCase
+) :
     BaseViewModel() {
 
     private val stateLiveData = MutableLiveData<AuthState>()
@@ -22,7 +27,19 @@ class AuthorizationViewModel @Inject constructor(private val useCase: Authorisat
             viewModelScope.launch(Dispatchers.IO) {
                 runCatching {
                     useCase.verify(inputLogin, inputPassword).collect {
-                        stateLiveData.postValue(it)
+                        if (it is AuthState.Success) {
+                            runCatching {
+                                getProfileUseCase.getProfile(it.loginResponse.userId)
+                                    .collect { getProfileResult ->
+                                        stateLiveData.postValue(it)
+                                    }
+                            }.onFailure { throwable ->
+                                Log.d("throw_profile", throwable.toString())
+                                stateLiveData.postValue(AuthState.GET_PROFILE_ERROR)
+                            }
+                        } else {
+                            stateLiveData.postValue(it)
+                        }
                     }
                 }.onFailure {
                     stateLiveData.postValue(AuthState.CONNECTION_ERROR)
