@@ -104,7 +104,7 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
 
     private fun installAttributes(courseInformation: CourseInformation) {
         imageList = viewModel.getImage(courseInformation.attachments)
-        if (imageList.isNullOrEmpty()) {
+        if (imageList.isEmpty()) {
             binding.courseLogo.visibility = View.GONE
         } else {
             binding.courseLogo.visibility = View.VISIBLE
