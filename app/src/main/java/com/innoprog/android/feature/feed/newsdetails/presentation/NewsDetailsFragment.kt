@@ -32,7 +32,7 @@ import java.util.Locale
 open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewModel>() {
 
     override val viewModel by injectViewModel<NewsDetailsViewModel>()
-    private var galleryAdapter: ImageGalleryAdapter? = null
+    private val galleryAdapter = ImageGalleryAdapter()
     private var commentsAdapter: CommentsAdapter? = null
 
     override fun diComponent(): ScreenComponent {
@@ -101,7 +101,7 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
             R.drawable.news_sample,
         )
 
-        galleryAdapter = ImageGalleryAdapter(images)
+        galleryAdapter.setImageList(images)
         binding.viewPager.adapter = galleryAdapter
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position -> }.attach()
