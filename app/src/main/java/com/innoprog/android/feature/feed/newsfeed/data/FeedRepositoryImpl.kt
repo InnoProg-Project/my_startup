@@ -1,70 +1,94 @@
 package com.innoprog.android.feature.feed.newsfeed.data
 
+import android.util.Log
+import com.innoprog.android.BuildConfig
+import com.innoprog.android.feature.feed.newsfeed.data.converters.mapToNewsDomain
+import com.innoprog.android.feature.feed.newsfeed.data.converters.mapToProjectDomain
+import com.innoprog.android.feature.feed.newsfeed.data.network.FeedResponse
+import com.innoprog.android.feature.feed.newsfeed.data.network.NetworkClient
+import com.innoprog.android.feature.feed.newsfeed.data.network.ProjectResponse
 import com.innoprog.android.feature.feed.newsfeed.domain.FeedRepository
-import com.innoprog.android.feature.feed.newsfeed.domain.models.Author
-import com.innoprog.android.feature.feed.newsfeed.domain.models.Company
 import com.innoprog.android.feature.feed.newsfeed.domain.models.News
+import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
+import com.innoprog.android.feature.feed.newsfeed.domain.models.Project
+import com.innoprog.android.network.data.ApiConstants
+import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.net.SocketTimeoutException
 import javax.inject.Inject
 
-class FeedRepositoryImpl @Inject constructor() : FeedRepository {
-    val company = Company(
-        "HighTechCorp",
-        "CEO"
-    )
+class FeedRepositoryImpl @Inject constructor(private val networkClient: NetworkClient) :
+    FeedRepository {
 
-    val author = Author(
-        "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        "Юлия Анисимова",
-        company
-    )
+    override fun getNewsFeed(): Flow<Resource<List<NewsWithProject>>> = flow {
+        val newsResult = loadNewsList()
 
-    val news = News(
-        id = "1",
-        type = "IDEA",
-        author = author,
-        projectId = "1",
-        coverUrl = arrayListOf("https://img.freepik.com/free-vector/ai-technology-microchip-background-" +
-                "vector-digital-transformation-concept_53876-112222.jpg"),
-        title = "Как мы помогаем родителям в воспитании детей ",
-        content = "Этот надежный помощник предназначен для облегчения путей родительства и " +
-            "обеспечения гармоничного развития маленьких личностей",
-        publishedAt = "24",
-        likesCount = 24,
-        commentsCount = 24,
-    )
+        if (newsResult is Resource.Error) {
+            emit(newsResult)
+        } else if (newsResult is Resource.Success) {
+            val newsList = newsResult.data
 
-    val news2 = News(
-        id = "3494d646-562f-44a8-bc67-dfa9da3a693e",
-        type = "NEWS",
-        author = author,
-        projectId = "2",
-        coverUrl = arrayListOf("https://img.freepik.com/free-vector/ai-technology-microchip-background-" +
-                "vector-digital-transformation-concept_53876-112222.jpg")
-        ,
-        title = "Искусственный интеллект",
-        content = "Иску́сственный интелле́кт — свойство искусственных интеллектуальных систем " +
-            "выполнять творческие функции, которые традиционно считаются прерогативой " +
-            "человека (не следует путать с искусственным сознанием)",
-        publishedAt = "24",
-        likesCount = 24,
-        commentsCount = 24,
-    )
+            val newsWithProjects = newsList.map { news ->
+                val project = if (news.projectId != null) {
+                    loadProjectDetails(news.projectId)
+                } else {
+                    null
+                }
+                NewsWithProject(news, project)
+            }
+            emit(Resource.Success(newsWithProjects))
+        }
+    }
 
-    private val listNews = arrayListOf(
-        news, news2, news, news2, news, news2, news, news2, news,
-        news2, news, news2, news, news2, news, news2, news, news2, news, news2, news, news2, news,
-        news2, news, news2, news, news2, news, news2, news, news2, news, news2, news, news2, news,
-        news2, news, news2, news, news2, news, news2, news, news2, news, news2, news, news2, news,
-        news2, news, news2, news, news2, news, news2, news, news2, news, news2, news, news2, news,
-        news2, news, news2, news, news2, news, news2, news, news2, news, news2, news, news2, news,
-        news2, news, news2, news, news2, news, news2, news, news2, news, news2, news, news2, news,
-        news2, news, news2, news, news2, news, news2, news, news2, news, news2, news, news2, news,
-    )
+    private suspend fun loadNewsList(): Resource<List<News>> {
+        val newsResponse = networkClient.loadNewsFeed()
 
-    override fun getNewsFeed(): Flow<Resource<List<News>>> = flow {
-        emit(Resource.Success(listNews))
+        return runCatching {
+            when (newsResponse.resultCode) {
+                ApiConstants.NO_INTERNET_CONNECTION_CODE -> {
+                    Resource.Error(ErrorType.NO_CONNECTION)
+                }
+
+                ApiConstants.SUCCESS_CODE -> {
+                    with(newsResponse as FeedResponse) {
+                        val newsList = results.map { it.mapToNewsDomain() }
+                        Resource.Success(newsList)
+                    }
+                }
+
+                else -> {
+                    Resource.Error(ErrorType.BAD_REQUEST)
+                }
+            }
+        }.getOrElse { exception ->
+            if (exception is SocketTimeoutException) {
+                Resource.Error(ErrorType.NO_CONNECTION)
+            } else {
+                Resource.Error(ErrorType.UNEXPECTED)
+            }
+        }
+    }
+
+    private suspend fun loadProjectDetails(projectId: String): Project? {
+        val projectResponse = networkClient.getProjectDetails(projectId)
+
+        return if (projectResponse.resultCode == ApiConstants.SUCCESS_CODE) {
+            runCatching {
+                (projectResponse as ProjectResponse).results.mapToProjectDomain()
+            }.onFailure { exception ->
+                if (BuildConfig.DEBUG) {
+                    Log.e(TAG, "mapping error -> $exception")
+                    exception.printStackTrace()
+                }
+            }.getOrNull()
+        } else {
+            null
+        }
+    }
+
+    companion object {
+        private val TAG = FeedRepository::class.simpleName
     }
 }

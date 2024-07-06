@@ -50,10 +50,13 @@
         app:layout_constraintTop_toBottomOf="@+id/trainingTitle"
         tools:text="Небольшой курс о том, как интегрировать сервисы в ваше приложение или сайт без участия разработчика" />
 
-    <com.innoprog.android.uikit.InnoProgAvatarView
+    <TextView
         android:id="@+id/trainingAuthorAvatar"
         android:layout_width="32dp"
         android:layout_height="32dp"
+        tools:text="УМ"
+        android:background="@drawable/shape_avatar"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@+id/trainingAuthorPosition"
         app:layout_constraintStart_toStartOf="@+id/trainingDescription"
         app:layout_constraintTop_toTopOf="@+id/trainingAuthorName" />

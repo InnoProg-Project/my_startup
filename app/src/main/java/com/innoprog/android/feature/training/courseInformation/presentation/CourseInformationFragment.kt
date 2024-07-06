@@ -14,7 +14,7 @@ import com.innoprog.android.databinding.FragmentCourseInformationBinding
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.training.common.VerticalSpaceDecorator
 import com.innoprog.android.feature.training.courseInformation.di.DaggerCourseInformationComponent
-import com.innoprog.android.feature.training.trainingList.presentation.TrainingListFragment.Companion.COURSE_KEY
+import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformationModel
 import com.innoprog.android.uikit.ImageLoadingType
 import com.innoprog.android.uikit.R
 
@@ -23,7 +23,11 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
     override val viewModel by injectViewModel<CourseInformationViewModel>()
     override fun diComponent(): ScreenComponent = DaggerCourseInformationComponent.builder().build()
 
-    private val courseId by lazy { arguments?.getInt(COURSE_KEY) }
+    private val courseId by lazy {
+        arguments?.let { args ->
+            CourseInformationFragmentArgs.fromBundle(args).courseId
+        }
+    }
 
     private var videoAdapter: VideoAdapter? = null
     private var documentAdapter: DocumentRecyclerViewAdapter? = null
@@ -31,7 +35,10 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
         VerticalSpaceDecorator(resources.getDimensionPixelSize(R.dimen.margin_8))
     }
 
-    override fun createBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentCourseInformationBinding {
+    override fun createBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentCourseInformationBinding {
         return FragmentCourseInformationBinding.inflate(inflater, container, false)
     }
 
@@ -53,8 +60,7 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
     private fun initVideoRecyclerView() {
         videoAdapter = VideoAdapter(requireContext()) {
             viewModel.navigateTo(
-                com.innoprog.android.R.id.videoPlayerFragment,
-                bundleOf(VIDEO_PLAYER_KEY to it)
+                com.innoprog.android.R.id.videoPlayerFragment, bundleOf(VIDEO_PLAYER_KEY to it)
             )
         }
         binding.courseInformationVideoRV.addItemDecoration(decorator)
@@ -71,51 +77,46 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
 
     private fun render(state: CourseInformationState) {
         when (state) {
-            is CourseInformationState.Content -> {
-                Glide.with(requireContext())
-                    .load(state.courseInformation.courseLogoURL)
-                    .into(binding.courseLogo)
-
-                binding.courseInformationTitle.text = state.courseInformation.courseTitle
-                binding.courseInformationDescription.text = state.courseInformation.courseDescription
-
-                val avatarUrl = state.courseInformation.courseAuthorAvatarURL
-                val placeholderResId = R.drawable.ic_person
-                val imageType =
-                    ImageLoadingType.ImageNetwork(avatarUrl, placeholderResId = placeholderResId)
-                binding.courseInformationAuthorAvatar.loadImage(imageType)
-
-                binding.courseInformationAuthorName.text = state.courseInformation.courseAuthorName
-                binding.courseInformationAuthorPosition.text = state.courseInformation.courseAuthorPosition
-                binding.courseInformationDate.text = state.courseInformation.courseDate
-                binding.courseInformationDirection.text = state.courseInformation.courseDirection
-
-                if (state.courseInformation.videos != null) {
-                    binding.courseInformationVideoTitle.visibility = View.VISIBLE
-                    binding.courseInformationVideoRV.visibility = View.VISIBLE
-                    videoAdapter?.items = state.courseInformation.videos
-                } else {
-                    binding.courseInformationVideoTitle.visibility = View.INVISIBLE
-                    binding.courseInformationVideoRV.visibility = View.INVISIBLE
-                }
-
-                if (state.courseInformation.documents != null) {
-                    binding.courseInformationDocumentsTitle.visibility = View.VISIBLE
-                    binding.courseInformationDocumentsRV.visibility = View.VISIBLE
-                    documentAdapter?.items = state.courseInformation.documents
-                } else {
-                    binding.courseInformationDocumentsTitle.visibility = View.INVISIBLE
-                    binding.courseInformationDocumentsRV.visibility = View.INVISIBLE
-                }
-            }
-
+            is CourseInformationState.Content -> showContent(state.courseInformation)
             is CourseInformationState.Error -> Unit
             is CourseInformationState.Load -> Unit
         }
     }
 
-    companion object {
+    private fun showContent(courseInformation: CourseInformationModel) {
+        Glide.with(requireContext()).load(courseInformation.courseLogoURL).into(binding.courseLogo)
+        val avatarUrl = courseInformation.courseAuthorAvatarURL
+        val placeholderResId = R.drawable.ic_person
+        val imageType =
+            ImageLoadingType.ImageNetwork(avatarUrl, placeholderResId = placeholderResId)
+        binding.courseInformationAuthorAvatar.loadImage(imageType)
+        binding.courseInformationAuthorName.text = courseInformation.courseAuthorName
+        binding.courseInformationAuthorPosition.text = courseInformation.courseAuthorPosition
+        binding.courseInformationDate.text = courseInformation.courseDate
+        binding.courseInformationDirection.text = courseInformation.courseDirection
+        binding.courseInformationTitle.text = courseInformation.courseTitle
+        binding.courseInformationDescription.text = courseInformation.courseDescription
 
+        if (courseInformation.videos != null) {
+            binding.courseInformationVideoTitle.visibility = View.VISIBLE
+            binding.courseInformationVideoRV.visibility = View.VISIBLE
+            videoAdapter?.items = courseInformation.videos
+        } else {
+            binding.courseInformationVideoTitle.visibility = View.INVISIBLE
+            binding.courseInformationVideoRV.visibility = View.INVISIBLE
+        }
+
+        if (courseInformation.documents != null) {
+            binding.courseInformationDocumentsTitle.visibility = View.VISIBLE
+            binding.courseInformationDocumentsRV.visibility = View.VISIBLE
+            documentAdapter?.items = courseInformation.documents
+        } else {
+            binding.courseInformationDocumentsTitle.visibility = View.INVISIBLE
+            binding.courseInformationDocumentsRV.visibility = View.INVISIBLE
+        }
+    }
+
+    companion object {
         const val VIDEO_PLAYER_KEY = "VIDEO_PLAYER_KEY"
     }
 }

@@ -46,6 +46,12 @@ class NewsDetailsRepositoryImpl @Inject constructor(private val networkClient: N
         }
     }
 
+    @Suppress("Detekt.StringLiteralDuplication")
+    private val author = Author(
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "Юлия Анисимова",
+        company
+    )
     override fun getComments(newsId: String): Flow<Resource<List<CommentModel>>> = flow {
         val response = networkClient.getComments(newsId)
         runCatching {

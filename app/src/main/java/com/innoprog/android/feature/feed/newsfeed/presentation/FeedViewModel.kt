@@ -1,8 +1,10 @@
 package com.innoprog.android.feature.feed.newsfeed.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.innoprog.android.BuildConfig
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.feature.feed.newsfeed.domain.FeedInteractor
 import com.innoprog.android.util.ErrorType
@@ -32,6 +34,10 @@ class FeedViewModel @Inject constructor(private val feedInteractor: FeedInteract
                     }
                 }
             }.onFailure { exception ->
+                if (BuildConfig.DEBUG) {
+                    Log.v(TAG, "exception -> ${exception.localizedMessage}")
+                    exception.printStackTrace()
+                }
                 setState(FeedScreenState.Error(ErrorType.BAD_REQUEST))
             }
         }
@@ -39,5 +45,9 @@ class FeedViewModel @Inject constructor(private val feedInteractor: FeedInteract
 
     private fun setState(state: FeedScreenState) {
         _screenState.postValue(state)
+    }
+
+    companion object {
+        private val TAG = FeedViewModel::class.simpleName
     }
 }

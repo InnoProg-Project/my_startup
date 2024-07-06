@@ -24,7 +24,6 @@ import com.innoprog.android.feature.feed.newsdetails.di.DaggerNewsDetailsCompone
 import com.innoprog.android.feature.feed.newsdetails.domain.models.CommentModel
 import com.innoprog.android.feature.feed.newsdetails.domain.models.NewsDetailsModel
 import com.innoprog.android.feature.imagegalleryadapter.ImageGalleryAdapter
-import com.innoprog.android.uikit.ImageLoadingType
 import okhttp3.internal.format
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
