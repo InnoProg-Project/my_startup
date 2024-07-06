@@ -30,11 +30,13 @@ class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel
 
     override val viewModel by injectViewModel<AnyProjectViewModel>()
 
-    private var listNews = ArrayList<News>()
+    private var listNews = ArrayList<NewsWithProject>()
 
     private val newsAdapter: NewsAdapter by lazy {
-        NewsAdapter(listNews) { news ->
-            val action = AnyProjectFragmentDirections.actionProjectFragmentToNewsDetailsFragment(news.id)
+        NewsAdapter(listNews) { newsWithProject ->
+            val action = AnyProjectFragmentDirections.actionProjectFragmentToNewsDetailsFragment(
+                newsWithProject.news.id
+            )
             debounceNavigateTo(this) { fragment ->
                 findNavController().navigate(action)
             }
@@ -76,9 +78,10 @@ class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel
             }
 
             btnProjectDetails.setOnClickListener {
-                val action = AnyProjectFragmentDirections.actionProjectFragmentToAnyProjectDetailsFragment(
-                    id.toString()
-                )
+                val action =
+                    AnyProjectFragmentDirections.actionProjectFragmentToAnyProjectDetailsFragment(
+                        id.toString()
+                    )
                 debounceNavigateTo(this@AnyProjectFragment) { fragment ->
                     findNavController().navigate(action)
                 }

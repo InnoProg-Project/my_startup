@@ -36,7 +36,7 @@ import java.util.Locale
 open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewModel>() {
 
     override val viewModel by injectViewModel<NewsDetailsViewModel>()
-    private var galleryAdapter: ImageGalleryAdapter? = null
+    private val galleryAdapter = ImageGalleryAdapter()
     private var commentsAdapter: CommentsAdapter? = null
     private val debounceNavigateTo = debounceUnitFun<Fragment?>(lifecycleScope)
 
@@ -108,7 +108,7 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
             R.drawable.news_sample,
         )
 
-        galleryAdapter = ImageGalleryAdapter(images)
+        galleryAdapter.setImageList(images)
         binding.viewPager.adapter = galleryAdapter
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position -> }.attach()
@@ -139,11 +139,6 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
             tvNewsComments.text = newsDetails.commentsCount.toString()
             newsLikesView.setLikeCount(newsDetails.likesCount)
             tvNewsPublicationDate.text = getFormattedDate(newsDetails.publishedAt)
-
-            val avatarUrl = newsDetails.author.avatarUrl
-            val placeholderResId = com.innoprog.android.uikit.R.drawable.ic_person
-            loadAvatar(avatarUrl, placeholderResId)
-
             tvNewsAuthorName.text = newsDetails.author.name
 
             val newsAuthorPosition =
@@ -173,19 +168,6 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
         val outputFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy в HH:mm", Locale("ru"))
         val dateTime = LocalDateTime.parse(inputDate, inputFormatter)
         return dateTime.format(outputFormatter)
-    }
-
-    private fun loadAvatar(avatarUrl: String?, placeholderResId: Int) {
-        val imageType =
-            avatarUrl?.let {
-                ImageLoadingType.ImageNetwork(
-                    it,
-                    placeholderResId = placeholderResId
-                )
-            }
-        if (imageType != null) {
-            binding.newsAuthorAvatar.loadImage(imageType)
-        }
     }
 
     private fun initRecyclerView(commentsList: List<CommentModel>) {
@@ -239,6 +221,5 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
 
     companion object {
         const val TV_MAX_LINES = 6
-        const val CLICK_DELAY = 300L
     }
 }

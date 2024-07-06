@@ -82,6 +82,16 @@ abstract class BaseViewModel : ViewModel() {
         }
     }
 
+    fun clearBackStackAndNavigateToAuthorization() {
+        debounceNavigateTo(null) { fragment ->
+            val navOptions = NavOptions.Builder()
+                .setPopUpTo(R.id.nav_graph, inclusive = true)
+                .build()
+
+                navigateTo(R.id.authorizationFragment, null, navOptions)
+        }
+    }
+
     companion object {
         const val CLICK_DELAY = 300L
     }
