@@ -81,7 +81,7 @@ complexity:
     threshold: 15
   CyclomaticComplexMethod:
     active: true
-    threshold: 13
+    threshold: 10
     ignoreSingleWhenExpression: true
     ignoreSimpleWhenEntries: true
     ignoreNestingFunctions: false
@@ -90,20 +90,20 @@ complexity:
     active: true
     ignoredLabels: [ ]
   LargeClass:
-    active: false
+    active: true
     threshold: 200
   LongMethod:
     active: true
-    threshold: 60
+    threshold: 40
     excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**' ]
     ignoreAnnotated: [ "Composable" ]
   LongParameterList:
     active: true
     functionThreshold: 6
-    constructorThreshold: 28
+    constructorThreshold: 7
     ignoreDefaultParameters: true
     ignoreDataClasses: true
-    ignoreAnnotated: [ "Inject", "InjectConstructor", "Composable" ]
+    ignoreAnnotated: [ "Inject", "InjectConstructor", "Composable", "NetworkModel" ]
   MethodOverloading:
     active: true
     threshold: 6
@@ -116,7 +116,7 @@ complexity:
   ReplaceSafeCallChainWithRun:
     active: false
   StringLiteralDuplication:
-    active: false
+    active: true
     threshold: 3
     ignoreAnnotation: true
     excludeStringsWithLessThan5Characters: true
@@ -295,7 +295,7 @@ formatting:
     active: true
     autoCorrect: true
   MultiLineIfElse:
-    active: false
+    active: true
     autoCorrect: true
   # Правило выключено, потому что удобно оставлять пустую строчку
   # перед закрывающей скобкой класса

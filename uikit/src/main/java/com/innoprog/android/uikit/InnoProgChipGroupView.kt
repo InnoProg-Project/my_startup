@@ -74,7 +74,7 @@ class InnoProgChipGroupView @JvmOverloads constructor(
         }
     }
 
-    interface OnChipSelectListener {
+    fun interface OnChipSelectListener {
         fun onChipSelected(chipIndex: Int)
     }
 

@@ -5,7 +5,7 @@ import com.innoprog.android.di.ViewModelKey
 import com.innoprog.android.feature.profile.profiledetails.data.impl.ChipsProfileRepoImpl
 import com.innoprog.android.feature.profile.profiledetails.data.impl.ProfileInfoRepoImpl
 import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileApi
-import com.innoprog.android.feature.profile.profiledetails.data.network.RetrofitClient
+import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileRetrofitClient
 import com.innoprog.android.feature.profile.profiledetails.domain.ChipsInteractor
 import com.innoprog.android.feature.profile.profiledetails.domain.ChipsProfileRepo
 import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileCompanyUseCase
@@ -42,7 +42,7 @@ interface ProfileModule {
     fun bindGetProfileCompanyUseCase(impl: GetProfileCompanyUseCaseImpl): GetProfileCompanyUseCase
 
     @Binds
-    fun bindNetworkClient(impl: RetrofitClient): NetworkClient
+    fun bindNetworkClient(impl: ProfileRetrofitClient): NetworkClient
 
     @Binds
     fun bindChipsRepository(impl: ChipsProfileRepoImpl): ChipsProfileRepo

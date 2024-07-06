@@ -6,7 +6,9 @@ import com.innoprog.android.feature.profile.profiledetails.domain.models.Attachm
 import com.innoprog.android.feature.profile.profiledetails.domain.models.Author
 import com.innoprog.android.feature.profile.profiledetails.domain.models.Company
 import com.innoprog.android.feature.profile.profiledetails.domain.models.FeedWrapper
+import com.innoprog.android.network.data.NetworkModel
 
+@NetworkModel
 class FeedDto(
     @SerializedName("id")
     val id: String,
@@ -61,49 +63,53 @@ class CompanyDto(
 
 fun FeedDto.mapToDomain(): FeedWrapper {
     return when (type) {
-        PublicationType.NEWS.value -> {
-            FeedWrapper.News(
-                id = id,
-                author = Author(
-                    id = author.id,
-                    name = author.name,
-                    company = Company(
-                        name = author.company.name,
-                        role = author.company.role
-                    )
-                ),
-                projectId = projectId,
-                title = title,
-                content = content,
-                publishedAt = publishedAt,
-                likesCount = likesCount,
-                commentsCount = commentsCount,
-                attachments = attachments.map { Attachment(it.id, it.filePath, it.type) },
-                isLiked = isLiked,
-                isFavorite = isFavorite
-            )
-        }
-        else -> {
-            FeedWrapper.Idea(
-                id = id,
-                author = Author(
-                    id = author.id,
-                    name = author.name,
-                    company = Company(
-                        name = author.company.name,
-                        role = author.company.role
-                    )
-                ),
-                projectId = projectId,
-                title = title,
-                content = content,
-                publishedAt = publishedAt,
-                likesCount = likesCount,
-                commentsCount = commentsCount,
-                attachments = attachments.map { Attachment(it.id, it.filePath, it.type) },
-                isLiked = isLiked,
-                isFavorite = isFavorite
-            )
-        }
+        PublicationType.NEWS.value -> mapToNews()
+        else -> mapToIdea()
     }
+}
+
+private fun FeedDto.mapToNews(): FeedWrapper.News {
+    return FeedWrapper.News(
+        id = id,
+        author = Author(
+            id = author.id,
+            name = author.name,
+            company = Company(
+                name = author.company.name,
+                role = author.company.role
+            )
+        ),
+        projectId = projectId,
+        title = title,
+        content = content,
+        publishedAt = publishedAt,
+        likesCount = likesCount,
+        commentsCount = commentsCount,
+        attachments = attachments.map { Attachment(it.id, it.filePath, it.type) },
+        isLiked = isLiked,
+        isFavorite = isFavorite
+    )
+}
+
+private fun FeedDto.mapToIdea(): FeedWrapper.Idea {
+    return FeedWrapper.Idea(
+        id = id,
+        author = Author(
+            id = author.id,
+            name = author.name,
+            company = Company(
+                name = author.company.name,
+                role = author.company.role
+            )
+        ),
+        projectId = projectId,
+        title = title,
+        content = content,
+        publishedAt = publishedAt,
+        likesCount = likesCount,
+        commentsCount = commentsCount,
+        attachments = attachments.map { Attachment(it.id, it.filePath, it.type) },
+        isLiked = isLiked,
+        isFavorite = isFavorite
+    )
 }
