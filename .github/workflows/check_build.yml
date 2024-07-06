@@ -30,7 +30,7 @@ jobs:
       
       # Шаг для запуска скрипта сборки проекта
       - name: Run check out script
-        run: ./gradlew build
+        run: ./gradlew assembleDebug
 
       # Шаг для проверки статуса сборки
       - name: Check status

@@ -1,7 +1,7 @@
 package com.innoprog.android.feature.feed.projectScreen.domain
 
 import com.google.gson.annotations.SerializedName
-import com.innoprog.android.feature.feed.newsfeed.domain.models.News
+import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
 
 data class AnyProjectModel(
     @SerializedName("id")
@@ -17,7 +17,7 @@ data class AnyProjectModel(
     @SerializedName("area")
     val area: String,
     @SerializedName("projectNews")
-    val projectNews: List<News>?,
+    val projectNews: List<NewsWithProject>?,
     @SerializedName("itsCustomProject")
     val itsCustomProject: Boolean = false
 )

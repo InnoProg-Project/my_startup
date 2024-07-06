@@ -16,7 +16,7 @@ import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentAnyProjectBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.feature.feed.newsfeed.domain.models.News
+import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
 import com.innoprog.android.feature.feed.projectScreen.di.DaggerAnyProjectComponent
 import com.innoprog.android.feature.feed.projectScreen.domain.AnyProjectModel
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
@@ -26,11 +26,13 @@ class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel
 
     override val viewModel by injectViewModel<AnyProjectViewModel>()
 
-    private var listNews = ArrayList<News>()
+    private var listNews = ArrayList<NewsWithProject>()
 
     private val newsAdapter: NewsAdapter by lazy {
-        NewsAdapter(listNews) { news ->
-            val action = AnyProjectFragmentDirections.actionProjectFragmentToNewsDetailsFragment(news.id)
+        NewsAdapter(listNews) { newsWithProject ->
+            val action = AnyProjectFragmentDirections.actionProjectFragmentToNewsDetailsFragment(
+                newsWithProject.news.id
+            )
             findNavController().navigate(action)
         }
     }
@@ -73,9 +75,10 @@ class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel
             }
 
             btnProjectDetails.setOnClickListener {
-                val action = AnyProjectFragmentDirections.actionProjectFragmentToAnyProjectDetailsFragment(
-                    id.toString()
-                )
+                val action =
+                    AnyProjectFragmentDirections.actionProjectFragmentToAnyProjectDetailsFragment(
+                        id.toString()
+                    )
                 findNavController().navigate(action)
             }
         }

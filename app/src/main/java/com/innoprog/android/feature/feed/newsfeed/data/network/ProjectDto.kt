@@ -1,12 +1,10 @@
-package com.innoprog.android.feature.projects.data.dto
+package com.innoprog.android.feature.feed.newsfeed.data.network
 
 import com.google.gson.annotations.SerializedName
-import java.util.Date
-import java.util.UUID
 
 data class ProjectDto(
     @SerializedName("id")
-    val id: UUID,
+    val id: String,
     @SerializedName("name")
     val name: String,
     @SerializedName("shortDescription")
@@ -22,11 +20,20 @@ data class ProjectDto(
     @SerializedName("financingStage")
     val financingStage: String,
     @SerializedName("deadline")
-    val deadline: Date,
+    val deadline: String,
     @SerializedName("siteUrls")
     val siteUrls: String,
     @SerializedName("documentUrls")
     val documentUrls: List<String>,
     @SerializedName("projectAttachments")
-    val projectAttachments: List<ProjectAttachmentDto>
+    val projectAttachments: List<Attachment>,
+)
+
+data class Attachment(
+    @SerializedName("id")
+    val id: String,
+    @SerializedName("filePath")
+    val filePath: String,
+    @SerializedName("type")
+    val type: String
 )
