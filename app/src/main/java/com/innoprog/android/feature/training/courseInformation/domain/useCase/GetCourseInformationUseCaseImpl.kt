@@ -45,10 +45,9 @@ class GetCourseInformationUseCaseImpl @Inject constructor(
                     listAttachments.map {
                         CourseInformationImageModel(
                             imageId = it.id,
-                            imageURL = it.filePath,
+                            imageURL = it.filePath
                         )
-
-                    },
+                    }
                 )
             }
         }
@@ -63,10 +62,9 @@ class GetCourseInformationUseCaseImpl @Inject constructor(
                     listAttachments.map {
                         CourseInformationDocumentModel(
                             documentId = it.id,
-                            documentURL = it.filePath,
+                            documentURL = it.filePath
                         )
-
-                    },
+                    }
                 )
             }
         }

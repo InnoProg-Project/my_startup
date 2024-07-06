@@ -1,10 +1,9 @@
 package com.innoprog.android.feature.training.courseInformation.data.network
 
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import com.innoprog.android.network.data.ApiConstants
 import com.innoprog.android.network.data.Response
+import com.innoprog.android.util.isInternetReachable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -16,7 +15,7 @@ class RetrofitNetworkClient @Inject constructor(
 ) : NetworkClient {
 
     override suspend fun getCourseInformation(courseId: String): Response {
-        if (!context.checkInternetAvailability()) {
+        if (context.isInternetReachable().not()) {
             return Response().apply { resultCode = ApiConstants.NO_INTERNET_CONNECTION_CODE }
         }
 
@@ -29,19 +28,6 @@ class RetrofitNetworkClient @Inject constructor(
             } catch (exception: HttpException) {
                 Response().apply { resultCode = exception.code() }
             }
-        }
-    }
-
-    fun Context.checkInternetAvailability(): Boolean {
-        val connectivityManager =
-            this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork =
-            connectivityManager.activeNetwork?.let { connectivityManager.getNetworkCapabilities(it) }
-                ?: return false
-        return when {
-            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-            else -> false
         }
     }
 }

@@ -7,8 +7,5 @@ data class CourseInformation(
     val description: String,
     val authorName: String,
     val createdDate: String,
-    val attachments: List<Attachments>,
-    // val courseLogoURL: String,
-    // val courseAuthorPosition: String,
-    // val courseAuthorAvatarURL: String,
+    val attachments: List<Attachments>
 )

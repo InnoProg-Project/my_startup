@@ -65,11 +65,13 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
 
         initVideoRecyclerView()
         initDocumentsRecyclerView()
-        courseId?.let { viewModel.getCourseInformation(it) }
+        if (courseId.isNotEmpty()) {
+            viewModel.getCourseInformation(courseId)
+        }
     }
 
     private fun initVideoRecyclerView() {
-        videoAdapter = VideoAdapter(requireContext()) {
+        videoAdapter = VideoAdapter {
             viewModel.navigateTo(
                 com.innoprog.android.R.id.videoPlayerFragment,
                 bundleOf(VIDEO_PLAYER_KEY to it)
@@ -122,7 +124,6 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
         binding.courseInformationAuthorAvatar.text = initials.ifBlank { "?" }
 
         binding.courseInformationAuthorName.text = courseInformation.authorName
-        // binding.courseInformationAuthorPosition.text = state.courseInformation.courseAuthorPosition
         binding.courseInformationDate.text = courseInformation.createdDate
         binding.courseInformationDirection.text = courseInformation.direction
 

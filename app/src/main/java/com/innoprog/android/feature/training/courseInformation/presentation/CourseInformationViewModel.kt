@@ -11,6 +11,7 @@ import com.innoprog.android.feature.training.courseInformation.domain.model.Cour
 import com.innoprog.android.feature.training.courseInformation.domain.useCase.GetCourseInformationUseCase
 import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,7 +27,7 @@ class CourseInformationViewModel @Inject constructor(
     }
 
     fun getCourseInformation(courseId: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             runCatching {
                 getCourseInformationUseCase.execute(courseId).collect { response ->
                     when (response) {
@@ -57,6 +58,6 @@ class CourseInformationViewModel @Inject constructor(
     }
 
     private fun setState(state: CourseInformationState) {
-        _state.value = state
+        _state.postValue(state)
     }
 }
