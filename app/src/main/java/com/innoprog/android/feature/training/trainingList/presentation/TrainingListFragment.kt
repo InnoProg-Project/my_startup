@@ -68,6 +68,7 @@ class TrainingListFragment : BaseFragment<FragmentTrainingListBinding, BaseViewM
             }
 
             is TrainingListState.UnAuthorisedError -> {
+                viewModel.navigateToStart()
             }
 
             is TrainingListState.Content -> {
@@ -96,9 +97,5 @@ class TrainingListFragment : BaseFragment<FragmentTrainingListBinding, BaseViewM
     private fun hideProgress() {
         binding.progress.hide()
         binding.lblProgressDescription.visibility = View.GONE
-    }
-
-    companion object {
-        const val COURSE_KEY = "COURSE_KEY"
     }
 }

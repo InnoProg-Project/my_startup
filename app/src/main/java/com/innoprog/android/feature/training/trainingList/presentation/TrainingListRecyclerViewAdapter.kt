@@ -38,7 +38,8 @@ class TrainingListViewHolder(private val binding: ItemTrainingBinding) :
         binding.trainingDirection.text = item.direction
         binding.trainingTitle.text = item.title
         binding.trainingDescription.text = item.description
-        binding.trainingAuthorName.text = if (item.authorName.isNotEmpty()) "Anonymous" else item.authorName
+        binding.trainingAuthorName.text =
+            if (item.authorName.isNotEmpty()) "Anonymous" else item.authorName
         binding.trainingDate.text = item.createdDate
         val initials = item.authorName
             .split(' ')

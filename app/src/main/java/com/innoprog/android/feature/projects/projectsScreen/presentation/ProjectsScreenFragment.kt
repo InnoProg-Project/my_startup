@@ -1,72 +1,154 @@
 package com.innoprog.android.feature.projects.projectsScreen.presentation
 
-import android.os.Bundle
+import DaggerProjectsFragmentComponent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
-import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentProjectsBinding
+import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.feature.projects.projectsScreen.domain.model.ProjectScreenModel
+import com.innoprog.android.feature.projects.domain.models.Project
+import com.innoprog.android.feature.projects.projectsScreen.presentation.adapter.ProjectsScreenAdapter
+import com.innoprog.android.util.ErrorScreenState
+import kotlinx.coroutines.launch
 
-class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, BaseViewModel>() {
+class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, ProjectsScreenViewModel>() {
 
     override val viewModel by injectViewModel<ProjectsScreenViewModel>()
-    override fun diComponent(): ScreenComponent = DaggerProjectsComponent.builder().build()
+    override fun diComponent(): ScreenComponent =
+        DaggerProjectsFragmentComponent.builder()
+            .appComponent(AppComponentHolder.getComponent())
+            .build()
 
-    private val adapter by lazy {
-        ProjectsScreenAdapter(requireContext()) {} // Добавить переход на экран проекта
+    private val adapter = ProjectsScreenAdapter { projectId ->
     }
 
     override fun createBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentProjectsBinding {
-        return FragmentProjectsBinding.inflate(inflater, container, false)
+        return FragmentProjectsBinding.inflate(
+            inflater,
+            container,
+            false
+        )
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.state.observe(viewLifecycleOwner) {
-            render(it)
+    override fun subscribe() {
+        super.subscribe()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.state.observe(viewLifecycleOwner) { state ->
+                renderState(state)
+            }
         }
-        binding.projectsRV.adapter = adapter
-        binding.createNewProjectButton.setOnClickListener {
-            val direction = ProjectsScreenFragmentDirections
-                .actionProjectsFragmentToFillAboutProjectFragment()
-            findNavController().navigate(direction)
-        }
-        binding.createFirstProjectButton.setOnClickListener {
-            viewModel.navigateTo(R.id.fillAboutProjectFragment)
+        with(binding) {
+            ipbtnCreateNewProject.setOnClickListener {
+                val direction = ProjectsScreenFragmentDirections
+                    .actionProjectsFragmentToFillAboutProjectFragment()
+                viewModel.navigateTo(direction)
+            }
+
+            ipbtnCreateFisrtProject.setOnClickListener {
+                viewModel.navigateTo(R.id.fillAboutProjectFragment)
+            }
+
+            layoutErrorScreen.findViewById<com.innoprog.android.uikit.InnoProgButtonView>(
+                com.innoprog.android.uikit.R.id.ipbtn_repeat_request
+            ).setOnClickListener {
+                viewModel.getProjectList()
+            }
         }
     }
 
-    private fun render(state: ProjectsScreenState) {
+    override fun initViews() {
+        super.initViews()
+        prepareAdapter()
+    }
+
+    private fun prepareAdapter() {
+        binding.tvProjectList.adapter = adapter
+    }
+
+    private fun renderState(state: ProjectsScreenState) {
         when (state) {
             is ProjectsScreenState.Content -> showContent(state.projects)
             is ProjectsScreenState.Empty -> showEmpty()
+            is ProjectsScreenState.Loading -> showLoading()
+            is ProjectsScreenState.Error -> renderError(state.errorType)
         }
     }
 
-    private fun showContent(items: List<ProjectScreenModel>) {
-        binding.projectPlaceholderIV.visibility = View.GONE
-        binding.projectPlaceholderTV.visibility = View.GONE
-        binding.createFirstProjectButton.visibility = View.GONE
-        binding.createNewProjectButton.visibility = View.VISIBLE
-        binding.projectsRV.visibility = View.VISIBLE
+    private fun showContent(items: List<Project>) = with(binding) {
+        adapter.setListItems(items)
 
-        adapter.items = items
-        adapter.notifyDataSetChanged()
+        listOf(
+            ivEmptyListPlaceholder,
+            tvEmptyListPlaceholder,
+            ipbtnCreateFisrtProject,
+            layoutErrorScreen,
+            circularProgress
+        ).forEach {
+            it.isVisible = false
+        }
+        listOf(ipbtnCreateNewProject, tvProjectList).forEach {
+            it.isVisible = true
+        }
     }
 
-    private fun showEmpty() {
-        binding.projectPlaceholderIV.visibility = View.VISIBLE
-        binding.projectPlaceholderTV.visibility = View.VISIBLE
-        binding.createFirstProjectButton.visibility = View.VISIBLE
-        binding.createNewProjectButton.visibility = View.GONE
-        binding.projectsRV.visibility = View.GONE
+    private fun showEmpty() = with(binding) {
+        listOf(ivEmptyListPlaceholder, tvEmptyListPlaceholder, ipbtnCreateFisrtProject).forEach {
+            it.isVisible = true
+        }
+        listOf(ipbtnCreateNewProject, tvProjectList, layoutErrorScreen).forEach {
+            it.isVisible = false
+        }
+        circularProgress.isVisible = false
+    }
+
+    private fun showLoading() = with(binding) {
+        listOf(ivEmptyListPlaceholder, tvEmptyListPlaceholder, ipbtnCreateFisrtProject).forEach {
+            it.isVisible = false
+        }
+        listOf(ipbtnCreateNewProject, tvProjectList, layoutErrorScreen).forEach {
+            it.isVisible = false
+        }
+        circularProgress.isVisible = true
+    }
+
+    private fun renderError(errorState: ErrorScreenState) = with(binding) {
+        listOf(
+            ivEmptyListPlaceholder,
+            tvEmptyListPlaceholder,
+            ipbtnCreateFisrtProject,
+            ipbtnCreateNewProject,
+            tvProjectList,
+            tvProjectsTitle,
+            circularProgress
+        ).forEach {
+            it.isVisible = false
+        }
+        if (errorState == ErrorScreenState.UNAUTHORIZED) {
+            viewModel.clearBackStackAndNavigateToAuthorization()
+        } else {
+            fetchErrorScreen(errorState)
+            layoutErrorScreen.isVisible = true
+        }
+    }
+
+    private fun fetchErrorScreen(errorState: ErrorScreenState) {
+        val errorImageRes = errorState.imageResource
+        val errorTextRes = errorState.messageResource
+        binding.layoutErrorScreen.apply {
+            findViewById<ImageView>(com.innoprog.android.uikit.R.id.iv_error_image)
+                .setImageResource(errorImageRes)
+            findViewById<TextView>(com.innoprog.android.uikit.R.id.tv_error_message)
+                .setText(errorTextRes)
+        }
     }
 }
+
