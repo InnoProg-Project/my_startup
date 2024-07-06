@@ -97,7 +97,8 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
     }
 
     private fun openProject(projectId: String) {
-        val action = NewsDetailsFragmentDirections.actionNewsDetailsFragmentToProjectFragment(projectId, false)
+        val action =
+            NewsDetailsFragmentDirections.actionNewsDetailsFragmentToProjectFragment(projectId)
         findNavController().navigate(action)
     }
 

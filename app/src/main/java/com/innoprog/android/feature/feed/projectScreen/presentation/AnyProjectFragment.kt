@@ -63,7 +63,7 @@ class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel
         val args: AnyProjectFragmentArgs by navArgs()
         val projectId = args.projectId
 
-        viewModel.getAnyProject(args.projectId, args.itsCustomProject)
+        viewModel.getAnyProject(args.projectId, false)
 
         binding.rvPublications.adapter = newsAdapter
     }
