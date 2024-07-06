@@ -42,8 +42,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
+                android:visibility="gone"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/course_logo_sample" />
+                tools:src="@drawable/course_logo_sample"
+                tools:visibility="visible"
+                />
 
             <TextView
                 android:id="@+id/courseInformationTitle"

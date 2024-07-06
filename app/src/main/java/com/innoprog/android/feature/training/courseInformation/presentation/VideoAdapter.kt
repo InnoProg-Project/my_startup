@@ -1,7 +1,6 @@
 package com.innoprog.android.feature.training.courseInformation.presentation
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
@@ -34,7 +33,6 @@ class VideoAdapter(
     fun setVideoList(videoList: List<CourseInformationVideoModel>) {
         items.clear()
         items.addAll(videoList)
-        Log.e("setVideoList", "$items")
         notifyDataSetChanged()
     }
 }

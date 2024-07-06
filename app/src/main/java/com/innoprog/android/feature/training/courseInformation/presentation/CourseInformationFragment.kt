@@ -15,6 +15,7 @@ import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.training.common.VerticalSpaceDecorator
 import com.innoprog.android.feature.training.courseInformation.di.DaggerCourseInformationComponent
+import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformation
 import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformationDocumentModel
 import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformationImageModel
 import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformationVideoModel
@@ -89,9 +90,10 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
     private fun render(state: CourseInformationState) {
         when (state) {
             is CourseInformationState.Content -> {
-                installAttributes(state)
+                binding.progress.hide()
+                binding.courseInformation.visibility = View.VISIBLE
+                installAttributes(state.courseInformation)
             }
-
             is CourseInformationState.Error -> Unit
             is CourseInformationState.Load -> {
                 binding.progress.show()
@@ -100,49 +102,48 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
         }
     }
 
-    private fun installAttributes(state: CourseInformationState) {
-        binding.progress.hide()
-        binding.courseInformation.visibility = View.VISIBLE
-        imageList = viewModel.getImage(state.courseInformation.attachments)
-        if (imageList.isNotEmpty()) {
+    private fun installAttributes(courseInformation: CourseInformation) {
+        imageList = viewModel.getImage(courseInformation.attachments)
+        if (imageList.isNullOrEmpty()) {
+            binding.courseLogo.visibility = View.GONE
+        } else {
+            binding.courseLogo.visibility = View.VISIBLE
             Glide.with(requireContext())
                 .load(imageList)
                 .into(binding.courseLogo)
-        } else {
-            binding.courseLogo.visibility = View.INVISIBLE
         }
 
-        binding.courseInformationTitle.text = state.courseInformation.title
-        binding.courseInformationDescription.text = state.courseInformation.description
+        binding.courseInformationTitle.text = courseInformation.title
+        binding.courseInformationDescription.text = courseInformation.description
 
         val initials =
-            state.courseInformation.authorName.split(' ').map { it.first().uppercaseChar() }
+            courseInformation.authorName.split(' ').map { it.first().uppercaseChar() }
                 .joinToString(separator = "", limit = 2)
         binding.courseInformationAuthorAvatar.text = initials.ifBlank { "?" }
 
-        binding.courseInformationAuthorName.text = state.courseInformation.authorName
+        binding.courseInformationAuthorName.text = courseInformation.authorName
         // binding.courseInformationAuthorPosition.text = state.courseInformation.courseAuthorPosition
-        binding.courseInformationDate.text = state.courseInformation.createdDate
-        binding.courseInformationDirection.text = state.courseInformation.direction
+        binding.courseInformationDate.text = courseInformation.createdDate
+        binding.courseInformationDirection.text = courseInformation.direction
 
-        videoList = viewModel.getVideo(state.courseInformation.attachments)
+        videoList = viewModel.getVideo(courseInformation.attachments)
         if (videoList.isNotEmpty()) {
             binding.courseInformationVideoTitle.visibility = View.VISIBLE
             binding.courseInformationVideoRV.visibility = View.VISIBLE
             videoAdapter?.setVideoList(videoList)
         } else {
-            binding.courseInformationVideoTitle.visibility = View.INVISIBLE
-            binding.courseInformationVideoRV.visibility = View.INVISIBLE
+            binding.courseInformationVideoTitle.visibility = View.GONE
+            binding.courseInformationVideoRV.visibility = View.GONE
         }
 
-        documentList = viewModel.getDocument(state.courseInformation.attachments)
+        documentList = viewModel.getDocument(courseInformation.attachments)
         if (documentList.isNotEmpty()) {
             binding.courseInformationDocumentsTitle.visibility = View.VISIBLE
             binding.courseInformationDocumentsRV.visibility = View.VISIBLE
             documentAdapter?.setDocumentList(documentList)
         } else {
-            binding.courseInformationDocumentsTitle.visibility = View.INVISIBLE
-            binding.courseInformationDocumentsRV.visibility = View.INVISIBLE
+            binding.courseInformationDocumentsTitle.visibility = View.GONE
+            binding.courseInformationDocumentsRV.visibility = View.GONE
         }
     }
 
