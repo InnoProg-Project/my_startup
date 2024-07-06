@@ -115,9 +115,6 @@
 
     <!-- CourseListScreen -->
     <string name="course_list_lbl_progress_description">Ищем курсы</string>
-
-    <string name="user_project_details_edit">Редактировать</string>
-
     <string name="err_project_info">Ошибка загрузки</string>
     <string name="error_on_get_user_profile_data">Ошибка при получении данных профиля</string>
 
@@ -126,4 +123,7 @@
         <item>Проекты</item>
         <item>Идеи</item>
     </string-array>
+
+    <string name="user_project_details_edit">Редактировать</string>
 </resources>
+
