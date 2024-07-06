@@ -7,6 +7,7 @@ import com.innoprog.android.feature.profile.profiledetails.domain.ChipsProfileRe
 import com.innoprog.android.feature.profile.profiledetails.domain.models.FeedWrapper
 import com.innoprog.android.network.data.ApiConstants
 import com.innoprog.android.network.data.NetworkClient
+import com.innoprog.android.network.data.Response
 import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
 import kotlinx.coroutines.flow.Flow
@@ -66,15 +67,10 @@ class ChipsProfileRepoImpl @Inject constructor(
     }
 
     override suspend fun getLikes(pageSize: Int): Flow<Resource<List<FeedWrapper>>> {
-        return flow {
-            val response = network.doRequest(Request.GetLikes(pageSize))
-
-            if (response is ChipsResponse && response.resultCode == ApiConstants.SUCCESS_CODE) {
-                emit(Resource.Success(response.results.map { it.mapToDomain() }))
-            } else {
-                emit(Resource.Error(getErrorType(response.resultCode)))
-            }
-        }
+        return getResult<ChipsResponse, List<FeedWrapper>>(
+            getResponse = { network.doRequest(Request.GetLikes(pageSize)) },
+            mapToDomain = { response -> response.results.map { item -> item.mapToDomain() } }
+        )
     }
 
     override suspend fun getFavorites(pageSize: Int): Flow<Resource<List<FeedWrapper>>> {
@@ -89,10 +85,24 @@ class ChipsProfileRepoImpl @Inject constructor(
         }
     }
 
+    private inline fun <reified Data, reified Domain> getResult(
+        crossinline getResponse: suspend () -> Response,
+        crossinline mapToDomain: (Data) -> Domain
+    ): Flow<Resource<Domain>> {
+        return flow {
+            val response = getResponse()
+            if (response is Data && response.resultCode == ApiConstants.SUCCESS_CODE) {
+                emit(Resource.Success(mapToDomain(response)))
+            } else {
+                emit(Resource.Error(getErrorType(response.resultCode)))
+            }
+        }
+    }
+
     private fun getErrorType(code: Int): ErrorType = when (code) {
-        ApiConstants.NO_CONNECTION -> ErrorType.NO_CONNECTION
+        ApiConstants.NO_INTERNET_CONNECTION_CODE -> ErrorType.NO_CONNECTION
         ApiConstants.BAD_REQUEST_CODE -> ErrorType.BAD_REQUEST
-        ApiConstants.CAPTCHA_REQUIRED -> ErrorType.CAPTCHA_REQUIRED
+        ApiConstants.FORBIDDEN -> ErrorType.CAPTCHA_REQUIRED
         ApiConstants.NOT_FOUND -> ErrorType.NOT_FOUND
         else -> ErrorType.UNEXPECTED
     }

@@ -13,17 +13,16 @@ class PublicationsRecyclerAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PublicationsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return PublicationsViewHolder(ItemNewsBinding.inflate(layoutInflater, parent, false))
+        return PublicationsViewHolder(ItemNewsBinding.inflate(layoutInflater, parent, false)).apply {
+            itemView.setOnClickListener {
+                onPublicationClick.invoke(publications[bindingAdapterPosition])
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: PublicationsViewHolder, position: Int) {
         holder.bind(publications[position])
-        holder.itemView.setOnClickListener {
-            onPublicationClick.invoke(publications[position])
-        }
     }
 
-    override fun getItemCount(): Int {
-        return publications.size
-    }
+    override fun getItemCount(): Int = publications.size
 }

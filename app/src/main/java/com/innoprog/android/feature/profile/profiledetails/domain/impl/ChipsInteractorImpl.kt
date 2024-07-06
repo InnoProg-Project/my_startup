@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class ChipsInteractorImpl @Inject constructor(private val repo: ChipsProfileRepo) : ChipsInteractor {
-
     override suspend fun getAll(authorId: String): Flow<Resource<List<FeedWrapper>>> {
         return repo.getAll(authorId)
     }

@@ -5,7 +5,6 @@ import com.innoprog.android.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface ChipsInteractor {
-
     suspend fun getAll(authorId: String): Flow<Resource<List<FeedWrapper>>>
     suspend fun getProjects(type: String, userId: String): Flow<Resource<List<FeedWrapper.News>>>
     suspend fun getIdeas(type: String, userId: String): Flow<Resource<List<FeedWrapper.Idea>>>
