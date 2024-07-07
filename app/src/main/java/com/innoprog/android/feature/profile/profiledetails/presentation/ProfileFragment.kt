@@ -1,5 +1,6 @@
 package com.innoprog.android.feature.profile.profiledetails.presentation
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -125,11 +126,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
 
     private fun initAdapters() {
         with(binding) {
-            recyclerAll.adapter = publicationsAdapter
-            recyclerProjects.adapter = publicationsAdapter
-            recyclerIdeas.adapter = publicationsAdapter
-            recyclerLikes.adapter = publicationsAdapter
-            recyclerFavorites.adapter = publicationsAdapter
+            recyclerContent.adapter = publicationsAdapter
         }
     }
 
@@ -151,41 +148,42 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun renderChips(chipsScreenState: ChipsScreenState) {
         when (chipsScreenState) {
             is ChipsScreenState.All -> {
+                showContent()
                 publications.clear()
                 publications.addAll(chipsScreenState.content)
                 publicationsAdapter.notifyDataSetChanged()
-                showAllContent()
             }
 
             is ChipsScreenState.Projects -> {
+                showContent()
                 publications.clear()
                 publications.addAll(chipsScreenState.projects)
                 publicationsAdapter.notifyDataSetChanged()
-                showUserProjects()
             }
 
             is ChipsScreenState.Ideas -> {
+                showContent()
                 publications.clear()
                 publications.addAll(chipsScreenState.ideas)
                 publicationsAdapter.notifyDataSetChanged()
-                showUserIdeas()
             }
 
             is ChipsScreenState.Liked -> {
+                showContent()
                 publications.clear()
                 publications.addAll(chipsScreenState.liked)
                 publicationsAdapter.notifyDataSetChanged()
-                showUserLiked()
             }
 
             is ChipsScreenState.Favorites -> {
+                showContent()
                 publications.clear()
                 publications.addAll(chipsScreenState.favorites)
                 publicationsAdapter.notifyDataSetChanged()
-                showUserFavorites()
             }
 
             is ChipsScreenState.Error -> showPlaceholder()
@@ -216,68 +214,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
     private fun showPlaceholder() {
         if (publicationsAdapter.publications.isEmpty()) {
             with(binding) {
-                recyclerAll.isVisible = false
-                recyclerProjects.isVisible = false
-                recyclerIdeas.isVisible = false
-                recyclerLikes.isVisible = false
-                recyclerFavorites.isVisible = false
+                recyclerContent.isVisible = false
                 placeholderText.isVisible = true
             }
         }
     }
 
-    private fun showAllContent() {
+    private fun showContent() {
         with(binding) {
-            recyclerAll.isVisible = true
-            recyclerProjects.isVisible = false
-            recyclerIdeas.isVisible = false
-            recyclerLikes.isVisible = false
-            recyclerFavorites.isVisible = false
-            showPlaceholder()
-        }
-    }
-
-    private fun showUserProjects() {
-        with(binding) {
-            recyclerAll.isVisible = false
-            recyclerProjects.isVisible = true
-            recyclerIdeas.isVisible = false
-            recyclerLikes.isVisible = false
-            recyclerFavorites.isVisible = false
-            showPlaceholder()
-        }
-    }
-
-    private fun showUserIdeas() {
-        with(binding) {
-            recyclerAll.isVisible = false
-            recyclerProjects.isVisible = false
-            recyclerIdeas.isVisible = true
-            recyclerLikes.isVisible = false
-            recyclerFavorites.isVisible = false
-            showPlaceholder()
-        }
-    }
-
-    private fun showUserLiked() {
-        with(binding) {
-            recyclerAll.isVisible = false
-            recyclerProjects.isVisible = false
-            recyclerIdeas.isVisible = false
-            recyclerLikes.isVisible = true
-            recyclerFavorites.isVisible = false
-            placeholderText.isVisible = false
-            showPlaceholder()
-        }
-    }
-
-    private fun showUserFavorites() {
-        with(binding) {
-            recyclerAll.isVisible = false
-            recyclerProjects.isVisible = false
-            recyclerIdeas.isVisible = false
-            recyclerLikes.isVisible = false
-            recyclerFavorites.isVisible = true
+            recyclerContent.isVisible = true
             showPlaceholder()
         }
     }

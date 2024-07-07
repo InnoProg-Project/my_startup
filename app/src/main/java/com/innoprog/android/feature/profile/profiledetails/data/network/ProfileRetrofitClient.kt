@@ -1,5 +1,6 @@
 package com.innoprog.android.feature.profile.profiledetails.data.network
 
+import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
 import com.innoprog.android.network.data.ApiConstants
 import com.innoprog.android.network.data.NetworkClient
 import com.innoprog.android.network.data.Response
@@ -26,31 +27,31 @@ class ProfileRetrofitClient @Inject constructor(
 
     private suspend fun getResponse(dto: Any): Response {
         return when (dto) {
-            is Request.GetProfile -> {
+            is RequestByProfile.GetProfile -> {
                 service.loadProfile()
             }
 
-            is Request.GetProfileCompany -> {
+            is RequestByProfile.GetProfileCompany -> {
                 service.loadProfileCompany()
             }
 
-            is Request.GetAll -> {
+            is RequestByProfile.GetAll -> {
                 ChipsResponse(service.getAll(authorId = dto.authorId))
             }
 
-            is Request.GetProjects -> {
-                ChipsResponse(service.getProjects(type = NEWS, authorId = dto.authorId))
+            is RequestByProfile.GetProjects -> {
+                ChipsResponse(service.getProjects(type = PublicationType.NEWS.value, authorId = dto.authorId))
             }
 
-            is Request.GetIdeas -> {
-                ChipsResponse(service.getIdeas(type = IDEA, authorId = dto.authorId))
+            is RequestByProfile.GetIdeas -> {
+                ChipsResponse(service.getIdeas(type = PublicationType.IDEA.value, authorId = dto.authorId))
             }
 
-            is Request.GetLikes -> {
+            is RequestByProfile.GetLikes -> {
                 ChipsResponse(service.getLikes(pageSize = PAGE_SIZE))
             }
 
-            is Request.GetFavorites -> {
+            is RequestByProfile.GetFavorites -> {
                 ChipsResponse(service.getFavorites(pageSize = PAGE_SIZE))
             }
 
@@ -62,8 +63,6 @@ class ProfileRetrofitClient @Inject constructor(
 
     companion object {
 
-        private const val IDEA = "IDEA"
-        private const val NEWS = "NEWS"
         private const val PAGE_SIZE = 50
     }
 }

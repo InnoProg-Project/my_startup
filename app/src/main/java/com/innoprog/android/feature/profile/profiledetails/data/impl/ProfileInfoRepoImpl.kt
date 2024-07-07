@@ -5,7 +5,7 @@ import com.innoprog.android.feature.profile.profiledetails.data.db.ProfileCompan
 import com.innoprog.android.feature.profile.profiledetails.data.db.ProfileEntity
 import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileCompanyResponse
 import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileResponse
-import com.innoprog.android.feature.profile.profiledetails.data.network.Request
+import com.innoprog.android.feature.profile.profiledetails.data.network.RequestByProfile
 import com.innoprog.android.feature.profile.profiledetails.domain.ProfileInfoRepo
 import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
 import com.innoprog.android.feature.profile.profiledetails.domain.models.ProfileCompany
@@ -23,7 +23,7 @@ class ProfileInfoRepoImpl @Inject constructor(
 ) : ProfileInfoRepo {
 
     override suspend fun loadProfile(): Flow<Resource<Profile>> = flow {
-        val apiResponse = network.doRequest(Request.GetProfile)
+        val apiResponse = network.doRequest(RequestByProfile.GetProfile)
 
         if (apiResponse is ProfileResponse && apiResponse.resultCode == ApiConstants.SUCCESS_CODE) {
             emit(Resource.Success(mapToProfile(apiResponse)))
@@ -42,7 +42,7 @@ class ProfileInfoRepoImpl @Inject constructor(
     }
 
     override suspend fun loadProfileCompany(): Flow<Resource<ProfileCompany>> = flow {
-        val response = network.doRequest(Request.GetProfileCompany)
+        val response = network.doRequest(RequestByProfile.GetProfileCompany)
         if (response is ProfileCompanyResponse && response.resultCode == ApiConstants.SUCCESS_CODE) {
             emit(Resource.Success(mapToProfileCompany(response)))
             roomDB.profileCompanyDao().saveProfileCompany(

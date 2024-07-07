@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.innoprog.android.BuildConfig
 import com.innoprog.android.base.BaseViewModel
+import com.innoprog.android.BuildConfig
 import com.innoprog.android.feature.profile.profiledetails.domain.ChipsInteractor
 import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileCompanyUseCase
 import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileUseCase
@@ -16,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 class ProfileViewModel @Inject constructor(
     private val getProfileUseCase: GetProfileUseCase,
@@ -73,63 +74,21 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun loadChipAll(authorId: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            runCatching {
-                chipsInteractor.getAll(authorId).collect { response ->
-                    when (response) {
-                        is Resource.Success -> {
-                            _chipsUiState.postValue(ChipsScreenState.All(response.data))
-                        }
-
-                        is Resource.Error -> {
-                            _chipsUiState.postValue(ChipsScreenState.Error(response.errorType))
-                        }
-                    }
-                }
-            }.onFailure {
-                _chipsUiState.postValue(ChipsScreenState.Error(type = ErrorType.NO_CONNECTION))
-            }
-        }
+        runSafelyUseCase<List<FeedWrapper>>(
+            getUseCaseFlow = { chipsInteractor.getAll(authorId) }
+        ) { _chipsUiState.postValue(ChipsScreenState.All(it)) }
     }
 
     fun loadChipProjects(type: String, authorId: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            runCatching {
-                chipsInteractor.getProjects(type, authorId).collect { response ->
-                    when (response) {
-                        is Resource.Success -> {
-                            _chipsUiState.postValue(ChipsScreenState.Projects(response.data))
-                        }
-
-                        is Resource.Error -> {
-                            _chipsUiState.postValue(ChipsScreenState.Error(response.errorType))
-                        }
-                    }
-                }
-            }.onFailure {
-                _chipsUiState.postValue(ChipsScreenState.Error(ErrorType.NO_CONNECTION))
-            }
-        }
+        runSafelyUseCase<List<FeedWrapper.News>>(
+            getUseCaseFlow = { chipsInteractor.getProjects(type, authorId) }
+        ) { _chipsUiState.postValue(ChipsScreenState.Projects(it)) }
     }
 
     fun loadChipIdeas(type: String, authorId: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            runCatching {
-                chipsInteractor.getIdeas(type, authorId).collect { response ->
-                    when (response) {
-                        is Resource.Success -> {
-                            _chipsUiState.postValue(ChipsScreenState.Ideas(response.data))
-                        }
-
-                        is Resource.Error -> {
-                            _chipsUiState.postValue(ChipsScreenState.Error(response.errorType))
-                        }
-                    }
-                }
-            }.onFailure {
-                _chipsUiState.postValue(ChipsScreenState.Error(type = ErrorType.NO_CONNECTION))
-            }
-        }
+        runSafelyUseCase<List<FeedWrapper.Idea>>(
+            getUseCaseFlow = { chipsInteractor.getIdeas(type, authorId) }
+        ) { _chipsUiState.postValue(ChipsScreenState.Ideas(it)) }
     }
 
     fun loadChipLiked(pageSize: Int) {
@@ -139,23 +98,9 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun loadChipFavorites(pageSize: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            runCatching {
-                chipsInteractor.getFavorites(pageSize).collect { response ->
-                    when (response) {
-                        is Resource.Success -> {
-                            _chipsUiState.postValue(ChipsScreenState.Favorites(response.data))
-                        }
-
-                        is Resource.Error -> {
-                            _chipsUiState.postValue(ChipsScreenState.Error(response.errorType))
-                        }
-                    }
-                }
-            }.onFailure {
-                _chipsUiState.postValue(ChipsScreenState.Error(type = ErrorType.NO_CONNECTION))
-            }
-        }
+        runSafelyUseCase<List<FeedWrapper>>(
+            getUseCaseFlow = { chipsInteractor.getFavorites(pageSize) }
+        ) { _chipsUiState.postValue(ChipsScreenState.Favorites(it)) }
     }
 
     private inline fun <reified D> runSafelyUseCase(
