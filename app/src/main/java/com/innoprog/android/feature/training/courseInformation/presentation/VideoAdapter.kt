@@ -4,12 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.innoprog.android.databinding.ItemTrainingVideoBinding
-import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformationVideoModel
 
 class VideoAdapter(
     private val onVideoClickListener: (String) -> Unit
 ) : Adapter<CourseVideoViewHolder>() {
-    private val items = mutableListOf<CourseInformationVideoModel>()
+    private val items = mutableListOf<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseVideoViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -17,7 +16,7 @@ class VideoAdapter(
             ItemTrainingVideoBinding.inflate(layoutInflater, parent, false)
         ).apply {
             setOnVideoClickListener {
-                onVideoClickListener(items[bindingAdapterPosition].videoURL)
+                onVideoClickListener(items[bindingAdapterPosition])
             }
         }
     }
@@ -28,7 +27,7 @@ class VideoAdapter(
         holder.bind(items[position], position)
     }
 
-    fun setVideoList(videoList: List<CourseInformationVideoModel>) {
+    fun setVideoList(videoList: List<String>) {
         items.clear()
         items.addAll(videoList)
         notifyDataSetChanged()

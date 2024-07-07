@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import com.innoprog.android.di.ViewModelKey
 import com.innoprog.android.feature.training.courseInformation.data.CourseInformationRepositoryImpl
 import com.innoprog.android.feature.training.courseInformation.data.network.CourseInformationApi
-import com.innoprog.android.feature.training.courseInformation.data.network.NetworkClient
-import com.innoprog.android.feature.training.courseInformation.data.network.RetrofitNetworkClient
+import com.innoprog.android.feature.training.courseInformation.data.network.CourseInformationNetworkClient
+import com.innoprog.android.feature.training.courseInformation.data.network.CourseInformationNetworkClientImpl
 import com.innoprog.android.feature.training.courseInformation.domain.CourseInformationRepository
 import com.innoprog.android.feature.training.courseInformation.domain.useCase.GetCourseInformationUseCase
 import com.innoprog.android.feature.training.courseInformation.domain.useCase.GetCourseInformationUseCaseImpl
@@ -35,7 +35,7 @@ interface CourseInformationModule {
     ): GetCourseInformationUseCase
 
     @Binds
-    fun bindNetworkClient(impl: RetrofitNetworkClient): NetworkClient
+    fun bindNetworkClient(impl: CourseInformationNetworkClientImpl): CourseInformationNetworkClient
 
     @Module
     class CourseInformationApiModule {

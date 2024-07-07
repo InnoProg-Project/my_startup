@@ -1,7 +1,6 @@
 package com.innoprog.android.feature.training.courseInformation.data.network
 
 import com.google.gson.annotations.SerializedName
-import com.innoprog.android.feature.training.courseInformation.domain.model.Attachments
 import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformation
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -33,31 +32,3 @@ class AttachmentsDto(
     @SerializedName("type")
     val type: String
 )
-
-fun CourseInformationDto.mapToCourseInformation(): CourseInformation {
-    return CourseInformation(
-        id = id,
-        title = title,
-        direction = direction ?: "",
-        description = description ?: "",
-        authorName = author,
-        createdDate = formatDate(publishedAt),
-        attachments = attachments.map {
-            Attachments(
-                id = it.id,
-                filePath = it.filePath,
-                type = it.type
-            )
-        }
-    )
-}
-
-fun formatDate(publishedAt: String): String {
-    var resultDate = ""
-    val createdDate = publishedAt.substring(0, publishedAt.indexOf('T'))
-    runCatching {
-        val date = LocalDate.parse(createdDate, DateTimeFormatter.ISO_DATE)
-        resultDate = date.format(DateTimeFormatter.ofPattern("dd MMM"))
-    }
-    return resultDate
-}

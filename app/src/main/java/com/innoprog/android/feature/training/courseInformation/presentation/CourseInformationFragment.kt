@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.os.bundleOf
 import com.bumptech.glide.Glide
 import com.innoprog.android.base.BaseFragment
@@ -16,10 +18,8 @@ import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.training.common.VerticalSpaceDecorator
 import com.innoprog.android.feature.training.courseInformation.di.DaggerCourseInformationComponent
 import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformation
-import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformationDocumentModel
-import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformationImageModel
-import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformationVideoModel
 import com.innoprog.android.uikit.R
+import com.innoprog.android.util.ErrorScreenState
 
 class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding, BaseViewModel>() {
 
@@ -42,9 +42,6 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
     private val decorator: VerticalSpaceDecorator by lazy {
         VerticalSpaceDecorator(resources.getDimensionPixelSize(R.dimen.margin_8))
     }
-    private var imageList = listOf<CourseInformationImageModel>()
-    private var videoList = listOf<CourseInformationVideoModel>()
-    private var documentList = listOf<CourseInformationDocumentModel>()
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -94,57 +91,75 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
             is CourseInformationState.Content -> {
                 binding.progress.hide()
                 binding.courseInformation.visibility = View.VISIBLE
+                binding.errorScreen.visibility = View.GONE
                 installAttributes(state.courseInformation)
             }
-            is CourseInformationState.Error -> Unit
+
+            is CourseInformationState.Error -> renderError(state.errorType)
             is CourseInformationState.Load -> {
                 binding.progress.show()
+                binding.errorScreen.visibility = View.GONE
                 binding.courseInformation.visibility = View.INVISIBLE
             }
         }
     }
 
     private fun installAttributes(courseInformation: CourseInformation) {
-        imageList = viewModel.getImage(courseInformation.attachments)
-        if (imageList.isEmpty()) {
+        if (courseInformation.imageList.isEmpty()) {
             binding.courseLogo.visibility = View.GONE
         } else {
             binding.courseLogo.visibility = View.VISIBLE
             Glide.with(requireContext())
-                .load(imageList)
+                .load(courseInformation.imageList)
                 .into(binding.courseLogo)
         }
 
         binding.courseInformationTitle.text = courseInformation.title
         binding.courseInformationDescription.text = courseInformation.description
-
-        val initials =
-            courseInformation.authorName.split(' ').map { it.first().uppercaseChar() }
-                .joinToString(separator = "", limit = 2)
-        binding.courseInformationAuthorAvatar.text = initials.ifBlank { "?" }
-
+        binding.courseInformationAuthorAvatar.text =
+            viewModel.formatAuthorName(courseInformation.authorName)
         binding.courseInformationAuthorName.text = courseInformation.authorName
         binding.courseInformationDate.text = courseInformation.createdDate
         binding.courseInformationDirection.text = courseInformation.direction
 
-        videoList = viewModel.getVideo(courseInformation.attachments)
-        if (videoList.isNotEmpty()) {
+        if (courseInformation.videoList.isNotEmpty()) {
             binding.courseInformationVideoTitle.visibility = View.VISIBLE
             binding.courseInformationVideoRV.visibility = View.VISIBLE
-            videoAdapter?.setVideoList(videoList)
+            videoAdapter?.setVideoList(courseInformation.videoList)
         } else {
             binding.courseInformationVideoTitle.visibility = View.GONE
             binding.courseInformationVideoRV.visibility = View.GONE
         }
 
-        documentList = viewModel.getDocument(courseInformation.attachments)
-        if (documentList.isNotEmpty()) {
+        if (courseInformation.documentList.isNotEmpty()) {
             binding.courseInformationDocumentsTitle.visibility = View.VISIBLE
             binding.courseInformationDocumentsRV.visibility = View.VISIBLE
-            documentAdapter?.setDocumentList(documentList)
+            documentAdapter?.setDocumentList(courseInformation.documentList)
         } else {
             binding.courseInformationDocumentsTitle.visibility = View.GONE
             binding.courseInformationDocumentsRV.visibility = View.GONE
+        }
+    }
+
+    private fun renderError(errorState: ErrorScreenState) = with(binding) {
+        courseInformation.visibility = View.GONE
+        progress.visibility = View.GONE
+        if (errorState == ErrorScreenState.UNAUTHORIZED) {
+            viewModel.clearBackStackAndNavigateToAuthorization()
+        } else {
+            fetchErrorScreen(errorState)
+            errorScreen.visibility = View.VISIBLE
+        }
+    }
+
+    private fun fetchErrorScreen(errorState: ErrorScreenState) {
+        val errorImageRes = errorState.imageResource
+        val errorTextRes = errorState.messageResource
+        binding.errorScreen.apply {
+            findViewById<ImageView>(R.id.iv_error_image)
+                .setImageResource(errorImageRes)
+            findViewById<TextView>(R.id.tv_error_message)
+                .setText(errorTextRes)
         }
     }
 

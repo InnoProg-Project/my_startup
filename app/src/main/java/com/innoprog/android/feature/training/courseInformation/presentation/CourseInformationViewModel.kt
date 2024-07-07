@@ -1,14 +1,13 @@
 package com.innoprog.android.feature.training.courseInformation.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.innoprog.android.BuildConfig
 import com.innoprog.android.base.BaseViewModel
-import com.innoprog.android.feature.training.courseInformation.domain.model.Attachments
-import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformationDocumentModel
-import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformationImageModel
-import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformationVideoModel
 import com.innoprog.android.feature.training.courseInformation.domain.useCase.GetCourseInformationUseCase
+import com.innoprog.android.util.ErrorScreenState
 import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
 import kotlinx.coroutines.Dispatchers
@@ -34,30 +33,46 @@ class CourseInformationViewModel @Inject constructor(
                         is Resource.Success -> {
                             setState(CourseInformationState.Content(response.data!!))
                         }
-                        is Resource.Error -> {
-                            setState(CourseInformationState.Error(response.errorType))
-                        }
+
+                        is Resource.Error -> handleError(response.errorType)
                     }
                 }
-            }.onFailure { exception ->
-                setState(CourseInformationState.Error(ErrorType.BAD_REQUEST))
+            }.onFailure { error ->
+                if (BuildConfig.DEBUG) {
+                    Log.v(TAG, "error -> ${error.localizedMessage}")
+                    error.printStackTrace()
+                }
+                setState(CourseInformationState.Error(ErrorScreenState.SERVER_ERROR))
             }
         }
     }
 
-    fun getVideo(listAttachments: List<Attachments>): List<CourseInformationVideoModel> {
-        return getCourseInformationUseCase.getVideo(listAttachments)
+    private fun handleError(errorType: ErrorType) {
+        setState(renderError(errorType))
     }
 
-    fun getImage(listAttachments: List<Attachments>?): List<CourseInformationImageModel> {
-        return getCourseInformationUseCase.getImage(listAttachments)
-    }
 
-    fun getDocument(listAttachments: List<Attachments>): List<CourseInformationDocumentModel> {
-        return getCourseInformationUseCase.getDocument(listAttachments)
+    private fun renderError(errorType: ErrorType): CourseInformationState.Error {
+        return when (errorType) {
+            ErrorType.NO_CONNECTION -> CourseInformationState.Error(ErrorScreenState.NO_INTERNET)
+            ErrorType.NOT_FOUND -> CourseInformationState.Error(ErrorScreenState.NOT_FOUND)
+            ErrorType.INTERNAL_SERVER_ERROR -> CourseInformationState.Error(ErrorScreenState.SERVER_ERROR)
+            ErrorType.UNAUTHORIZED -> CourseInformationState.Error(ErrorScreenState.UNAUTHORIZED)
+            else -> CourseInformationState.Error(ErrorScreenState.SERVER_ERROR)
+        }
     }
 
     private fun setState(state: CourseInformationState) {
         _state.postValue(state)
+    }
+
+    fun formatAuthorName(authorName: String): String {
+        val initials = authorName.split(' ').map { it.first().uppercaseChar() }
+            .joinToString(separator = "", limit = 2)
+        return initials.ifBlank { "?" }
+    }
+
+    companion object {
+        private val TAG = CourseInformationViewModel::class.simpleName
     }
 }

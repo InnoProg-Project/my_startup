@@ -27,6 +27,11 @@
         app:trackColor="@color/accent_default"
         tools:visibility="visible" />
 
+    <include
+        android:id="@+id/errorScreen"
+        layout="@layout/error_layout"
+        android:visibility="gone" />
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -103,6 +108,7 @@
             <TextView
                 android:id="@+id/courseInformationAuthorPosition"
                 style="@style/TextBody_2"
+                android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_16"

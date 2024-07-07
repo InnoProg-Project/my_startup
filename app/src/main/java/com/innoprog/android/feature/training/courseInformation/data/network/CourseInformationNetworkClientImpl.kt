@@ -1,18 +1,21 @@
 package com.innoprog.android.feature.training.courseInformation.data.network
 
 import android.content.Context
+import com.google.gson.JsonParseException
 import com.innoprog.android.network.data.ApiConstants
 import com.innoprog.android.network.data.Response
 import com.innoprog.android.util.isInternetReachable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okio.IOException
 import retrofit2.HttpException
+import java.net.SocketTimeoutException
 import javax.inject.Inject
 
-class RetrofitNetworkClient @Inject constructor(
+class CourseInformationNetworkClientImpl @Inject constructor(
     private val courseInformationApi: CourseInformationApi,
     private val context: Context
-) : NetworkClient {
+) : CourseInformationNetworkClient {
 
     override suspend fun getCourseInformation(courseId: String): Response {
         if (context.isInternetReachable().not()) {
@@ -26,8 +29,25 @@ class RetrofitNetworkClient @Inject constructor(
                     resultCode = ApiConstants.SUCCESS_CODE
                 }
             } catch (exception: HttpException) {
-                Response().apply { resultCode = exception.code() }
+                logAndCreateErrorResponse(exception)
+            } catch (exception: IOException) {
+                logAndCreateErrorResponse(exception)
+            } catch (exception: JsonParseException) {
+                logAndCreateErrorResponse(exception)
+            } catch (exception: SocketTimeoutException) {
+                logAndCreateErrorResponse(exception)
             }
         }
+    }
+
+    private fun logAndCreateErrorResponse(exception: Throwable): Response {
+        val errorCode = when (exception) {
+            is HttpException -> exception.code()
+            is IOException -> ApiConstants.NO_INTERNET_CONNECTION_CODE
+            is JsonParseException -> ApiConstants.BAD_REQUEST_CODE
+            is SocketTimeoutException -> ApiConstants.NO_INTERNET_CONNECTION_CODE
+            else -> ApiConstants.INTERNAL_SERVER_ERROR
+        }
+        return Response().apply { resultCode = errorCode }
     }
 }
