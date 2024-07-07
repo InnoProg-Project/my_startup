@@ -8,13 +8,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.innoprog.android.base.BaseBottomSheetFragment
 import com.innoprog.android.databinding.BottomSheetProfileBinding
 import com.innoprog.android.uikit.R
+import com.innoprog.android.util.debounceUnitFun
 
 class BottomSheetProfile : BaseBottomSheetFragment<BottomSheetProfileBinding>() {
+
+    private val debounceNavigateTo = debounceUnitFun<Fragment?>(lifecycleScope)
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -50,21 +55,31 @@ class BottomSheetProfile : BaseBottomSheetFragment<BottomSheetProfileBinding>() 
 
     private fun navigateTo() = with(binding) {
         editText.setOnClickListener {
-            findNavController().navigate(
-                com.innoprog.android.R.id.action_profile_bottom_sheet_to_editingProfileFragment
-            )
+            debounceNavigateTo(this@BottomSheetProfile) { fragment ->
+                findNavController().navigate(
+                    com.innoprog.android.R.id.action_profile_bottom_sheet_to_editingProfileFragment
+                )
+            }
         }
 
         infoText.setOnClickListener {
-            findNavController().navigate(
-                com.innoprog.android.R.id.action_profile_bottom_sheet_to_aboutAppFragment
-            )
+            debounceNavigateTo(this@BottomSheetProfile) { fragment ->
+                findNavController().navigate(
+                    com.innoprog.android.R.id.action_profile_bottom_sheet_to_aboutAppFragment
+                )
+            }
         }
 
         docksText.setOnClickListener {
-            findNavController().navigate(
-                com.innoprog.android.R.id.action_profile_bottom_sheet_to_legalDocumentsFragment
-            )
+            debounceNavigateTo(this@BottomSheetProfile) { fragment ->
+                findNavController().navigate(
+                    com.innoprog.android.R.id.action_profile_bottom_sheet_to_legalDocumentsFragment
+                )
+            }
         }
+    }
+
+    companion object {
+        const val CLICK_DELAY = 300L
     }
 }
