@@ -6,6 +6,8 @@ import com.innoprog.android.feature.profile.profiledetails.data.db.ProfileEntity
 import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileCompanyResponse
 import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileResponse
 import com.innoprog.android.feature.profile.profiledetails.data.network.RequestByProfile
+import com.innoprog.android.feature.profile.profiledetails.data.network.mapToDomainCompany
+import com.innoprog.android.feature.profile.profiledetails.data.network.mapToDomainUserData
 import com.innoprog.android.feature.profile.profiledetails.domain.ProfileInfoRepo
 import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
 import com.innoprog.android.feature.profile.profiledetails.domain.models.ProfileCompany
@@ -26,7 +28,7 @@ class ProfileInfoRepoImpl @Inject constructor(
         val apiResponse = network.doRequest(RequestByProfile.GetProfile)
 
         if (apiResponse is ProfileResponse && apiResponse.resultCode == ApiConstants.SUCCESS_CODE) {
-            emit(Resource.Success(mapToProfile(apiResponse)))
+            emit(Resource.Success(apiResponse.mapToDomainUserData()))
             roomDB.profileDao().saveProfile(
                 ProfileEntity(
                     userId = apiResponse.userId,
@@ -44,7 +46,7 @@ class ProfileInfoRepoImpl @Inject constructor(
     override suspend fun loadProfileCompany(): Flow<Resource<ProfileCompany>> = flow {
         val response = network.doRequest(RequestByProfile.GetProfileCompany)
         if (response is ProfileCompanyResponse && response.resultCode == ApiConstants.SUCCESS_CODE) {
-            emit(Resource.Success(mapToProfileCompany(response)))
+            emit(Resource.Success(response.mapToDomainCompany()))
             roomDB.profileCompanyDao().saveProfileCompany(
                 ProfileCompanyEntity(
                     id = response.id,
@@ -57,26 +59,6 @@ class ProfileInfoRepoImpl @Inject constructor(
         } else {
             emit(Resource.Error(getErrorType(response.resultCode)))
         }
-    }
-
-    private fun mapToProfile(response: ProfileResponse): Profile {
-        return Profile(
-            response.userId,
-            response.name,
-            response.about,
-            response.communicationChannels,
-            response.authorities
-        )
-    }
-
-    private fun mapToProfileCompany(response: ProfileCompanyResponse): ProfileCompany {
-        return ProfileCompany(
-            response.id,
-            response.userId,
-            response.name,
-            response.url,
-            response.role
-        )
     }
 
     private fun getErrorType(code: Int): ErrorType = when (code) {
