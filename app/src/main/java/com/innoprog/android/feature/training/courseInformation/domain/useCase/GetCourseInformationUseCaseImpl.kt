@@ -1,7 +1,6 @@
 package com.innoprog.android.feature.training.courseInformation.domain.useCase
 
 import com.innoprog.android.feature.training.courseInformation.domain.CourseInformationRepository
-import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformationAttachmentsType
 import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformation
 import com.innoprog.android.util.Resource
 import kotlinx.coroutines.flow.Flow

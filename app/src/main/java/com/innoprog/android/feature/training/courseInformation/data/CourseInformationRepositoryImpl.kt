@@ -1,51 +1,64 @@
 package com.innoprog.android.feature.training.courseInformation.data
 
+import android.util.Log
+import com.google.gson.JsonParseException
 import com.innoprog.android.feature.training.courseInformation.data.network.AttachmentsDto
 import com.innoprog.android.feature.training.courseInformation.data.network.CourseInformationDto
-import com.innoprog.android.feature.training.courseInformation.data.network.CourseInformationResponse
 import com.innoprog.android.feature.training.courseInformation.data.network.CourseInformationNetworkClient
+import com.innoprog.android.feature.training.courseInformation.data.network.CourseInformationResponse
 import com.innoprog.android.feature.training.courseInformation.domain.CourseInformationRepository
 import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformation
 import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformationAttachmentsType
 import com.innoprog.android.network.data.ApiConstants
+import com.innoprog.android.util.ErrorHandler
+import com.innoprog.android.util.ErrorHandlerImpl
 import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.HttpException
+import java.io.IOException
 import java.net.SocketTimeoutException
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
-class CourseInformationRepositoryImpl @Inject constructor(private val courseInformationNetworkClient: CourseInformationNetworkClient) :
+class CourseInformationRepositoryImpl @Inject constructor(
+    private val courseInformationNetworkClient: CourseInformationNetworkClient
+) :
     CourseInformationRepository {
+    private val errorHandler: ErrorHandler = ErrorHandlerImpl()
+    override fun getCourseInformation(courseId: String): Flow<Resource<CourseInformation>> = flow {
+        try {
+            val response = courseInformationNetworkClient.getCourseInformation(courseId)
+            runCatching {
+                when (response.resultCode) {
+                    ApiConstants.SUCCESS_CODE -> {
+                        with(response as CourseInformationResponse) {
+                            val data = mapToCourseInformation(results)
+                            emit(Resource.Success(data))
+                        }
+                    }
 
-    override fun getCourseInformation(courseId: String): Flow<Resource<CourseInformation?>> = flow {
-        val response = courseInformationNetworkClient.getCourseInformation(courseId)
-
-        runCatching {
-            when (response.resultCode) {
-                ApiConstants.NO_INTERNET_CONNECTION_CODE -> {
-                    emit(Resource.Error(ErrorType.NO_CONNECTION))
-                }
-
-                ApiConstants.SUCCESS_CODE -> {
-                    with(response as CourseInformationResponse) {
-                        val data = mapToCourseInformation(results)
-                        emit(Resource.Success(data))
+                    else -> {
+                        errorHandler.handleErrorCode(response.resultCode)
                     }
                 }
-
-                else -> {
-                    emit(Resource.Error(ErrorType.BAD_REQUEST))
-                }
-            }
-        }.onFailure { exception ->
-            if (exception is SocketTimeoutException) {
-                emit(Resource.Error(ErrorType.NO_CONNECTION))
-            } else {
-                emit(Resource.Error(ErrorType.UNEXPECTED))
-            }
+            }.onFailure { exception ->
+                Log.v(ERROR_TAG, "mapping error -> ${exception.localizedMessage}")
+            }.getOrNull()
+        } catch (e: HttpException) {
+            Log.e(ERROR_TAG, e.toString())
+            errorHandler.handleHttpException(e)
+        } catch (e: IOException) {
+            Log.e(ERROR_TAG, e.toString())
+            Resource.Error(ErrorType.NO_CONNECTION)
+        } catch (e: JsonParseException) {
+            Log.e(ERROR_TAG, e.toString())
+            Resource.Error(ErrorType.UNEXPECTED)
+        } catch (e: SocketTimeoutException) {
+            Log.e(ERROR_TAG, e.toString())
+            Resource.Error(ErrorType.NO_CONNECTION)
         }
     }
 
@@ -58,9 +71,18 @@ class CourseInformationRepositoryImpl @Inject constructor(private val courseInfo
             authorName = data.author,
             createdDate = formatDate(data.publishedAt),
             usefulLinks = data.usefulLinks,
-            videoList = splitAttachments(data.attachments, CourseInformationAttachmentsType.VIDEO.value),
-            documentList = splitAttachments(data.attachments, CourseInformationAttachmentsType.DOCUMENT.value),
-            imageList = splitAttachments(data.attachments, CourseInformationAttachmentsType.IMAGE.value)
+            videoList = splitAttachments(
+                data.attachments,
+                CourseInformationAttachmentsType.VIDEO.value
+            ),
+            documentList = splitAttachments(
+                data.attachments,
+                CourseInformationAttachmentsType.DOCUMENT.value
+            ),
+            imageList = splitAttachments(
+                data.attachments,
+                CourseInformationAttachmentsType.IMAGE.value
+            )
         )
     }
 
@@ -74,7 +96,10 @@ class CourseInformationRepositoryImpl @Inject constructor(private val courseInfo
         return resultDate
     }
 
-    private fun splitAttachments(listAttachments: List<AttachmentsDto>?, attachmentsType :String): List<String> {
+    private fun splitAttachments(
+        listAttachments: List<AttachmentsDto>?,
+        attachmentsType: String
+    ): List<String> {
         val result = mutableListOf<String>()
         listAttachments?.forEach { attachments ->
             if (attachments.type == attachmentsType) {
@@ -82,6 +107,10 @@ class CourseInformationRepositoryImpl @Inject constructor(private val courseInfo
             }
         }
         return result.toList()
+    }
+
+    private companion object {
+        val ERROR_TAG = CourseInformationRepository::class.simpleName
     }
 }
 

@@ -28,7 +28,7 @@ class DocumentRecyclerViewAdapter(
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: DocumentViewHolder, position: Int) {
-        holder.bind(items[position], position)
+        holder.bind(position)
     }
 
     fun setDocumentList(documentList: List<String>) {

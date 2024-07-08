@@ -1,9 +1,6 @@
 package com.innoprog.android.feature.training.courseInformation.data.network
 
 import com.google.gson.annotations.SerializedName
-import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformation
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 data class CourseInformationDto(
     @SerializedName("id")

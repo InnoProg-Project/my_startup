@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface CourseInformationRepository {
 
-    fun getCourseInformation(courseId: String): Flow<Resource<CourseInformation?>>
+    fun getCourseInformation(courseId: String): Flow<Resource<CourseInformation>>
 }

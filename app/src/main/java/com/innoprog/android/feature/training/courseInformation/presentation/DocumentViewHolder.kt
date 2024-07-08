@@ -6,8 +6,9 @@ import com.innoprog.android.databinding.ItemTrainingDocumentBinding
 
 class DocumentViewHolder(private val binding: ItemTrainingDocumentBinding) :
     ViewHolder(binding.root) {
-    fun bind(item: String, position: Int) {
+    fun bind(position: Int) {
         binding.documentTitleTV.text = binding.root.context.getString(
-            R.string.course_details_document_description, position + 1)
+            R.string.course_details_document_description, position + 1
+        )
     }
 }
