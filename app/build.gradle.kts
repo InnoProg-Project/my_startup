@@ -79,4 +79,7 @@ dependencies {
 
 
     implementation(project(":uikit"))
+
+    //
+    implementation("androidx.security:security-crypto:1.0.0")
 }

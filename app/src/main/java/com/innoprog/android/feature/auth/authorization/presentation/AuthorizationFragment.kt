@@ -7,6 +7,7 @@ import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.navOptions
 import com.innoprog.android.R
@@ -19,6 +20,7 @@ import com.innoprog.android.feature.auth.authorization.di.DaggerAuthorizationCom
 import com.innoprog.android.feature.auth.authorization.domain.model.AuthState
 import com.innoprog.android.uikit.InnoProgInputViewState
 import com.innoprog.android.util.setOnDebouncedClickListener
+
 
 class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseViewModel>() {
 
@@ -39,8 +41,11 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
         return FragmentAuthorizationBinding.inflate(inflater, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.verifyOnStart()
+
         customizeIV()
         renderIVPassword()
         viewModel.observeState().observe(viewLifecycleOwner) {
@@ -71,6 +76,25 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
             AuthState.CONNECTION_ERROR -> renderError(getString(R.string.authorization_no_internet))
             AuthState.VERIFICATION_ERROR -> renderError(getString(R.string.authorization_bad_data))
             AuthState.INPUT_ERROR -> renderError(getString(R.string.authorization_bad_data))
+            else -> null
+        }
+        binding.progressBar.isVisible = (state == AuthState.LOADING)
+        binding.blackout.isVisible = (state == AuthState.LOADING)
+        binding.btnLogin.isVisible = (state != AuthState.LOADING)
+        blockUserInteraction((state == AuthState.LOADING))
+    }
+
+    private fun blockUserInteraction(block: Boolean) {
+        setViewAndChildrenEnabled(binding.root, !block)
+    }
+
+    private fun setViewAndChildrenEnabled(view: View, enabled: Boolean) {
+        view.isEnabled = enabled
+        if (view is ViewGroup) {
+            for (i in 0 until view.childCount) {
+                val child = view.getChildAt(i)
+                setViewAndChildrenEnabled(child, enabled)
+            }
         }
     }
 

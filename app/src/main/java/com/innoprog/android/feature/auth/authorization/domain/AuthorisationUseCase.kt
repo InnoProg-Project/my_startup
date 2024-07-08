@@ -5,4 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface AuthorisationUseCase {
     fun verify(login: String, password: String): Flow<AuthState>
+
+    fun verifyOnStart(): Flow<AuthState>
 }

@@ -10,12 +10,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class AuthorizationViewModel @Inject constructor(private val useCase: AuthorisationUseCase) :
+class AuthorizationViewModel @Inject constructor(
+    private val useCase: AuthorisationUseCase
+) :
     BaseViewModel() {
 
     private val stateLiveData = MutableLiveData<AuthState>()
+
+    init {
+        //verifyOnStart()
+    }
+
     fun observeState(): LiveData<AuthState> = stateLiveData
     fun verify(inputLogin: String, inputPassword: String) {
+        stateLiveData.postValue(AuthState.LOADING)
         if (inputLogin.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(inputLogin)
                 .matches() && inputPassword.isNotEmpty()
         ) {
@@ -30,6 +38,19 @@ class AuthorizationViewModel @Inject constructor(private val useCase: Authorisat
             }
         } else {
             stateLiveData.postValue(AuthState.INPUT_ERROR)
+        }
+    }
+
+    fun verifyOnStart() {
+        stateLiveData.postValue(AuthState.LOADING)
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching {
+                useCase.verifyOnStart().collect {
+                    stateLiveData.postValue(it)
+                }
+            }.onFailure {
+                stateLiveData.postValue(AuthState.CONNECTION_ERROR)
+            }
         }
     }
 }
