@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -24,6 +26,7 @@ import com.innoprog.android.feature.feed.newsdetails.di.DaggerNewsDetailsCompone
 import com.innoprog.android.feature.feed.newsdetails.domain.models.CommentModel
 import com.innoprog.android.feature.feed.newsdetails.domain.models.NewsDetailsModel
 import com.innoprog.android.feature.imagegalleryadapter.ImageGalleryAdapter
+import com.innoprog.android.util.debounceUnitFun
 import okhttp3.internal.format
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -32,8 +35,9 @@ import java.util.Locale
 open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewModel>() {
 
     override val viewModel by injectViewModel<NewsDetailsViewModel>()
-    private var galleryAdapter: ImageGalleryAdapter? = null
+    private val galleryAdapter = ImageGalleryAdapter()
     private var commentsAdapter: CommentsAdapter? = null
+    private val debounceNavigateTo = debounceUnitFun<Fragment?>(lifecycleScope)
 
     override fun diComponent(): ScreenComponent {
         val appComponent = AppComponentHolder.getComponent()
@@ -87,7 +91,9 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
             }
 
             projectCard.setOnClickListener {
-                findNavController().navigate(R.id.action_newsDetailsFragment_to_projectFragment)
+                debounceNavigateTo(this@NewsDetailsFragment) { fragment ->
+                    findNavController().navigate(R.id.action_newsDetailsFragment_to_projectFragment)
+                }
             }
         }
     }
@@ -101,7 +107,7 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
             R.drawable.news_sample,
         )
 
-        galleryAdapter = ImageGalleryAdapter(images)
+        galleryAdapter.setImageList(images)
         binding.viewPager.adapter = galleryAdapter
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position -> }.attach()
