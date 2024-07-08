@@ -2,30 +2,37 @@ package com.innoprog.android.feature.profile.profiledetails.domain.models
 
 sealed interface FeedWrapper {
 
+    val title: String
+    val content: String
+    val author: Author
+    val commentsCount: Int
+    val likesCount: Int
+    val attachments: List<Attachment>?
+
     data class Idea(
         val id: String,
-        val author: Author,
+        override val author: Author,
         val projectId: String,
-        val title: String,
-        val content: String,
+        override val title: String,
+        override val content: String,
         val publishedAt: String,
-        val likesCount: Int,
-        val commentsCount: Int,
-        val attachments: List<Attachment>,
+        override val likesCount: Int,
+        override  val commentsCount: Int,
+        override val attachments: List<Attachment>,
         val isLiked: Boolean,
         val isFavorite: Boolean
     ) : FeedWrapper
 
     data class News(
         val id: String,
-        val author: Author,
+        override val author: Author,
         val projectId: String,
-        val title: String,
-        val content: String,
+        override  val title: String,
+        override  val content: String,
         val publishedAt: String,
-        val likesCount: Int,
-        val commentsCount: Int,
-        val attachments: List<Attachment>,
+        override val likesCount: Int,
+        override val commentsCount: Int,
+        override val attachments: List<Attachment>,
         val isLiked: Boolean,
         val isFavorite: Boolean
     ) : FeedWrapper

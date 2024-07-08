@@ -7,7 +7,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.innoprog.android.R
 import com.innoprog.android.databinding.ItemNewsBinding
 import com.innoprog.android.feature.profile.profiledetails.domain.models.FeedWrapper
-import com.innoprog.android.uikit.ImageLoadingType
 
 class PublicationsViewHolder(private val binding: ItemNewsBinding) :
     RecyclerView.ViewHolder(binding.root) {
@@ -15,67 +14,60 @@ class PublicationsViewHolder(private val binding: ItemNewsBinding) :
     private val radius = binding.root.resources.getDimensionPixelSize(R.dimen.corner_radius_8)
 
     fun bind(publication: FeedWrapper) {
+        bindCommonData(publication)
         when (publication) {
-            is FeedWrapper.Idea -> {
-                binding.apply {
-                    Glide
-                        .with(itemView)
-                        .load(publication.attachments.firstOrNull()?.filePath)
-                        .placeholder(R.drawable.news_sample)
-                        .centerCrop()
-                        .into(ivPublicationCover)
+            is FeedWrapper.Idea -> bindIdeaData()
+            is FeedWrapper.News -> bindNewsData(publication)
+        }
+    }
 
-                    tvPublicationTitle.text = publication.title
-                    tvPublicationContent.text = publication.content
+    private fun bindCommonData(publication: FeedWrapper) {
+        with(binding) {
+            tvPublicationTitle.text = publication.title
+            tvPublicationContent.text = publication.content
+            tvPublicationAuthorName.text = publication.author.name
+            tvCommentsCount.text = publication.commentsCount.toString()
+            tvLikesCount.text = publication.likesCount.toString()
 
-                    ivIdea.isVisible = true
-                    projectCard.isVisible = false
+            val initials = publication.author.name
+                .split(' ')
+                .map { it.first().uppercaseChar() }
+                .joinToString(separator = "", limit = 2)
+            publicationAuthorAvatar.text = initials.ifBlank { "?" }
 
-                    val placeholderResId = com.innoprog.android.uikit.R.drawable.ic_person
-                    val imageType = ImageLoadingType.ImageDrawable(placeholderResId)
-                    publicationAuthorAvatar.loadImage(imageType)
-
-                    tvPublicationAuthorName.text = publication.author.name
-                    tvCommentsCount.text = publication.commentsCount.toString()
-                    tvLikesCount.text = publication.likesCount.toString()
-                }
+            publication.attachments?.firstOrNull()?.let { attachment ->
+                Glide
+                    .with(itemView)
+                    .load(attachment.filePath)
+                    .placeholder(R.drawable.news_sample)
+                    .centerCrop()
+                    .into(ivPublicationCover)
             }
+        }
+    }
 
-            is FeedWrapper.News -> {
-                binding.apply {
-                    Glide
-                        .with(itemView)
-                        .load("https://example.com/news_image")
-                        .placeholder(R.drawable.news_sample)
-                        .centerCrop()
-                        .into(ivPublicationCover)
+    private fun bindIdeaData() {
+        with(binding) {
+            ivIdea.isVisible = true
+            projectCard.isVisible = false
+        }
+    }
 
-                    tvPublicationTitle.text = publication.title
-                    tvPublicationContent.text = publication.content
+    private fun bindNewsData(publication: FeedWrapper.News) {
+        with(binding) {
+            ivIdea.isVisible = false
+            projectCard.isVisible = true
 
-                    ivIdea.isVisible = false
-                    projectCard.isVisible = true
+            Glide
+                .with(itemView)
+                .load("https://example.com/project_logo")
+                .placeholder(R.drawable.ic_placeholder_logo)
+                .centerCrop()
+                .transform(RoundedCorners(radius))
+                .into(ivProjectLogo)
 
-                    Glide
-                        .with(itemView)
-                        .load("https://example.com/project_logo")
-                        .placeholder(R.drawable.ic_placeholder_logo)
-                        .centerCrop()
-                        .transform(RoundedCorners(radius))
-                        .into(ivProjectLogo)
-
-                    tvProjectName.text = "News Project"
-                    tvProjectDirection.text = "News Direction"
-
-                    val placeholderResId = com.innoprog.android.uikit.R.drawable.ic_person
-                    val imageType = ImageLoadingType.ImageDrawable(placeholderResId)
-                    publicationAuthorAvatar.loadImage(imageType)
-
-                    tvPublicationAuthorName.text = publication.author.name
-                    tvCommentsCount.text = publication.commentsCount.toString()
-                    tvLikesCount.text = publication.likesCount.toString()
-                }
-            }
+            tvProjectName.text = "News Project"
+            tvProjectDirection.text = "IT"
         }
     }
 }
