@@ -54,7 +54,7 @@ class ChipsProfileRepoImpl @Inject constructor(
 
     override suspend fun getFavorites(pageSize: Int): Flow<Resource<List<FeedWrapper>>> {
         return getResult<ChipsResponse, List<FeedWrapper>>(
-            getResponse = {network.doRequest(RequestByProfile.GetFavorites(pageSize)) },
+            getResponse = { network.doRequest(RequestByProfile.GetFavorites(pageSize)) },
             mapToDomain = { response -> response.results.map { item -> item.mapToDomain() } }
         )
     }
