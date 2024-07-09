@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.innoprog.android.R
@@ -17,7 +18,6 @@ import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentAnyProjectBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
 import com.innoprog.android.feature.feed.projectScreen.di.DaggerAnyProjectComponent
 import com.innoprog.android.feature.feed.projectScreen.domain.AnyProjectModel
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
@@ -30,10 +30,8 @@ class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel
 
     override val viewModel by injectViewModel<AnyProjectViewModel>()
 
-    private var listNews = ArrayList<NewsWithProject>()
-
     private val newsAdapter: NewsAdapter by lazy {
-        NewsAdapter(listNews) { newsWithProject ->
+        NewsAdapter { newsWithProject ->
             val action = AnyProjectFragmentDirections.actionProjectFragmentToNewsDetailsFragment(
                 newsWithProject.news.id
             )
@@ -69,6 +67,7 @@ class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel
         viewModel.getAnyProject("1")
 
         binding.rvPublications.adapter = newsAdapter
+        binding.rvPublications.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun setUiListeners() {
@@ -123,9 +122,7 @@ class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel
 
             if (anyProject.projectNews != null) {
                 rvPublications.isVisible = true
-                newsAdapter.newsList.clear()
-                newsAdapter.newsList.addAll(anyProject.projectNews)
-                newsAdapter.notifyDataSetChanged()
+                newsAdapter.submitList(anyProject.projectNews)
             } else {
                 rvPublications.isVisible = false
             }

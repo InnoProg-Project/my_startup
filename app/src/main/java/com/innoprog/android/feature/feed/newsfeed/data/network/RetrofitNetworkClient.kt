@@ -3,6 +3,7 @@ package com.innoprog.android.feature.feed.newsfeed.data.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import com.innoprog.android.feature.feed.newsfeed.domain.models.QueryPage
 import com.innoprog.android.network.data.ApiConstants
 import com.innoprog.android.network.data.Response
 import kotlinx.coroutines.Dispatchers
@@ -16,14 +17,21 @@ class RetrofitNetworkClient @Inject constructor(
 ) :
     NetworkClient {
 
-    override suspend fun loadNewsFeed(): Response {
+    override suspend fun loadNewsFeed(queryPage: QueryPage): Response {
         if (context.checkInternetReachability().not()) {
             return Response().apply { resultCode = ApiConstants.NO_INTERNET_CONNECTION_CODE }
         }
 
         return withContext(Dispatchers.IO) {
             try {
-                val response = apiService.loadNewsFeed()
+                val response = apiService.loadNewsFeedQueryPage(
+                    type = queryPage.type,
+                    query = queryPage.query,
+                    lastId = queryPage.lastId,
+                    projectId = queryPage.projectId,
+                    authorId = queryPage.authorId,
+                    pageSize = queryPage.pageSize
+                )
                 FeedResponse(results = response.body()!!).apply {
                     resultCode = ApiConstants.SUCCESS_CODE
                 }

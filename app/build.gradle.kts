@@ -77,6 +77,7 @@ dependencies {
     // VideoPlayer
     implementation(libs.bundles.exoplayer)
 
-
     implementation(project(":uikit"))
+
+    implementation(libs.bundles.swiperefreshlayout)
 }

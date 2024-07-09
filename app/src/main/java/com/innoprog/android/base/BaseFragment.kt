@@ -60,4 +60,5 @@ abstract class BaseFragment<T : ViewBinding, VM : BaseViewModel> : Fragment() {
 
     protected open fun initViews() = Unit
     protected open fun subscribe() = Unit
+
 }
