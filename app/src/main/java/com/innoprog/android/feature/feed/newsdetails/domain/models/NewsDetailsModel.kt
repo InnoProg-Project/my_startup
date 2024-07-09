@@ -7,7 +7,7 @@ data class NewsDetailsModel(
     val type: String,
     val author: Author,
     val projectId: String?,
-    val coverUrl: List<String>?,
+    val coverUrl: List<Any>,
     val title: String,
     val content: String,
     val publishedAt: String,

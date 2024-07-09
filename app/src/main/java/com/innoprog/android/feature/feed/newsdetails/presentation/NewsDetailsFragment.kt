@@ -141,8 +141,7 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
 
 
     private fun initImageGallery(images: List<Any>) {
-        //galleryAdapter = images?.let { ImageGalleryAdapter(it) }
-        galleryAdapter?.setImageList(images)
+        galleryAdapter.setImageList(images)
         binding.viewPager.adapter = galleryAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position -> }.attach()
     }
