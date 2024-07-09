@@ -13,17 +13,21 @@ import javax.inject.Inject
 class RetrofitNetworkClient @Inject constructor(
     private val apiService: FeedApi,
     private val context: Context
-) :
-    NetworkClient {
+) : NetworkClient {
 
-    override suspend fun loadNewsFeed(): Response {
+    override suspend fun loadNewsFeed(type: String?): Response {
         if (context.checkInternetReachability().not()) {
             return Response().apply { resultCode = ApiConstants.NO_INTERNET_CONNECTION_CODE }
         }
 
         return withContext(Dispatchers.IO) {
             try {
-                val response = apiService.loadNewsFeed()
+                val response = if (type.isNullOrEmpty()) {
+                    apiService.loadNewsFeed()
+                } else {
+                    apiService.loadNewsFeedByType(type)
+                }
+
                 FeedResponse(results = response.body()!!).apply {
                     resultCode = ApiConstants.SUCCESS_CODE
                 }
@@ -59,8 +63,8 @@ class RetrofitNetworkClient @Inject constructor(
 
         return activeNetwork?.let {
             it.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                it.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-                it.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+                    it.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                    it.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
         } ?: false
     }
 }
