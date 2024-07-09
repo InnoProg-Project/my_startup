@@ -46,8 +46,8 @@ class AESHelperImpl @Inject constructor() : AESHelper {
     // Расшифровка данных с использованием AES
     override fun decrypt(encryptedData: ByteArray): ByteArray {
         val cipher = Cipher.getInstance(TRANSFORMATION)
-        val iv = encryptedData.copyOfRange(0, 12)
-        val data = encryptedData.copyOfRange(12, encryptedData.size)
+        val iv = encryptedData.copyOfRange(0, INDEX_RANGE)
+        val data = encryptedData.copyOfRange(INDEX_RANGE, encryptedData.size)
         val spec = GCMParameterSpec(GCM_TAG_LENGTH, iv)
         cipher.init(Cipher.DECRYPT_MODE, getSecretKey(), spec)
         return cipher.doFinal(data)
@@ -58,5 +58,6 @@ class AESHelperImpl @Inject constructor() : AESHelper {
         private const val ANDROID_KEYSTORE = "AndroidKeyStore"
         private const val TRANSFORMATION = "AES/GCM/NoPadding"
         private const val GCM_TAG_LENGTH = 128
+        private const val INDEX_RANGE = 12
     }
 }

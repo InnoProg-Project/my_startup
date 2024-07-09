@@ -17,10 +17,6 @@ class AuthorizationViewModel @Inject constructor(
 
     private val stateLiveData = MutableLiveData<AuthState>()
 
-    init {
-        //verifyOnStart()
-    }
-
     fun observeState(): LiveData<AuthState> = stateLiveData
     fun verify(inputLogin: String, inputPassword: String) {
         stateLiveData.postValue(AuthState.LOADING)

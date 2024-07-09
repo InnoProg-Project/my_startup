@@ -21,7 +21,7 @@ class RSAHelperImpl @Inject constructor() : RSAHelper {
             KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
         )
             .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_RSA_PKCS1)
-            .setKeySize(2048) // Размер ключа в битах
+            .setKeySize(KEY_SIZE) // Размер ключа в битах
             .build()
         keyPairGenerator.initialize(keyGenParameterSpec)
         keyPairGenerator.generateKeyPair() // Генерация и сохранение пары ключей в хранилище
@@ -60,5 +60,6 @@ class RSAHelperImpl @Inject constructor() : RSAHelper {
             "my_rsa_key" // Уникальный алиас для хранения ключа в хранилище
         private const val ANDROID_KEYSTORE = "AndroidKeyStore" // Имя хранилища ключей Android
         private const val TRANSFORMATION = "RSA/ECB/PKCS1Padding" // Алгоритм шифрования
+        private const val KEY_SIZE = 2048
     }
 }

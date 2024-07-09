@@ -24,6 +24,7 @@ class RootCheckerImpl @Inject constructor() : RootChecker {
         return rootPaths.any { File(it).exists() }
     }
 
+    @Suppress("SwallowedException")
     private fun checkForRootPackages(context: Context): Boolean {
         val rootPackages = arrayOf(
             "eu.chainfire.supersu",
@@ -58,6 +59,10 @@ class RootCheckerImpl @Inject constructor() : RootChecker {
         return file.canExecute()
     }
 
+    @Suppress(
+        "TooGenericExceptionCaught",
+        "SwallowedException"
+    )
     private fun checkForSuCommand(): Boolean {
         return try {
             Runtime.getRuntime()

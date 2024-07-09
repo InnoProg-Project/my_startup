@@ -21,7 +21,6 @@ import com.innoprog.android.feature.auth.authorization.domain.model.AuthState
 import com.innoprog.android.uikit.InnoProgInputViewState
 import com.innoprog.android.util.setOnDebouncedClickListener
 
-
 class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseViewModel>() {
 
     override val viewModel by injectViewModel<AuthorizationViewModel>()
@@ -78,10 +77,10 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
             AuthState.INPUT_ERROR -> renderError(getString(R.string.authorization_bad_data))
             else -> null
         }
-        binding.progressBar.isVisible = (state == AuthState.LOADING)
-        binding.blackout.isVisible = (state == AuthState.LOADING)
-        binding.btnLogin.isVisible = (state != AuthState.LOADING)
-        blockUserInteraction((state == AuthState.LOADING))
+        binding.progressBar.isVisible = state == AuthState.LOADING
+        binding.blackout.isVisible = state == AuthState.LOADING
+        binding.btnLogin.isVisible = state != AuthState.LOADING
+        blockUserInteraction(state == AuthState.LOADING)
     }
 
     private fun blockUserInteraction(block: Boolean) {

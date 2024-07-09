@@ -52,7 +52,7 @@ class AuthorizationDataRepositoryImpl @Inject constructor(
             apply() // Применяем изменения
         }
 
-        //Сохранение даты последней попытки входа
+        // Сохранение даты последней попытки входа
         val privateSharedPreferences =
             context.getSharedPreferences(AUTH_PREFS, Context.MODE_PRIVATE)
         privateSharedPreferences.edit().putLong(LAST_LOGIN_TIME, System.currentTimeMillis()).apply()
@@ -103,8 +103,8 @@ class AuthorizationDataRepositoryImpl @Inject constructor(
         val sharedPreferences = context.getSharedPreferences(AUTH_PREFS, Context.MODE_PRIVATE)
         val lastLoginTime = sharedPreferences.getLong(LAST_LOGIN_TIME, 0L)
         if (rootChecker.isDeviceRooted(context)
-            || (System.currentTimeMillis() - lastLoginTime > 30L * 24 * 60 * 60 * 1000)
-        ) { // 30 дней
+            || System.currentTimeMillis() - lastLoginTime > SUM_MILLS_FOR_CHECK
+        ) {
             sharedPreferences.edit().clear().apply() // Удаление данных
             clearCredentials()
         }
@@ -118,5 +118,6 @@ class AuthorizationDataRepositoryImpl @Inject constructor(
         const val CREDENTIALS = "credentials"
         const val AUTH_PREFS = "auth_prefs"
         const val LAST_LOGIN_TIME = "last_login_time"
+        const val SUM_MILLS_FOR_CHECK = 30L * 24 * 60 * 60 * 1000 // 30 дней
     }
 }
