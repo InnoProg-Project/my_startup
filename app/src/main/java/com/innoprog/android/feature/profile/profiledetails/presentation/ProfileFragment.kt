@@ -193,6 +193,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
     private fun fillViews(profile: Profile) {
         binding.name.text = profile.name
         binding.description.text = profile.about
+        val initials = profile.name
+            .split(' ')
+            .map { it.first().uppercaseChar() }
+            .joinToString(separator = "", limit = 2)
+        binding.avatar.text = initials.ifBlank { "?" }
     }
 
     private fun fillViewsCompany(company: ProfileCompany) {

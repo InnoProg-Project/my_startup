@@ -4,12 +4,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.BuildConfig
+import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.feature.profile.profiledetails.domain.ChipsInteractor
 import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileCompanyUseCase
 import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileUseCase
 import com.innoprog.android.feature.profile.profiledetails.domain.models.FeedWrapper
+import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
+import com.innoprog.android.feature.profile.profiledetails.domain.models.ProfileCompany
 import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
 import kotlinx.coroutines.Dispatchers
@@ -33,43 +35,15 @@ class ProfileViewModel @Inject constructor(
     val chipsUiState: LiveData<ChipsScreenState> = _chipsUiState
 
     fun loadProfile() {
-        viewModelScope.launch(Dispatchers.IO) {
-            runCatching {
-                getProfileUseCase.getProfile().collect { response ->
-                    when (response) {
-                        is Resource.Success -> {
-                            _uiState.postValue(ProfileScreenState.Content(response.data))
-                        }
-
-                        is Resource.Error -> {
-                            _uiState.postValue(ProfileScreenState.Error(response.errorType))
-                        }
-                    }
-                }
-            }.onFailure {
-                _uiState.postValue(ProfileScreenState.Error(type = ErrorType.NO_CONNECTION))
-            }
-        }
+        runSafelyUseCase<Profile> (
+            getUseCaseFlow = { getProfileUseCase.getProfile() }
+        ) { _uiState.postValue(ProfileScreenState.Content(it)) }
     }
 
     fun loadProfileCompany() {
-        viewModelScope.launch(Dispatchers.IO) {
-            runCatching {
-                getProfileCompanyUseCase.getProfileCompany().collect { response ->
-                    when (response) {
-                        is Resource.Success -> {
-                            _uiStateCompany.postValue(ProfileCompanyScreenState.Content(response.data))
-                        }
-
-                        is Resource.Error -> {
-                            _uiStateCompany.postValue(ProfileCompanyScreenState.Error(response.errorType))
-                        }
-                    }
-                }
-            }.onFailure {
-                _uiStateCompany.postValue(ProfileCompanyScreenState.Error(type = ErrorType.NO_CONNECTION))
-            }
-        }
+        runSafelyUseCase<ProfileCompany> (
+            getUseCaseFlow = { getProfileCompanyUseCase.getProfileCompany() }
+        ) { _uiStateCompany.postValue(ProfileCompanyScreenState.Content(it)) }
     }
 
     fun loadChipAll(authorId: String) {

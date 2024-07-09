@@ -25,21 +25,20 @@ class ProfileInfoRepoImpl @Inject constructor(
 ) : ProfileInfoRepo {
 
     override suspend fun loadProfile(): Flow<Resource<Profile>> = flow {
-        val apiResponse = network.doRequest(RequestByProfile.GetProfile)
-
-        if (apiResponse is ProfileResponse && apiResponse.resultCode == ApiConstants.SUCCESS_CODE) {
-            emit(Resource.Success(apiResponse.mapToDomainUserData()))
+        val response = network.doRequest(RequestByProfile.GetProfile)
+        if (response is ProfileResponse && response.resultCode == ApiConstants.SUCCESS_CODE) {
+            emit(Resource.Success(response.mapToDomainUserData()))
             roomDB.profileDao().saveProfile(
                 ProfileEntity(
-                    userId = apiResponse.userId,
-                    name = apiResponse.name,
-                    about = apiResponse.about,
-                    communicationChannels = apiResponse.communicationChannels,
-                    authorities = apiResponse.authorities
+                    userId = response.userId,
+                    name = response.name,
+                    about = response.about,
+                    communicationChannels = response.communicationChannels,
+                    authorities = response.authorities
                 )
             )
         } else {
-            emit(Resource.Error(getErrorType(apiResponse.resultCode)))
+            emit(Resource.Error(getErrorType(response.resultCode)))
         }
     }
 
