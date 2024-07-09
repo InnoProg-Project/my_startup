@@ -15,15 +15,15 @@ data class NewsEntity(
     @ColumnInfo(name = "project_id")
     val projectId: String?,
     @ColumnInfo(name = "cover_url")
-    val coverUrl: List<String>?,
+    val coverUrl: String?,
     val title: String,
     val content: String,
     @ColumnInfo(name = "published_at")
     val publishedAt: String,
     @ColumnInfo(name = "likes_count")
-    val likesCount: Int,
+    val likesCount: Long,
     @ColumnInfo(name = "comments_count")
-    val commentsCount: Int,
+    val commentsCount: Long,
 )
 
 data class AuthorEntity(

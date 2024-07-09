@@ -1,12 +1,15 @@
 package com.innoprog.android.feature.feed.newsdetails.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.innoprog.android.BuildConfig
 import com.innoprog.android.base.BaseViewModel
-import com.innoprog.android.feature.feed.anyProjectDetails.presentation.AnyProjectDetailsScreenState
 import com.innoprog.android.feature.feed.newsdetails.domain.NewsDetailsInteractor
+import com.innoprog.android.feature.feed.newsdetails.domain.models.CommentModel
 import com.innoprog.android.feature.feed.newsdetails.domain.models.NewsDetailsModel
+import com.innoprog.android.util.ErrorScreenState
 import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
 import kotlinx.coroutines.Dispatchers
@@ -19,8 +22,18 @@ class NewsDetailsViewModel @Inject constructor(
 ) :
     BaseViewModel() {
 
-    private val _screenState = MutableLiveData<NewsDetailsScreenState>()
+    private val _screenState =
+        MutableLiveData<NewsDetailsScreenState>(NewsDetailsScreenState.Loading)
     val screenState: LiveData<NewsDetailsScreenState> = _screenState
+
+    private val _addCommentResult = MutableLiveData<Resource<CommentModel>>()
+    val addCommentResult: LiveData<Resource<CommentModel>> get() = _addCommentResult
+
+    fun addComment(publicationId: String, content: String) {
+        viewModelScope.launch {
+            _addCommentResult.value = newsDetailsInteractor.addComment(publicationId, content)
+        }
+    }
 
     fun getNewsDetails(newsId: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -31,14 +44,18 @@ class NewsDetailsViewModel @Inject constructor(
                         val newsDetails = newsDetailsResult.data
                         getComments(newsId, newsDetails)
                     }
+
                     is Resource.Error -> {
-                        setState(NewsDetailsScreenState.Error(newsDetailsResult.errorType))
+                        setState(renderError(newsDetailsResult.errorType))
                     }
                 }
-            }.onFailure { exception ->
-                setState(NewsDetailsScreenState.Error(ErrorType.UNEXPECTED))
+            }.onFailure { error ->
+                if (BuildConfig.DEBUG) {
+                    Log.v(NewsDetailsViewModel.TAG, "error -> ${error.localizedMessage}")
+                    error.printStackTrace()
+                }
+                setState(NewsDetailsScreenState.Error(ErrorScreenState.SERVER_ERROR))
             }
-
         }
     }
 
@@ -46,7 +63,7 @@ class NewsDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             newsDetailsInteractor.getComments(newsId)
                 .catch { exception ->
-                    setState(NewsDetailsScreenState.Error(ErrorType.UNEXPECTED))
+                    setState(NewsDetailsScreenState.Error(ErrorScreenState.SERVER_ERROR))
                 }
                 .collect { commentsResult ->
                     when (commentsResult) {
@@ -54,14 +71,28 @@ class NewsDetailsViewModel @Inject constructor(
                             val comments = commentsResult.data
                             setState(NewsDetailsScreenState.Content(newsDetails, comments))
                         }
+
                         is Resource.Error -> {
-                            setState(NewsDetailsScreenState.Error(commentsResult.errorType))
+                            setState(renderError(commentsResult.errorType))
                         }
                     }
                 }
         }
     }
 
+    private fun renderError(errorType: ErrorType): NewsDetailsScreenState.Error {
+        return when (errorType) {
+            ErrorType.NO_CONNECTION -> NewsDetailsScreenState.Error(ErrorScreenState.NO_INTERNET)
+            ErrorType.NOT_FOUND -> NewsDetailsScreenState.Error(ErrorScreenState.NOT_FOUND)
+            ErrorType.INTERNAL_SERVER_ERROR -> NewsDetailsScreenState.Error(ErrorScreenState.SERVER_ERROR)
+            ErrorType.UNAUTHORIZED -> NewsDetailsScreenState.Error(ErrorScreenState.UNAUTHORIZED)
+            else -> NewsDetailsScreenState.Error(ErrorScreenState.SERVER_ERROR)
+        }
+    }
+
+    companion object {
+        private val TAG = NewsDetailsViewModel::class.simpleName
+    }
 
     private fun setState(state: NewsDetailsScreenState) {
         _screenState.postValue(state)

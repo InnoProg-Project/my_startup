@@ -1,8 +1,6 @@
 package com.innoprog.android.feature.feed.newsdetails.data.network
 
 import com.google.gson.annotations.SerializedName
-import com.innoprog.android.feature.feed.newsdetails.domain.models.CommentAuthor
-import com.innoprog.android.feature.feed.newsdetails.domain.models.CommentModel
 
 data class CommentDto(
     @SerializedName("id")
@@ -23,16 +21,3 @@ data class CommentAuthorDto(
     @SerializedName("name")
     val name: String,
 )
-
-fun CommentDto.mapToCommentModel(): CommentModel {
-    return CommentModel(
-        commentId = commentId,
-        publicationId = publicationId,
-        commentAuthor = CommentAuthor(
-            id = commentAuthor.id,
-            name = commentAuthor.name
-        ),
-        commentContent = commentContent,
-        commentCreationDate = commentCreationDate.substring(0, commentCreationDate.indexOf('T'))
-    )
-}

@@ -1,58 +1,76 @@
 package com.innoprog.android.feature.feed.newsdetails.presentation
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.innoprog.android.databinding.ItemCommentBinding
 import com.innoprog.android.feature.feed.newsdetails.domain.models.CommentModel
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Locale
 
 class CommentsAdapter(
     private val commentsList: List<CommentModel>,
-    private val onCommentClickListener: CommentsAdapter.OnClickListener
+    private val onCommentClick: (CommentModel) -> Unit,
+    private val onDeleteClick: (CommentModel) -> Unit
 ) : RecyclerView.Adapter<CommentsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentsViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        return CommentsViewHolder(ItemCommentBinding.inflate(layoutInflater, parent, false))
+        val binding = ItemCommentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return CommentsViewHolder(binding, onCommentClick, onDeleteClick)
     }
 
     override fun onBindViewHolder(holder: CommentsViewHolder, position: Int) {
-        holder.bind(commentsList[position], onCommentClickListener, holder.itemView.context)
+        holder.bind(commentsList[position])
     }
 
     override fun getItemCount(): Int {
         return commentsList.size
     }
 
-    interface OnClickListener {
-        fun onItemClick(position: Int, comment: CommentModel, context: Context)
+    fun updateItem(position: Int) {
+        notifyItemChanged(position)
     }
 }
 
-class CommentsViewHolder(private val binding: ItemCommentBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(comment: CommentModel, onCommentClickListener: CommentsAdapter.OnClickListener, context: Context) {
+class CommentsViewHolder(
+    private val binding: ItemCommentBinding,
+    private val onCommentClick: (CommentModel) -> Unit,
+    private val onDeleteClick: (CommentModel) -> Unit
+) :
+    RecyclerView.ViewHolder(binding.root) {
+    fun bind(comment: CommentModel) {
         binding.apply {
             tvCommentAuthorName.text = comment.commentAuthor.name
             tvCommentContent.text = comment.commentContent
 
-            itemView.setOnClickListener {
-                onCommentClickListener.onItemClick(absoluteAdapterPosition, comment, context)
+            tvCommentDate.text = getFormattedDate(comment.commentCreationDate)
+
+            val context = binding.root.context
+            if (comment.isClicked) {
+                binding.root.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context,
+                        com.innoprog.android.uikit.R.color.background_secondary
+                    )
+                )
+                tvDeleteComment.isVisible = true
+            } else {
+                binding.root.setBackgroundColor(
+                    ContextCompat.getColor(
+                        context,
+                        com.innoprog.android.uikit.R.color.background_primary
+                    )
+                )
+                tvDeleteComment.isVisible = false
+            }
+
+            root.setOnClickListener {
+                onCommentClick.invoke(comment)
             }
 
             tvDeleteComment.setOnClickListener {
-                Toast.makeText(context, "Удаляем комментарий", Toast.LENGTH_SHORT).show()
+                onDeleteClick.invoke(comment)
             }
-
-            val inputDate = comment.commentCreationDate
-            val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
-            val outputFormatter = DateTimeFormatter.ofPattern("d MMMM", Locale("ru"))
-            val dateTime = LocalDateTime.parse(inputDate, inputFormatter)
-            tvCommentDate.text = dateTime.format(outputFormatter)
         }
     }
 }

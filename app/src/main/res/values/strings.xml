@@ -122,4 +122,6 @@
         <item>Проекты</item>
         <item>Идеи</item>
     </string-array>
+
+    <string name="empty_comment">Комментарий не может быть пустым</string>
 </resources>

@@ -1,15 +1,23 @@
 package com.innoprog.android.feature.feed.newsdetails.data
 
+import android.util.Log
 import com.google.gson.JsonParseException
+import com.innoprog.android.BuildConfig
+import com.innoprog.android.feature.feed.newsdetails.data.converters.mapToCommentModel
+import com.innoprog.android.feature.feed.newsdetails.data.converters.mapToNewsDetails
+import com.innoprog.android.feature.feed.newsdetails.data.network.AddCommentResponse
 import com.innoprog.android.feature.feed.newsdetails.data.network.CommentsResponse
 import com.innoprog.android.feature.feed.newsdetails.data.network.NetworkClient
 import com.innoprog.android.feature.feed.newsdetails.data.network.NewsDetailsResponse
-import com.innoprog.android.feature.feed.newsdetails.data.network.mapToCommentModel
-import com.innoprog.android.feature.feed.newsdetails.data.network.mapToNewsDetails
 import com.innoprog.android.feature.feed.newsdetails.domain.NewsDetailsRepository
 import com.innoprog.android.feature.feed.newsdetails.domain.models.CommentModel
 import com.innoprog.android.feature.feed.newsdetails.domain.models.NewsDetailsModel
+import com.innoprog.android.feature.feed.newsfeed.data.converters.mapToProjectDomain
+import com.innoprog.android.feature.feed.newsfeed.data.network.ProjectResponse
+import com.innoprog.android.feature.feed.newsfeed.domain.models.Project
 import com.innoprog.android.network.data.ApiConstants
+import com.innoprog.android.util.ErrorHandler
+import com.innoprog.android.util.ErrorHandlerImpl
 import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
 import kotlinx.coroutines.flow.Flow
@@ -19,39 +27,40 @@ import java.io.IOException
 import java.net.SocketTimeoutException
 import javax.inject.Inject
 
-@Suppress("Detekt.Indentation")
 class NewsDetailsRepositoryImpl @Inject constructor(private val networkClient: NetworkClient) :
     NewsDetailsRepository {
+    private val errorHandler: ErrorHandler = ErrorHandlerImpl()
+
     override suspend fun getNewsDetails(id: String): Resource<NewsDetailsModel> {
         return try {
             val response = networkClient.getNewsDetails(id)
             when (response.resultCode) {
                 ApiConstants.SUCCESS_CODE -> {
-                    with(response as NewsDetailsResponse) {
-                        val newsDetails = results.mapToNewsDetails()
-                        Resource.Success(newsDetails)
-                    }
+                    val newsDetails = (response as NewsDetailsResponse).results.mapToNewsDetails()
+                    val projectDetails = newsDetails.projectId?.let { loadProjectDetails(it) }
+                    val newsDetailsWithProject = newsDetails.copy(project = projectDetails)
+
+                    Resource.Success(newsDetailsWithProject)
                 }
 
-                else -> Resource.Error(ErrorType.BAD_REQUEST)
+                else -> errorHandler.handleErrorCode(response.resultCode)
             }
+
         } catch (e: HttpException) {
-            Resource.Error(ErrorType.NO_CONNECTION)
+            Log.e(TAG, e.toString())
+            errorHandler.handleHttpException(e)
         } catch (e: IOException) {
+            Log.e(TAG, e.toString())
             Resource.Error(ErrorType.NO_CONNECTION)
         } catch (e: JsonParseException) {
+            Log.e(TAG, e.toString())
             Resource.Error(ErrorType.UNEXPECTED)
         } catch (e: SocketTimeoutException) {
+            Log.e(TAG, e.toString())
             Resource.Error(ErrorType.NO_CONNECTION)
         }
     }
 
-    @Suppress("Detekt.StringLiteralDuplication")
-    private val author = Author(
-        "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        "Юлия Анисимова",
-        company
-    )
     override fun getComments(newsId: String): Flow<Resource<List<CommentModel>>> = flow {
         val response = networkClient.getComments(newsId)
         runCatching {
@@ -79,5 +88,57 @@ class NewsDetailsRepositoryImpl @Inject constructor(private val networkClient: N
             }
         }
 
+    }
+
+    private suspend fun loadProjectDetails(projectId: String): Project? {
+        val projectResponse = networkClient.getProjectDetails(projectId)
+
+        return if (projectResponse.resultCode == ApiConstants.SUCCESS_CODE) {
+            runCatching {
+                (projectResponse as ProjectResponse).results.mapToProjectDomain()
+            }.onFailure { exception ->
+                if (BuildConfig.DEBUG) {
+                    Log.e(TAG, "mapping error -> $exception")
+                    exception.printStackTrace()
+                }
+            }.getOrNull()
+        } else {
+            null
+        }
+    }
+
+    override suspend fun addComment(
+        publicationId: String,
+        content: String
+    ): Resource<CommentModel> {
+        return try {
+            val response = networkClient.addComment(publicationId, content)
+            when (response.resultCode) {
+                ApiConstants.SUCCESS_CODE -> {
+                    val commentResponse =
+                        (response as AddCommentResponse).result.mapToCommentModel()
+                    Resource.Success(commentResponse)
+                }
+
+                else -> errorHandler.handleErrorCode(response.resultCode)
+            }
+
+        } catch (e: HttpException) {
+            Log.e(TAG, e.toString())
+            errorHandler.handleHttpException(e)
+        } catch (e: IOException) {
+            Log.e(TAG, e.toString())
+            Resource.Error(ErrorType.NO_CONNECTION)
+        } catch (e: JsonParseException) {
+            Log.e(TAG, e.toString())
+            Resource.Error(ErrorType.UNEXPECTED)
+        } catch (e: SocketTimeoutException) {
+            Log.e(TAG, e.toString())
+            Resource.Error(ErrorType.NO_CONNECTION)
+        }
+    }
+
+    companion object {
+        private val TAG = NewsDetailsRepository::class.simpleName
     }
 }

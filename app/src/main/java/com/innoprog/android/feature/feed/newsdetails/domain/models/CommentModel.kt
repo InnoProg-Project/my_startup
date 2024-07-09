@@ -1,11 +1,12 @@
 package com.innoprog.android.feature.feed.newsdetails.domain.models
 
-data class CommentModel(
+class CommentModel(
     val commentId: String,
     val publicationId: String,
     val commentAuthor: CommentAuthor,
     val commentContent: String,
-    val commentCreationDate: String
+    val commentCreationDate: String,
+    var isClicked: Boolean = false
 )
 
 data class CommentAuthor(

@@ -73,15 +73,16 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
     }
 
     private fun initImageGallery() {
-        val images = listOf(
+        /*val images = listOf(
             com.innoprog.android.R.drawable.news_sample,
             com.innoprog.android.R.drawable.course_logo_sample,
             com.innoprog.android.R.drawable.news_sample,
             com.innoprog.android.R.drawable.course_logo_sample,
             com.innoprog.android.R.drawable.news_sample,
-        )
+        )*/
 
-        galleryAdapter = ImageGalleryAdapter(images)
+        // изменила ImageGalleryAdapter, поменять заполнение адаптера
+        // galleryAdapter = ImageGalleryAdapter(images)
         binding.viewPager.adapter = galleryAdapter
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position -> }.attach()

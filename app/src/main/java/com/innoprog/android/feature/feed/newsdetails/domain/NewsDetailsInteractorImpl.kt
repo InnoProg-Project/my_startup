@@ -15,4 +15,11 @@ class NewsDetailsInteractorImpl @Inject constructor(private val repository: News
     override fun getComments(newsId: String): Flow<Resource<List<CommentModel>>> {
         return repository.getComments(newsId)
     }
+
+    override suspend fun addComment(
+        publicationId: String,
+        content: String
+    ): Resource<CommentModel> {
+        return repository.addComment(publicationId, content)
+    }
 }

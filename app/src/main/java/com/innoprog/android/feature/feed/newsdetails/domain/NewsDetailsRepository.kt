@@ -8,4 +8,5 @@ import kotlinx.coroutines.flow.Flow
 interface NewsDetailsRepository {
     suspend fun getNewsDetails(id: String): Resource<NewsDetailsModel>
     fun getComments(newsId: String): Flow<Resource<List<CommentModel>>>
+    suspend fun addComment(publicationId: String, content: String): Resource<CommentModel>
 }

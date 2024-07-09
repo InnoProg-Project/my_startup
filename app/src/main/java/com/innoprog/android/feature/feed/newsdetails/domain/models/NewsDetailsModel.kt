@@ -1,5 +1,7 @@
 package com.innoprog.android.feature.feed.newsdetails.domain.models
 
+import com.innoprog.android.feature.feed.newsfeed.domain.models.Project
+
 data class NewsDetailsModel(
     val id: String,
     val type: String,
@@ -13,6 +15,7 @@ data class NewsDetailsModel(
     val commentsCount: Int,
     val isLiked: Boolean,
     val isFavorite: Boolean,
+    val project: Project? = null
 )
 
 data class Author(
