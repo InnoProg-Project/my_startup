@@ -123,5 +123,7 @@
         <item>Идеи</item>
     </string-array>
 
+    <string name="user_project_details_edit">Редактировать</string>
+
     <string name="empty_comment">Комментарий не может быть пустым</string>
 </resources>

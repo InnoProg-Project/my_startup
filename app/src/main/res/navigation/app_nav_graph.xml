@@ -105,6 +105,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_projectsFragment_to_userProjectDetailsFragment"
+            app:destination="@id/userProjectDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -314,6 +321,12 @@
         <argument
             android:name="newsId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/userProjectDetailsFragment"
+        android:name="com.innoprog.android.feature.feed.userprojectscreen.presentation.UserProjectDetailsFragment"
+        android:label="UserProjectDetailsFragment"
+        tools:layout="@layout/fragment_any_project_details">
     </fragment>
 
 </navigation>

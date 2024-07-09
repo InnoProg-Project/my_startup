@@ -10,6 +10,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -28,13 +30,15 @@ import com.innoprog.android.feature.feed.newsfeed.domain.models.Project
 import com.innoprog.android.feature.imagegalleryadapter.ImageGalleryAdapter
 import com.innoprog.android.util.ErrorScreenState
 import com.innoprog.android.util.Resource
+import com.innoprog.android.util.debounceUnitFun
 import okhttp3.internal.format
 
 open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewModel>() {
 
     override val viewModel by injectViewModel<NewsDetailsViewModel>()
+    private val galleryAdapter = ImageGalleryAdapter()
     private var newsId: String = ""
-    private var galleryAdapter: ImageGalleryAdapter? = null
+    private val debounceNavigateTo = debounceUnitFun<Fragment?>(lifecycleScope)
     private var commentsList: ArrayList<CommentModel> = arrayListOf()
     private val commentsAdapter: CommentsAdapter by lazy {
         CommentsAdapter(
@@ -118,7 +122,9 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
             }
 
             projectCard.setOnClickListener {
-                findNavController().navigate(R.id.action_newsDetailsFragment_to_projectFragment)
+                debounceNavigateTo(this@NewsDetailsFragment) { fragment ->
+                    findNavController().navigate(R.id.action_newsDetailsFragment_to_projectFragment)
+                }
             }
 
             inputComment.setRightIconClickListener {
@@ -133,8 +139,10 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
         }
     }
 
-    private fun initImageGallery(images: List<String>?) {
-        galleryAdapter = images?.let { ImageGalleryAdapter(it) }
+
+    private fun initImageGallery(images: List<Any>) {
+        //galleryAdapter = images?.let { ImageGalleryAdapter(it) }
+        galleryAdapter?.setImageList(images)
         binding.viewPager.adapter = galleryAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position -> }.attach()
     }
