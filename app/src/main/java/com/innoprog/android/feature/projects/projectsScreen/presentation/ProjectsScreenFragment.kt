@@ -1,6 +1,7 @@
 package com.innoprog.android.feature.projects.projectsScreen.presentation
 
 import DaggerProjectsFragmentComponent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -12,6 +13,7 @@ import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.databinding.FragmentProjectsBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
+import com.innoprog.android.feature.feed.userprojectscreen.presentation.UserProjectDetailsFragment
 import com.innoprog.android.feature.projects.domain.models.Project
 import com.innoprog.android.feature.projects.projectsScreen.presentation.adapter.ProjectsScreenAdapter
 import com.innoprog.android.util.ErrorScreenState
@@ -26,6 +28,7 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, ProjectsScr
             .build()
 
     private val adapter = ProjectsScreenAdapter { projectId ->
+        navigateToProjectDetails(projectId)
     }
 
     override fun createBinding(
@@ -61,6 +64,21 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, ProjectsScr
                 com.innoprog.android.uikit.R.id.ipbtn_repeat_request
             ).setOnClickListener {
                 viewModel.getProjectList()
+            }
+            listOf(
+                ivEmptyListPlaceholder,
+                tvEmptyListPlaceholder,
+                ipbtnCreateFisrtProject
+            ).forEach {
+                it.setOnClickListener {
+                    val bundle = Bundle().apply {
+                        putString(UserProjectDetailsFragment.USER_PROJECT_DETAILS, "123")
+                    }
+                    viewModel.navigateTo(
+                        R.id.action_projectsFragment_to_userProjectDetailsFragment,
+                        bundle
+                    )
+                }
             }
         }
     }
@@ -150,5 +168,14 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, ProjectsScr
                 .setText(errorTextRes)
         }
     }
-}
 
+    private fun navigateToProjectDetails(projectId: String) {
+        val bundle = Bundle().apply {
+            putString(UserProjectDetailsFragment.USER_PROJECT_DETAILS, projectId)
+        }
+        viewModel.navigateTo(
+            R.id.action_projectsFragment_to_userProjectDetailsFragment,
+            bundle
+        )
+    }
+}

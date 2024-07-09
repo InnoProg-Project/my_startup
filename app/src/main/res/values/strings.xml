@@ -130,4 +130,5 @@
         <item>Лайкнутые</item>
         <item>Избранное</item>
     </string-array>
+    <string name="user_project_details_edit">Редактировать</string>
 </resources>

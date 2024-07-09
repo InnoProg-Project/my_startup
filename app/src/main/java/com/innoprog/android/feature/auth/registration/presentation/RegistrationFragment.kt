@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.navOptions
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
@@ -18,6 +19,7 @@ import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.auth.registration.di.DaggerRegistrationComponent
 import com.innoprog.android.feature.projects.projectdetails.presentation.TextChangedListener
 import com.innoprog.android.uikit.InnoProgInputViewState
+import com.innoprog.android.util.setOnDebouncedClickListener
 
 class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewModel>() {
     override val viewModel by injectViewModel<RegistrationViewModel>()
@@ -49,7 +51,7 @@ class RegistrationFragment : BaseFragment<FragmentRegistrationBinding, BaseViewM
             viewModel.navigateUp()
         }
 
-        binding.bvRegistration.setOnClickListener {
+        binding.bvRegistration.setOnDebouncedClickListener(lifecycleScope) {
             viewModel.registration()
         }
     }

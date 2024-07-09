@@ -4,14 +4,18 @@ import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import com.innoprog.android.R
+import com.innoprog.android.util.debounceUnitFun
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 abstract class BaseViewModel : ViewModel() {
+
+    private val debounceNavigateTo = debounceUnitFun<Fragment?>(viewModelScope)
 
     private val _stateFlow = MutableStateFlow<NavEvent?>(null)
     val stateFlow: StateFlow<NavEvent?> = _stateFlow
@@ -23,8 +27,10 @@ abstract class BaseViewModel : ViewModel() {
     ) {
         _stateFlow.value = object : NavEvent {
             override fun navigate(fragment: Fragment?) {
-                if (fragment != null) {
-                    findNavController(fragment).navigate(fragmentId, args, navOptions)
+                debounceNavigateTo(fragment) { fragment ->
+                    if (fragment != null) {
+                        findNavController(fragment).navigate(fragmentId, args, navOptions)
+                    }
                 }
             }
         }
@@ -36,8 +42,10 @@ abstract class BaseViewModel : ViewModel() {
     ) {
         _stateFlow.value = object : NavEvent {
             override fun navigate(fragment: Fragment?) {
-                if (fragment != null) {
-                    findNavController(fragment).navigate(direction, navOptions)
+                debounceNavigateTo(fragment) { fragment ->
+                    if (fragment != null) {
+                        findNavController(fragment).navigate(direction, navOptions)
+                    }
                 }
             }
         }
@@ -46,10 +54,13 @@ abstract class BaseViewModel : ViewModel() {
     fun navigateToStart() {
         _stateFlow.value = object : NavEvent {
             override fun navigate(fragment: Fragment?) {
-                if (fragment != null) {
-                    val navFragmentId = R.id.authorizationFragment
-                    val navOptions = NavOptions.Builder().setPopUpTo(navFragmentId, true).build()
-                    findNavController(fragment).navigate(navFragmentId, null, navOptions)
+                debounceNavigateTo(fragment) { fragment ->
+                    if (fragment != null) {
+                        val navFragmentId = R.id.authorizationFragment
+                        val navOptions =
+                            NavOptions.Builder().setPopUpTo(navFragmentId, true).build()
+                        findNavController(fragment).navigate(navFragmentId, null, navOptions)
+                    }
                 }
             }
         }
@@ -62,17 +73,21 @@ abstract class BaseViewModel : ViewModel() {
     fun navigateUp() {
         _stateFlow.value = object : NavEvent {
             override fun navigate(fragment: Fragment?) {
-                if (fragment != null) {
-                    findNavController(fragment).navigateUp()
+                debounceNavigateTo(fragment) { fragment ->
+                    if (fragment != null) {
+                        findNavController(fragment).navigateUp()
+                    }
                 }
             }
         }
     }
 
     fun clearBackStackAndNavigateToAuthorization() {
-        val navOptions = NavOptions.Builder()
-            .setPopUpTo(R.id.nav_graph, inclusive = true)
-            .build()
-        navigateTo(R.id.authorizationFragment, null, navOptions)
+        debounceNavigateTo(null) { fragment ->
+            val navOptions = NavOptions.Builder()
+                .setPopUpTo(R.id.nav_graph, inclusive = true)
+                .build()
+            navigateTo(R.id.authorizationFragment, null, navOptions)
+        }
     }
 }
