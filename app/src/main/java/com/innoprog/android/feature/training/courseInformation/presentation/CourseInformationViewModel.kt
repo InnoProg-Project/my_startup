@@ -31,7 +31,7 @@ class CourseInformationViewModel @Inject constructor(
                 getCourseInformationUseCase.execute(courseId).collect { response ->
                     when (response) {
                         is Resource.Success -> {
-                            setState(CourseInformationState.Content(response.data!!))
+                            setState(CourseInformationState.Content(response.data))
                         }
 
                         is Resource.Error -> handleError(response.errorType)

@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface GetCourseInformationUseCase {
 
-    fun execute(courseId: String): Flow<Resource<CourseInformation?>>
+    fun execute(courseId: String): Flow<Resource<CourseInformation>>
 }

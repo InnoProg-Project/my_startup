@@ -10,7 +10,7 @@ class GetCourseInformationUseCaseImpl @Inject constructor(
     private val repository: CourseInformationRepository
 ) : GetCourseInformationUseCase {
 
-    override fun execute(courseId: String): Flow<Resource<CourseInformation?>> {
+    override fun execute(courseId: String): Flow<Resource<CourseInformation>> {
         return repository.getCourseInformation(courseId)
     }
 

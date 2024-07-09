@@ -9,7 +9,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okio.IOException
 import retrofit2.HttpException
-import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 class CourseInformationNetworkClientImpl @Inject constructor(
@@ -25,18 +24,25 @@ class CourseInformationNetworkClientImpl @Inject constructor(
         return withContext(Dispatchers.IO) {
             try {
                 val response = courseInformationApi.getCourseInformation(courseId)
-                CourseInformationResponse(results = response.body()!!).apply {
-                    resultCode = ApiConstants.SUCCESS_CODE
-                }
+                processResponse(response)
             } catch (exception: HttpException) {
                 logAndCreateErrorResponse(exception)
             } catch (exception: IOException) {
                 logAndCreateErrorResponse(exception)
             } catch (exception: JsonParseException) {
                 logAndCreateErrorResponse(exception)
-            } catch (exception: SocketTimeoutException) {
-                logAndCreateErrorResponse(exception)
             }
+        }
+    }
+
+    private fun processResponse(response: retrofit2.Response<CourseInformationDto>): Response {
+        val body = response.body()
+        return if (response.isSuccessful && body != null) {
+            CourseInformationResponse(results = body).apply {
+                resultCode = ApiConstants.SUCCESS_CODE
+            }
+        } else {
+            Response().apply { resultCode = response.code() }
         }
     }
 
@@ -45,7 +51,6 @@ class CourseInformationNetworkClientImpl @Inject constructor(
             is HttpException -> exception.code()
             is IOException -> ApiConstants.NO_INTERNET_CONNECTION_CODE
             is JsonParseException -> ApiConstants.BAD_REQUEST_CODE
-            is SocketTimeoutException -> ApiConstants.NO_INTERNET_CONNECTION_CODE
             else -> ApiConstants.INTERNAL_SERVER_ERROR
         }
         return Response().apply { resultCode = errorCode }

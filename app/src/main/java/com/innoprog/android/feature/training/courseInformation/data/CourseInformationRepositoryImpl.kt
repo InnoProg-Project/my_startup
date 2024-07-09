@@ -1,7 +1,6 @@
 package com.innoprog.android.feature.training.courseInformation.data
 
 import android.util.Log
-import com.google.gson.JsonParseException
 import com.innoprog.android.feature.training.courseInformation.data.network.AttachmentsDto
 import com.innoprog.android.feature.training.courseInformation.data.network.CourseInformationDto
 import com.innoprog.android.feature.training.courseInformation.data.network.CourseInformationNetworkClient
@@ -16,49 +15,33 @@ import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import retrofit2.HttpException
-import java.io.IOException
-import java.net.SocketTimeoutException
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class CourseInformationRepositoryImpl @Inject constructor(
     private val courseInformationNetworkClient: CourseInformationNetworkClient
-) :
-    CourseInformationRepository {
+) : CourseInformationRepository {
     private val errorHandler: ErrorHandler = ErrorHandlerImpl()
-    override fun getCourseInformation(courseId: String): Flow<Resource<CourseInformation>> = flow {
-        try {
-            val response = courseInformationNetworkClient.getCourseInformation(courseId)
-            runCatching {
-                when (response.resultCode) {
-                    ApiConstants.SUCCESS_CODE -> {
-                        with(response as CourseInformationResponse) {
-                            val data = mapToCourseInformation(results)
-                            emit(Resource.Success(data))
-                        }
-                    }
 
-                    else -> {
-                        errorHandler.handleErrorCode(response.resultCode)
+    override fun getCourseInformation(courseId: String): Flow<Resource<CourseInformation>> = flow {
+        val response = courseInformationNetworkClient.getCourseInformation(courseId)
+        runCatching {
+            when (response.resultCode) {
+                ApiConstants.SUCCESS_CODE -> {
+                    with(response as CourseInformationResponse) {
+                        val data = mapToCourseInformation(results)
+                        emit(Resource.Success(data))
                     }
                 }
-            }.onFailure { exception ->
-                Log.v(ERROR_TAG, "mapping error -> ${exception.localizedMessage}")
-            }.getOrNull()
-        } catch (e: HttpException) {
-            Log.e(ERROR_TAG, e.toString())
-            errorHandler.handleHttpException(e)
-        } catch (e: IOException) {
-            Log.e(ERROR_TAG, e.toString())
-            Resource.Error(ErrorType.NO_CONNECTION)
-        } catch (e: JsonParseException) {
-            Log.e(ERROR_TAG, e.toString())
-            Resource.Error(ErrorType.UNEXPECTED)
-        } catch (e: SocketTimeoutException) {
-            Log.e(ERROR_TAG, e.toString())
-            Resource.Error(ErrorType.NO_CONNECTION)
+
+                else -> {
+                    emit(errorHandler.handleErrorCode(response.resultCode))
+                }
+            }
+        }.onFailure { exception ->
+            Log.v(ERROR_TAG, "mapping error -> ${exception.localizedMessage}")
+            emit(Resource.Error(ErrorType.UNKNOWN_ERROR))
         }
     }
 
@@ -113,4 +96,3 @@ class CourseInformationRepositoryImpl @Inject constructor(
         val ERROR_TAG = CourseInformationRepository::class.simpleName
     }
 }
-

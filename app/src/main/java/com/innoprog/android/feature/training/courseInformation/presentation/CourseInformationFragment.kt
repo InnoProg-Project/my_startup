@@ -18,12 +18,13 @@ import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.training.common.VerticalSpaceDecorator
 import com.innoprog.android.feature.training.courseInformation.di.DaggerCourseInformationComponent
 import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformation
+import com.innoprog.android.uikit.InnoProgButtonView
 import com.innoprog.android.uikit.R
 import com.innoprog.android.util.ErrorScreenState
 
 class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding, BaseViewModel>() {
-
     override val viewModel by injectViewModel<CourseInformationViewModel>()
+
     override fun diComponent(): ScreenComponent {
         val appComponent = AppComponentHolder.getComponent()
         return DaggerCourseInformationComponent.builder()
@@ -160,6 +161,9 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
                 .setImageResource(errorImageRes)
             findViewById<TextView>(R.id.tv_error_message)
                 .setText(errorTextRes)
+            findViewById<InnoProgButtonView>(R.id.ipbtn_repeat_request).setOnClickListener {
+                viewModel.getCourseInformation(courseId)
+            }
         }
     }
 
