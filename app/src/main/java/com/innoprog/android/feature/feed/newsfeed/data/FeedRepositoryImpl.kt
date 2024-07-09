@@ -22,8 +22,8 @@ import javax.inject.Inject
 class FeedRepositoryImpl @Inject constructor(private val networkClient: NetworkClient) :
     FeedRepository {
 
-    override fun getNewsFeed(): Flow<Resource<List<NewsWithProject>>> = flow {
-        val newsResult = loadNewsList()
+    override fun getNewsFeed(type: String?): Flow<Resource<List<NewsWithProject>>> = flow {
+        val newsResult = loadNewsList(type)
 
         if (newsResult is Resource.Error) {
             emit(newsResult)
@@ -42,8 +42,8 @@ class FeedRepositoryImpl @Inject constructor(private val networkClient: NetworkC
         }
     }
 
-    private suspend fun loadNewsList(): Resource<List<News>> {
-        val newsResponse = networkClient.loadNewsFeed()
+    private suspend fun loadNewsList(type: String?): Resource<List<News>> {
+        val newsResponse = networkClient.loadNewsFeed(type)
 
         return runCatching {
             when (newsResponse.resultCode) {

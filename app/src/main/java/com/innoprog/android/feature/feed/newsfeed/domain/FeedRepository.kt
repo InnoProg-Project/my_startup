@@ -5,5 +5,5 @@ import com.innoprog.android.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface FeedRepository {
-    fun getNewsFeed(): Flow<Resource<List<NewsWithProject>>>
+    fun getNewsFeed(type: String? = null): Flow<Resource<List<NewsWithProject>>>
 }

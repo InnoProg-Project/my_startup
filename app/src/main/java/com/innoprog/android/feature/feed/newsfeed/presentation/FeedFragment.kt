@@ -3,6 +3,7 @@ package com.innoprog.android.feature.feed.newsfeed.presentation
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -95,7 +96,12 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         binding.cgvFilter.setOnChipSelectListener(object :
             InnoProgChipGroupView.OnChipSelectListener {
             override fun onChipSelected(chipIndex: Int) {
-                // Если нужно обработать чип
+                Log.i(TAG, "onChipSelected: $chipIndex")
+                when (chipIndex) {
+                    0 -> viewModel.getNewsFeed()
+                    1 -> viewModel.getNewsFeed(PublicationType.NEWS)
+                    2 -> viewModel.getNewsFeed(PublicationType.IDEA)
+                }
             }
         })
     }
@@ -240,5 +246,9 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
                 findNavController().navigate(action)
             }
         }
+    }
+
+    companion object {
+        private val TAG = FeedFragment::class.java.simpleName
     }
 }
