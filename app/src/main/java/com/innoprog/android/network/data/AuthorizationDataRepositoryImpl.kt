@@ -3,14 +3,18 @@ package com.innoprog.android.network.data
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
-import com.innoprog.android.network.data.cryptography.AESHelper
-import com.innoprog.android.network.data.cryptography.RSAHelper
 import com.innoprog.android.network.domain.AuthorizationDataRepository
+import com.innoprog.android.network.domain.cryptography.AESHelper
+import com.innoprog.android.network.domain.cryptography.RSAHelper
+import com.innoprog.android.network.domain.cryptography.RootChecker
 import java.util.Base64
 import javax.inject.Inject
 
 class AuthorizationDataRepositoryImpl @Inject constructor(
-    private val context: Context
+    private val context: Context,
+    private val aesHelper: AESHelper,
+    private val rsaHelper: RSAHelper,
+    private val rootChecker: RootChecker
 ) : AuthorizationDataRepository {
     override fun execute(): String {
         return AuthHeader.data
@@ -24,14 +28,14 @@ class AuthorizationDataRepositoryImpl @Inject constructor(
 
     fun saveCredentials(credentials: String) {
         // Генерация ключей, если они еще не сгенерированы
-        AESHelper.generateKey()
-        RSAHelper.generateKeyPair()
+        aesHelper.generateKey()
+        rsaHelper.generateKeyPair()
 
         // Шифрование данных с использованием AES
-        val aesEncryptedData = AESHelper.encrypt(credentials.toByteArray())
+        val aesEncryptedData = aesHelper.encrypt(credentials.toByteArray())
 
         // Шифрование AES-данных с использованием RSA
-        val rsaEncryptedData = RSAHelper.encrypt(aesEncryptedData)
+        val rsaEncryptedData = rsaHelper.encrypt(aesEncryptedData)
 
         // Сохранение данных в EncryptedSharedPreferences
         val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
@@ -68,10 +72,10 @@ class AuthorizationDataRepositoryImpl @Inject constructor(
         val encryptedData = sharedPreferences.getString("credentials", null) ?: return null
 
         // Расшифровка данных с использованием RSA
-        val rsaDecryptedData = RSAHelper.decrypt(encryptedData.fromBase64())
+        val rsaDecryptedData = rsaHelper.decrypt(encryptedData.fromBase64())
 
         // Расшифровка данных с использованием AES
-        val aesDecryptedData = AESHelper.decrypt(rsaDecryptedData)
+        val aesDecryptedData = aesHelper.decrypt(rsaDecryptedData)
 
         // Разделение строки на логин и пароль
         val credentials = String(aesDecryptedData).split(":")
@@ -98,7 +102,9 @@ class AuthorizationDataRepositoryImpl @Inject constructor(
     override fun checkLastLoginTime() {
         val sharedPreferences = context.getSharedPreferences(AUTH_PREFS, Context.MODE_PRIVATE)
         val lastLoginTime = sharedPreferences.getLong(LAST_LOGIN_TIME, 0L)
-        if (System.currentTimeMillis() - lastLoginTime > 30L * 24 * 60 * 60 * 1000) { // 30 дней
+        if (rootChecker.isDeviceRooted(context)
+            || (System.currentTimeMillis() - lastLoginTime > 30L * 24 * 60 * 60 * 1000)
+        ) { // 30 дней
             sharedPreferences.edit().clear().apply() // Удаление данных
             clearCredentials()
         }

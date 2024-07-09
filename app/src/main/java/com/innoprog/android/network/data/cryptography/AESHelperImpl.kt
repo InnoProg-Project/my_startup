@@ -2,21 +2,18 @@ package com.innoprog.android.network.data.cryptography
 
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
+import com.innoprog.android.network.domain.cryptography.AESHelper
 import java.security.KeyStore
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
+import javax.inject.Inject
 
-object AESHelper {
-
-    private const val KEY_ALIAS = "my_aes_key"
-    private const val ANDROID_KEYSTORE = "AndroidKeyStore"
-    private const val TRANSFORMATION = "AES/GCM/NoPadding"
-    private const val GCM_TAG_LENGTH = 128
+class AESHelperImpl @Inject constructor() : AESHelper {
 
     // Функция для генерации ключа AES
-    fun generateKey() {
+    override fun generateKey() {
         val keyGenerator =
             KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, ANDROID_KEYSTORE)
         val keyGenParameterSpec = KeyGenParameterSpec.Builder(
@@ -38,7 +35,7 @@ object AESHelper {
     }
 
     // Шифрование данных с использованием AES
-    fun encrypt(data: ByteArray): ByteArray {
+    override fun encrypt(data: ByteArray): ByteArray {
         val cipher = Cipher.getInstance(TRANSFORMATION)
         cipher.init(Cipher.ENCRYPT_MODE, getSecretKey())
         val iv = cipher.iv
@@ -47,12 +44,19 @@ object AESHelper {
     }
 
     // Расшифровка данных с использованием AES
-    fun decrypt(encryptedData: ByteArray): ByteArray {
+    override fun decrypt(encryptedData: ByteArray): ByteArray {
         val cipher = Cipher.getInstance(TRANSFORMATION)
         val iv = encryptedData.copyOfRange(0, 12)
         val data = encryptedData.copyOfRange(12, encryptedData.size)
         val spec = GCMParameterSpec(GCM_TAG_LENGTH, iv)
         cipher.init(Cipher.DECRYPT_MODE, getSecretKey(), spec)
         return cipher.doFinal(data)
+    }
+
+    companion object {
+        private const val KEY_ALIAS = "my_aes_key"
+        private const val ANDROID_KEYSTORE = "AndroidKeyStore"
+        private const val TRANSFORMATION = "AES/GCM/NoPadding"
+        private const val GCM_TAG_LENGTH = 128
     }
 }
