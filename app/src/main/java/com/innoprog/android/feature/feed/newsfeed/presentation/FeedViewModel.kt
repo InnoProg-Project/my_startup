@@ -1,5 +1,6 @@
 package com.innoprog.android.feature.feed.newsfeed.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -9,7 +10,6 @@ import com.innoprog.android.feature.feed.newsfeed.domain.FeedInteractor
 import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
 import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
 import com.innoprog.android.feature.feed.newsfeed.domain.models.QueryPage
-import com.innoprog.android.feature.projects.projectsScreen.presentation.ProjectsScreenState
 import com.innoprog.android.util.ErrorScreenState
 import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
@@ -30,12 +30,14 @@ class FeedViewModel @Inject constructor(private val feedInteractor: FeedInteract
     private var isNextPageLoading = false
     private var lastId = ""
     private var currentListNews = mutableListOf<NewsWithProject>()
+    var publicationType: PublicationType? = null
 
     init {
         getNewsFeed()
     }
 
-    fun getNewsFeed(isPagination: Boolean = false, type: PublicationType? = null) {
+    fun getNewsFeed(isPagination: Boolean = false, query: String? = null) {
+        Log.i(TAG, "query: $query")
         jobSearch?.dispose()
         jobSearch = null
         jobSearch = viewModelScope.launch(Dispatchers.IO) {
@@ -50,7 +52,8 @@ class FeedViewModel @Inject constructor(private val feedInteractor: FeedInteract
                     nextPageNumber = nextPageNumber,
                     lastId = lastId,
                     pageSize = PAGE_SIZE,
-                    type = type?.value
+                    type = publicationType?.value,
+                    query = query
                 )
                 feedInteractor.getNewsFeed(queryPage).collect { acceptResponse(isPagination, it) }
             }.onFailure { exception ->
@@ -123,5 +126,6 @@ class FeedViewModel @Inject constructor(private val feedInteractor: FeedInteract
 
     companion object {
         const val PAGE_SIZE = 20
+        private val TAG = FeedViewModel::class.java.simpleName
     }
 }

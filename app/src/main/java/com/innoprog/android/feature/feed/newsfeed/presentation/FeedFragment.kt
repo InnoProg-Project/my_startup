@@ -32,11 +32,17 @@ import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
 import com.innoprog.android.uikit.InnoProgChipGroupView
 import com.innoprog.android.util.ErrorScreenState
+import com.innoprog.android.util.debounceFun
 import com.innoprog.android.util.debounceUnitFun
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
+@Suppress("Detekt.LargeClass")
 class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
 
     private val debounceNavigateTo = debounceUnitFun<Fragment?>(lifecycleScope)
+    private var editTextIsOnFocus =
+        false // переменная необходима для хранение состояния фокуса на edittext
 
     override val viewModel by injectViewModel<FeedViewModel>()
     private val newsAdapter: NewsAdapter by lazy {
@@ -44,7 +50,19 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
             publicationTypeIndicator(newsWithProject.news.id, newsWithProject.news.type)
         }
     }
+    private val coroutineScope = CoroutineScope(Dispatchers.Main)
+    private val debounceGetNewsFeed = debounceFun<String>(
+        delayMillis = SEARCH_DELAY_2_SEC,
+        coroutineScope = coroutineScope,
+        useLastParam = true
+    ) { query ->
+        viewModel.getNewsFeed(query = query)
+    }
+
     private val textWatcherForEditText = { text: CharSequence?, _: Int, _: Int, _: Int ->
+        text?.let {
+            debounceGetNewsFeed(text.toString())
+        }
         changeIconClearVisibility(text)
     }
 
@@ -126,7 +144,22 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         binding.cgvFilter.setOnChipSelectListener(object :
             InnoProgChipGroupView.OnChipSelectListener {
             override fun onChipSelected(chipIndex: Int) {
-                // Если нужно обработать чип
+                when (chipIndex) {
+                    0 -> {
+                        viewModel.publicationType = null
+                        viewModel.getNewsFeed()
+                    }
+
+                    1 -> {
+                        viewModel.publicationType = PublicationType.NEWS
+                        viewModel.getNewsFeed()
+                    }
+
+                    2 -> {
+                        viewModel.publicationType = PublicationType.IDEA
+                    }
+                }
+                viewModel.getNewsFeed()
             }
         })
     }
@@ -166,20 +199,21 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     private fun showLoading() = with(binding) {
         swipeRefreshLayout.isRefreshing = false
 
-        listOf(
-            tvPlaceholder,
-            layoutErrorScreen,
-            cgvFilter,
-            etSearch,
-            btnCreateIdea,
-            tvFeed,
-            btnCreateIdea,
-            rvPublications
-        ).forEach {
+        listOf(btnCreateIdea, btnCreateIdea, cgvFilter, tvFeed).forEach {
+            it.isVisible = editTextIsOnFocus.not()
+        }
+
+        listOf(tvPlaceholder, layoutErrorScreen, rvPublications).forEach {
             it.isVisible = false
         }
 
-        circularProgress.isVisible = true
+        listOf(
+            cgvFilter,
+            circularProgress,
+            etSearch
+        ).forEach {
+            it.isVisible = true
+        }
     }
 
     private fun renderError(errorState: ErrorScreenState) = with(binding) {
@@ -216,22 +250,15 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     private fun showContent(newsFeed: List<NewsWithProject>) = with(binding) {
         swipeRefreshLayout.isRefreshing = false
 
-        listOf(
-            tvPlaceholder,
-            circularProgress,
-            layoutErrorScreen
-        ).forEach {
+        listOf(tvFeed, cgvFilter, btnCreateIdea).forEach {
+            it.isVisible = editTextIsOnFocus.not()
+        }
+
+        listOf(tvPlaceholder, circularProgress, layoutErrorScreen).forEach {
             it.isVisible = false
         }
 
-        listOf(
-            cgvFilter,
-            etSearch,
-            btnCreateIdea,
-            btnCreateIdea,
-            tvFeed,
-            rvPublications
-        ).forEach {
+        listOf(etSearch, rvPublications).forEach {
             it.isVisible = true
         }
         newsAdapter.submitList(newsFeed)
@@ -264,16 +291,18 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     }
 
     private fun startSearch() {
+        editTextIsOnFocus = true
         binding.apply {
             btnCreateIdea.isVisible = false
-            tvFeed.isVisible = false
             cgvFilter.isVisible = false
+            tvFeed.isVisible = false
             tvCancel.isVisible = true
             changeElementBinding()
         }
     }
 
     private fun cancelSearch() {
+        editTextIsOnFocus = false
         binding.apply {
             etSearch.clearFocus()
             etSearch.text.clear()
@@ -367,5 +396,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     companion object {
         const val RV_PADDING_BOTTOM_ON = 50
         const val RV_PADDING_BOTTOM_OFF = 5
+        private const val SEARCH_DELAY_2_SEC = 2000L
     }
 }

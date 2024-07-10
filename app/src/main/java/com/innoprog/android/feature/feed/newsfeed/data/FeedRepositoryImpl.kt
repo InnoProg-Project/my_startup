@@ -77,6 +77,6 @@ class FeedRepositoryImpl @Inject constructor(private val networkClient: NetworkC
 
     companion object {
         private val TAG = FeedRepository::class.simpleName
-        private val EXCEPTION_MESSAGE = "exception -> "
+        private const val EXCEPTION_MESSAGE = "exception -> "
     }
 }
