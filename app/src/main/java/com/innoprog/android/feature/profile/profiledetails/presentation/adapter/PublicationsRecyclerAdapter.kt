@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.innoprog.android.databinding.ItemNewsBinding
-import com.innoprog.android.feature.profile.profiledetails.domain.models.FeedWrapper
+import com.innoprog.android.feature.profile.profiledetails.domain.models.FeedWithProject
 
 class PublicationsRecyclerAdapter(
-    var publications: ArrayList<FeedWrapper>,
-    private val onPublicationClick: (FeedWrapper) -> Unit
+    var publications: ArrayList<FeedWithProject>,
+    private val onPublicationClick: (FeedWithProject) -> Unit
 ) : RecyclerView.Adapter<PublicationsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PublicationsViewHolder {

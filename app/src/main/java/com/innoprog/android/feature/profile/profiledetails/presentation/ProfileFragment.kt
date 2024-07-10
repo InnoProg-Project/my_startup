@@ -15,6 +15,7 @@ import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
 import com.innoprog.android.feature.profile.profiledetails.di.DaggerProfileComponent
+import com.innoprog.android.feature.profile.profiledetails.domain.models.FeedWithProject
 import com.innoprog.android.feature.profile.profiledetails.domain.models.FeedWrapper
 import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
 import com.innoprog.android.feature.profile.profiledetails.domain.models.ProfileCompany
@@ -24,11 +25,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
     override val viewModel by injectViewModel<ProfileViewModel>()
     private val publicationsAdapter: PublicationsRecyclerAdapter by lazy {
         PublicationsRecyclerAdapter(publications) { publication ->
-            when (publication) {
+            when (publication.feedWrapper) {
                 is FeedWrapper.Idea -> {
                     val action =
                         ProfileFragmentDirections.actionProfileFragmentToIdeaDetailsFragment(
-                            publication.id
+                            publication.feedWrapper.id
                         )
                     findNavController().navigate(action)
                 }
@@ -36,15 +37,16 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
                 is FeedWrapper.News -> {
                     val action =
                         ProfileFragmentDirections.actionProfileFragmentToNewsDetailsFragment(
-                            publication.id
+                            publication.feedWrapper.id
                         )
                     findNavController().navigate(action)
                 }
             }
         }
     }
+
     private var user: Profile? = null
-    private var publications: ArrayList<FeedWrapper> = arrayListOf()
+    private var publications: ArrayList<FeedWithProject> = arrayListOf()
 
     override fun diComponent(): ScreenComponent {
         return DaggerProfileComponent
