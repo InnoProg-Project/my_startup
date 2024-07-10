@@ -1,5 +1,6 @@
 package com.innoprog.android.feature.profile.profiledetails.data.impl
 
+import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
 import com.innoprog.android.feature.profile.profiledetails.data.dto.model.mapToDomain
 import com.innoprog.android.feature.profile.profiledetails.data.network.ChipsResponse
 import com.innoprog.android.feature.profile.profiledetails.data.network.RequestByProfile
@@ -31,7 +32,18 @@ class ChipsProfileRepoImpl @Inject constructor(
     ): Flow<Resource<List<FeedWrapper.News>>> {
         return getResult<ChipsResponse, List<FeedWrapper.News>>(
             getResponse = { network.doRequest(RequestByProfile.GetProjects(type, userId)) },
-            mapToDomain = { response -> response.results.map { item -> item.mapToDomain() as FeedWrapper.News } }
+            mapToDomain = { response ->
+                response.results.map { item ->
+                    val news = item.mapToDomain() as FeedWrapper.News
+                    val projectId = news.projectId
+                    if (projectId != null) {
+                        val projectResponse = network.doRequest(RequestByProfile.GetProject(projectId))
+                        val project = projectResponse.body()?.results?.firstOrNull()?.let { it.mapToDomain() }
+                        news.project = project
+                    }
+                    news
+                }
+            }
         )
     }
 
@@ -56,6 +68,17 @@ class ChipsProfileRepoImpl @Inject constructor(
         return getResult<ChipsResponse, List<FeedWrapper>>(
             getResponse = { network.doRequest(RequestByProfile.GetFavorites(pageSize)) },
             mapToDomain = { response -> response.results.map { item -> item.mapToDomain() } }
+        )
+    }
+
+    override suspend fun getProject(id: String): Flow<Resource<NewsWithProject>> {
+        return getResult<ChipsResponse, NewsWithProject>(
+            getResponse = { network.doRequest(RequestByProfile.GetProject(id)) },
+            mapToDomain = { response ->
+                val project = response.results.firstOrNull()?.let { it.mapToDomain() }
+                val newsWithProject = NewsWithProject(project)
+                newsWithProject
+            }
         )
     }
 
