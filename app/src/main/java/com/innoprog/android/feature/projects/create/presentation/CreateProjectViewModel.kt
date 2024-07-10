@@ -31,6 +31,12 @@ class CreateProjectViewModel @Inject constructor(private val useCase: CreateProj
         }
     }
 
+    fun downloadLogo(url: String){}
+
+    fun setDirection(url: String) {}
+
+    fun attachDocument(url: String){}
+
     fun createProject() {
         viewModelScope.launch(Dispatchers.IO) {
             useCase.createProject()

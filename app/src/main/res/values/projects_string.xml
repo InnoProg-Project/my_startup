@@ -15,4 +15,21 @@
     <string name="resume">Продолжить</string>
     <string name="download_media">Загрузите фото/видео</string>
     <string name="download_description">Картинки загружаются в форматах: png, jpg, jpeg. Размер одной картинки не более 3Мб.\nВидео загружаются в форматах: mp4, mov. Размер одного видео не более 10Мб.</string>
+    <string-array name="directions">
+        <item>IT</item>
+        <item>Искусственный интеллект</item>
+        <item>Образование</item>
+        <item>Сельское хозяйство</item>
+        <item>Строительство</item>
+        <item>Искусство</item>
+        <item>Маркетинг</item>
+        <item>Страхование</item>
+        <item>Медицина</item>
+        <item>Фармацевтика</item>
+        <item>Юридические услуги</item>
+        <item>Финансы</item>
+        <item>Туризм</item>
+        <item>Рестораны</item>
+        <item>Транспорт</item>
+    </string-array>
 </resources>

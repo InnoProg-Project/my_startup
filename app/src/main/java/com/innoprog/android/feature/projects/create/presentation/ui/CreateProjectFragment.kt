@@ -1,7 +1,5 @@
 package com.innoprog.android.feature.projects.create.presentation.ui
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,10 +26,7 @@ class CreateProjectFragment :
 
     private var stepNumber = 0
     private val data = mutableListOf<String>()
-    private lateinit var clickListener: (url: String) -> Unit
-    private val adapter = ItemProjectAdapter(stepNumber, data) {
-        clickListener
-    }
+    private val adapter = ItemProjectAdapter()
 
     override fun createBinding(
         inflater: LayoutInflater,
@@ -43,6 +38,7 @@ class CreateProjectFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initTopBar()
+        binding.rvStepScreen.adapter = adapter
         renderStep(stepNumber)
         binding.bvResume.setOnClickListener {
             if (stepNumber < STEPS_SIZE) {
@@ -72,25 +68,27 @@ class CreateProjectFragment :
             STEP_TWO -> {
                 binding.topbar.setTitleText(getString(R.string.step_2))
                 binding.tvStepTitle.text = getString(R.string.upload_photo_or_video)
+                adapter.createFirstScreenItems { url -> viewModel.downloadLogo(url) }
             }
 
             STEP_THREE -> {
                 binding.topbar.setTitleText(getString(R.string.step_3))
                 binding.tvStepTitle.text = getString(R.string.choose_project_direction)
+                adapter.createThreeScreenItems(
+                    resources.getStringArray(R.array.directions).toList()
+                ) { url -> viewModel.setDirection(url) }
             }
 
             STEP_FOUR -> {
                 binding.topbar.setTitleText(getString(R.string.step_4))
                 binding.tvStepTitle.text = getString(R.string.documents)
-                clickListener =  { url ->
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-                }
-                binding.rvStepScreen.adapter = adapter
+                adapter.createFourthScreenItems(data) { url -> viewModel.attachDocument(url) }
             }
 
             STEPS_SIZE -> {
                 binding.topbar.setTitleText(getString(R.string.step_5))
                 binding.tvStepTitle.text = getString(R.string.additional_information)
+                adapter.createFourthScreenItems(data) { }
             }
         }
     }

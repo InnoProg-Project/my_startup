@@ -42,13 +42,25 @@
         app:layout_constraintStart_toEndOf="@id/left_border"
         app:layout_constraintEnd_toStartOf="@id/right_border"/>
 
+    <TextView
+        android:id="@+id/tv_step_subtitle"
+        style="@style/TextBody_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/margin_8"
+        android:paddingBottom="@dimen/margin_16"
+        android:textColor="@color/text_secondary"
+        app:layout_constraintTop_toBottomOf="@id/tv_step_title"
+        app:layout_constraintStart_toEndOf="@id/left_border"
+        app:layout_constraintEnd_toStartOf="@id/right_border"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_step_screen"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/choose_project_direction"
         android:textColor="@color/text_primary"
-        app:layout_constraintTop_toBottomOf="@id/tv_step_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_step_subtitle"
         app:layout_constraintStart_toEndOf="@id/left_border"
         app:layout_constraintEnd_toStartOf="@id/right_border"
         tools:listitem="@layout/item_docks" />

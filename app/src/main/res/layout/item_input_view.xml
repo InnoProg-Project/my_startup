@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/financing_stage"
+        style="@style/TextSubtitle_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24"
+        android:text="@string/financing_stage"
+        android:textColor="@color/text_primary" />
+
+    <com.innoprog.android.uikit.InnoProgInputView
+        android:id="@+id/investments_description_iv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_12"
+        app:label="@string/investments_description"
+        app:layout_constraintEnd_toStartOf="@id/right_border"
+        app:layout_constraintStart_toEndOf="@id/left_border"
+        app:layout_constraintTop_toBottomOf="@+id/financing_stage"
+        app:singleLine="false"
+        app:text="@string/investments_description_example" />
+</LinearLayout>
