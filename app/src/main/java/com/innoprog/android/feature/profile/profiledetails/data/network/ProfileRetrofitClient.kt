@@ -36,12 +36,13 @@ class ProfileRetrofitClient @Inject constructor(
         return when (dto) {
             is RequestByProfile.GetProfile -> mapToResponse(service.loadProfile()) { it }
 
-            is RequestByProfile.GetProfileCompany -> {
+            is RequestByProfile.GetProfileCompany ->
                 mapToResponse(service.loadProfileCompany()) { it }
-            }
 
-            is RequestByProfile.GetAll -> {
-                mapToResponse(service.getAll(dto.authorId)) { ChipsResponse(it) }
+            is RequestByProfile.GetAll -> mapToResponse(service.getAll(dto.authorId)) {
+                ChipsResponse(
+                    it
+                )
             }
 
             is RequestByProfile.GetProjects -> {
@@ -53,32 +54,27 @@ class ProfileRetrofitClient @Inject constructor(
                 ) { ChipsResponse(it) }
             }
 
-            is RequestByProfile.GetIdeas -> {
+            is RequestByProfile.GetIdeas ->
                 mapToResponse(
                     service.getIdeas(
                         type = PublicationType.IDEA.value,
                         authorId = dto.authorId
                     )
                 ) { ChipsResponse(it) }
-            }
 
-            is RequestByProfile.GetLikes -> {
+            is RequestByProfile.GetLikes ->
                 mapToResponse(service.getLikes(pageSize = PAGE_SIZE)) {
                     ChipsResponse(it)
                 }
-            }
 
-            is RequestByProfile.GetFavorites -> {
+            is RequestByProfile.GetFavorites ->
                 mapToResponse(service.getFavorites(pageSize = PAGE_SIZE)) {
                     ChipsResponse(it)
-                }
-            }
 
-            is RequestByProfile.GetProjectById -> {
-                mapToResponse(service.getProjectById(dto.id)) {
-                    it
                 }
-            }
+
+            is RequestByProfile.GetProjectById -> mapToResponse(service.getProjectById(dto.id)) { it }
+
             else -> throw IllegalArgumentException("Unsupported request type")
         }
     }
@@ -112,6 +108,7 @@ class ProfileRetrofitClient @Inject constructor(
     }
 
     companion object {
+
         private const val PAGE_SIZE = 50
     }
 }

@@ -35,7 +35,6 @@ class ProfileViewModel @Inject constructor(
     val chipsUiState: LiveData<ChipsScreenState> = _chipsUiState
 
     fun loadProfile() {
-
         runSafelyUseCase<Profile>(
             getUseCaseFlow = { getProfileUseCase.getProfile() },
             onFailure = { error -> _uiState.postValue(ProfileScreenState.Error(error)) }
