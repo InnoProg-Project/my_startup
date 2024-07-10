@@ -109,4 +109,20 @@
 
     <!-- FillAboutProjectScreen -->
     <string name="err_pick_photo">Не удалось прикрепить фото</string>
+
+    <!-- CourseListScreen -->
+    <string name="course_list_lbl_progress_description">Ищем курсы</string>
+    <!-- CourseDetailsScreen -->
+    <string name="course_details_video_description">Видео - %d</string>
+    <string name="course_details_document_description">Документ - %d</string>
+
+    <string name="err_project_info">Ошибка загрузки</string>
+
+    <string-array name="chips">
+        <item>Всё</item>
+        <item>Проекты</item>
+        <item>Идеи</item>
+    </string-array>
+
+    <string name="user_project_details_edit">Редактировать</string>
 </resources>

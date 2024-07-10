@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -15,22 +17,29 @@ import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentAnyProjectBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.feature.feed.newsfeed.domain.models.News
+import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
 import com.innoprog.android.feature.feed.projectScreen.di.DaggerAnyProjectComponent
 import com.innoprog.android.feature.feed.projectScreen.domain.AnyProjectModel
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
+import com.innoprog.android.util.debounceUnitFun
 import okhttp3.internal.format
 
 class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel>() {
 
+    private val debounceNavigateTo = debounceUnitFun<Fragment?>(lifecycleScope)
+
     override val viewModel by injectViewModel<AnyProjectViewModel>()
 
-    private var listNews = ArrayList<News>()
+    private var listNews = ArrayList<NewsWithProject>()
 
     private val newsAdapter: NewsAdapter by lazy {
-        NewsAdapter(listNews) { news ->
-            val action = AnyProjectFragmentDirections.actionProjectFragmentToNewsDetailsFragment(news.id)
-            findNavController().navigate(action)
+        NewsAdapter(listNews) { newsWithProject ->
+            val action = AnyProjectFragmentDirections.actionProjectFragmentToNewsDetailsFragment(
+                newsWithProject.news.id
+            )
+            debounceNavigateTo(this) { fragment ->
+                findNavController().navigate(action)
+            }
         }
     }
 
@@ -69,10 +78,13 @@ class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel
             }
 
             btnProjectDetails.setOnClickListener {
-                val action = AnyProjectFragmentDirections.actionProjectFragmentToAnyProjectDetailsFragment(
-                    id.toString()
-                )
-                findNavController().navigate(action)
+                val action =
+                    AnyProjectFragmentDirections.actionProjectFragmentToAnyProjectDetailsFragment(
+                        id.toString()
+                    )
+                debounceNavigateTo(this@AnyProjectFragment) { fragment ->
+                    findNavController().navigate(action)
+                }
             }
         }
     }

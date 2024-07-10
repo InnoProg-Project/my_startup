@@ -73,8 +73,9 @@
         <com.innoprog.android.uikit.InnoProgInputView
             android:id="@+id/Description"
             android:layout_width="0dp"
-            android:layout_height="134dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_8"
+            app:minHeightEditText="134dp"
             app:label="@string/descriptions"
             app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
             app:layout_constraintStart_toEndOf="@id/guidelineStart"
