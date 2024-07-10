@@ -17,7 +17,7 @@ class PublicationsViewHolder(private val binding: ItemNewsBinding) :
         bindCommonData(publication)
         when (publication) {
             is FeedWrapper.Idea -> bindIdeaData()
-            is FeedWrapper.News -> bindNewsData(publication)
+            is FeedWrapper.News -> bindNewsData()
         }
     }
 
@@ -53,7 +53,7 @@ class PublicationsViewHolder(private val binding: ItemNewsBinding) :
         }
     }
 
-    private fun bindNewsData(publication: FeedWrapper.News) {
+    private fun bindNewsData() {
         with(binding) {
             ivIdea.isVisible = false
             projectCard.isVisible = true

@@ -38,7 +38,7 @@
             android:gravity="center"
             android:scaleX="1.0"
             android:textSize="40sp"
-            android:text="AM" />
+            tools:text="AM" />
 
         <TextView
             android:id="@+id/name"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/margin_16"
-            android:text="@string/name"
+            tools:text="@string/name"
             android:textColor="@color/text_primary" />
 
         <LinearLayout
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:text="@string/ceo"
+                tools:text="@string/ceo"
                 android:textColor="@color/text_secondary" />
 
             <TextView
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:text="@string/company_name"
+                tools:text="@string/company_name"
                 android:textColor="@color/accent_secondary" />
 
         </LinearLayout>
@@ -98,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:text="@string/description"
+            tools:text="@string/description"
             android:textColor="@color/text_secondary" />
 
     </LinearLayout>
@@ -140,16 +140,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/chips_container">
-
-        <FrameLayout
-            android:id="@+id/recycler_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_content"
                 android:layout_width="match_parent"
@@ -159,6 +151,5 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="2"
                 tools:listitem="@layout/item_news" />
-        </FrameLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

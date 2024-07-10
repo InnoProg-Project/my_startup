@@ -19,12 +19,7 @@ class ProfileRetrofitClient @Inject constructor(
     override suspend fun doRequest(dto: Any): Response {
         return withContext(Dispatchers.IO) {
             try {
-                val response = getResponse(dto)
-                if (response.isSuccessful) {
-                    Response().apply { resultCode = response.code() }
-                } else {
-                    Response().apply { resultCode = response.code() }
-                }
+                getResponse(dto)
             } catch (exception: HttpException) {
                 Response().apply { resultCode = exception.code() }
             } catch (exception: IOException) {
@@ -37,39 +32,61 @@ class ProfileRetrofitClient @Inject constructor(
         }
     }
 
-    private suspend fun getResponse(dto: Any): retrofit2.Response<*> {
+    private suspend fun getResponse(dto: Any): Response {
         return when (dto) {
-            is RequestByProfile.GetProfile -> {
-                service.loadProfile()
-            }
+            is RequestByProfile.GetProfile -> mapToResponse(service.loadProfile()) { it }
 
             is RequestByProfile.GetProfileCompany -> {
-                service.loadProfileCompany()
+                mapToResponse(service.loadProfileCompany()) { it }
             }
 
             is RequestByProfile.GetAll -> {
-                service.getAll(authorId = dto.authorId)
+                mapToResponse(service.getAll(dto.authorId)) { ChipsResponse(it) }
             }
 
             is RequestByProfile.GetProjects -> {
-                service.getProjects(type = PublicationType.NEWS.value, authorId = dto.authorId)
+                mapToResponse(
+                    service.getProjects(
+                        type = PublicationType.NEWS.value,
+                        authorId = dto.authorId
+                    )
+                ) { ChipsResponse(it) }
             }
 
             is RequestByProfile.GetIdeas -> {
-                service.getIdeas(type = PublicationType.IDEA.value, authorId = dto.authorId)
+                mapToResponse(
+                    service.getIdeas(
+                        type = PublicationType.IDEA.value,
+                        authorId = dto.authorId
+                    )
+                ) { ChipsResponse(it) }
             }
 
             is RequestByProfile.GetLikes -> {
-                service.getLikes(pageSize = PAGE_SIZE)
+                mapToResponse(service.getLikes(pageSize = PAGE_SIZE)) {
+                    ChipsResponse(it)
+                }
             }
 
             is RequestByProfile.GetFavorites -> {
-                service.getFavorites(pageSize = PAGE_SIZE)
+                mapToResponse(service.getFavorites(pageSize = PAGE_SIZE)) {
+                    ChipsResponse(it)
+                }
             }
 
-            else -> {
-                throw IllegalArgumentException("Unsupported request type")
-            }
+            else -> throw IllegalArgumentException("Unsupported request type")
+        }
+    }
+
+    private inline fun <reified D, reified R : Response> mapToResponse(
+        response: retrofit2.Response<D>,
+        mapToResponse: (D) -> R
+    ): Response {
+        val body = response.body()
+        return if (response.isSuccessful && body != null) {
+            mapToResponse(body).apply { resultCode = response.code() }
+        } else {
+            Response().apply { resultCode = response.code() }
         }
     }
 
@@ -84,14 +101,12 @@ class ProfileRetrofitClient @Inject constructor(
             is HttpException -> exception.code()
             is IOException -> ApiConstants.NO_INTERNET_CONNECTION_CODE
             is JsonParseException -> ApiConstants.BAD_REQUEST_CODE
-            is SocketTimeoutException -> ApiConstants.NO_INTERNET_CONNECTION_CODE
             else -> ApiConstants.INTERNAL_SERVER_ERROR
         }
         return createErrorResponse(errorCode)
     }
 
     companion object {
-
         private const val PAGE_SIZE = 50
     }
 }

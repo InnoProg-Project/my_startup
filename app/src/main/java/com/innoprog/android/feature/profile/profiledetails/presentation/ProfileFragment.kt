@@ -85,7 +85,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
             viewModel.uiStateCompany.observe(viewLifecycleOwner) { stateCompany ->
                 renderCompany(stateCompany)
             }
-
             viewModel.chipsUiState.observe(viewLifecycleOwner) { stateChips ->
                 renderChips(stateChips)
             }
@@ -150,43 +149,25 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun renderChips(chipsScreenState: ChipsScreenState) {
+        if (chipsScreenState !is ChipsScreenState.Error) {
+            publications.clear()
+        }
         when (chipsScreenState) {
-            is ChipsScreenState.All -> {
-                showContent()
-                publications.clear()
-                publications.addAll(chipsScreenState.content)
-                publicationsAdapter.notifyDataSetChanged()
-            }
+            is ChipsScreenState.All -> publications.addAll(chipsScreenState.content)
 
-            is ChipsScreenState.Projects -> {
-                showContent()
-                publications.clear()
-                publications.addAll(chipsScreenState.projects)
-                publicationsAdapter.notifyDataSetChanged()
-            }
+            is ChipsScreenState.Projects -> publications.addAll(chipsScreenState.projects)
 
-            is ChipsScreenState.Ideas -> {
-                showContent()
-                publications.clear()
-                publications.addAll(chipsScreenState.ideas)
-                publicationsAdapter.notifyDataSetChanged()
-            }
+            is ChipsScreenState.Ideas -> publications.addAll(chipsScreenState.ideas)
 
-            is ChipsScreenState.Liked -> {
-                showContent()
-                publications.clear()
-                publications.addAll(chipsScreenState.liked)
-                publicationsAdapter.notifyDataSetChanged()
-            }
+            is ChipsScreenState.Liked -> publications.addAll(chipsScreenState.liked)
 
-            is ChipsScreenState.Favorites -> {
-                showContent()
-                publications.clear()
-                publications.addAll(chipsScreenState.favorites)
-                publicationsAdapter.notifyDataSetChanged()
-            }
+            is ChipsScreenState.Favorites -> publications.addAll(chipsScreenState.favorites)
 
             is ChipsScreenState.Error -> showPlaceholder()
+        }
+        if (chipsScreenState !is ChipsScreenState.Error) {
+            publicationsAdapter.notifyDataSetChanged()
+            showContent()
         }
     }
 
@@ -227,8 +208,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
 
     private fun showContent() {
         with(binding) {
-            recyclerContent.isVisible = true
-            showPlaceholder()
+            if (publicationsAdapter.publications.isEmpty()) {
+                placeholderText.isVisible = true
+                recyclerContent.isVisible = false
+            } else {
+                placeholderText.isVisible = false
+                recyclerContent.isVisible = true
+            }
         }
     }
 

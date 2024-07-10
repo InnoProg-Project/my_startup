@@ -35,14 +35,16 @@ class ProfileViewModel @Inject constructor(
     val chipsUiState: LiveData<ChipsScreenState> = _chipsUiState
 
     fun loadProfile() {
-        runSafelyUseCase<Profile> (
-            getUseCaseFlow = { getProfileUseCase.getProfile() }
+        runSafelyUseCase<Profile>(
+            getUseCaseFlow = { getProfileUseCase.getProfile() },
+            onFailure = { error -> _uiState.postValue(ProfileScreenState.Error(error)) }
         ) { _uiState.postValue(ProfileScreenState.Content(it)) }
     }
 
     fun loadProfileCompany() {
-        runSafelyUseCase<ProfileCompany> (
-            getUseCaseFlow = { getProfileCompanyUseCase.getProfileCompany() }
+        runSafelyUseCase<ProfileCompany>(
+            getUseCaseFlow = { getProfileCompanyUseCase.getProfileCompany() },
+            onFailure = { _uiStateCompany.postValue(ProfileCompanyScreenState.Error(it)) }
         ) { _uiStateCompany.postValue(ProfileCompanyScreenState.Content(it)) }
     }
 
@@ -78,7 +80,8 @@ class ProfileViewModel @Inject constructor(
 
     private inline fun <reified D> runSafelyUseCase(
         crossinline getUseCaseFlow: suspend () -> Flow<Resource<D>>,
-        crossinline onSuccess: (D) -> Unit
+        noinline onFailure: ((ErrorType) -> Unit)? = null,
+        crossinline onSuccess: (D) -> Unit,
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
@@ -86,7 +89,8 @@ class ProfileViewModel @Inject constructor(
                     when (result) {
                         is Resource.Success -> onSuccess(result.data)
                         is Resource.Error -> {
-                            _chipsUiState.postValue(ChipsScreenState.Error(result.errorType))
+                            onFailure?.invoke(result.errorType)
+                                ?: _chipsUiState.postValue(ChipsScreenState.Error(result.errorType))
                         }
                     }
                 }
@@ -95,7 +99,8 @@ class ProfileViewModel @Inject constructor(
                     Log.v(TAG, "error -> ${error.localizedMessage}")
                     error.printStackTrace()
                 }
-                _chipsUiState.postValue(ChipsScreenState.Error(type = ErrorType.NO_CONNECTION))
+                onFailure?.invoke(ErrorType.UNKNOWN_ERROR)
+                    ?: _chipsUiState.postValue(ChipsScreenState.Error(ErrorType.UNKNOWN_ERROR))
             }
         }
     }
