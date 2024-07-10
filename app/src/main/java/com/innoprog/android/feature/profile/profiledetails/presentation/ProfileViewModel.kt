@@ -9,7 +9,7 @@ import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.feature.profile.profiledetails.domain.ChipsInteractor
 import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileCompanyUseCase
 import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileUseCase
-import com.innoprog.android.feature.profile.profiledetails.domain.models.FeedWrapper
+import com.innoprog.android.feature.profile.profiledetails.domain.models.FeedWithProject
 import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
 import com.innoprog.android.feature.profile.profiledetails.domain.models.ProfileCompany
 import com.innoprog.android.util.ErrorType
@@ -35,6 +35,7 @@ class ProfileViewModel @Inject constructor(
     val chipsUiState: LiveData<ChipsScreenState> = _chipsUiState
 
     fun loadProfile() {
+
         runSafelyUseCase<Profile>(
             getUseCaseFlow = { getProfileUseCase.getProfile() },
             onFailure = { error -> _uiState.postValue(ProfileScreenState.Error(error)) }
@@ -49,37 +50,38 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun loadChipAll(authorId: String) {
-        runSafelyUseCase<List<FeedWrapper>>(
+        runSafelyUseCase<List<FeedWithProject>>(
             getUseCaseFlow = { chipsInteractor.getAll(authorId) }
         ) { _chipsUiState.postValue(ChipsScreenState.All(it)) }
     }
 
     fun loadChipProjects(type: String, authorId: String) {
-        runSafelyUseCase<List<FeedWrapper.News>>(
+        runSafelyUseCase<List<FeedWithProject>>(
             getUseCaseFlow = { chipsInteractor.getProjects(type, authorId) }
         ) { _chipsUiState.postValue(ChipsScreenState.Projects(it)) }
     }
 
     fun loadChipIdeas(type: String, authorId: String) {
-        runSafelyUseCase<List<FeedWrapper.Idea>>(
+        runSafelyUseCase<List<FeedWithProject>>(
             getUseCaseFlow = { chipsInteractor.getIdeas(type, authorId) }
         ) { _chipsUiState.postValue(ChipsScreenState.Ideas(it)) }
     }
 
     fun loadChipLiked(pageSize: Int) {
-        runSafelyUseCase<List<FeedWrapper>>(
+        runSafelyUseCase<List<FeedWithProject>>(
             getUseCaseFlow = { chipsInteractor.getLikes(pageSize) }
         ) { _chipsUiState.postValue(ChipsScreenState.Liked(it)) }
     }
 
     fun loadChipFavorites(pageSize: Int) {
-        runSafelyUseCase<List<FeedWrapper>>(
+        runSafelyUseCase<List<FeedWithProject>>(
             getUseCaseFlow = { chipsInteractor.getFavorites(pageSize) }
         ) { _chipsUiState.postValue(ChipsScreenState.Favorites(it)) }
     }
 
     private inline fun <reified D> runSafelyUseCase(
         crossinline getUseCaseFlow: suspend () -> Flow<Resource<D>>,
+
         noinline onFailure: ((ErrorType) -> Unit)? = null,
         crossinline onSuccess: (D) -> Unit,
     ) {
@@ -106,6 +108,7 @@ class ProfileViewModel @Inject constructor(
     }
 
     companion object {
+
         private val TAG = ProfileViewModel::class.simpleName
     }
 }

@@ -74,6 +74,11 @@ class ProfileRetrofitClient @Inject constructor(
                 }
             }
 
+            is RequestByProfile.GetProjectById -> {
+                mapToResponse(service.getProjectById(dto.id)) {
+                    it
+                }
+            }
             else -> throw IllegalArgumentException("Unsupported request type")
         }
     }
