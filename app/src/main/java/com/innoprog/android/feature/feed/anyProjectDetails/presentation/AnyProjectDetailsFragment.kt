@@ -27,9 +27,11 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
 
     override val viewModel by injectViewModel<AnyProjectDetailsViewModel>()
 
-    private var galleryAdapter: ImageGalleryAdapter? = null
+    private val galleryAdapter = ImageGalleryAdapter()
 
-    private var documentAdapter: DocumentAdapter? = null
+    private val documentAdapter = DocumentAdapter { url ->
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+    }
 
     private val decorator: VerticalSpaceDecorator by lazy {
         VerticalSpaceDecorator(resources.getDimensionPixelSize(R.dimen.margin_16))
@@ -51,6 +53,7 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        hideUnusedItems()
 
         setUiListeners()
 
@@ -81,19 +84,16 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
             com.innoprog.android.R.drawable.news_sample,
         )
 
-        galleryAdapter = ImageGalleryAdapter(images)
+        galleryAdapter.setImageList(images)
         binding.viewPager.adapter = galleryAdapter
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position -> }.attach()
     }
 
     private fun initDocumentsRecyclerView(documentsList: List<DocumentModel>) {
-        documentAdapter = DocumentAdapter { url ->
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
-        }
         binding.rvDocuments.addItemDecoration(decorator)
         binding.rvDocuments.adapter = documentAdapter
-        documentAdapter?.setItems(documentsList)
+        documentAdapter.setItems(documentsList)
     }
 
     private fun updateUI(state: AnyProjectDetailsScreenState) {
@@ -121,7 +121,7 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
                 initDocumentsRecyclerView(documentsList)
             }
             tvShortDescription.text = anyProjectDetails.shortDescription
-            tvDescription.text = anyProjectDetails.description
+            tvProjectDirection.text = anyProjectDetails.description
             tvFinancingStageValue.text = anyProjectDetails.financingStage
             tvDeadlineValue.text = anyProjectDetails.deadline
             tvLinkToWebValue.text = anyProjectDetails.siteUrls[0]
@@ -144,6 +144,17 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
 
             tvProjectName.text = anyProjectDetails.name
             tvProjectDirection.text = anyProjectDetails.area
+        }
+    }
+
+    private fun hideUnusedItems() = with(binding) {
+        listOf(
+            ibtnvEditDescription,
+            ibtnvEditDocuments,
+            ivEditIcon,
+            ibtnvEditAdditionalInfo
+        ).forEach {
+            it.visibility = View.GONE
         }
     }
 }

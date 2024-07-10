@@ -51,7 +51,7 @@ class InnoProgChipGroupView @JvmOverloads constructor(
         this.onChipSelectListener = listener
     }
 
-    private fun selectChip(chipIndex: Int) {
+    fun selectChip(chipIndex: Int) {
         if (chipIndex == selectedChipIndex) return
 
         for (i in 0 until childCount) {
@@ -74,7 +74,7 @@ class InnoProgChipGroupView @JvmOverloads constructor(
         }
     }
 
-    interface OnChipSelectListener {
+    fun interface OnChipSelectListener {
         fun onChipSelected(chipIndex: Int)
     }
 
