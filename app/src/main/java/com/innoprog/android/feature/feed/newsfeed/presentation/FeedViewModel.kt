@@ -7,7 +7,10 @@ import com.innoprog.android.BuildConfig
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.feature.feed.newsfeed.domain.FeedInteractor
 import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
+import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
 import com.innoprog.android.feature.feed.newsfeed.domain.models.QueryPage
+import com.innoprog.android.feature.projects.projectsScreen.presentation.ProjectsScreenState
+import com.innoprog.android.util.ErrorScreenState
 import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +22,8 @@ class FeedViewModel @Inject constructor(private val feedInteractor: FeedInteract
     BaseViewModel() {
 
     private val _screenState = MutableLiveData<FeedScreenState>()
-    val screenState: LiveData<FeedScreenState> = _screenState
+    val screenState: LiveData<FeedScreenState>
+        get() = _screenState
 
     private var jobSearch: DisposableHandle? = null
     private var nextPageNumber = 0
@@ -31,8 +35,8 @@ class FeedViewModel @Inject constructor(private val feedInteractor: FeedInteract
         getNewsFeed()
     }
 
-    fun getNewsFeed(isPagination: Boolean = false) {
-        jobSearch?.let { it.dispose() }
+    fun getNewsFeed(isPagination: Boolean = false, type: PublicationType? = null) {
+        jobSearch?.dispose()
         jobSearch = null
         jobSearch = viewModelScope.launch(Dispatchers.IO) {
             setState(FeedScreenState.Loading(isPagination))
@@ -45,14 +49,15 @@ class FeedViewModel @Inject constructor(private val feedInteractor: FeedInteract
                 val queryPage = QueryPage(
                     nextPageNumber = nextPageNumber,
                     lastId = lastId,
-                    pageSize = PAGE_SIZE
+                    pageSize = PAGE_SIZE,
+                    type = type?.value
                 )
                 feedInteractor.getNewsFeed(queryPage).collect { acceptResponse(isPagination, it) }
             }.onFailure { exception ->
                 if (BuildConfig.DEBUG) {
                     exception.printStackTrace()
                 }
-                setState(FeedScreenState.Error(ErrorType.BAD_REQUEST))
+                setState(FeedScreenState.Error(ErrorScreenState.NOT_FOUND))
             }
         }.invokeOnCompletion {}
     }
@@ -72,7 +77,7 @@ class FeedViewModel @Inject constructor(private val feedInteractor: FeedInteract
             }
 
             is Resource.Error -> {
-                setState(FeedScreenState.Error(response.errorType))
+                handleError(response.errorType)
             }
         }
     }
@@ -89,16 +94,31 @@ class FeedViewModel @Inject constructor(private val feedInteractor: FeedInteract
         if (isNextPageLoading) return
 
         isNextPageLoading = true
-        jobSearch?.let { it.dispose() }
+        jobSearch?.dispose()
         jobSearch = null
         getNewsFeed(true)
     }
 
 
     fun cancelJobs() {
-        jobSearch?.let { it.dispose() }
+        jobSearch?.dispose()
         jobSearch = null
         isNextPageLoading = false
+    }
+
+    private fun handleError(errorType: ErrorType) {
+        setState(renderError(errorType))
+    }
+
+
+    private fun renderError(errorType: ErrorType): FeedScreenState.Error {
+        return when (errorType) {
+            ErrorType.NO_CONNECTION -> FeedScreenState.Error(ErrorScreenState.NO_INTERNET)
+            ErrorType.NOT_FOUND -> FeedScreenState.Error(ErrorScreenState.NOT_FOUND)
+            ErrorType.INTERNAL_SERVER_ERROR -> FeedScreenState.Error(ErrorScreenState.SERVER_ERROR)
+            ErrorType.UNAUTHORIZED -> FeedScreenState.Error(ErrorScreenState.UNAUTHORIZED)
+            else -> FeedScreenState.Error(ErrorScreenState.SERVER_ERROR)
+        }
     }
 
     companion object {
