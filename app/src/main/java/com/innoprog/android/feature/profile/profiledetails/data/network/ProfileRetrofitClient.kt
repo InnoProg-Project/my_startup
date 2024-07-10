@@ -20,9 +20,16 @@ class ProfileRetrofitClient @Inject constructor(
         return withContext(Dispatchers.IO) {
             try {
                 val response = getResponse(dto)
-                response.body()?.let {
+                if (response.isSuccessful) {
+                    val body = response.body()
+                    if (body != null) {
+                        Response().apply { resultCode = response.code() }
+                    } else {
+                        Response().apply { resultCode = ApiConstants.INTERNAL_SERVER_ERROR }
+                    }
+                } else {
                     Response().apply { resultCode = response.code() }
-                } ?: Response().apply { resultCode = response.code() }
+                }
             } catch (exception: HttpException) {
                 Response().apply { resultCode = exception.code() }
             } catch (exception: IOException) {
@@ -35,7 +42,7 @@ class ProfileRetrofitClient @Inject constructor(
         }
     }
 
-    private suspend fun getResponse(dto: Any): retrofit2.Response<out Any> {
+    private suspend fun getResponse(dto: Any): retrofit2.Response<*> {
         return when (dto) {
             is RequestByProfile.GetProfile -> {
                 service.loadProfile()
