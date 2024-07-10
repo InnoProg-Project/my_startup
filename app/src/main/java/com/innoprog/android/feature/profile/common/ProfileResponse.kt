@@ -1,7 +1,8 @@
-package com.innoprog.android.feature.profile.profiledetails.data.network
+package com.innoprog.android.feature.profile.common
 
 import com.google.gson.annotations.SerializedName
 import com.innoprog.android.feature.profile.profiledetails.domain.models.CommunicationChannel
+import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
 import com.innoprog.android.network.data.Response
 
 data class ProfileResponse(
@@ -16,3 +17,13 @@ data class ProfileResponse(
     @SerializedName("authorities")
     val authorities: List<String>
 ) : Response()
+
+fun ProfileResponse.mapToDomainUserData(): Profile {
+    return Profile(
+        userId = userId,
+        name = name,
+        about = about,
+        communicationChannels = communicationChannels,
+        authorities = authorities
+    )
+}

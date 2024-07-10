@@ -1,6 +1,7 @@
-package com.innoprog.android.feature.profile.profiledetails.data.network
+package com.innoprog.android.feature.profile.common
 
 import com.google.gson.annotations.SerializedName
+import com.innoprog.android.feature.profile.profiledetails.domain.models.ProfileCompany
 import com.innoprog.android.network.data.Response
 
 data class ProfileCompanyResponse(
@@ -15,3 +16,15 @@ data class ProfileCompanyResponse(
     @SerializedName("role")
     val role: String
 ) : Response()
+
+fun ProfileCompanyResponse.mapToDomainCompany(): ProfileCompany {
+    return ProfileCompany(
+        id = id,
+        userId = userId,
+        name = name,
+        url = url,
+        role = role
+    )
+}
+
+
