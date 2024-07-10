@@ -202,7 +202,7 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
                     .with(requireContext())
                     .load(
                         "https://img.freepik.com/free-vector/ai-technology-microchip-" +
-                                "background-vector-digital-transformation-concept_53876-112222.jpg"
+                            "background-vector-digital-transformation-concept_53876-112222.jpg"
                     )
                     .placeholder(R.drawable.ic_placeholder_logo)
                     .centerCrop()
