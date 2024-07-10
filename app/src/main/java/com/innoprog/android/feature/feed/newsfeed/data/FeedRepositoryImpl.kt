@@ -9,7 +9,6 @@ import com.innoprog.android.feature.feed.newsfeed.data.network.FeedResponse
 import com.innoprog.android.feature.feed.newsfeed.data.network.NetworkClient
 import com.innoprog.android.feature.feed.newsfeed.data.network.ProjectResponse
 import com.innoprog.android.feature.feed.newsfeed.domain.FeedRepository
-import com.innoprog.android.feature.feed.newsfeed.domain.models.News
 import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
 import com.innoprog.android.feature.feed.newsfeed.domain.models.Project
 import com.innoprog.android.feature.feed.newsfeed.domain.models.QueryPage
@@ -41,55 +40,21 @@ class FeedRepositoryImpl @Inject constructor(private val networkClient: NetworkC
                     }
                     emit(Resource.Success(newsWithProjects))
                 }
+
                 else -> emit(errorHandler.handleErrorCode(response.resultCode))
             }
         } catch (e: HttpException) {
-            Log.e(TAG, "exception -> ${e.localizedMessage}")
+            Log.e(TAG, EXCEPTION_MESSAGE + e.localizedMessage)
             emit(errorHandler.handleHttpException(e))
         } catch (e: IOException) {
-            Log.e(TAG, "exception -> ${e.localizedMessage}")
+            Log.e(TAG, EXCEPTION_MESSAGE + e.localizedMessage)
             emit(Resource.Error(ErrorType.NO_CONNECTION))
         } catch (e: JsonParseException) {
-            Log.e(TAG, "exception -> ${e.localizedMessage}")
+            Log.e(TAG, EXCEPTION_MESSAGE + e.localizedMessage)
             emit(Resource.Error(ErrorType.UNEXPECTED))
         } catch (e: SocketTimeoutException) {
-            Log.e(TAG, "exception -> ${e.localizedMessage}")
+            Log.e(TAG, EXCEPTION_MESSAGE + e.localizedMessage)
             emit(Resource.Error(ErrorType.NO_CONNECTION))
-        } catch (e: Exception) {
-            Log.e(TAG, "exception -> ${e.localizedMessage}")
-            emit(Resource.Error(ErrorType.UNKNOWN_ERROR))
-        }
-    }
-
-    private suspend fun loadNewsList(queryPage: QueryPage): Resource<List<News>> {
-        val newsResponse = networkClient.loadNewsFeed(queryPage)
-
-        return runCatching {
-            when (newsResponse.resultCode) {
-                ApiConstants.NO_INTERNET_CONNECTION_CODE -> {
-                    Resource.Error(ErrorType.NO_CONNECTION)
-                }
-
-                ApiConstants.SUCCESS_CODE -> {
-                    with(newsResponse as FeedResponse) {
-                        val newsList = results.map { it.mapToNewsDomain() }
-                        Resource.Success(newsList)
-                    }
-                }
-
-                else -> {
-                    Resource.Error(ErrorType.BAD_REQUEST)
-                }
-            }
-        }.getOrElse { exception ->
-            Log.e(TAG, "exception -> ${exception.localizedMessage}")
-            when(exception) {
-                is HttpException -> errorHandler.handleHttpException(exception)
-                is IOException -> Resource.Error(ErrorType.NO_CONNECTION)
-                is JsonParseException -> Resource.Error(ErrorType.UNEXPECTED)
-                is SocketTimeoutException -> Resource.Error(ErrorType.NO_CONNECTION)
-                else -> Resource.Error(ErrorType.UNEXPECTED)
-            }
         }
     }
 
@@ -112,5 +77,6 @@ class FeedRepositoryImpl @Inject constructor(private val networkClient: NetworkC
 
     companion object {
         private val TAG = FeedRepository::class.simpleName
+        private val EXCEPTION_MESSAGE = "exception -> "
     }
 }
