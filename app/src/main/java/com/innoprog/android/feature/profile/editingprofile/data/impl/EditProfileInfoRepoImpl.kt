@@ -85,9 +85,8 @@ class EditProfileInfoRepoImpl @Inject constructor(
     }
 
     private fun getErrorType(code: Int): ErrorType = when (code) {
-        ApiConstants.NO_CONNECTION -> ErrorType.NO_CONNECTION
+        ApiConstants.NO_INTERNET_CONNECTION_CODE -> ErrorType.NO_CONNECTION
         ApiConstants.BAD_REQUEST_CODE -> ErrorType.BAD_REQUEST
-        ApiConstants.CAPTCHA_REQUIRED -> ErrorType.CAPTCHA_REQUIRED
         ApiConstants.NOT_FOUND -> ErrorType.NOT_FOUND
         else -> ErrorType.UNEXPECTED
     }

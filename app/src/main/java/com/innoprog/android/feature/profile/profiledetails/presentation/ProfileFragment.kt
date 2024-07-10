@@ -46,6 +46,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
     }
 
     private var user: Profile? = null
+    private var userCompany: ProfileCompany? = null
     private var publications: ArrayList<FeedWithProject> = arrayListOf()
 
     override fun diComponent(): ScreenComponent {
@@ -120,8 +121,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, BaseViewModel>() {
 
     private fun initTopBar() {
         binding.topbarProfile.setRightIconClickListener {
-            val direction = ProfileFragmentDirections.actionProfileFragmentToProfileBottomSheet()
-            findNavController().navigate(direction)
+            user?.let { user ->
+                userCompany?.let { company ->
+                    val direction = ProfileFragmentDirections.actionProfileFragmentToProfileBottomSheet(user, company)
+                    findNavController().navigate(direction)
+                }
+            }
         }
     }
 

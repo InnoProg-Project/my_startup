@@ -1,13 +1,13 @@
 package com.innoprog.android.feature.profile.profiledetails.data.impl
 
 import com.innoprog.android.db.RoomDB
+import com.innoprog.android.feature.profile.common.ProfileCompanyResponse
+import com.innoprog.android.feature.profile.common.ProfileResponse
 import com.innoprog.android.feature.profile.profiledetails.data.db.ProfileCompanyEntity
 import com.innoprog.android.feature.profile.profiledetails.data.db.ProfileEntity
-import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileCompanyResponse
-import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileResponse
 import com.innoprog.android.feature.profile.profiledetails.data.network.RequestByProfile
-import com.innoprog.android.feature.profile.profiledetails.data.network.mapToDomainCompany
-import com.innoprog.android.feature.profile.profiledetails.data.network.mapToDomainUserData
+import com.innoprog.android.feature.profile.common.mapToDomainCompany
+import com.innoprog.android.feature.profile.common.mapToDomainUserData
 import com.innoprog.android.feature.profile.profiledetails.domain.ProfileInfoRepo
 import com.innoprog.android.feature.profile.profiledetails.domain.models.Profile
 import com.innoprog.android.feature.profile.profiledetails.domain.models.ProfileCompany
