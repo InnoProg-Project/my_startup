@@ -1,8 +1,10 @@
 package com.innoprog.android.feature.profile.profiledetails.data.network
 
 import com.innoprog.android.feature.profile.profiledetails.data.dto.model.FeedDto
+import com.innoprog.android.feature.profile.profiledetails.data.dto.model.ProjectDto
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ProfileApi {
@@ -39,4 +41,7 @@ interface ProfileApi {
     suspend fun getFavorites(
         @Query("pageSize") pageSize: Int
     ): Response<List<FeedDto>>
+
+    @GET("/v1/projects/{projectId}")
+    suspend fun getProjectById(@Path("projectId") id: String): Response<ProjectDto>
 }
