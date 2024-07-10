@@ -21,12 +21,7 @@ class ProfileRetrofitClient @Inject constructor(
             try {
                 val response = getResponse(dto)
                 if (response.isSuccessful) {
-                    val body = response.body()
-                    if (body != null) {
-                        Response().apply { resultCode = response.code() }
-                    } else {
-                        Response().apply { resultCode = ApiConstants.INTERNAL_SERVER_ERROR }
-                    }
+                    Response().apply { resultCode = response.code() }
                 } else {
                     Response().apply { resultCode = response.code() }
                 }
