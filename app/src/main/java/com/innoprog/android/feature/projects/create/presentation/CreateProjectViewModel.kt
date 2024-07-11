@@ -3,6 +3,7 @@ package com.innoprog.android.feature.projects.create.presentation
 import androidx.lifecycle.viewModelScope
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.feature.projects.create.domain.CreateProjectUseCase
+import com.innoprog.android.feature.projects.create.domain.model.Project
 import com.innoprog.android.feature.projects.create.presentation.model.FillAboutProjectEvent
 import com.innoprog.android.feature.projects.create.presentation.model.FillAboutProjectState
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +19,9 @@ class CreateProjectViewModel @Inject constructor(private val useCase: CreateProj
 
     private val _state = MutableStateFlow(FillAboutProjectState())
     val state: StateFlow<FillAboutProjectState> get() = _state.asStateFlow()
+    private var direction: String? = null
+    private var logoUrl: String? = null
+    private var attachments = mutableListOf<String>()
 
     fun obtainEvent(event: FillAboutProjectEvent) {
         when (event) {
@@ -31,11 +35,17 @@ class CreateProjectViewModel @Inject constructor(private val useCase: CreateProj
         }
     }
 
-    fun downloadLogo(url: String){}
+    fun downloadLogo(url: String) {
+        logoUrl = url
+    }
 
-    fun setDirection(url: String) {}
+    fun setDirection(direction: String) {
+        this.direction = direction
+    }
 
-    fun attachDocument(url: String){}
+    fun attachDocument(url: String) {
+        attachments.add(url)
+    }
 
     fun createProject() {
         viewModelScope.launch(Dispatchers.IO) {

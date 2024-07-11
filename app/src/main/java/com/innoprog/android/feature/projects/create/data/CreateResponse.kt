@@ -1,5 +1,5 @@
 package com.innoprog.android.feature.projects.create.data
 
-class CreateResponse (
+class CreateResponse(
     val id: String
 )

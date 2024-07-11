@@ -26,9 +26,7 @@ class ItemProjectAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
             R.layout.item_image_and_video -> {
                 MediaFilesViewHolder(
-                    ItemImageAndVideoBinding.inflate(
-                        layoutInflater, parent, false
-                    )
+                    ItemImageAndVideoBinding.inflate(layoutInflater, parent, false)
                 )
             }
 
@@ -118,8 +116,10 @@ class ItemProjectAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         items.clear()
         items.add(
             CreateProjectItemType.InputViewItem(
-                R.layout.item_input_view, null, R.string.name_project.toString(), projectName
-            )
+                R.layout.item_input_view,
+                null,
+                R.string.name_project.toString(),
+                projectName)
         )
         items.add(
             CreateProjectItemType.InputViewItem(
@@ -130,14 +130,10 @@ class ItemProjectAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             )
         )
         items.add(
-            CreateProjectItemType.InputViewItem(
-                R.layout.item_input_view, null, R.string.descriptions.toString(), description
-            )
+            CreateProjectItemType.InputViewItem(R.layout.item_input_view, null, R.string.descriptions.toString(), description)
         )
         items.add(
-            CreateProjectItemType.AddLogoButtonItem(
-                R.layout.item_input_view, logoUrl, clickListener
-            )
+            CreateProjectItemType.AddLogoButtonItem(R.layout.item_input_view, logoUrl, clickListener)
         )
         notifyDataSetChanged()
     }
@@ -145,11 +141,7 @@ class ItemProjectAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun createSecondScreenItems(data: List<String>, clickListener: (url: String) -> Unit) {
         items.clear()
         for (direction in data) {
-            items.add(
-                CreateProjectItemType.DocumentItem(
-                    R.layout.item_project_direction, direction, clickListener
-                )
-            )
+            items.add(CreateProjectItemType.DocumentItem(R.layout.item_project_direction, direction, clickListener))
         }
         items.add(CreateProjectItemType.AddMediaButtonItem(R.layout.item_download_media_buttom))
         notifyDataSetChanged()
@@ -177,11 +169,7 @@ class ItemProjectAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun createFourthScreenItems(data: List<String>, clickListener: (url: String) -> Unit) {
         items.clear()
         for (direction in data) {
-            items.add(
-                CreateProjectItemType.DocumentItem(
-                    R.layout.item_project_document, direction, clickListener
-                )
-            )
+            items.add(CreateProjectItemType.DocumentItem(R.layout.item_project_document, direction, clickListener))
         }
         items.add(CreateProjectItemType.AddMediaButtonItem(R.layout.item_download_media_buttom))
         notifyDataSetChanged()
@@ -203,11 +191,7 @@ class ItemProjectAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 investDescription
             )
         )
-        items.add(
-            CreateProjectItemType.InputDateView(
-                R.layout.item_input_view, deadLine
-            )
-        )
+        items.add(CreateProjectItemType.InputDateView(R.layout.item_input_view, deadLine))
         items.add(
             CreateProjectItemType.InputViewItem(
                 R.layout.item_input_view,
@@ -217,9 +201,7 @@ class ItemProjectAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             )
         )
         items.add(
-            CreateProjectItemType.InputViewItem(
-                R.layout.item_input_view, null, R.string.link_to_app.toString(), appUrl
-            )
+            CreateProjectItemType.InputViewItem(R.layout.item_input_view, null, R.string.link_to_app.toString(), appUrl)
         )
         items.add(
             CreateProjectItemType.InputViewItem(
