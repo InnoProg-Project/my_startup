@@ -82,8 +82,8 @@ class FillAboutProjectFragment :
                 binding.tvStepTitle.text = getString(R.string.choose_project_direction)
                 binding.tvStepSubtitle.isVisible = false
                 adapter.createThreeScreenItems(
-                    resources.getStringArray(R.array.directions).toList()
-                ) { url -> viewModel.setDirection(url) }
+                    directions = resources.getStringArray(R.array.directions).toList()
+                ) { description -> viewModel.setDirection(description) }
             }
 
             STEP_FOUR -> {

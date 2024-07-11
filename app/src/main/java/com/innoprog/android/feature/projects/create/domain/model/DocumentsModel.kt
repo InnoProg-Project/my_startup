@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.projects.domain.models
+package com.innoprog.android.feature.projects.create.domain.model
 
 data class DocumentsModel(
     val documentURL: String,

@@ -8,10 +8,11 @@ import com.innoprog.android.databinding.ItemDocksBinding
 import com.innoprog.android.databinding.ItemDownloadMediaButtomBinding
 import com.innoprog.android.databinding.ItemImageAndVideoBinding
 import com.innoprog.android.databinding.ItemProjectDirectionBinding
+import com.innoprog.android.feature.projects.create.domain.model.ProjectDirectionModel
 import com.innoprog.android.feature.projects.create.presentation.model.CreateProjectItemType
 import java.time.LocalDate
 
-class ItemProjectAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ItemProjectAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val items = mutableListOf<CreateProjectItemType>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -67,6 +68,7 @@ class ItemProjectAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 (items[position] as CreateProjectItemType.InputViewItem).hint,
                 (items[position] as CreateProjectItemType.InputViewItem).input,
             )
+
             is CreateProjectItemType.MediaItem -> (holder as MediaFilesViewHolder).bind(
                 (items[position] as CreateProjectItemType.MediaItem).url,
                 (items[position] as CreateProjectItemType.MediaItem).clickListener
@@ -80,6 +82,25 @@ class ItemProjectAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is CreateProjectItemType.InputDateView -> (holder as InputDateViewHolder).bind(
                 (items[position] as CreateProjectItemType.InputDateView).deadLine,
             )
+
+            is CreateProjectItemType.DirectionItem -> with(holder as ChooseProjectDirectionViewHolder) {
+                holder.bind(
+                    (items[position] as CreateProjectItemType.DirectionItem).direction,
+                    (items[position] as CreateProjectItemType.DirectionItem).clickListener
+                )
+                holder.itemView.setOnClickListener {
+                    items.forEach {
+                        with(it as CreateProjectItemType.DirectionItem) {
+                            if (it.direction.isSelected) {
+                                it.direction.isSelected = false
+                            }
+                        }
+                    }
+                    (items[position] as CreateProjectItemType.DirectionItem).direction.isSelected =
+                        true
+                    notifyDataSetChanged()
+                }
+            }
         }
     }
 
@@ -134,12 +155,19 @@ class ItemProjectAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun createThreeScreenItems(data: List<String>, clickListener: (url: String) -> Unit) {
+    fun createThreeScreenItems(
+        data: String? = null,
+        directions: List<String>,
+        clickListener: (direction: String) -> Unit
+    ) {
         items.clear()
-        for (direction in data) {
+        for (direction in directions) {
             items.add(
-                CreateProjectItemType.DocumentItem(
-                    R.layout.item_project_direction, direction, clickListener
+                CreateProjectItemType.DirectionItem(
+                    R.layout.item_project_direction, ProjectDirectionModel(
+                        direction,
+                        direction == data
+                    ), clickListener
                 )
             )
         }

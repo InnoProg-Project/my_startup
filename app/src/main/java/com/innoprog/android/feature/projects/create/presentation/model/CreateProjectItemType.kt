@@ -1,5 +1,6 @@
 package com.innoprog.android.feature.projects.create.presentation.model
 
+import com.innoprog.android.feature.projects.create.domain.model.ProjectDirectionModel
 import java.time.LocalDate
 
 sealed class CreateProjectItemType(val viewType: Int) {
@@ -23,4 +24,11 @@ sealed class CreateProjectItemType(val viewType: Int) {
         viewType: Int,
         val deadLine: LocalDate?
     ) : CreateProjectItemType(viewType)
+
+    class DirectionItem(
+        viewType: Int,
+        val direction: ProjectDirectionModel,
+        val clickListener: (url: String) -> Unit
+    ) :
+        CreateProjectItemType(viewType)
 }
