@@ -1,5 +1,6 @@
 package com.innoprog.android.feature.projects.create.presentation.ui.adapter
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,13 @@ import com.innoprog.android.databinding.ItemImageAndVideoBinding
 import com.innoprog.android.databinding.ItemProjectDirectionBinding
 import com.innoprog.android.feature.projects.create.domain.model.ProjectDirectionModel
 import com.innoprog.android.feature.projects.create.presentation.model.CreateProjectItemType
+import com.innoprog.android.feature.projects.create.presentation.ui.viewholders.ChooseProjectDirectionViewHolder
+import com.innoprog.android.feature.projects.create.presentation.ui.viewholders.DocumentViewHolder
+import com.innoprog.android.feature.projects.create.presentation.ui.viewholders.InputDateViewHolder
+import com.innoprog.android.feature.projects.create.presentation.ui.viewholders.InputViewHolder
+import com.innoprog.android.feature.projects.create.presentation.ui.viewholders.LogoViewHolder
+import com.innoprog.android.feature.projects.create.presentation.ui.viewholders.MediaFilesViewHolder
+import com.innoprog.android.feature.projects.create.presentation.ui.viewholders.UploadMediaFilesViewHolder
 import java.time.LocalDate
 
 class ItemProjectAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -110,8 +118,8 @@ class ItemProjectAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         projectName: String? = null,
         shortDescription: String? = null,
         description: String? = null,
-        logoUrl: String? = null,
-        clickListener: (url: String) -> Unit
+        logoUrl: Uri?,
+        addLogoClickListener: () -> Unit
     ) {
         items.clear()
         items.add(
@@ -133,7 +141,7 @@ class ItemProjectAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             CreateProjectItemType.InputViewItem(R.layout.item_input_view, null, R.string.descriptions.toString(), description)
         )
         items.add(
-            CreateProjectItemType.AddLogoButtonItem(R.layout.item_input_view, logoUrl, clickListener)
+            CreateProjectItemType.AddLogoButtonItem(R.layout.item_input_view, logoUrl, addLogoClickListener)
         )
         notifyDataSetChanged()
     }

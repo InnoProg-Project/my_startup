@@ -17,9 +17,7 @@ import com.innoprog.android.feature.projects.create.presentation.CreateProjectVi
 import com.innoprog.android.feature.projects.create.presentation.model.FillAboutProjectEvent
 import com.innoprog.android.feature.projects.create.presentation.ui.adapter.ItemProjectAdapter
 
-
-class FillAboutProjectFragment :
-    BaseFragment<FragmentProjectCreateBinding, BaseViewModel>() {
+class FillAboutProjectFragment : BaseFragment<FragmentProjectCreateBinding, BaseViewModel>() {
     override val viewModel by injectViewModel<CreateProjectViewModel>()
     override fun diComponent(): ScreenComponent {
         return DaggerCreateProjectComponent.builder().build()
@@ -30,8 +28,7 @@ class FillAboutProjectFragment :
     private val adapter = ItemProjectAdapter()
 
     override fun createBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
+        inflater: LayoutInflater, container: ViewGroup?
     ): FragmentProjectCreateBinding {
         return FragmentProjectCreateBinding.inflate(inflater, container, false)
     }
@@ -64,8 +61,8 @@ class FillAboutProjectFragment :
                 binding.topbar.setTitleText(getString(R.string.step_1))
                 binding.tvStepTitle.text = getString(R.string.projects_tell_about_your_project)
                 binding.tvStepSubtitle.isVisible = false
-                adapter.createFirstScreenItems {
-                    viewModel.obtainEvent(FillAboutProjectEvent.UnPinePhoto)
+                adapter.createFirstScreenItems(logoUrl = viewModel.state.value.pinedLogoUri) {
+                    imagePicker.launch(MIME_TYPE)
                 }
             }
 
@@ -124,5 +121,6 @@ class FillAboutProjectFragment :
         const val STEP_TWO = 2
         const val STEP_THREE = 3
         const val STEP_FOUR = 4
+        const val MIME_TYPE = "image/*"
     }
 }

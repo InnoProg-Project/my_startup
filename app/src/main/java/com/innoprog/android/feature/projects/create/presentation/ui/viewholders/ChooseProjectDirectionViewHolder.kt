@@ -1,4 +1,4 @@
-package com.innoprog.android.feature.projects.create.presentation.ui.adapter
+package com.innoprog.android.feature.projects.create.presentation.ui.viewholders
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView.ViewHolder

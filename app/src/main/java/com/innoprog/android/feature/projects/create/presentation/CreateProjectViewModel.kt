@@ -3,7 +3,6 @@ package com.innoprog.android.feature.projects.create.presentation
 import androidx.lifecycle.viewModelScope
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.feature.projects.create.domain.CreateProjectUseCase
-import com.innoprog.android.feature.projects.create.domain.model.Project
 import com.innoprog.android.feature.projects.create.presentation.model.FillAboutProjectEvent
 import com.innoprog.android.feature.projects.create.presentation.model.FillAboutProjectState
 import kotlinx.coroutines.Dispatchers

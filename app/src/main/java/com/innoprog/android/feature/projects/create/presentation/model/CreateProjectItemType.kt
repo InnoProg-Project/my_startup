@@ -1,5 +1,6 @@
 package com.innoprog.android.feature.projects.create.presentation.model
 
+import android.net.Uri
 import com.innoprog.android.feature.projects.create.domain.model.ProjectDirectionModel
 import java.time.LocalDate
 
@@ -16,8 +17,8 @@ sealed class CreateProjectItemType(val viewType: Int) {
     class AddMediaButtonItem(viewType: Int) : CreateProjectItemType(viewType)
     class AddLogoButtonItem(
         viewType: Int,
-        val url: String?,
-        val clickListener: (url: String) -> Unit
+        val url: Uri?,
+        val clickListener: () -> Unit
     ) : CreateProjectItemType(viewType)
 
     class InputDateView(
