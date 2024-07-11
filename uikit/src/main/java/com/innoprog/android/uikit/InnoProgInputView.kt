@@ -111,7 +111,7 @@ class InnoProgInputView @JvmOverloads constructor(
         isClickable = true
         this@InnoProgInputView.onFocusChangeListener = focusChangeListener
 
-        editTextView.onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
+        editTextView.onFocusChangeListener = OnFocusChangeListener { _, _ ->
             renderState(state)
         }
     }
@@ -208,6 +208,12 @@ class InnoProgInputView @JvmOverloads constructor(
     fun setText(text: String) {
         if (text.isNotBlank()) {
             editTextView.setText(text)
+        }
+    }
+
+    fun setHint(text: String) {
+        if (text.isNotBlank()) {
+            editTextView.hint = text
         }
     }
 

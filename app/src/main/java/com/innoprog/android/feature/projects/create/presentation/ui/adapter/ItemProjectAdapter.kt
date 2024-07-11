@@ -9,6 +9,7 @@ import com.innoprog.android.databinding.ItemDownloadMediaButtomBinding
 import com.innoprog.android.databinding.ItemImageAndVideoBinding
 import com.innoprog.android.databinding.ItemProjectDirectionBinding
 import com.innoprog.android.feature.projects.create.presentation.model.CreateProjectItemType
+import java.time.LocalDate
 
 class ItemProjectAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val items = mutableListOf<CreateProjectItemType>()
@@ -61,7 +62,11 @@ class ItemProjectAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 (items[position] as CreateProjectItemType.DocumentItem).clickListener
             )
 
-            is CreateProjectItemType.InputView -> TODO()
+            is CreateProjectItemType.InputViewItem -> (holder as InputViewHolder).bind(
+                (items[position] as CreateProjectItemType.InputViewItem).label,
+                (items[position] as CreateProjectItemType.InputViewItem).hint,
+                (items[position] as CreateProjectItemType.InputViewItem).input,
+            )
             is CreateProjectItemType.MediaItem -> (holder as MediaFilesViewHolder).bind(
                 (items[position] as CreateProjectItemType.MediaItem).url,
                 (items[position] as CreateProjectItemType.MediaItem).clickListener
@@ -70,6 +75,10 @@ class ItemProjectAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is CreateProjectItemType.AddLogoButtonItem -> (holder as LogoViewHolder).bind(
                 (items[position] as CreateProjectItemType.AddLogoButtonItem).url,
                 (items[position] as CreateProjectItemType.AddLogoButtonItem).clickListener
+            )
+
+            is CreateProjectItemType.InputDateView -> (holder as InputDateViewHolder).bind(
+                (items[position] as CreateProjectItemType.InputDateView).deadLine,
             )
         }
     }
@@ -87,18 +96,21 @@ class ItemProjectAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     ) {
         items.clear()
         items.add(
-            CreateProjectItemType.InputView(
-                R.layout.item_input_view, R.string.name_project.toString(), projectName
+            CreateProjectItemType.InputViewItem(
+                R.layout.item_input_view, null, R.string.name_project.toString(), projectName
             )
         )
         items.add(
-            CreateProjectItemType.InputView(
-                R.layout.item_input_view, R.string.short_description.toString(), shortDescription
+            CreateProjectItemType.InputViewItem(
+                R.layout.item_input_view,
+                null,
+                R.string.short_description.toString(),
+                shortDescription
             )
         )
         items.add(
-            CreateProjectItemType.InputView(
-                R.layout.item_input_view, R.string.descriptions.toString(), description
+            CreateProjectItemType.InputViewItem(
+                R.layout.item_input_view, null, R.string.descriptions.toString(), description
             )
         )
         items.add(
@@ -147,7 +159,48 @@ class ItemProjectAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    private fun createFiveScreenItems() {
-
+    fun createFiveScreenItems(
+        investDescription: String? = null,
+        deadLine: LocalDate? = null,
+        webUrl: String? = null,
+        appUrl: String? = null,
+        socialNetworkUrl: String? = null
+    ) {
+        items.clear()
+        items.add(
+            CreateProjectItemType.InputViewItem(
+                R.layout.item_input_view,
+                R.string.financing_stage.toString(),
+                R.string.investments_description.toString(),
+                investDescription
+            )
+        )
+        items.add(
+            CreateProjectItemType.InputDateView(
+                R.layout.item_input_view, deadLine
+            )
+        )
+        items.add(
+            CreateProjectItemType.InputViewItem(
+                R.layout.item_input_view,
+                R.string.links.toString(),
+                R.string.link_to_web.toString(),
+                webUrl
+            )
+        )
+        items.add(
+            CreateProjectItemType.InputViewItem(
+                R.layout.item_input_view, null, R.string.link_to_app.toString(), appUrl
+            )
+        )
+        items.add(
+            CreateProjectItemType.InputViewItem(
+                R.layout.item_input_view,
+                null,
+                R.string.link_to_social_network.toString(),
+                socialNetworkUrl
+            )
+        )
+        notifyDataSetChanged()
     }
 }

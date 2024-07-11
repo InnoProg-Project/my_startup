@@ -1,7 +1,9 @@
 package com.innoprog.android.feature.projects.create.presentation.model
 
+import java.time.LocalDate
+
 sealed class CreateProjectItemType(val viewType: Int) {
-    class InputView(viewType: Int, val hint: String, val input: String?) :
+    class InputViewItem(viewType: Int, val label: String?, val hint: String, val input: String?) :
         CreateProjectItemType(viewType)
 
     class DocumentItem(viewType: Int, val url: String, val clickListener: (url: String) -> Unit) :
@@ -15,7 +17,10 @@ sealed class CreateProjectItemType(val viewType: Int) {
         viewType: Int,
         val url: String?,
         val clickListener: (url: String) -> Unit
-    ) : CreateProjectItemType(viewType) {
+    ) : CreateProjectItemType(viewType)
 
-    }
+    class InputDateView(
+        viewType: Int,
+        val deadLine: LocalDate?
+    ) : CreateProjectItemType(viewType)
 }
