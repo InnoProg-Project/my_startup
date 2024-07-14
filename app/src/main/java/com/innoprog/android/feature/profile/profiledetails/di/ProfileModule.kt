@@ -2,14 +2,20 @@ package com.innoprog.android.feature.profile.profiledetails.di
 
 import androidx.lifecycle.ViewModel
 import com.innoprog.android.di.ViewModelKey
+import com.innoprog.android.feature.profile.profiledetails.data.impl.ChipsProfileRepoImpl
 import com.innoprog.android.feature.profile.profiledetails.data.impl.ProfileInfoRepoImpl
 import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileApi
+import com.innoprog.android.feature.profile.profiledetails.data.network.ProfileRetrofitClient
+import com.innoprog.android.feature.profile.profiledetails.domain.ChipsInteractor
+import com.innoprog.android.feature.profile.profiledetails.domain.ChipsProfileRepo
 import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileCompanyUseCase
 import com.innoprog.android.feature.profile.profiledetails.domain.GetProfileUseCase
 import com.innoprog.android.feature.profile.profiledetails.domain.ProfileInfoRepo
+import com.innoprog.android.feature.profile.profiledetails.domain.impl.ChipsInteractorImpl
 import com.innoprog.android.feature.profile.profiledetails.domain.impl.GetProfileCompanyUseCaseImpl
 import com.innoprog.android.feature.profile.profiledetails.domain.impl.GetProfileUseCaseImpl
 import com.innoprog.android.feature.profile.profiledetails.presentation.ProfileViewModel
+import com.innoprog.android.network.data.NetworkClient
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -34,6 +40,15 @@ interface ProfileModule {
 
     @Binds
     fun bindGetProfileCompanyUseCase(impl: GetProfileCompanyUseCaseImpl): GetProfileCompanyUseCase
+
+    @Binds
+    fun bindNetworkClient(impl: ProfileRetrofitClient): NetworkClient
+
+    @Binds
+    fun bindChipsRepository(impl: ChipsProfileRepoImpl): ChipsProfileRepo
+
+    @Binds
+    fun bindChipsInteractor(impl: ChipsInteractorImpl): ChipsInteractor
 
     @Module
     class ProfileInfoApiModule {
