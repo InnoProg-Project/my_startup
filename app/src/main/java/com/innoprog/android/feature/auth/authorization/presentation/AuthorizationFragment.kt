@@ -68,10 +68,10 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
     private fun renderResult(state: AuthState) {
         when (state) {
             is AuthState.Success -> navigateNext()
-            AuthState.CONNECTION_ERROR -> renderError(getString(R.string.authorization_no_internet))
-            AuthState.VERIFICATION_ERROR -> renderError(getString(R.string.authorization_bad_data))
-            AuthState.INPUT_ERROR -> renderError(getString(R.string.authorization_bad_data))
-            AuthState.GET_PROFILE_ERROR -> renderError(getString(R.string.error_on_get_user_profile_data))
+            AuthState.ConnectionError -> renderError(getString(R.string.authorization_no_internet))
+            AuthState.VerificationError -> renderError(getString(R.string.authorization_bad_data))
+            AuthState.InputError -> renderError(getString(R.string.authorization_bad_data))
+            AuthState.GetProfileError -> renderError(getString(R.string.error_on_get_user_profile_data))
         }
     }
 

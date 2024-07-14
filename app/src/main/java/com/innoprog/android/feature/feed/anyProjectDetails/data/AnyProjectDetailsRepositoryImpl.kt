@@ -1,10 +1,12 @@
 package com.innoprog.android.feature.feed.anyProjectDetails.data
 
 import android.util.Log
+import com.innoprog.android.BuildConfig
 import com.innoprog.android.feature.feed.anyProjectDetails.data.network.AnyProjectDetailsApi
 import com.innoprog.android.feature.feed.anyProjectDetails.data.network.mapToDomain
 import com.innoprog.android.feature.feed.anyProjectDetails.domain.AnyProjectDetailsRepository
 import com.innoprog.android.feature.feed.anyProjectDetails.domain.models.AnyProjectDetailsModel
+import com.innoprog.android.network.data.ApiConstants
 import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
 import kotlinx.coroutines.flow.Flow
@@ -20,31 +22,26 @@ class AnyProjectDetailsRepositoryImpl @Inject constructor(
     override fun getAnyProjectDetails(id: String): Flow<Resource<AnyProjectDetailsModel>> = flow {
         try {
             val response = api.getProjectById(id)
-            Log.d("anyProjectDetails_Success", response.code().toString())
-            when (response.code()) {
-                SUCCESS -> {
-                    response.body().let {
-                        if (it == null) {
-                            emit(Resource.Error(ErrorType.INTERNAL_SERVER_ERROR))
-                        } else {
-                            emit(Resource.Success(it.mapToDomain()))
-                        }
-                    }
-                }
-
-                else -> emit(Resource.Error(ErrorType.NO_CONNECTION))
+            val body = response.body()
+            if (response.code() == ApiConstants.SUCCESS_CODE && body != null) {
+                emit(Resource.Success(body.mapToDomain()))
+            } else {
+                emit(Resource.Error(ErrorType.INTERNAL_SERVER_ERROR))
             }
         } catch (e: HttpException) {
-            Log.e("anyProjectDetails_HttpException", " error: $e")
+            if (BuildConfig.DEBUG) {
+                Log.e(TAG, " error: $e")
+            }
             emit(Resource.Error(ErrorType.BAD_REQUEST))
         } catch (e: SocketTimeoutException) {
-            Log.e("anyProjectDetails_SocketTimeoutException", " error: $e")
+            if (BuildConfig.DEBUG) {
+                Log.e(TAG, " error: $e")
+            }
             emit(Resource.Error(ErrorType.NO_CONNECTION))
         }
     }
 
-    companion object {
-        const val SUCCESS = 200
-        const val ERROR = 400
+    private companion object {
+        val TAG = AnyProjectDetailsRepository::class.simpleName
     }
 }

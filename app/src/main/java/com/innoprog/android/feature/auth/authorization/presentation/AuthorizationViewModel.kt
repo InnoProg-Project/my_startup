@@ -15,11 +15,10 @@ import javax.inject.Inject
 class AuthorizationViewModel @Inject constructor(
     private val useCase: AuthorisationUseCase,
     private val getProfileUseCase: GetProfileUseCase
-) :
-    BaseViewModel() {
-
+) : BaseViewModel() {
     private val stateLiveData = MutableLiveData<AuthState>()
     fun observeState(): LiveData<AuthState> = stateLiveData
+
     fun verify(inputLogin: String, inputPassword: String) {
         if (inputLogin.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(inputLogin)
                 .matches() && inputPassword.isNotEmpty()
@@ -35,18 +34,18 @@ class AuthorizationViewModel @Inject constructor(
                                     }
                             }.onFailure { throwable ->
                                 Log.d("throw_profile", throwable.toString())
-                                stateLiveData.postValue(AuthState.GET_PROFILE_ERROR)
+                                stateLiveData.postValue(AuthState.GetProfileError)
                             }
                         } else {
                             stateLiveData.postValue(it)
                         }
                     }
                 }.onFailure {
-                    stateLiveData.postValue(AuthState.CONNECTION_ERROR)
+                    stateLiveData.postValue(AuthState.ConnectionError)
                 }
             }
         } else {
-            stateLiveData.postValue(AuthState.INPUT_ERROR)
+            stateLiveData.postValue(AuthState.InputError)
         }
     }
 }

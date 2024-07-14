@@ -1,8 +1,10 @@
 package com.innoprog.android.feature.feed.anyProjectDetails.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.innoprog.android.BuildConfig
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.feature.feed.anyProjectDetails.domain.AnyProjectDetailsInteractor
 import com.innoprog.android.util.ErrorType
@@ -13,9 +15,7 @@ import javax.inject.Inject
 
 class AnyProjectDetailsViewModel @Inject constructor(
     private val anyProjectDetailsInteractor: AnyProjectDetailsInteractor
-) :
-    BaseViewModel() {
-
+) : BaseViewModel() {
     private val _screenState = MutableLiveData<AnyProjectDetailsScreenState>()
     val screenState: LiveData<AnyProjectDetailsScreenState> = _screenState
 
@@ -34,6 +34,10 @@ class AnyProjectDetailsViewModel @Inject constructor(
                     }
                 }
             }.onFailure { exception ->
+                if (BuildConfig.DEBUG) {
+                    Log.e(TAG, "error -> ${exception.localizedMessage}")
+                    exception.printStackTrace()
+                }
                 setState(AnyProjectDetailsScreenState.Error(ErrorType.BAD_REQUEST))
             }
         }
@@ -41,5 +45,9 @@ class AnyProjectDetailsViewModel @Inject constructor(
 
     private fun setState(state: AnyProjectDetailsScreenState) {
         _screenState.postValue(state)
+    }
+
+    private companion object {
+        val TAG = AnyProjectDetailsViewModel::class.simpleName
     }
 }

@@ -234,7 +234,7 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
         }
     }
 
-    companion object {
+    private companion object {
         const val TV_MAX_LINES = 6
     }
 }

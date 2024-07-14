@@ -13,7 +13,7 @@ interface ProfileApi {
     suspend fun loadProfile(): Response<ProfileResponse>
 
     @GET("/v1/profile/{profileId}")
-    suspend fun loadProfileById(@Path("profileId") id: String): ProfileResponse
+    suspend fun loadProfileById(@Path("profileId") id: String): Response<ProfileResponse>
 
     @GET("/v1/profile/company")
     suspend fun loadProfileCompany(): Response<ProfileCompanyResponse>

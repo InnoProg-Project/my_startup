@@ -13,9 +13,9 @@ data class ProfileResponse(
     @SerializedName("about")
     val about: String,
     @SerializedName("communicationChannels")
-    val communicationChannels: List<CommunicationChannel>,
+    val communicationChannels: List<CommunicationChannel>?,
     @SerializedName("authorities")
-    val authorities: List<String>
+    val authorities: List<String>?
 ) : Response()
 
 fun ProfileResponse.mapToDomainUserData(): Profile {
@@ -23,7 +23,7 @@ fun ProfileResponse.mapToDomainUserData(): Profile {
         userId = userId,
         name = name,
         about = about,
-        communicationChannels = communicationChannels,
-        authorities = authorities
+        communicationChannels = communicationChannels ?: emptyList(),
+        authorities = authorities ?: emptyList()
     )
 }
