@@ -19,9 +19,7 @@ import javax.inject.Inject
 
 class NewsDetailsViewModel @Inject constructor(
     private val newsDetailsInteractor: NewsDetailsInteractor
-) :
-    BaseViewModel() {
-
+) : BaseViewModel() {
     private val _screenState =
         MutableLiveData<NewsDetailsScreenState>(NewsDetailsScreenState.Loading)
     val screenState: LiveData<NewsDetailsScreenState> = _screenState
@@ -30,8 +28,17 @@ class NewsDetailsViewModel @Inject constructor(
     val addCommentResult: LiveData<Resource<CommentModel>> get() = _addCommentResult
 
     fun addComment(publicationId: String, content: String) {
-        viewModelScope.launch {
-            _addCommentResult.value = newsDetailsInteractor.addComment(publicationId, content)
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching {
+                _addCommentResult.postValue(
+                    newsDetailsInteractor.addComment(publicationId, content)
+                )
+            }.onFailure { error ->
+                if (BuildConfig.DEBUG) {
+                    Log.e(TAG, "error -> ${error.localizedMessage}")
+                    error.printStackTrace()
+                }
+            }
         }
     }
 
@@ -51,7 +58,7 @@ class NewsDetailsViewModel @Inject constructor(
                 }
             }.onFailure { error ->
                 if (BuildConfig.DEBUG) {
-                    Log.v(NewsDetailsViewModel.TAG, "error -> ${error.localizedMessage}")
+                    Log.v(TAG, "error -> ${error.localizedMessage}")
                     error.printStackTrace()
                 }
                 setState(NewsDetailsScreenState.Error(ErrorScreenState.SERVER_ERROR))
@@ -63,6 +70,10 @@ class NewsDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             newsDetailsInteractor.getComments(newsId)
                 .catch { exception ->
+                    if (BuildConfig.DEBUG) {
+                        Log.e(TAG, "error -> ${exception.localizedMessage}")
+                        exception.printStackTrace()
+                    }
                     setState(NewsDetailsScreenState.Error(ErrorScreenState.SERVER_ERROR))
                 }
                 .collect { commentsResult ->
@@ -90,11 +101,11 @@ class NewsDetailsViewModel @Inject constructor(
         }
     }
 
-    companion object {
-        private val TAG = NewsDetailsViewModel::class.simpleName
-    }
-
     private fun setState(state: NewsDetailsScreenState) {
         _screenState.postValue(state)
+    }
+
+    companion object {
+        private val TAG = NewsDetailsViewModel::class.simpleName
     }
 }

@@ -1,8 +1,9 @@
 package com.innoprog.android.feature.feed.newsdetails.data.network
 
 import com.google.gson.annotations.SerializedName
+import com.innoprog.android.network.data.Response
 
-data class CommentDto(
+class CommentDto(
     @SerializedName("id")
     val commentId: String,
     @SerializedName("publicationId")
@@ -13,9 +14,9 @@ data class CommentDto(
     val commentContent: String,
     @SerializedName("createdAt")
     val commentCreationDate: String
-)
+) : Response()
 
-data class CommentAuthorDto(
+class CommentAuthorDto(
     @SerializedName("id")
     val id: String,
     @SerializedName("name")

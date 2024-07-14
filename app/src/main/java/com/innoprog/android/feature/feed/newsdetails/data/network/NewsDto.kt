@@ -1,8 +1,11 @@
 package com.innoprog.android.feature.feed.newsdetails.data.network
 
 import com.google.gson.annotations.SerializedName
+import com.innoprog.android.network.data.NetworkModel
+import com.innoprog.android.network.data.Response
 
-data class NewsDto(
+@NetworkModel
+class NewsDto(
     @SerializedName("id")
     val id: String,
     @SerializedName("type")
@@ -27,9 +30,9 @@ data class NewsDto(
     val isLiked: Boolean,
     @SerializedName("isFavorited")
     val isFavorited: Boolean,
-)
+) : Response()
 
-data class AuthorDto(
+class AuthorDto(
     @SerializedName("id")
     val id: String,
     @SerializedName("name")
@@ -38,14 +41,14 @@ data class AuthorDto(
     val company: CompanyDto
 )
 
-data class CompanyDto(
+class CompanyDto(
     @SerializedName("name")
     val companyName: String,
     @SerializedName("role")
     val role: String
 )
 
-data class AttachmentDto(
+class AttachmentDto(
     @SerializedName("id")
     val id: String,
     @SerializedName("filePath")

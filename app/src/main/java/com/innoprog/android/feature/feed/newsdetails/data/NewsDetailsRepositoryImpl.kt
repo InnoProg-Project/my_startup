@@ -7,7 +7,7 @@ import com.innoprog.android.feature.feed.newsdetails.data.converters.mapToCommen
 import com.innoprog.android.feature.feed.newsdetails.data.converters.mapToNewsDetails
 import com.innoprog.android.feature.feed.newsdetails.data.network.AddCommentResponse
 import com.innoprog.android.feature.feed.newsdetails.data.network.CommentsResponse
-import com.innoprog.android.feature.feed.newsdetails.data.network.NetworkClient
+import com.innoprog.android.feature.feed.newsdetails.data.network.NewsDetailsNetworkClient
 import com.innoprog.android.feature.feed.newsdetails.data.network.NewsDetailsResponse
 import com.innoprog.android.feature.feed.newsdetails.domain.NewsDetailsRepository
 import com.innoprog.android.feature.feed.newsdetails.domain.models.CommentModel
@@ -27,7 +27,7 @@ import java.io.IOException
 import java.net.SocketTimeoutException
 import javax.inject.Inject
 
-class NewsDetailsRepositoryImpl @Inject constructor(private val networkClient: NetworkClient) :
+class NewsDetailsRepositoryImpl @Inject constructor(private val networkClient: NewsDetailsNetworkClient) :
     NewsDetailsRepository {
     private val errorHandler: ErrorHandler = ErrorHandlerImpl()
 
@@ -39,13 +39,11 @@ class NewsDetailsRepositoryImpl @Inject constructor(private val networkClient: N
                     val newsDetails = (response as NewsDetailsResponse).results.mapToNewsDetails()
                     val projectDetails = newsDetails.projectId?.let { loadProjectDetails(it) }
                     val newsDetailsWithProject = newsDetails.copy(project = projectDetails)
-
                     Resource.Success(newsDetailsWithProject)
                 }
 
                 else -> errorHandler.handleErrorCode(response.resultCode)
             }
-
         } catch (e: HttpException) {
             Log.e(TAG, e.toString())
             errorHandler.handleHttpException(e)
@@ -122,7 +120,6 @@ class NewsDetailsRepositoryImpl @Inject constructor(private val networkClient: N
 
                 else -> errorHandler.handleErrorCode(response.resultCode)
             }
-
         } catch (e: HttpException) {
             Log.e(TAG, e.toString())
             errorHandler.handleHttpException(e)

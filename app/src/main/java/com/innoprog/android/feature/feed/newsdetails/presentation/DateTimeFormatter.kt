@@ -22,6 +22,8 @@ fun getFormattedDate(inputDate: String): String {
         .toFormatter()
 
     val outputFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy в HH:mm", Locale("ru"))
-    val dateTime = LocalDateTime.parse(inputDate, fractionalSecondFormatter)
-    return dateTime.format(outputFormatter)
+    val dateTime = runCatching {
+        LocalDateTime.parse(inputDate, fractionalSecondFormatter)
+    }
+    return dateTime.getOrNull()?.format(outputFormatter) ?: "-"
 }

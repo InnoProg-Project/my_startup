@@ -36,7 +36,6 @@ import com.innoprog.android.util.debounceUnitFun
 import okhttp3.internal.format
 
 open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseViewModel>() {
-
     override val viewModel by injectViewModel<NewsDetailsViewModel>()
     private val galleryAdapter = ImageGalleryAdapter()
     private var newsId: String = ""
@@ -44,16 +43,15 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
     private var commentsList: ArrayList<CommentModel> = arrayListOf()
     private val commentsAdapter: CommentsAdapter by lazy {
         CommentsAdapter(
-            commentsList,
-            { comment -> onCommentClick(comment) },
-            { comment -> onDeleteClick(comment) }
+            commentsList = commentsList,
+            onCommentClick = { comment -> onCommentClick(comment) },
+            onDeleteClick = { comment -> onDeleteClick(comment) }
         )
     }
 
     override fun diComponent(): ScreenComponent {
-        val appComponent = AppComponentHolder.getComponent()
         return DaggerNewsDetailsComponent.builder()
-            .appComponent(appComponent)
+            .appComponent(AppComponentHolder.getComponent())
             .build()
     }
 
@@ -66,9 +64,7 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setUiListeners()
-
         viewModel.screenState.observe(viewLifecycleOwner) {
             updateUI(it)
         }
@@ -90,11 +86,7 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
                 }
 
                 is Resource.Error -> {
-                    Toast.makeText(
-                        requireContext(),
-                        "Ошибка добавления комментария",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    showToast("Ошибка добавления комментария")
                 }
 
                 else -> {}
@@ -109,12 +101,7 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
             }
 
             newsTopBar.setRightIconClickListener {
-                Toast.makeText(
-                    requireContext(),
-                    "Добавлено/удалено из избранного",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
+                showToast("Добавлено/удалено из избранного")
             }
 
             btnShowAll.setOnClickListener {
@@ -135,8 +122,7 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
                 if (content.isNotBlank()) {
                     viewModel.addComment(newsId, content)
                 } else {
-                    Toast.makeText(requireContext(), R.string.empty_comment, Toast.LENGTH_SHORT)
-                        .show()
+                    showToast(getString(R.string.empty_comment))
                 }
             }
         }
@@ -240,11 +226,7 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
     }
 
     private fun onDeleteClick(comment: CommentModel) {
-        Toast.makeText(
-            requireContext(),
-            "Удаляем комментарий: ${comment.commentContent}",
-            Toast.LENGTH_SHORT
-        ).show()
+        showToast("Удаляем комментарий: ${comment.commentContent}")
     }
 
     private fun loadProjectInfo(type: String, project: Project) {
@@ -273,6 +255,10 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
         val inputMethodManager =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
         inputMethodManager?.hideSoftInputFromWindow(binding.inputComment.windowToken, 0)
+    }
+
+    private fun showToast(message: String) {
+        context?.let { Toast.makeText(it, message, Toast.LENGTH_SHORT).show() }
     }
 
     private companion object {
