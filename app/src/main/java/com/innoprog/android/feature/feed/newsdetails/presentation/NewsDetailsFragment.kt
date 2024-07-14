@@ -71,7 +71,6 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
 
         val args: NewsDetailsFragmentArgs by navArgs()
         newsId = args.newsId
-
         viewModel.getNewsDetails(newsId)
 
         viewModel.addCommentResult.observe(viewLifecycleOwner) { result ->
@@ -81,14 +80,12 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
                     commentsAdapter.notifyItemInserted(0)
                     commentsAdapter.notifyItemRangeChanged(1, commentsList.size - 1)
                     binding.inputComment.setText("")
-                    binding.tvComments.text = format(getString(R.string.comments), commentsList.size)
+                    binding.tvComments.text =
+                        format(getString(R.string.comments), commentsList.size)
                     hideKeyboard()
                 }
 
-                is Resource.Error -> {
-                    showToast("Ошибка добавления комментария")
-                }
-
+                is Resource.Error -> showToast("Ошибка добавления комментария")
                 else -> {}
             }
         }
@@ -96,27 +93,19 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
 
     private fun setUiListeners() {
         binding.apply {
-            newsTopBar.setLeftIconClickListener {
-                viewModel.navigateUp()
-            }
-
-            newsTopBar.setRightIconClickListener {
-                showToast("Добавлено/удалено из избранного")
-            }
-
+            newsTopBar.setLeftIconClickListener { viewModel.navigateUp() }
+            newsTopBar.setRightIconClickListener { showToast("Добавлено/удалено из избранного") }
             btnShowAll.setOnClickListener {
                 if (tvPublicationContent.maxLines == TV_MAX_LINES) {
                     tvPublicationContent.maxLines = Int.MAX_VALUE
                     btnShowAll.isVisible = false
                 }
             }
-
             projectCard.setOnClickListener {
                 debounceNavigateTo(this@NewsDetailsFragment) { _ ->
                     findNavController().navigate(R.id.action_newsDetailsFragment_to_projectFragment)
                 }
             }
-
             inputComment.setRightIconClickListener {
                 val content = inputComment.getText()
                 if (content.isNotBlank()) {
@@ -171,13 +160,11 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
     }
 
     private fun fetchErrorScreen(errorState: ErrorScreenState) {
-        val errorImageRes = errorState.imageResource
-        val errorTextRes = errorState.messageResource
         binding.layoutErrorScreen.apply {
             findViewById<ImageView>(com.innoprog.android.uikit.R.id.iv_error_image)
-                .setImageResource(errorImageRes)
+                .setImageResource(errorState.imageResource)
             findViewById<TextView>(com.innoprog.android.uikit.R.id.tv_error_message)
-                .setText(errorTextRes)
+                .setText(errorState.messageResource)
             findViewById<InnoProgButtonView>(com.innoprog.android.uikit.R.id.ipbtn_repeat_request)
                 .setOnClickListener { viewModel.getNewsDetails(newsId) }
         }

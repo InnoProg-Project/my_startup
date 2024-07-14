@@ -13,9 +13,9 @@ import com.innoprog.android.feature.feed.newsdetails.domain.models.NewsDetailsMo
 import com.innoprog.android.util.ErrorScreenState
 import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
+import com.innoprog.android.util.debounceFun
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
-import com.innoprog.android.util.debounceFun
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -118,10 +118,11 @@ class NewsDetailsViewModel @Inject constructor(
     }
 
     fun openProject() {
-        val stateValue = screenState.value
-        when (stateValue) {
-            is NewsDetailsScreenState.Content -> stateValue.newsDetails?.projectId?.let { onProjectClickDebounce(it) }
-            else -> null
+        when (val stateValue = screenState.value) {
+            is NewsDetailsScreenState.Content -> {
+                stateValue.newsDetails.projectId?.let { onProjectClickDebounce(it) }
+            }
+            else -> {}
         }
     }
 
