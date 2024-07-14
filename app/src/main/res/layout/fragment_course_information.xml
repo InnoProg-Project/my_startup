@@ -14,12 +14,31 @@
         app:topBar_left_icon="@drawable/ic_back"
         app:topBar_title="О курсе" />
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:trackColor="@color/accent_default"
+        tools:visibility="visible" />
+
+    <include
+        android:id="@+id/errorScreen"
+        layout="@layout/error_layout"
+        android:visibility="gone" />
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/courseInformationTopBar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/courseInformation"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -28,8 +47,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
+                android:visibility="gone"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/course_logo_sample" />
+                tools:src="@drawable/course_logo_sample"
+                tools:visibility="visible"
+                />
 
             <TextView
                 android:id="@+id/courseInformationTitle"
@@ -59,10 +81,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/courseInformationTitle"
                 tools:text="Небольшой курс о том, как интегрировать сервисы в ваше приложение или сайт без участия разработчика. Полный текст курс о том, как интегрировать сервисы в ваше приложение или сайт без участия разработчика" />
 
-            <com.innoprog.android.uikit.InnoProgAvatarView
+            <TextView
                 android:id="@+id/courseInformationAuthorAvatar"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                tools:text="УМ"
+                android:background="@drawable/shape_avatar"
+                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="@+id/courseInformationAuthorPosition"
                 app:layout_constraintStart_toStartOf="@+id/courseInformationDescription"
                 app:layout_constraintTop_toTopOf="@+id/courseInformationAuthorName" />
@@ -83,6 +108,7 @@
             <TextView
                 android:id="@+id/courseInformationAuthorPosition"
                 style="@style/TextBody_2"
+                android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_16"
