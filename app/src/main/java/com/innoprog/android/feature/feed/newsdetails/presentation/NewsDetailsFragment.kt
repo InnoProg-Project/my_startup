@@ -27,7 +27,9 @@ import com.innoprog.android.feature.feed.newsdetails.di.DaggerNewsDetailsCompone
 import com.innoprog.android.feature.feed.newsdetails.domain.models.CommentModel
 import com.innoprog.android.feature.feed.newsdetails.domain.models.NewsDetailsModel
 import com.innoprog.android.feature.feed.newsfeed.domain.models.Project
+import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
 import com.innoprog.android.feature.imagegalleryadapter.ImageGalleryAdapter
+import com.innoprog.android.uikit.InnoProgButtonView
 import com.innoprog.android.util.ErrorScreenState
 import com.innoprog.android.util.Resource
 import com.innoprog.android.util.debounceUnitFun
@@ -79,8 +81,9 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
         viewModel.addCommentResult.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Resource.Success -> {
-                    commentsList.add(result.data)
-                    commentsAdapter.notifyItemInserted(commentsList.size - 1)
+                    commentsList.add(0, result.data)
+                    commentsAdapter.notifyItemInserted(0)
+                    commentsAdapter.notifyItemRangeChanged(1, commentsList.size - 1)
                     binding.inputComment.setText("")
                     binding.tvComments.text = format(getString(R.string.comments), commentsList.size)
                     hideKeyboard()
@@ -122,7 +125,7 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
             }
 
             projectCard.setOnClickListener {
-                debounceNavigateTo(this@NewsDetailsFragment) { fragment ->
+                debounceNavigateTo(this@NewsDetailsFragment) { _ ->
                     findNavController().navigate(R.id.action_newsDetailsFragment_to_projectFragment)
                 }
             }
@@ -143,7 +146,7 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
     private fun initImageGallery(images: List<Any>) {
         galleryAdapter.setImageList(images)
         binding.viewPager.adapter = galleryAdapter
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position -> }.attach()
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { _, _ -> }.attach()
     }
 
     private fun updateUI(state: NewsDetailsScreenState) {
@@ -179,6 +182,8 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
                 .setImageResource(errorImageRes)
             findViewById<TextView>(com.innoprog.android.uikit.R.id.tv_error_message)
                 .setText(errorTextRes)
+            findViewById<InnoProgButtonView>(com.innoprog.android.uikit.R.id.ipbtn_repeat_request)
+                .setOnClickListener { viewModel.getNewsDetails(newsId) }
         }
     }
 
@@ -245,7 +250,7 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
     private fun loadProjectInfo(type: String, project: Project) {
         val radius = binding.root.resources.getDimensionPixelSize(R.dimen.corner_radius_10)
         binding.apply {
-            if (type == "NEWS") {
+            if (type == PublicationType.NEWS.value) {
                 tvAboutProjectTitle.isVisible = true
                 projectCard.isVisible = true
                 Glide
@@ -270,9 +275,7 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
         inputMethodManager?.hideSoftInputFromWindow(binding.inputComment.windowToken, 0)
     }
 
-    companion object {
+    private companion object {
         const val TV_MAX_LINES = 6
-        const val MIN_WIDTH = 0
-        const val MAX_WIDTH = 9
     }
 }

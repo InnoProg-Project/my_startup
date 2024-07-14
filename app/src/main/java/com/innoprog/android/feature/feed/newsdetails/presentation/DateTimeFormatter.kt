@@ -6,14 +6,17 @@ import java.time.format.DateTimeFormatterBuilder
 import java.time.temporal.ChronoField
 import java.util.Locale
 
+private const val MIN_WIDTH = 0
+private const val MAX_WIDTH = 9
+
 fun getFormattedDate(inputDate: String): String {
     val baseFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
     val fractionalSecondFormatter = DateTimeFormatterBuilder()
         .append(baseFormatter)
         .appendFraction(
             ChronoField.NANO_OF_SECOND,
-            NewsDetailsFragment.MIN_WIDTH,
-            NewsDetailsFragment.MAX_WIDTH,
+            MIN_WIDTH,
+            MAX_WIDTH,
             true
         )
         .toFormatter()
