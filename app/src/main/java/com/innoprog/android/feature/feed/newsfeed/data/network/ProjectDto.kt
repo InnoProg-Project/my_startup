@@ -1,8 +1,11 @@
 package com.innoprog.android.feature.feed.newsfeed.data.network
 
 import com.google.gson.annotations.SerializedName
+import com.innoprog.android.network.data.NetworkModel
+import com.innoprog.android.network.data.Response
 
-data class ProjectDto(
+@NetworkModel
+class ProjectDto(
     @SerializedName("id")
     val id: String,
     @SerializedName("name")
@@ -27,9 +30,9 @@ data class ProjectDto(
     val documentUrls: List<String>,
     @SerializedName("projectAttachments")
     val projectAttachments: List<Attachment>,
-)
+) : Response()
 
-data class Attachment(
+class Attachment(
     @SerializedName("id")
     val id: String,
     @SerializedName("filePath")

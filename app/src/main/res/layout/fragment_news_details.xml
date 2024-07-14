@@ -17,6 +17,7 @@
         app:topBar_title="@string/publication" />
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsvDetails"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/margin_16"
@@ -96,14 +97,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_4"
                 android:clickable="true"
-                android:visibility="visible"
                 app:buttonSize="small"
                 app:buttonState="enabled"
                 app:buttonText="@string/show_all"
                 app:buttonType="flat"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvPublicationContent"
-                tools:visibility="visible" />
+                app:layout_constraintTop_toBottomOf="@+id/tvPublicationContent" />
 
             <TextView
                 android:id="@+id/tvNewsComments"
@@ -196,7 +195,6 @@
                 android:background="@drawable/bg_project_card"
                 android:paddingHorizontal="@dimen/padding_16"
                 android:paddingVertical="@dimen/padding_12"
-                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
                 app:layout_constraintStart_toStartOf="@+id/leftGuideline"
                 app:layout_constraintTop_toBottomOf="@+id/tvAboutProjectTitle">
@@ -283,6 +281,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
                 app:layout_constraintStart_toStartOf="@+id/leftGuideline"
                 app:layout_constraintTop_toBottomOf="@+id/tvComments"
+                app:right_icon="@drawable/ic_send"
                 app:state="inactive" />
 
             <TextView
@@ -329,5 +328,22 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/circular_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newsTopBar"
+        app:trackColor="@color/accent_default" />
+
+    <include
+        android:id="@+id/layout_error_screen"
+        layout="@layout/error_layout"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
