@@ -126,5 +126,12 @@
         <item>Идеи</item>
     </string-array>
 
+    <string-array name="profile_chips">
+        <item>Всё</item>
+        <item>Проекты</item>
+        <item>Идеи</item>
+        <item>Лайкнутые</item>
+        <item>Избранное</item>
+    </string-array>
     <string name="user_project_details_edit">Редактировать</string>
 </resources>
