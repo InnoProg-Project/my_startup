@@ -92,9 +92,11 @@ class UserProjectDetailsFragment :
         tvProjectDescription.text = details.description
         tvFinancingStageValue.text = details.financingStage
         tvDeadlineValue.text = formatDate(details.deadline)
-        tvLinkToWebValue.text = details.siteUrls[0]
-        tvLinkToAppValue.text = details.siteUrls[1]
-        tvLinkToSocialNetworkValue.text = details.siteUrls[2]
+        tvLinkToWebValue.text = details.siteUrls
+        tvLinkToAppValue.isVisible = false
+        tvLinkToApp.isVisible = false
+        tvLinkToSocialNetwork.isVisible = false
+        tvLinkToSocialNetworkValue.isVisible = false
     }
 
     private fun showContent() = with(binding) {

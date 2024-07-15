@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -28,7 +27,6 @@ import com.innoprog.android.feature.feed.newsdetails.domain.models.CommentModel
 import com.innoprog.android.feature.feed.newsdetails.domain.models.NewsDetailsModel
 import com.innoprog.android.feature.feed.newsfeed.domain.models.Project
 import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
-import com.innoprog.android.feature.feed.userprojectscreen.presentation.UserProjectDetailsFragment
 import com.innoprog.android.feature.imagegalleryadapter.ImageGalleryAdapter
 import com.innoprog.android.uikit.InnoProgButtonView
 import com.innoprog.android.util.ErrorScreenState
@@ -103,7 +101,7 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
             }
             projectCard.setOnClickListener {
                 debounceNavigateTo(this@NewsDetailsFragment) { _ ->
-                    findNavController().navigate(R.id.action_newsDetailsFragment_to_projectFragment)
+                    viewModel.openProject()
                 }
             }
             inputComment.setRightIconClickListener {
@@ -118,14 +116,11 @@ open class NewsDetailsFragment : BaseFragment<FragmentNewsDetailsBinding, BaseVi
     }
 
     private fun openProject(projectId: String) {
-        val bundle = Bundle().apply {
-            putString(UserProjectDetailsFragment.USER_PROJECT_DETAILS, projectId)
-            putBoolean(UserProjectDetailsFragment.CUSTOM_PROJECT, false)
-        }
-        viewModel.navigateTo(
-            R.id.action_newsDetailsFragment_to_projectFragment,
-            bundle
+        val direction = NewsDetailsFragmentDirections.actionNewsDetailsFragmentToProjectFragment(
+            projectId = projectId,
+            isUserProject = false
         )
+        viewModel.navigateTo(direction)
     }
 
     private fun initImageGallery(images: List<Any>) {

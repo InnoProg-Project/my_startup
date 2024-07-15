@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName
 import com.innoprog.android.feature.feed.anyProjectDetails.domain.models.AnyProjectDetailsModel
 import com.innoprog.android.feature.feed.anyProjectDetails.domain.models.DocumentModel
 import com.innoprog.android.feature.feed.anyProjectDetails.domain.models.ImageModel
-import com.innoprog.android.feature.feed.newsfeed.data.network.Attachment
+import com.innoprog.android.feature.feed.newsfeed.domain.models.AttachmentType
+import com.innoprog.android.network.data.NetworkModel
 
-data class ProjectDto(
+@NetworkModel
+class ProjectDto(
     @SerializedName("id")
     val id: String,
-    @SerializedName("images")
-    val images: List<ImageModel>?,
     @SerializedName("name")
     val name: String,
     @SerializedName("logoFilePath")
@@ -30,7 +30,7 @@ data class ProjectDto(
     @SerializedName("deadline")
     val deadline: String,
     @SerializedName("siteUrls")
-    val siteUrls: List<String>,
+    val siteUrls: String,
     @SerializedName("publicationsCount")
     val publicationsCount: Int,
     @SerializedName("projectAttachments")
@@ -50,7 +50,17 @@ data class Attachment(
 fun ProjectDto.mapToDomain(): AnyProjectDetailsModel {
     return AnyProjectDetailsModel(
         id = id,
-        images = images,
+        images = projectAttachments.mapNotNull {
+            if (it.type == AttachmentType.IMAGE.value) {
+                ImageModel(
+                    id = it.id,
+                    filePath = it.filePath,
+                    type = it.type
+                )
+            } else {
+                null
+            }
+        },
         name = name,
         projectLogoFilePath = projectLogoFilePath,
         area = area,
@@ -63,12 +73,9 @@ fun ProjectDto.mapToDomain(): AnyProjectDetailsModel {
     )
 }
 
-fun listDocumentUrlsToListDocumentModel(documentUrls: List<String>?): List<DocumentModel>? {
-    if (documentUrls == null) return null
-
+private fun listDocumentUrlsToListDocumentModel(documentUrls: List<String>?): List<DocumentModel> {
     val result = mutableListOf<DocumentModel>()
-
-    documentUrls.forEach {
+    documentUrls?.forEach {
         result.add(
             DocumentModel(
                 documentURL = it,
@@ -76,6 +83,5 @@ fun listDocumentUrlsToListDocumentModel(documentUrls: List<String>?): List<Docum
             )
         )
     }
-
     return result
 }

@@ -284,6 +284,9 @@
         <action
             android:id="@+id/action_projectFragment_to_anyProjectDetailsFragment"
             app:destination="@id/anyProjectDetailsFragment" />
+        <argument
+            android:name="isUserProject"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/anyProjectDetailsFragment"
