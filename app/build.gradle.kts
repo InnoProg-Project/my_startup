@@ -80,6 +80,9 @@ dependencies {
 
     implementation(project(":uikit"))
 
+    // reflect
+    implementation(libs.bundles.reflect)
+
     //
     implementation("androidx.security:security-crypto:1.0.0")
 }

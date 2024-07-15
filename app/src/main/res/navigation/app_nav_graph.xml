@@ -112,6 +112,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_projectsFragment_to_projectFragment"
+            app:destination="@id/projectFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -277,6 +284,9 @@
         <action
             android:id="@+id/action_projectFragment_to_anyProjectDetailsFragment"
             app:destination="@id/anyProjectDetailsFragment" />
+        <argument
+            android:name="isUserProject"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/anyProjectDetailsFragment"
@@ -300,6 +310,12 @@
         <action
             android:id="@+id/action_profileFragment_to_profile_bottom_sheet"
             app:destination="@id/profile_bottom_sheet" />
+        <action
+            android:id="@+id/action_profileFragment_to_ideaDetailsFragment"
+            app:destination="@+id/ideaDetailsFragment"/>
+        <action
+            android:id="@+id/action_profileFragment_to_newsDetailsFragment"
+            app:destination="@+id/newsDetailsFragment"/>
     </fragment>
     <fragment
         android:id="@+id/trainingListFragment"
@@ -327,6 +343,9 @@
         android:name="com.innoprog.android.feature.feed.userprojectscreen.presentation.UserProjectDetailsFragment"
         android:label="UserProjectDetailsFragment"
         tools:layout="@layout/fragment_any_project_details">
+        <action
+            android:id="@+id/action_userProjectDetailsFragment_to_authorizationFragment"
+            app:destination="@id/authorizationFragment" />
     </fragment>
 
 </navigation>

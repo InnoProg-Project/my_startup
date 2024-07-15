@@ -22,7 +22,6 @@ import com.innoprog.android.uikit.InnoProgInputViewState
 import com.innoprog.android.util.setOnDebouncedClickListener
 
 class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseViewModel>() {
-
     override val viewModel by injectViewModel<AuthorizationViewModel>()
     private var isVisiblePassword = false
 

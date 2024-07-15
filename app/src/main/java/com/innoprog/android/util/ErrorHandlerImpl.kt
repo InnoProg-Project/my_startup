@@ -14,6 +14,7 @@ class ErrorHandlerImpl : ErrorHandler {
             ApiConstants.UNPROCESSABLE_ENTITY -> Resource.Error(ErrorType.UNPROCESSABLE_ENTITY)
             ApiConstants.INTERNAL_SERVER_ERROR -> Resource.Error(ErrorType.INTERNAL_SERVER_ERROR)
             ApiConstants.BAD_GATEWAY -> Resource.Error(ErrorType.BAD_GATEWAY)
+            ApiConstants.NO_INTERNET_CONNECTION_CODE -> Resource.Error(ErrorType.NO_CONNECTION)
             else -> Resource.Error(ErrorType.UNEXPECTED)
         }
     }
