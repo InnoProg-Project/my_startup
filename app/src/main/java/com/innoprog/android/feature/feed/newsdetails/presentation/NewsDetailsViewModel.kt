@@ -6,12 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.innoprog.android.BuildConfig
 import com.innoprog.android.base.BaseViewModel
+import com.innoprog.android.base.SingleLiveEvent
 import com.innoprog.android.feature.feed.newsdetails.domain.NewsDetailsInteractor
 import com.innoprog.android.feature.feed.newsdetails.domain.models.CommentModel
 import com.innoprog.android.feature.feed.newsdetails.domain.models.NewsDetailsModel
 import com.innoprog.android.util.ErrorScreenState
 import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
+import com.innoprog.android.util.debounceFun
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
@@ -26,6 +28,16 @@ class NewsDetailsViewModel @Inject constructor(
 
     private val _addCommentResult = MutableLiveData<Resource<CommentModel>>()
     val addCommentResult: LiveData<Resource<CommentModel>> get() = _addCommentResult
+
+    private val onProjectClickDebounce =
+        debounceFun<String>(CLICK_DELAY, viewModelScope, false) { projectId ->
+            showProject.postValue(projectId)
+        }
+
+    private val showProject = SingleLiveEvent<String>()
+
+    fun getShowProjectTrigger(): SingleLiveEvent<String> = showProject
+
 
     fun addComment(publicationId: String, content: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -105,7 +117,17 @@ class NewsDetailsViewModel @Inject constructor(
         _screenState.postValue(state)
     }
 
+    fun openProject() {
+        when (val stateValue = screenState.value) {
+            is NewsDetailsScreenState.Content -> {
+                stateValue.newsDetails.projectId?.let { onProjectClickDebounce(it) }
+            }
+            else -> {}
+        }
+    }
+
     companion object {
+        private const val CLICK_DELAY = 300L
         private val TAG = NewsDetailsViewModel::class.simpleName
     }
 }

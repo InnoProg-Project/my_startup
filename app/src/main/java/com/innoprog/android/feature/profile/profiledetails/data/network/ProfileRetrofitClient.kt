@@ -36,44 +36,34 @@ class ProfileRetrofitClient @Inject constructor(
         return when (dto) {
             is RequestByProfile.GetProfile -> mapToResponse(service.loadProfile()) { it }
 
-            is RequestByProfile.GetProfileCompany ->
-                mapToResponse(service.loadProfileCompany()) { it }
+            is RequestByProfile.GetProfileCompany -> mapToResponse(service.loadProfileCompany()) { it }
 
             is RequestByProfile.GetAll -> mapToResponse(service.getAll(dto.authorId)) {
-                ChipsResponse(
-                    it
-                )
+                ChipsResponse(it)
             }
 
             is RequestByProfile.GetProjects -> {
                 mapToResponse(
-                    service.getProjects(
-                        type = PublicationType.NEWS.value,
-                        authorId = dto.authorId
-                    )
+                    service.getProjects(type = PublicationType.NEWS.value, authorId = dto.authorId)
                 ) { ChipsResponse(it) }
             }
 
             is RequestByProfile.GetIdeas ->
                 mapToResponse(
-                    service.getIdeas(
-                        type = PublicationType.IDEA.value,
-                        authorId = dto.authorId
-                    )
+                    service.getIdeas(type = PublicationType.IDEA.value, authorId = dto.authorId)
                 ) { ChipsResponse(it) }
 
-            is RequestByProfile.GetLikes ->
-                mapToResponse(service.getLikes(pageSize = PAGE_SIZE)) {
-                    ChipsResponse(it)
-                }
+            is RequestByProfile.GetLikes -> mapToResponse(service.getLikes(PAGE_SIZE)) {
+                ChipsResponse(it)
+            }
 
-            is RequestByProfile.GetFavorites ->
-                mapToResponse(service.getFavorites(pageSize = PAGE_SIZE)) {
-                    ChipsResponse(it)
-
-                }
+            is RequestByProfile.GetFavorites -> mapToResponse(service.getFavorites(PAGE_SIZE)) {
+                ChipsResponse(it)
+            }
 
             is RequestByProfile.GetProjectById -> mapToResponse(service.getProjectById(dto.id)) { it }
+
+            is RequestByProfile.GetProfileById -> mapToResponse(service.loadProfileById(dto.id)) { it }
 
             else -> throw IllegalArgumentException("Unsupported request type")
         }

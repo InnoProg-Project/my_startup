@@ -21,7 +21,6 @@ import com.innoprog.android.uikit.InnoProgInputViewState
 import com.innoprog.android.util.setOnDebouncedClickListener
 
 class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseViewModel>() {
-
     override val viewModel by injectViewModel<AuthorizationViewModel>()
     private var isVisiblePassword = false
 
@@ -67,10 +66,11 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
 
     private fun renderResult(state: AuthState) {
         when (state) {
-            AuthState.SUCCESS -> navigateNext()
-            AuthState.CONNECTION_ERROR -> renderError(getString(R.string.authorization_no_internet))
-            AuthState.VERIFICATION_ERROR -> renderError(getString(R.string.authorization_bad_data))
-            AuthState.INPUT_ERROR -> renderError(getString(R.string.authorization_bad_data))
+            is AuthState.Success -> navigateNext()
+            is AuthState.ConnectionError -> renderError(getString(R.string.authorization_no_internet))
+            is AuthState.VerificationError -> renderError(getString(R.string.authorization_bad_data))
+            is AuthState.InputError -> renderError(getString(R.string.authorization_bad_data))
+            is AuthState.GetProfileError -> renderError(getString(R.string.error_on_get_user_profile_data))
         }
     }
 

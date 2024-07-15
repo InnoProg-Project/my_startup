@@ -64,6 +64,8 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRunt
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
 
+reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+
 # Detekt
 staticAnalysis-detektCli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
 staticAnalysis-detektFormatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
@@ -99,6 +101,11 @@ retrofit2 = [
     "okhttp",
     "logging-interceptor"
 ]
+
+reflect = [
+    "reflect"
+]
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

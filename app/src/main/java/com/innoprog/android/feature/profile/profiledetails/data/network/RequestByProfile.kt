@@ -9,4 +9,5 @@ sealed interface RequestByProfile {
     class GetLikes(val pageSize: Int) : RequestByProfile
     class GetFavorites(val pageSize: Int) : RequestByProfile
     class GetProjectById(val id: String) : RequestByProfile
+    class GetProfileById(val id: String) : RequestByProfile
 }

@@ -79,4 +79,7 @@ dependencies {
 
 
     implementation(project(":uikit"))
+
+    // reflect
+    implementation(libs.bundles.reflect)
 }

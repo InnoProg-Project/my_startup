@@ -92,9 +92,11 @@ class UserProjectDetailsFragment :
         tvProjectDescription.text = details.description
         tvFinancingStageValue.text = details.financingStage
         tvDeadlineValue.text = formatDate(details.deadline)
-        tvLinkToWebValue.text = details.siteUrls[0]
-        tvLinkToAppValue.text = details.siteUrls[1]
-        tvLinkToSocialNetworkValue.text = details.siteUrls[2]
+        tvLinkToWebValue.text = details.siteUrls
+        tvLinkToAppValue.isVisible = false
+        tvLinkToApp.isVisible = false
+        tvLinkToSocialNetwork.isVisible = false
+        tvLinkToSocialNetworkValue.isVisible = false
     }
 
     private fun showContent() = with(binding) {
@@ -206,6 +208,7 @@ class UserProjectDetailsFragment :
 
     companion object {
         const val USER_PROJECT_DETAILS = "user_project_details"
+        const val CUSTOM_PROJECT = "custom_project"
         private val USER_PROJECT_TAG = UserProjectDetailsFragment::class.java.simpleName
     }
 }
