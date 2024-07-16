@@ -8,7 +8,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -16,6 +15,8 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.innoprog.android.R
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
@@ -26,17 +27,13 @@ import com.innoprog.android.feature.feed.newsfeed.di.DaggerFeedComponent
 import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
 import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
-import com.innoprog.android.uikit.InnoProgChipGroupView
 import com.innoprog.android.util.debounceUnitFun
 
 class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
-
     private val debounceNavigateTo = debounceUnitFun<Fragment?>(lifecycleScope)
-
     override val viewModel by injectViewModel<FeedViewModel>()
-    private var listNews: ArrayList<NewsWithProject> = arrayListOf()
     private val newsAdapter: NewsAdapter by lazy {
-        NewsAdapter(listNews) { newsWithProject ->
+        NewsAdapter { newsWithProject ->
             publicationTypeIndicator(newsWithProject.news.id, newsWithProject.news.type)
         }
     }
@@ -45,9 +42,8 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     }
 
     override fun diComponent(): ScreenComponent {
-        val appComponent = AppComponentHolder.getComponent()
         return DaggerFeedComponent.builder()
-            .appComponent(appComponent)
+            .appComponent(AppComponentHolder.getComponent())
             .build()
     }
 
@@ -60,75 +56,91 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setUiListeners()
         initChips()
-
-        viewModel.screenState.observe(viewLifecycleOwner) {
-            updateUI(it)
-        }
-
-        viewModel.getNewsFeed()
-
+        viewModel.screenState.observe(viewLifecycleOwner) { updateUI(it) }
         binding.rvPublications.adapter = newsAdapter
+        binding.rvPublications.layoutManager = LinearLayoutManager(context)
     }
 
     private fun setUiListeners() {
-        binding.btnCreateIdea.setOnClickListener {
-            Toast.makeText(requireContext(), "Переход на создание идеи", Toast.LENGTH_SHORT).show()
+        binding.btnCreateIdea.setOnClickListener { showToast("Переход на создание идеи") }
+        binding.etSearch.setOnFocusChangeListener { _, _ -> startSearch() }
+        binding.tvCancel.setOnClickListener { cancelSearch() }
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            newsAdapter.submitList(emptyList())
+            viewModel.getNewsFeed()
         }
-
-        binding.etSearch.setOnFocusChangeListener { _, _ ->
-            startSearch()
-        }
-
-        binding.tvCancel.setOnClickListener {
-            cancelSearch()
-        }
-
         binding.etSearch.doOnTextChanged(textWatcherForEditText)
+        binding.rvPublications.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val visibleItemCount = layoutManager.childCount
+                    val totalItemCount = layoutManager.itemCount
+                    val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+
+                    if (!binding.pbNews.isVisible
+                        && visibleItemCount + firstVisibleItemPosition >= totalItemCount
+                        && firstVisibleItemPosition >= 0
+                    ) {
+                        viewModel.onLastItemReached()
+                    }
+                }
+            }
+        })
     }
 
     private fun initChips() {
         val chipTitles = resources.getStringArray(R.array.chips).toList()
         binding.cgvFilter.setChips(chipTitles)
-        binding.cgvFilter.setOnChipSelectListener(object :
-            InnoProgChipGroupView.OnChipSelectListener {
-            override fun onChipSelected(chipIndex: Int) {
-                // Если нужно обработать чип
-            }
-        })
+        binding.cgvFilter.setOnChipSelectListener { }
     }
 
     private fun updateUI(state: FeedScreenState) {
+        showPagination(false)
         when (state) {
-            is FeedScreenState.Loading -> showLoading()
+            is FeedScreenState.Loading -> if (state.isPagination) {
+                showPagination(true)
+            } else {
+                binding.swipeRefreshLayout.isRefreshing = true
+            }
+
             is FeedScreenState.Content -> showContent(state.newsFeed)
-            is FeedScreenState.Error -> showError()
+            is FeedScreenState.Error -> showToast("Не удалось загрузить новости")
         }
     }
 
-    private fun showLoading() {
-        Toast.makeText(requireContext(), "Загрузка", Toast.LENGTH_SHORT).show()
+    private fun showPagination(show: Boolean) {
+        binding.rvPublications.setPadding(
+            binding.rvPublications.paddingLeft,
+            binding.rvPublications.paddingTop,
+            binding.rvPublications.paddingRight,
+            if (show) {
+                dpToPx(RV_PADDING_BOTTOM_ON, requireContext())
+            } else {
+                dpToPx(RV_PADDING_BOTTOM_OFF, requireContext())
+            }
+        )
+        binding.pbNews.isVisible = show
     }
 
-    private fun showError() {
-        Toast.makeText(requireContext(), "FeedScreenState Ошибка", Toast.LENGTH_SHORT).show()
+    fun dpToPx(dp: Int, context: Context): Int {
+        return (dp * context.resources.displayMetrics.density).toInt()
     }
 
     private fun showContent(newsFeed: List<NewsWithProject>) {
         binding.apply {
+            binding.swipeRefreshLayout.isRefreshing = false
             rvPublications.isVisible = true
-            newsAdapter.newsList.clear()
-            newsAdapter.newsList.addAll(newsFeed)
-            newsAdapter.notifyDataSetChanged()
+            newsAdapter.submitList(newsFeed)
         }
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun changeIconClearVisibility(text: CharSequence?) {
         val editText = binding.etSearch
-
         if (text.isNullOrEmpty()) {
             editText.setCompoundDrawablesWithIntrinsicBounds(
                 R.drawable.ic_search,
@@ -136,9 +148,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
                 0,
                 0
             )
-            editText.setOnTouchListener { _, _ ->
-                false
-            }
+            editText.setOnTouchListener { _, _ -> false }
         } else {
             editText.setCompoundDrawablesWithIntrinsicBounds(
                 R.drawable.ic_search,
@@ -147,7 +157,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
                 0
             )
         }
-
         clearSearchBar()
     }
 
@@ -229,16 +238,21 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     }
 
     private fun publicationTypeIndicator(newsId: String, newsType: String) {
-        if (newsType == PublicationType.NEWS.value) {
-            val action = FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(newsId)
-            debounceNavigateTo(this) { fragment ->
-                findNavController().navigate(action)
-            }
+        val action = if (newsType == PublicationType.NEWS.value) {
+            FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(newsId)
         } else {
-            val action = FeedFragmentDirections.actionFeedFragmentToIdeaDetailsFragment(newsId)
-            debounceNavigateTo(this) { fragment ->
-                findNavController().navigate(action)
-            }
+            FeedFragmentDirections.actionFeedFragmentToIdeaDetailsFragment(newsId)
         }
+        debounceNavigateTo(this) { _ -> findNavController().navigate(action) }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.cancelJobs()
+    }
+
+    private companion object {
+        const val RV_PADDING_BOTTOM_ON = 50
+        const val RV_PADDING_BOTTOM_OFF = 5
     }
 }

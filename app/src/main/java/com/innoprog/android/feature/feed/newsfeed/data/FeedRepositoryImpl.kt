@@ -11,6 +11,7 @@ import com.innoprog.android.feature.feed.newsfeed.domain.FeedRepository
 import com.innoprog.android.feature.feed.newsfeed.domain.models.News
 import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
 import com.innoprog.android.feature.feed.newsfeed.domain.models.Project
+import com.innoprog.android.feature.feed.newsfeed.domain.models.QueryPage
 import com.innoprog.android.network.data.ApiConstants
 import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
@@ -22,8 +23,8 @@ import javax.inject.Inject
 class FeedRepositoryImpl @Inject constructor(private val networkClient: NetworkClient) :
     FeedRepository {
 
-    override fun getNewsFeed(): Flow<Resource<List<NewsWithProject>>> = flow {
-        val newsResult = loadNewsList()
+    override fun getNewsFeed(queryPage: QueryPage): Flow<Resource<List<NewsWithProject>>> = flow {
+        val newsResult = loadNewsList(queryPage)
 
         if (newsResult is Resource.Error) {
             emit(newsResult)
@@ -42,8 +43,8 @@ class FeedRepositoryImpl @Inject constructor(private val networkClient: NetworkC
         }
     }
 
-    private suspend fun loadNewsList(): Resource<List<News>> {
-        val newsResponse = networkClient.loadNewsFeed()
+    private suspend fun loadNewsList(queryPage: QueryPage): Resource<List<News>> {
+        val newsResponse = networkClient.loadNewsFeed(queryPage)
 
         return runCatching {
             when (newsResponse.resultCode) {

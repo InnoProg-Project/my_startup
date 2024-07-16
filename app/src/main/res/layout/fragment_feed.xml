@@ -115,19 +115,39 @@
         app:layout_constraintTop_toBottomOf="@+id/cgvFilter"
         tools:visibility="visible" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvPublications"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="@dimen/size_0"
         android:layout_height="@dimen/size_0"
-        android:layout_marginVertical="@dimen/margin_8"
-        android:visibility="visible"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/rightGuideline"
         app:layout_constraintStart_toStartOf="@+id/leftGuideline"
-        app:layout_constraintTop_toBottomOf="@+id/cgvFilter"
-        tools:itemCount="4"
-        tools:listitem="@layout/item_news"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@+id/cgvFilter">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPublications"
+            android:layout_width="@dimen/size_0"
+            android:layout_height="@dimen/size_0"
+            android:layout_marginVertical="@dimen/margin_8"
+            android:clipToPadding="false"
+            android:paddingBottom="50dp"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+            tools:itemCount="4"
+            tools:listitem="@layout/item_news"
+            tools:visibility="visible" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/pb_news"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:trackColor="@color/accent_default"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>
