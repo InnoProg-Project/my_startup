@@ -70,16 +70,16 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
 
     private fun renderResult(state: AuthState) {
         when (state) {
-            AuthState.SUCCESS -> navigateNext()
-            AuthState.CONNECTION_ERROR -> renderError(getString(R.string.authorization_no_internet))
-            AuthState.VERIFICATION_ERROR -> renderError(getString(R.string.authorization_bad_data))
-            AuthState.INPUT_ERROR -> renderError(getString(R.string.authorization_bad_data))
-            else -> null
+            is AuthState.Success -> navigateNext()
+            AuthState.ConnectionError -> renderError(getString(R.string.authorization_no_internet))
+            AuthState.VerificationError -> renderError(getString(R.string.authorization_bad_data))
+            AuthState.InputError -> renderError(getString(R.string.authorization_bad_data))
+            else -> {}
         }
-        binding.progressBar.isVisible = state == AuthState.LOADING
-        binding.blackout.isVisible = state == AuthState.LOADING
-        binding.btnLogin.isVisible = state != AuthState.LOADING
-        blockUserInteraction(state == AuthState.LOADING)
+        binding.progressBar.isVisible = state == AuthState.Loading
+        binding.blackout.isVisible = state == AuthState.Loading
+        binding.btnLogin.isVisible = state != AuthState.Loading
+        blockUserInteraction(state == AuthState.Loading)
     }
 
     private fun blockUserInteraction(block: Boolean) {

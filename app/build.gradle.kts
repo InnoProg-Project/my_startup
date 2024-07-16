@@ -46,7 +46,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -55,7 +54,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)
-
     // JetpackNavigation
     implementation(libs.bundles.navigation)
 
@@ -65,24 +63,12 @@ dependencies {
 
     // Retrofit & Interceptor
     implementation(libs.bundles.retrofit2)
-
-    // Glide
     implementation(libs.glide)
     ksp(libs.glide.compiler)
-
-    // Room
     implementation(libs.bundles.room)
     ksp(libs.room.compiler)
-
-    // VideoPlayer
     implementation(libs.bundles.exoplayer)
-
-
-    implementation(project(":uikit"))
-
-    // reflect
     implementation(libs.bundles.reflect)
-
-    //
-    implementation("androidx.security:security-crypto:1.0.0")
+    implementation(libs.androidx.security.crypto)
+    implementation(project(":uikit"))
 }

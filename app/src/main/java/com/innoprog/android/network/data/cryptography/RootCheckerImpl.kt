@@ -59,17 +59,11 @@ class RootCheckerImpl @Inject constructor() : RootChecker {
         return file.canExecute()
     }
 
-    @Suppress(
-        "TooGenericExceptionCaught",
-        "SwallowedException"
-    )
     private fun checkForSuCommand(): Boolean {
-        return try {
+        return runCatching {
             Runtime.getRuntime()
                 .exec(arrayOf("/system/xbin/which", "su")).inputStream.bufferedReader()
                 .readLine() != null
-        } catch (e: Exception) {
-            false
-        }
+        }.getOrNull() ?: false
     }
 }

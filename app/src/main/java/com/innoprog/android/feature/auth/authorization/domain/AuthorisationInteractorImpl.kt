@@ -6,11 +6,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
-class AuthorisationUseCaseImpl @Inject constructor(
+class AuthorisationInteractorImpl @Inject constructor(
     private val repository: AuthorisationRepository,
     private val dataRepository: AuthorizationDataRepository
-) :
-    AuthorisationUseCase {
+) : AuthorisationInteractor {
     override fun verify(login: String, password: String): Flow<AuthState> {
         dataRepository.setData(login, password)
         return repository.verify()
@@ -19,7 +18,7 @@ class AuthorisationUseCaseImpl @Inject constructor(
     override fun verifyOnStart(): Flow<AuthState> {
         dataRepository.checkLastLoginTime()
         val credentials = dataRepository.loadCredentials()
-        if (credentials == null) return flowOf(AuthState.EMPTY_SAVED_AUTH_DATA)
+            ?: return flowOf(AuthState.EmptyLocalAuthData)
         val (username, password) = credentials
         return verify(username, password)
     }
