@@ -6,9 +6,6 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface FeedApi {
-    @GET("/v1/feed")
-    suspend fun loadNewsFeed(): Response<List<NewsDto>>
-
     @GET("/v1/projects/{projectId}")
     suspend fun getProjectDetails(@Path("projectId") projectId: String): Response<ProjectDto>
 

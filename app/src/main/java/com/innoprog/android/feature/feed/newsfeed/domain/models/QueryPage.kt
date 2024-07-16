@@ -9,5 +9,3 @@ data class QueryPage(
     val projectId: String? = null,
     val authorId: String? = null
 )
-
-
