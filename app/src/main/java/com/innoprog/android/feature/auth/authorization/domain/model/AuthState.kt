@@ -8,4 +8,6 @@ sealed interface AuthState {
     data object VerificationError : AuthState
     data object InputError : AuthState
     data object GetProfileError : AuthState
+    data object Loading : AuthState
+    data object EmptyLocalAuthData : AuthState
 }

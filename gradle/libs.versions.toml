@@ -1,6 +1,7 @@
 [versions]
 java = "VERSION_17"
 minSdk = "26"
+securityCrypto = "1.0.0"
 targetSdk = "34"
 compileSdk = "34"
 versionCode = "1"
@@ -34,6 +35,7 @@ uiDesktop = "1.6.3"
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "securityCrypto" }
 androidx-ui-desktop = { module = "androidx.compose.ui:ui-desktop", version.ref = "uiDesktop" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 
