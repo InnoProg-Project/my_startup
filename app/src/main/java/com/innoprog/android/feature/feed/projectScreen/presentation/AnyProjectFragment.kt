@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -18,6 +19,7 @@ import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentAnyProjectBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
+import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
 import com.innoprog.android.feature.feed.projectScreen.di.DaggerAnyProjectComponent
 import com.innoprog.android.feature.feed.projectScreen.domain.AnyProjectModel
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
@@ -25,19 +27,14 @@ import com.innoprog.android.util.debounceUnitFun
 import okhttp3.internal.format
 
 class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel>() {
-
     private val debounceNavigateTo = debounceUnitFun<Fragment?>(lifecycleScope)
-
     override val viewModel by injectViewModel<AnyProjectViewModel>()
-
     private val newsAdapter: NewsAdapter by lazy {
         NewsAdapter { newsWithProject ->
             val action = AnyProjectFragmentDirections.actionProjectFragmentToNewsDetailsFragment(
-                newsWithProject.news.id
+                newsId = newsWithProject.news.id
             )
-            debounceNavigateTo(this) { fragment ->
-                findNavController().navigate(action)
-            }
+            debounceNavigateTo(this) { _ -> findNavController().navigate(action) }
         }
     }
 
@@ -57,33 +54,24 @@ class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setUiListeners()
-
-        viewModel.screenState.observe(viewLifecycleOwner) {
-            updateUI(it)
-        }
-
-        viewModel.getAnyProject("1")
-
+        viewModel.screenState.observe(viewLifecycleOwner) { updateUI(it) }
+        val args: AnyProjectFragmentArgs by navArgs()
+        viewModel.getAnyProject(id = args.projectId)
         binding.rvPublications.adapter = newsAdapter
         binding.rvPublications.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun setUiListeners() {
-        binding.apply {
-            projectTopBar.setLeftIconClickListener {
-                viewModel.navigateUp()
-            }
-
-            btnProjectDetails.setOnClickListener {
-                val action =
-                    AnyProjectFragmentDirections.actionProjectFragmentToAnyProjectDetailsFragment(
-                        id.toString()
-                    )
-                debounceNavigateTo(this@AnyProjectFragment) { fragment ->
-                    findNavController().navigate(action)
-                }
+        binding.projectTopBar.setLeftIconClickListener { viewModel.navigateUp() }
+        binding.btnProjectDetails.setOnClickListener {
+            val args: AnyProjectFragmentArgs by navArgs()
+            val action =
+                AnyProjectFragmentDirections.actionProjectFragmentToAnyProjectDetailsFragment(
+                    projectId = args.projectId
+                )
+            debounceNavigateTo(this@AnyProjectFragment) { _ ->
+                findNavController().navigate(action)
             }
         }
     }
@@ -119,6 +107,7 @@ class AnyProjectFragment : BaseFragment<FragmentAnyProjectBinding, BaseViewModel
             tvProjectDescription.text = anyProject.shortDescription
             tvProjectNews.text =
                 format(getString(R.string.project_news), anyProject.publicationsCount)
+            innoProgButtonView.isVisible = anyProject.itsCustomProject
 
             if (anyProject.projectNews != null) {
                 rvPublications.isVisible = true

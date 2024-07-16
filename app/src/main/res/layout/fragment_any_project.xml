@@ -111,6 +111,16 @@
             android:textColor="@color/text_primary"
             tools:text="Публикации о проекте (25)" />
 
+        <com.innoprog.android.uikit.InnoProgButtonView
+            android:id="@+id/innoProgButtonView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_8"
+            android:gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:buttonText="@string/create_news"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPublications"
             android:layout_width="match_parent"

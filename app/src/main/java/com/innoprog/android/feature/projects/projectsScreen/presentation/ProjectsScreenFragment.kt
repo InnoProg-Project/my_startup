@@ -172,10 +172,12 @@ class ProjectsScreenFragment : BaseFragment<FragmentProjectsBinding, ProjectsScr
     private fun navigateToProjectDetails(projectId: String) {
         val bundle = Bundle().apply {
             putString(UserProjectDetailsFragment.USER_PROJECT_DETAILS, projectId)
+            putBoolean(UserProjectDetailsFragment.CUSTOM_PROJECT, true)
         }
         viewModel.navigateTo(
-            R.id.action_projectsFragment_to_userProjectDetailsFragment,
+            R.id.action_projectsFragment_to_projectFragment,
             bundle
         )
     }
 }
+

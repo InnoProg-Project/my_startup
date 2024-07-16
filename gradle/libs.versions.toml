@@ -1,6 +1,7 @@
 [versions]
 java = "VERSION_17"
 minSdk = "26"
+securityCrypto = "1.0.0"
 targetSdk = "34"
 compileSdk = "34"
 versionCode = "1"
@@ -35,6 +36,7 @@ swiperef = "1.1.0"
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "securityCrypto" }
 androidx-ui-desktop = { module = "androidx.compose.ui:ui-desktop", version.ref = "uiDesktop" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 
@@ -66,12 +68,12 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRunt
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
 
+reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+
 # Detekt
 staticAnalysis-detektCli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
 staticAnalysis-detektFormatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 staticAnalysis-detektLibraries = { module = "io.gitlab.arturbosch.detekt:detekt-rules-libraries", version.ref = "detekt" }
-
-
 
 [bundles]
 staticAnalysis-detekt = [
@@ -88,8 +90,7 @@ room = [
 navigation = [
     "navigation-fragment-ktx",
     "navigation-ui-ktx",
-    "fragment-ktx",
-
+    "fragment-ktx"
 ]
 
 exoplayer = [
@@ -104,10 +105,13 @@ retrofit2 = [
     "logging-interceptor"
 ]
 
+reflect = [
+    "reflect"
+]
+
 swiperefreshlayout = [
     "swiperefreshlayout"
 ]
-
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -116,4 +120,3 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigationUiKtx" }
-

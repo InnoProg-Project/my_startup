@@ -5,7 +5,7 @@ import com.innoprog.android.util.ErrorType
 
 sealed interface ProfileScreenState {
 
-    data class Content(val profileInfo: Profile) : ProfileScreenState
+    class Content(val profileInfo: Profile) : ProfileScreenState
 
-    data class Error(val type: ErrorType) : ProfileScreenState
+    class Error(val type: ErrorType) : ProfileScreenState
 }

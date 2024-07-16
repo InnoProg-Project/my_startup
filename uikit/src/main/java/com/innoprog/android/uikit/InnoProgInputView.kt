@@ -206,7 +206,7 @@ class InnoProgInputView @JvmOverloads constructor(
     }
 
     fun setText(text: String) {
-        if (text.isNotBlank()) {
+        if (text.isNotEmpty() || text.isBlank()) {
             editTextView.setText(text)
         }
     }
