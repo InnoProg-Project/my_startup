@@ -19,7 +19,6 @@ import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentAnyProjectBinding
 import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
-import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
 import com.innoprog.android.feature.feed.projectScreen.di.DaggerAnyProjectComponent
 import com.innoprog.android.feature.feed.projectScreen.domain.AnyProjectModel
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter

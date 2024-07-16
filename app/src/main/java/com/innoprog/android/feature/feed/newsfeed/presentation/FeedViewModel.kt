@@ -1,5 +1,6 @@
 package com.innoprog.android.feature.feed.newsfeed.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -32,7 +33,7 @@ class FeedViewModel @Inject constructor(private val feedInteractor: FeedInteract
     }
 
     fun getNewsFeed(isPagination: Boolean = false) {
-        jobSearch?.let { it.dispose() }
+        jobSearch?.dispose()
         jobSearch = null
         jobSearch = viewModelScope.launch(Dispatchers.IO) {
             setState(FeedScreenState.Loading(isPagination))
@@ -50,6 +51,7 @@ class FeedViewModel @Inject constructor(private val feedInteractor: FeedInteract
                 feedInteractor.getNewsFeed(queryPage).collect { acceptResponse(isPagination, it) }
             }.onFailure { exception ->
                 if (BuildConfig.DEBUG) {
+                    Log.v(TAG, "error -> ${exception.localizedMessage}")
                     exception.printStackTrace()
                 }
                 setState(FeedScreenState.Error(ErrorType.BAD_REQUEST))
@@ -60,9 +62,8 @@ class FeedViewModel @Inject constructor(private val feedInteractor: FeedInteract
     private fun acceptResponse(isPagination: Boolean, response: Resource<List<NewsWithProject>>) {
         when (response) {
             is Resource.Success -> {
-                if (isPagination) {
-                    response.data.lastOrNull()?.let { lastId = it.news.id }
-                } else {
+                response.data.lastOrNull()?.let { lastId = it.news.id }
+                if (isPagination.not()) {
                     currentListNews.clear()
                 }
                 response.data.forEach { currentListNews.add(it) }
@@ -89,19 +90,20 @@ class FeedViewModel @Inject constructor(private val feedInteractor: FeedInteract
         if (isNextPageLoading) return
 
         isNextPageLoading = true
-        jobSearch?.let { it.dispose() }
+        jobSearch?.dispose()
         jobSearch = null
         getNewsFeed(true)
     }
 
 
     fun cancelJobs() {
-        jobSearch?.let { it.dispose() }
+        jobSearch?.dispose()
         jobSearch = null
         isNextPageLoading = false
     }
 
-    companion object {
+    private companion object {
         const val PAGE_SIZE = 20
+        val TAG = FeedViewModel::class.simpleName
     }
 }

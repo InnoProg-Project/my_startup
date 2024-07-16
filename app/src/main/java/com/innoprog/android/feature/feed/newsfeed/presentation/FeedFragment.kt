@@ -8,7 +8,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -28,13 +27,10 @@ import com.innoprog.android.feature.feed.newsfeed.di.DaggerFeedComponent
 import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
 import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
-import com.innoprog.android.uikit.InnoProgChipGroupView
 import com.innoprog.android.util.debounceUnitFun
 
 class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
-
     private val debounceNavigateTo = debounceUnitFun<Fragment?>(lifecycleScope)
-
     override val viewModel by injectViewModel<FeedViewModel>()
     private val newsAdapter: NewsAdapter by lazy {
         NewsAdapter { newsWithProject ->
@@ -46,9 +42,8 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     }
 
     override fun diComponent(): ScreenComponent {
-        val appComponent = AppComponentHolder.getComponent()
         return DaggerFeedComponent.builder()
-            .appComponent(appComponent)
+            .appComponent(AppComponentHolder.getComponent())
             .build()
     }
 
@@ -61,36 +56,22 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setUiListeners()
         initChips()
-
-        viewModel.screenState.observe(viewLifecycleOwner) {
-            updateUI(it)
-        }
-
+        viewModel.screenState.observe(viewLifecycleOwner) { updateUI(it) }
         binding.rvPublications.adapter = newsAdapter
         binding.rvPublications.layoutManager = LinearLayoutManager(context)
     }
 
     private fun setUiListeners() {
-        binding.btnCreateIdea.setOnClickListener {
-            Toast.makeText(requireContext(), "Переход на создание идеи", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.etSearch.setOnFocusChangeListener { _, _ ->
-            startSearch()
-        }
-
+        binding.btnCreateIdea.setOnClickListener { showToast("Переход на создание идеи") }
+        binding.etSearch.setOnFocusChangeListener { _, _ -> startSearch() }
         binding.tvCancel.setOnClickListener { cancelSearch() }
-
         binding.swipeRefreshLayout.setOnRefreshListener {
             newsAdapter.submitList(emptyList())
             viewModel.getNewsFeed()
         }
-
         binding.etSearch.doOnTextChanged(textWatcherForEditText)
-
         binding.rvPublications.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -114,12 +95,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     private fun initChips() {
         val chipTitles = resources.getStringArray(R.array.chips).toList()
         binding.cgvFilter.setChips(chipTitles)
-        binding.cgvFilter.setOnChipSelectListener(object :
-            InnoProgChipGroupView.OnChipSelectListener {
-            override fun onChipSelected(chipIndex: Int) {
-                // Если нужно обработать чип
-            }
-        })
+        binding.cgvFilter.setOnChipSelectListener { }
     }
 
     private fun updateUI(state: FeedScreenState) {
@@ -128,15 +104,15 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
             is FeedScreenState.Loading -> if (state.isPagination) {
                 showPagination(true)
             } else {
-                showLoading()
+                binding.swipeRefreshLayout.isRefreshing = true
             }
 
             is FeedScreenState.Content -> showContent(state.newsFeed)
-            is FeedScreenState.Error -> showError(state.isPagination)
+            is FeedScreenState.Error -> showToast("Не удалось загрузить новости")
         }
     }
 
-    fun showPagination(show: Boolean) {
+    private fun showPagination(show: Boolean) {
         binding.rvPublications.setPadding(
             binding.rvPublications.paddingLeft,
             binding.rvPublications.paddingTop,
@@ -154,19 +130,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         return (dp * context.resources.displayMetrics.density).toInt()
     }
 
-    private fun showLoading() {
-        Toast.makeText(requireContext(), "Загрузка", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun showError(isPagination: Boolean) {
-        if (isPagination) {
-            Toast.makeText(requireContext(), "FeedScreenState Ошибка пагинации", Toast.LENGTH_SHORT)
-                .show()
-        } else {
-            Toast.makeText(requireContext(), "FeedScreenState Ошибка", Toast.LENGTH_SHORT).show()
-        }
-    }
-
     private fun showContent(newsFeed: List<NewsWithProject>) {
         binding.apply {
             binding.swipeRefreshLayout.isRefreshing = false
@@ -178,7 +141,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     @SuppressLint("ClickableViewAccessibility")
     private fun changeIconClearVisibility(text: CharSequence?) {
         val editText = binding.etSearch
-
         if (text.isNullOrEmpty()) {
             editText.setCompoundDrawablesWithIntrinsicBounds(
                 R.drawable.ic_search,
@@ -186,9 +148,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
                 0,
                 0
             )
-            editText.setOnTouchListener { _, _ ->
-                false
-            }
+            editText.setOnTouchListener { _, _ -> false }
         } else {
             editText.setCompoundDrawablesWithIntrinsicBounds(
                 R.drawable.ic_search,
@@ -197,7 +157,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
                 0
             )
         }
-
         clearSearchBar()
     }
 
@@ -279,22 +238,12 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     }
 
     private fun publicationTypeIndicator(newsId: String, newsType: String) {
-        if (newsType == PublicationType.NEWS.value) {
-            val action = FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(newsId)
-            debounceNavigateTo(this) { fragment ->
-                findNavController().navigate(action)
-            }
+        val action = if (newsType == PublicationType.NEWS.value) {
+            FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(newsId)
         } else {
-            val action = FeedFragmentDirections.actionFeedFragmentToIdeaDetailsFragment(newsId)
-            debounceNavigateTo(this) { fragment ->
-                findNavController().navigate(action)
-            }
+            FeedFragmentDirections.actionFeedFragmentToIdeaDetailsFragment(newsId)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        newsAdapter.notifyDataSetChanged()
+        debounceNavigateTo(this) { _ -> findNavController().navigate(action) }
     }
 
     override fun onPause() {
@@ -302,7 +251,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         viewModel.cancelJobs()
     }
 
-    companion object {
+    private companion object {
         const val RV_PADDING_BOTTOM_ON = 50
         const val RV_PADDING_BOTTOM_OFF = 5
     }
