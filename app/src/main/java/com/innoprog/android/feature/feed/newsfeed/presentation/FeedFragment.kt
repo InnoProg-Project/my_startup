@@ -4,12 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -27,19 +27,31 @@ import com.innoprog.android.feature.feed.newsfeed.di.DaggerFeedComponent
 import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
 import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
+import com.innoprog.android.util.ErrorScreenState
+import com.innoprog.android.util.debounceFun
 import com.innoprog.android.util.debounceUnitFun
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
 class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     private val debounceNavigateTo = debounceUnitFun<Fragment?>(lifecycleScope)
-    override val viewModel by injectViewModel<FeedViewModel>()
     private val newsAdapter: NewsAdapter by lazy {
         NewsAdapter { newsWithProject ->
             publicationTypeIndicator(newsWithProject.news.id, newsWithProject.news.type)
         }
     }
+    private val coroutineScope = CoroutineScope(Dispatchers.Main)
+    private val debounceGetNewsFeed = debounceFun<String>(
+        delayMillis = SEARCH_DELAY_2_SEC,
+        coroutineScope = coroutineScope,
+        useLastParam = true
+    ) { query -> viewModel.getNewsFeed(query = query) }
     private val textWatcherForEditText = { text: CharSequence?, _: Int, _: Int, _: Int ->
+        text?.let { debounceGetNewsFeed(text.toString()) }
         changeIconClearVisibility(text)
     }
+    private var editTextIsOnFocus = false
+    override val viewModel by injectViewModel<FeedViewModel>()
 
     override fun diComponent(): ScreenComponent {
         return DaggerFeedComponent.builder()
@@ -66,10 +78,11 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     private fun setUiListeners() {
         binding.btnCreateIdea.setOnClickListener { showToast("Переход на создание идеи") }
         binding.etSearch.setOnFocusChangeListener { _, _ -> startSearch() }
+        binding.btnClearQuery.setOnClickListener { binding.etSearch.text?.clear() }
         binding.tvCancel.setOnClickListener { cancelSearch() }
         binding.swipeRefreshLayout.setOnRefreshListener {
-            newsAdapter.submitList(emptyList())
-            viewModel.getNewsFeed()
+            newsAdapter.submitList(mutableListOf())
+            viewModel.getNewsFeed(query = binding.etSearch.text?.toString())
         }
         binding.etSearch.doOnTextChanged(textWatcherForEditText)
         binding.rvPublications.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -85,17 +98,31 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
                         && visibleItemCount + firstVisibleItemPosition >= totalItemCount
                         && firstVisibleItemPosition >= 0
                     ) {
-                        viewModel.onLastItemReached()
+                        viewModel.onLastItemReached(binding.etSearch.text?.toString())
                     }
                 }
             }
         })
+
+        binding.layoutErrorScreen.findViewById<com.innoprog.android.uikit.InnoProgButtonView>(
+            com.innoprog.android.uikit.R.id.ipbtn_repeat_request
+        ).setOnClickListener {
+            viewModel.getNewsFeed(query = binding.etSearch.text?.toString())
+        }
     }
 
     private fun initChips() {
         val chipTitles = resources.getStringArray(R.array.chips).toList()
         binding.cgvFilter.setChips(chipTitles)
-        binding.cgvFilter.setOnChipSelectListener { }
+        binding.cgvFilter.selectChip(0)
+        binding.cgvFilter.setOnChipSelectListener { chipIndex ->
+            when (chipIndex) {
+                0 -> viewModel.publicationType = null
+                1 -> viewModel.publicationType = PublicationType.NEWS
+                2 -> viewModel.publicationType = PublicationType.IDEA
+            }
+            viewModel.getNewsFeed(query = binding.etSearch.text?.toString())
+        }
     }
 
     private fun updateUI(state: FeedScreenState) {
@@ -104,11 +131,11 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
             is FeedScreenState.Loading -> if (state.isPagination) {
                 showPagination(true)
             } else {
-                binding.swipeRefreshLayout.isRefreshing = true
+                showLoading()
             }
 
             is FeedScreenState.Content -> showContent(state.newsFeed)
-            is FeedScreenState.Error -> showToast("Не удалось загрузить новости")
+            is FeedScreenState.Error -> renderError(state.errorType)
         }
     }
 
@@ -126,51 +153,72 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         binding.pbNews.isVisible = show
     }
 
-    fun dpToPx(dp: Int, context: Context): Int {
+    private fun dpToPx(dp: Int, context: Context): Int {
         return (dp * context.resources.displayMetrics.density).toInt()
     }
 
-    private fun showContent(newsFeed: List<NewsWithProject>) {
-        binding.apply {
-            binding.swipeRefreshLayout.isRefreshing = false
-            rvPublications.isVisible = true
-            newsAdapter.submitList(newsFeed)
+    private fun showLoading() = with(binding) {
+        swipeRefreshLayout.isRefreshing = false
+        listOf(emptyPlaceholder, layoutErrorScreen).forEach { it.isVisible = false }
+        rvPublications.visibility = View.INVISIBLE
+        listOf(circularProgress, etSearch).forEach { it.isVisible = true }
+        cgvFilter.isVisible = btnCreateIdea.isVisible
+    }
+
+    private fun renderError(errorState: ErrorScreenState) = with(binding) {
+        listOf(emptyPlaceholder, cgvFilter, etSearch, circularProgress).forEach {
+            it.isVisible = false
         }
+        if (errorState == ErrorScreenState.UNAUTHORIZED) {
+            viewModel.clearBackStackAndNavigateToAuthorization()
+        } else {
+            fetchErrorScreen(errorState)
+            layoutErrorScreen.isVisible = true
+        }
+    }
+
+    private fun fetchErrorScreen(errorState: ErrorScreenState) {
+        binding.layoutErrorScreen.apply {
+            findViewById<ImageView>(com.innoprog.android.uikit.R.id.iv_error_image)
+                .setImageResource(errorState.imageResource)
+            findViewById<TextView>(com.innoprog.android.uikit.R.id.tv_error_message)
+                .setText(errorState.messageResource)
+        }
+    }
+
+    private fun showContent(newsFeed: List<NewsWithProject>) = with(binding) {
+        swipeRefreshLayout.isRefreshing = false
+        cgvFilter.isVisible = btnCreateIdea.isVisible
+        listOf(circularProgress, layoutErrorScreen).forEach { it.isVisible = false }
+        listOf(etSearch, rvPublications).forEach { it.isVisible = true }
+        newsAdapter.submitList(newsFeed.toMutableList())
+        emptyPlaceholder.isVisible = newsFeed.isEmpty()
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private fun changeIconClearVisibility(text: CharSequence?) {
-        val editText = binding.etSearch
+    private fun changeIconClearVisibility(text: CharSequence?) = with(binding) {
         if (text.isNullOrEmpty()) {
-            editText.setCompoundDrawablesWithIntrinsicBounds(
-                R.drawable.ic_search,
-                0,
-                0,
-                0
-            )
-            editText.setOnTouchListener { _, _ -> false }
+            etSearch.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_search, 0, 0, 0)
+            btnClearQuery.isVisible = false
         } else {
-            editText.setCompoundDrawablesWithIntrinsicBounds(
-                R.drawable.ic_search,
-                0,
-                R.drawable.ic_delete,
-                0
-            )
+            etSearch.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_search, 0, 0, 0)
+            btnClearQuery.isVisible = true
         }
-        clearSearchBar()
     }
 
     private fun startSearch() {
+        editTextIsOnFocus = true
         binding.apply {
             btnCreateIdea.isVisible = false
-            tvFeed.isVisible = false
             cgvFilter.isVisible = false
+            tvFeed.isVisible = false
             tvCancel.isVisible = true
             changeElementBinding()
         }
     }
 
     private fun cancelSearch() {
+        editTextIsOnFocus = false
         binding.apply {
             etSearch.clearFocus()
             etSearch.text.clear()
@@ -185,7 +233,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
 
     private fun changeElementBinding() {
         val constraintLayout = binding.root
-
         val constraintSet = ConstraintSet()
         constraintSet.clone(constraintLayout)
 
@@ -212,25 +259,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         constraintSet.applyTo(constraintLayout)
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    @Suppress("Detekt.LabeledExpression")
-    private fun clearSearchBar() {
-        val editText = binding.etSearch
-        val iconClear = ContextCompat.getDrawable(requireContext(), R.drawable.ic_delete)
-        val iconWidth = iconClear?.intrinsicWidth ?: 0
-
-        editText.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_UP && event.rawX >=
-                editText.right - editText.compoundPaddingEnd - iconWidth
-            ) {
-                editText.text?.clear()
-                editText.requestFocus()
-                return@setOnTouchListener true
-            }
-            return@setOnTouchListener false
-        }
-    }
-
     private fun hideKeyboard() {
         val inputMethodManager =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
@@ -254,5 +282,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     private companion object {
         const val RV_PADDING_BOTTOM_ON = 50
         const val RV_PADDING_BOTTOM_OFF = 5
+        private const val SEARCH_DELAY_2_SEC = 2000L
     }
 }

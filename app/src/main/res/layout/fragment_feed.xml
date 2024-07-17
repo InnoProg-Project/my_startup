@@ -72,6 +72,19 @@
         app:layout_constraintStart_toStartOf="@+id/leftGuideline"
         app:layout_constraintTop_toBottomOf="@+id/tvFeed" />
 
+    <ImageView
+        android:id="@+id/btn_clear_query"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/padding_6"
+        android:contentDescription="@string/btn_hint_clear_search_query"
+        android:src="@drawable/ic_delete"
+        tools:visibility="visible"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/etSearch"
+        app:layout_constraintEnd_toEndOf="@id/etSearch"
+        app:layout_constraintTop_toTopOf="@id/etSearch" />
+
     <TextView
         android:id="@+id/tvCancel"
         style="@style/TextBody_1"
@@ -100,7 +113,7 @@
         tools:visibility="gone" />
 
     <TextView
-        android:id="@+id/tvPlaceholder"
+        android:id="@+id/empty_placeholder"
         style="@style/TextHeadline_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -150,4 +163,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:trackColor="@color/accent_default"
         tools:visibility="visible" />
+
+    <include
+        android:id="@+id/layout_error_screen"
+        layout="@layout/error_layout"
+        android:visibility="gone"
+        tools:visibility="gone" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/circular_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etSearch"
+        app:trackColor="@color/accent_default" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
