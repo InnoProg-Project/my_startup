@@ -110,14 +110,14 @@
                 app:cardCornerRadius="20dp">
 
                 <ImageView
-                    android:id="@+id/logoImageView"
+                    android:id="@+id/iv_logo"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:importantForAccessibility="no"
                     android:scaleType="centerCrop" />
 
                 <ImageButton
-                    android:id="@+id/deleteLogoButton"
+                    android:id="@+id/bt_delete_logo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top|end"
@@ -129,7 +129,7 @@
 
 
             <com.innoprog.android.uikit.InnoProgButtonView
-                android:id="@+id/btLoadingLogo"
+                android:id="@+id/bt_loading_logo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_16"
@@ -151,7 +151,7 @@
         </LinearLayout>
 
         <com.innoprog.android.uikit.InnoProgButtonView
-            android:id="@+id/btСontinue"
+            android:id="@+id/bt_resume"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_8"

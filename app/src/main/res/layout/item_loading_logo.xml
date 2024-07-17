@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/logoContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="74dp"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        style="@style/TextSubtitle_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16"
+        android:text="@string/logo"
+        android:textColor="@color/text_primary" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/logoIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16"
+        android:visibility="gone"
+        app:cardCornerRadius="20dp">
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:importantForAccessibility="no"
+            android:scaleType="centerCrop" />
+
+        <ImageButton
+            android:id="@+id/bt_delete_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:background="@android:color/transparent"
+            android:src="@drawable/delete_logo_button" />
+    </androidx.cardview.widget.CardView>
+
+
+    <com.innoprog.android.uikit.InnoProgButtonView
+        android:id="@+id/bt_loading_logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16"
+        android:gravity="center"
+        app:buttonLeftIcon="@drawable/add_logo"
+        app:buttonSize="large"
+        app:buttonState="enabled"
+        app:buttonText="@string/loading_logo"
+        app:buttonType="def" />
+
+    <TextView
+        android:id="@+id/tvDocDox"
+        style="@style/TextCaption_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/margin_16"
+        android:text="@string/doc_docx_pdf_10" />
+
+</LinearLayout>

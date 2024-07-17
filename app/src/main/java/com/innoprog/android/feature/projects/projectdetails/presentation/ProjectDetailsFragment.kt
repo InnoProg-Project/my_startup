@@ -50,8 +50,8 @@ class ProjectDetailsFragment : BaseFragment<FragmentProjectDetailsBinding, BaseV
             openImagePicker()
         }
 
-        binding.deleteLogoButton.setOnClickListener {
-            binding.logoImageView.setImageDrawable(null)
+        binding.btDeleteLogo.setOnClickListener {
+            binding.ivLogo.setImageDrawable(null)
             showButtonAddIcon()
             selectedImageUri = null
             checkConditionsAndSetSubmitButton()
@@ -70,7 +70,7 @@ class ProjectDetailsFragment : BaseFragment<FragmentProjectDetailsBinding, BaseV
         if (requestCode == IMAGE_PICKER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             data?.data?.let { uri ->
                 selectedImageUri = uri
-                binding.logoImageView.setImageURI(uri)
+                binding.ivLogo.setImageURI(uri)
                 showLogoIcon()
                 checkConditionsAndSetSubmitButton()
             }
@@ -78,15 +78,15 @@ class ProjectDetailsFragment : BaseFragment<FragmentProjectDetailsBinding, BaseV
     }
 
     private fun showLogoIcon() {
-        binding.logoImageView.visibility = View.VISIBLE
-        binding.deleteLogoButton.visibility = View.VISIBLE
+        binding.ivLogo.visibility = View.VISIBLE
+        binding.btDeleteLogo.visibility = View.VISIBLE
         binding.tvDocDox.visibility = View.GONE
         binding.btLoadingLogo.visibility = View.GONE
     }
 
     private fun showButtonAddIcon() {
-        binding.logoImageView.visibility = View.GONE
-        binding.deleteLogoButton.visibility = View.GONE
+        binding.ivLogo.visibility = View.GONE
+        binding.btDeleteLogo.visibility = View.GONE
         binding.tvDocDox.visibility = View.VISIBLE
         binding.btLoadingLogo.visibility = View.VISIBLE
     }
@@ -98,9 +98,9 @@ class ProjectDetailsFragment : BaseFragment<FragmentProjectDetailsBinding, BaseV
         val isIconAdded = selectedImageUri != null
 
         if (projectName.isNotEmpty() && shortDescription.isNotEmpty() && isIconAdded) {
-            binding.btOntinue.stateIsEnabled(true)
+            binding.btResume.stateIsEnabled(true)
         } else {
-            binding.btOntinue.stateIsEnabled(false)
+            binding.btResume.stateIsEnabled(false)
         }
     }
 

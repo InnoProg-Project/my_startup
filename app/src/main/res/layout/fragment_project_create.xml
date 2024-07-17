@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_primary"
+    tools:context=".feature.projects.create.presentation.ui.FillAboutProjectFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/left_border"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/margin_16" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/right_border"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/margin_16" />
+
+    <com.innoprog.android.uikit.InnoProgTopBarView
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:topBar_left_icon="@drawable/ic_back"
+        tools:topBar_title=" " />
+
+    <TextView
+        android:id="@+id/tv_step_title"
+        style="@style/TextHeadline_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/margin_16"
+        android:text="@string/choose_project_direction"
+        android:textColor="@color/text_primary"
+        app:layout_constraintTop_toBottomOf="@id/topbar"
+        app:layout_constraintStart_toEndOf="@id/left_border"
+        app:layout_constraintEnd_toStartOf="@id/right_border"/>
+
+    <TextView
+        android:id="@+id/tv_step_subtitle"
+        style="@style/TextBody_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/margin_8"
+        android:paddingBottom="@dimen/margin_16"
+        android:textColor="@color/text_secondary"
+        app:layout_constraintTop_toBottomOf="@id/tv_step_title"
+        app:layout_constraintStart_toEndOf="@id/left_border"
+        app:layout_constraintEnd_toStartOf="@id/right_border"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_step_screen"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_project_direction"
+        android:textColor="@color/text_primary"
+        app:layout_constraintTop_toBottomOf="@id/tv_step_subtitle"
+        app:layout_constraintStart_toEndOf="@id/left_border"
+        app:layout_constraintEnd_toStartOf="@id/right_border"
+        tools:listitem="@layout/item_docks" />
+
+    <com.innoprog.android.uikit.InnoProgButtonView
+        android:id="@+id/bv_resume"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_margin="@dimen/margin_8"
+        app:buttonSize="large"
+        app:buttonState="enabled"
+        app:buttonTextColor="@color/text_primary"
+        app:buttonType="primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:buttonText="@string/save"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
