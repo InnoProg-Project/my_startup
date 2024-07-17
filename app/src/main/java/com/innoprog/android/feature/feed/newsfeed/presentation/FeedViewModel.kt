@@ -14,7 +14,7 @@ import com.innoprog.android.util.ErrorScreenState
 import com.innoprog.android.util.ErrorType
 import com.innoprog.android.util.Resource
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.DisposableHandle
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,7 +25,7 @@ class FeedViewModel @Inject constructor(private val feedInteractor: FeedInteract
     val screenState: LiveData<FeedScreenState>
         get() = _screenState
 
-    private var jobSearch: DisposableHandle? = null
+    private var jobSearch: Job? = null
     private var nextPageNumber = 0
     private var isNextPageLoading = false
     private var lastId = ""
@@ -37,9 +37,7 @@ class FeedViewModel @Inject constructor(private val feedInteractor: FeedInteract
     }
 
     fun getNewsFeed(isPagination: Boolean = false, query: String? = null) {
-        Log.i(TAG, "query: $query")
-        jobSearch?.dispose()
-        jobSearch = null
+        jobSearch?.cancel()
         jobSearch = viewModelScope.launch(Dispatchers.IO) {
             setState(FeedScreenState.Loading(isPagination))
             if (!isPagination) {
@@ -63,7 +61,7 @@ class FeedViewModel @Inject constructor(private val feedInteractor: FeedInteract
                 }
                 setState(FeedScreenState.Error(ErrorScreenState.NOT_FOUND))
             }
-        }.invokeOnCompletion {}
+        }
     }
 
     private fun acceptResponse(isPagination: Boolean, response: Resource<List<NewsWithProject>>) {
@@ -89,22 +87,22 @@ class FeedViewModel @Inject constructor(private val feedInteractor: FeedInteract
         _screenState.postValue(state)
     }
 
-    fun onLastItemReached() {
-        searchPagination()
+    fun onLastItemReached(query: String?) {
+        searchPagination(query)
     }
 
-    private fun searchPagination() {
+    private fun searchPagination(query: String?) {
         if (isNextPageLoading) return
 
         isNextPageLoading = true
-        jobSearch?.dispose()
+        jobSearch?.cancel()
         jobSearch = null
-        getNewsFeed(true)
+        getNewsFeed(true, query)
     }
 
 
     fun cancelJobs() {
-        jobSearch?.dispose()
+        jobSearch?.cancel()
         jobSearch = null
         isNextPageLoading = false
     }

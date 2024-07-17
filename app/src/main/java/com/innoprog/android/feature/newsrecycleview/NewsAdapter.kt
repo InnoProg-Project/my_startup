@@ -27,7 +27,6 @@ class NewsAdapter(
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
 }
 
 class NewsDiffCallback : DiffUtil.ItemCallback<NewsWithProject>() {
