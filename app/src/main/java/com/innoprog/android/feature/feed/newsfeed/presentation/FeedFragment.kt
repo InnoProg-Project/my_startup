@@ -29,7 +29,6 @@ import com.innoprog.android.feature.feed.newsfeed.di.DaggerFeedComponent
 import com.innoprog.android.feature.feed.newsfeed.domain.models.NewsWithProject
 import com.innoprog.android.feature.feed.newsfeed.domain.models.PublicationType
 import com.innoprog.android.feature.newsrecycleview.NewsAdapter
-import com.innoprog.android.uikit.InnoProgChipGroupView
 import com.innoprog.android.util.ErrorScreenState
 import com.innoprog.android.util.debounceFun
 import com.innoprog.android.util.debounceUnitFun
@@ -38,10 +37,6 @@ import kotlinx.coroutines.Dispatchers
 
 class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     private val debounceNavigateTo = debounceUnitFun<Fragment?>(lifecycleScope)
-    private var editTextIsOnFocus =
-        false // переменная необходима для хранение состояния фокуса на edittext
-
-    override val viewModel by injectViewModel<FeedViewModel>()
     private val newsAdapter: NewsAdapter by lazy {
         NewsAdapter { newsWithProject ->
             publicationTypeIndicator(newsWithProject.news.id, newsWithProject.news.type)
@@ -52,16 +47,13 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         delayMillis = SEARCH_DELAY_2_SEC,
         coroutineScope = coroutineScope,
         useLastParam = true
-    ) { query ->
-        viewModel.getNewsFeed(query = query)
-    }
-
+    ) { query -> viewModel.getNewsFeed(query = query) }
     private val textWatcherForEditText = { text: CharSequence?, _: Int, _: Int, _: Int ->
-        text?.let {
-            debounceGetNewsFeed(text.toString())
-        }
+        text?.let { debounceGetNewsFeed(text.toString()) }
         changeIconClearVisibility(text)
     }
+    private var editTextIsOnFocus = false
+    override val viewModel by injectViewModel<FeedViewModel>()
 
     override fun diComponent(): ScreenComponent {
         return DaggerFeedComponent.builder()
@@ -113,7 +105,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
             }
         })
 
-        layoutErrorScreen.findViewById<com.innoprog.android.uikit.InnoProgButtonView>(
+        binding.layoutErrorScreen.findViewById<com.innoprog.android.uikit.InnoProgButtonView>(
             com.innoprog.android.uikit.R.id.ipbtn_repeat_request
         ).setOnClickListener {
             viewModel.getNewsFeed()
@@ -123,27 +115,14 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     private fun initChips() {
         val chipTitles = resources.getStringArray(R.array.chips).toList()
         binding.cgvFilter.setChips(chipTitles)
-        binding.cgvFilter.setOnChipSelectListener(object :
-            InnoProgChipGroupView.OnChipSelectListener {
-            override fun onChipSelected(chipIndex: Int) {
-                when (chipIndex) {
-                    0 -> {
-                        viewModel.publicationType = null
-                        viewModel.getNewsFeed()
-                    }
-
-                    1 -> {
-                        viewModel.publicationType = PublicationType.NEWS
-                        viewModel.getNewsFeed()
-                    }
-
-                    2 -> {
-                        viewModel.publicationType = PublicationType.IDEA
-                    }
-                }
-                viewModel.getNewsFeed()
+        binding.cgvFilter.setOnChipSelectListener { chipIndex ->
+            when (chipIndex) {
+                0 -> viewModel.publicationType = null
+                1 -> viewModel.publicationType = PublicationType.NEWS
+                2 -> viewModel.publicationType = PublicationType.IDEA
             }
-        })
+            viewModel.getNewsFeed()
+        }
     }
 
     private fun updateUI(state: FeedScreenState) {
@@ -174,28 +153,17 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         binding.pbNews.isVisible = show
     }
 
-    fun dpToPx(dp: Int, context: Context): Int {
+    private fun dpToPx(dp: Int, context: Context): Int {
         return (dp * context.resources.displayMetrics.density).toInt()
     }
 
     private fun showLoading() = with(binding) {
         swipeRefreshLayout.isRefreshing = false
-
         listOf(btnCreateIdea, btnCreateIdea, cgvFilter, tvFeed).forEach {
             it.isVisible = editTextIsOnFocus.not()
         }
-
-        listOf(tvPlaceholder, layoutErrorScreen, rvPublications).forEach {
-            it.isVisible = false
-        }
-
-        listOf(
-            cgvFilter,
-            circularProgress,
-            etSearch
-        ).forEach {
-            it.isVisible = true
-        }
+        listOf(tvPlaceholder, layoutErrorScreen, rvPublications).forEach { it.isVisible = false }
+        listOf(cgvFilter, circularProgress, etSearch).forEach { it.isVisible = true }
     }
 
     private fun renderError(errorState: ErrorScreenState) = with(binding) {
@@ -219,30 +187,21 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     }
 
     private fun fetchErrorScreen(errorState: ErrorScreenState) {
-        val errorImageRes = errorState.imageResource
-        val errorTextRes = errorState.messageResource
         binding.layoutErrorScreen.apply {
             findViewById<ImageView>(com.innoprog.android.uikit.R.id.iv_error_image)
-                .setImageResource(errorImageRes)
+                .setImageResource(errorState.imageResource)
             findViewById<TextView>(com.innoprog.android.uikit.R.id.tv_error_message)
-                .setText(errorTextRes)
+                .setText(errorState.messageResource)
         }
     }
 
     private fun showContent(newsFeed: List<NewsWithProject>) = with(binding) {
         swipeRefreshLayout.isRefreshing = false
-
         listOf(tvFeed, cgvFilter, btnCreateIdea).forEach {
             it.isVisible = editTextIsOnFocus.not()
         }
-
-        listOf(tvPlaceholder, circularProgress, layoutErrorScreen).forEach {
-            it.isVisible = false
-        }
-
-        listOf(etSearch, rvPublications).forEach {
-            it.isVisible = true
-        }
+        listOf(tvPlaceholder, circularProgress, layoutErrorScreen).forEach { it.isVisible = false }
+        listOf(etSearch, rvPublications).forEach { it.isVisible = true }
         newsAdapter.submitList(newsFeed)
     }
 
