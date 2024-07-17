@@ -6,7 +6,7 @@ data class AnyProjectDetailsModel(
     @SerializedName("id")
     val id: String,
     @SerializedName("images")
-    val images: List<ImageModel>?,
+    val images: List<ImageModel>,
     @SerializedName("name")
     val name: String,
     @SerializedName("projectLogoFilePath")
@@ -18,11 +18,11 @@ data class AnyProjectDetailsModel(
     @SerializedName("description")
     val description: String,
     @SerializedName("documents")
-    val documents: List<DocumentModel>?,
+    val documents: List<DocumentModel>,
     @SerializedName("financingStage")
     val financingStage: String,
     @SerializedName("deadline")
     val deadline: String,
     @SerializedName("siteUrls")
-    val siteUrls: List<String>,
+    val siteUrls: String,
 )

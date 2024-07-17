@@ -7,6 +7,7 @@ import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.navOptions
 import com.innoprog.android.R
@@ -21,7 +22,6 @@ import com.innoprog.android.uikit.InnoProgInputViewState
 import com.innoprog.android.util.setOnDebouncedClickListener
 
 class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseViewModel>() {
-
     override val viewModel by injectViewModel<AuthorizationViewModel>()
     private var isVisiblePassword = false
 
@@ -39,8 +39,11 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
         return FragmentAuthorizationBinding.inflate(inflater, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.verifyOnStart()
+
         customizeIV()
         renderIVPassword()
         viewModel.observeState().observe(viewLifecycleOwner) {
@@ -67,10 +70,29 @@ class AuthorizationFragment : BaseFragment<FragmentAuthorizationBinding, BaseVie
 
     private fun renderResult(state: AuthState) {
         when (state) {
-            AuthState.SUCCESS -> navigateNext()
-            AuthState.CONNECTION_ERROR -> renderError(getString(R.string.authorization_no_internet))
-            AuthState.VERIFICATION_ERROR -> renderError(getString(R.string.authorization_bad_data))
-            AuthState.INPUT_ERROR -> renderError(getString(R.string.authorization_bad_data))
+            is AuthState.Success -> navigateNext()
+            AuthState.ConnectionError -> renderError(getString(R.string.authorization_no_internet))
+            AuthState.VerificationError -> renderError(getString(R.string.authorization_bad_data))
+            AuthState.InputError -> renderError(getString(R.string.authorization_bad_data))
+            else -> {}
+        }
+        binding.progressBar.isVisible = state == AuthState.Loading
+        binding.blackout.isVisible = state == AuthState.Loading
+        binding.btnLogin.isVisible = state != AuthState.Loading
+        blockUserInteraction(state == AuthState.Loading)
+    }
+
+    private fun blockUserInteraction(block: Boolean) {
+        setViewAndChildrenEnabled(binding.root, !block)
+    }
+
+    private fun setViewAndChildrenEnabled(view: View, enabled: Boolean) {
+        view.isEnabled = enabled
+        if (view is ViewGroup) {
+            for (i in 0 until view.childCount) {
+                val child = view.getChildAt(i)
+                setViewAndChildrenEnabled(child, enabled)
+            }
         }
     }
 

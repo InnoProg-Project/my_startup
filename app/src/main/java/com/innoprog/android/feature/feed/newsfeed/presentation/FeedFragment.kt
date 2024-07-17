@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -37,9 +36,7 @@ import com.innoprog.android.util.debounceUnitFun
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
-@Suppress("Detekt.LargeClass")
 class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
-
     private val debounceNavigateTo = debounceUnitFun<Fragment?>(lifecycleScope)
     private var editTextIsOnFocus =
         false // переменная необходима для хранение состояния фокуса на edittext
@@ -67,9 +64,8 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     }
 
     override fun diComponent(): ScreenComponent {
-        val appComponent = AppComponentHolder.getComponent()
         return DaggerFeedComponent.builder()
-            .appComponent(appComponent)
+            .appComponent(AppComponentHolder.getComponent())
             .build()
     }
 
@@ -82,37 +78,23 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setUiListeners()
         initChips()
-
-        viewModel.screenState.observe(viewLifecycleOwner) {
-            updateUI(it)
-        }
-
+        viewModel.screenState.observe(viewLifecycleOwner) { updateUI(it) }
         binding.rvPublications.adapter = newsAdapter
         binding.rvPublications.layoutManager = LinearLayoutManager(context)
     }
 
-    private fun setUiListeners() = with(binding) {
-        btnCreateIdea.setOnClickListener {
-            Toast.makeText(requireContext(), "Переход на создание идеи", Toast.LENGTH_SHORT).show()
-        }
-
-        etSearch.setOnFocusChangeListener { _, _ ->
-            startSearch()
-        }
-
-        tvCancel.setOnClickListener { cancelSearch() }
-
-        swipeRefreshLayout.setOnRefreshListener {
+    private fun setUiListeners() {
+        binding.btnCreateIdea.setOnClickListener { showToast("Переход на создание идеи") }
+        binding.etSearch.setOnFocusChangeListener { _, _ -> startSearch() }
+        binding.tvCancel.setOnClickListener { cancelSearch() }
+        binding.swipeRefreshLayout.setOnRefreshListener {
             newsAdapter.submitList(emptyList())
             viewModel.getNewsFeed()
         }
-
-        etSearch.doOnTextChanged(textWatcherForEditText)
-
-        rvPublications.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.etSearch.doOnTextChanged(textWatcherForEditText)
+        binding.rvPublications.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (dy > 0) {
@@ -178,7 +160,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         }
     }
 
-    fun showPagination(show: Boolean) {
+    private fun showPagination(show: Boolean) {
         binding.rvPublications.setPadding(
             binding.rvPublications.paddingLeft,
             binding.rvPublications.paddingTop,
@@ -267,7 +249,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     @SuppressLint("ClickableViewAccessibility")
     private fun changeIconClearVisibility(text: CharSequence?) {
         val editText = binding.etSearch
-
         if (text.isNullOrEmpty()) {
             editText.setCompoundDrawablesWithIntrinsicBounds(
                 R.drawable.ic_search,
@@ -275,9 +256,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
                 0,
                 0
             )
-            editText.setOnTouchListener { _, _ ->
-                false
-            }
+            editText.setOnTouchListener { _, _ -> false }
         } else {
             editText.setCompoundDrawablesWithIntrinsicBounds(
                 R.drawable.ic_search,
@@ -286,7 +265,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
                 0
             )
         }
-
         clearSearchBar()
     }
 
@@ -370,22 +348,12 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
     }
 
     private fun publicationTypeIndicator(newsId: String, newsType: String) {
-        if (newsType == PublicationType.NEWS.value) {
-            val action = FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(newsId)
-            debounceNavigateTo(this) { fragment ->
-                findNavController().navigate(action)
-            }
+        val action = if (newsType == PublicationType.NEWS.value) {
+            FeedFragmentDirections.actionFeedFragmentToNewsDetailsFragment(newsId)
         } else {
-            val action = FeedFragmentDirections.actionFeedFragmentToIdeaDetailsFragment(newsId)
-            debounceNavigateTo(this) { fragment ->
-                findNavController().navigate(action)
-            }
+            FeedFragmentDirections.actionFeedFragmentToIdeaDetailsFragment(newsId)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        newsAdapter.notifyDataSetChanged()
+        debounceNavigateTo(this) { _ -> findNavController().navigate(action) }
     }
 
     override fun onPause() {
@@ -393,7 +361,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, BaseViewModel>() {
         viewModel.cancelJobs()
     }
 
-    companion object {
+    private companion object {
         const val RV_PADDING_BOTTOM_ON = 50
         const val RV_PADDING_BOTTOM_OFF = 5
         private const val SEARCH_DELAY_2_SEC = 2000L

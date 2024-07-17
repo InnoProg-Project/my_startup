@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -24,23 +25,18 @@ import com.innoprog.android.feature.training.common.VerticalSpaceDecorator
 import com.innoprog.android.uikit.R
 
 class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding, BaseViewModel>() {
-
     override val viewModel by injectViewModel<AnyProjectDetailsViewModel>()
-
     private val galleryAdapter = ImageGalleryAdapter()
-
     private val documentAdapter = DocumentAdapter { url ->
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
     }
-
-    private val decorator: VerticalSpaceDecorator by lazy {
+    private val decorator by lazy {
         VerticalSpaceDecorator(resources.getDimensionPixelSize(R.dimen.margin_16))
     }
 
     override fun diComponent(): ScreenComponent {
-        val appComponent = AppComponentHolder.getComponent()
         return DaggerAnyProjectDetailsComponent.builder()
-            .appComponent(appComponent)
+            .appComponent(AppComponentHolder.getComponent())
             .build()
     }
 
@@ -54,9 +50,7 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         hideUnusedItems()
-
         setUiListeners()
-
         val args: AnyProjectDetailsFragmentArgs by navArgs()
         val projectId = args.projectId
 
@@ -68,26 +62,15 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
     }
 
     private fun setUiListeners() {
-        binding.apply {
-            topBar.setLeftIconClickListener {
-                viewModel.navigateUp()
-            }
-        }
+        binding.topBar.setLeftIconClickListener { viewModel.navigateUp() }
     }
 
-    private fun initImageGallery() {
-        val images = listOf(
-            com.innoprog.android.R.drawable.news_sample,
-            com.innoprog.android.R.drawable.course_logo_sample,
-            com.innoprog.android.R.drawable.news_sample,
-            com.innoprog.android.R.drawable.course_logo_sample,
-            com.innoprog.android.R.drawable.news_sample,
-        )
-
+    private fun initImageGallery(anyProjectDetails: AnyProjectDetailsModel) {
+        val images = anyProjectDetails.images.map { it.filePath }
         galleryAdapter.setImageList(images)
         binding.viewPager.adapter = galleryAdapter
 
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position -> }.attach()
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { _, _ -> }.attach()
     }
 
     private fun initDocumentsRecyclerView(documentsList: List<DocumentModel>) {
@@ -114,9 +97,9 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
 
     private fun showContent(anyProjectDetails: AnyProjectDetailsModel) {
         binding.apply {
-            initImageGallery()
+            initImageGallery(anyProjectDetails)
             loadProjectInfo(anyProjectDetails)
-            if (anyProjectDetails.documents != null) {
+            if (anyProjectDetails.documents.isNotEmpty()) {
                 val documentsList = anyProjectDetails.documents
                 initDocumentsRecyclerView(documentsList)
             }
@@ -124,9 +107,11 @@ class AnyProjectDetailsFragment : BaseFragment<FragmentAnyProjectDetailsBinding,
             tvProjectDirection.text = anyProjectDetails.description
             tvFinancingStageValue.text = anyProjectDetails.financingStage
             tvDeadlineValue.text = anyProjectDetails.deadline
-            tvLinkToWebValue.text = anyProjectDetails.siteUrls[0]
-            tvLinkToAppValue.text = anyProjectDetails.siteUrls[1]
-            tvLinkToSocialNetworkValue.text = anyProjectDetails.siteUrls[2]
+            tvLinkToWebValue.text = anyProjectDetails.siteUrls
+            tvLinkToAppValue.isVisible = false
+            tvLinkToApp.isVisible = false
+            tvLinkToSocialNetwork.isVisible = false
+            tvLinkToSocialNetworkValue.isVisible = false
         }
     }
 

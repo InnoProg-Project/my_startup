@@ -28,12 +28,17 @@
         android:padding="@dimen/padding_16"
         app:layout_constraintTop_toBottomOf="@id/topbar_profile">
 
-        <com.innoprog.android.uikit.InnoProgAvatarView
+        <TextView
             android:id="@+id/avatar"
             android:layout_width="@dimen/size_80"
             android:layout_height="@dimen/size_80"
             android:layout_gravity="center"
-            app:avatarImageReference="@drawable/ic_person" />
+            android:background="@drawable/shape_avatar"
+            android:textAlignment="gravity"
+            android:gravity="center"
+            android:scaleX="1.0"
+            android:textSize="40sp"
+            tools:text="AM" />
 
         <TextView
             android:id="@+id/name"
@@ -42,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/margin_16"
-            android:text="@string/name"
+            tools:text="@string/name"
             android:textColor="@color/text_primary" />
 
         <LinearLayout
@@ -60,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:text="@string/ceo"
+                tools:text="@string/ceo"
                 android:textColor="@color/text_secondary" />
 
             <TextView
@@ -81,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:text="@string/company_name"
+                tools:text="@string/company_name"
                 android:textColor="@color/accent_secondary" />
 
         </LinearLayout>
@@ -93,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:text="@string/description"
+            tools:text="@string/description"
             android:textColor="@color/text_secondary" />
 
     </LinearLayout>
@@ -112,7 +117,7 @@
 
         <com.innoprog.android.uikit.InnoProgChipGroupView
             android:id="@+id/chips"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:theme="@style/CustomChips" />
 
@@ -123,25 +128,28 @@
         style="@style/TextHeadline_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:layout_gravity="center"
         android:text="@string/empty"
         android:textColor="@color/text_tertiary"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chips_container"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chips_container" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/padding_8"
-        android:visibility="gone"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chips_container"
-        tools:itemCount="2"
-        tools:listitem="@layout/item_projects" />
-
+        app:layout_constraintTop_toBottomOf="@id/chips_container">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_8"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_news" />
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

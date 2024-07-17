@@ -33,6 +33,7 @@
             android:id="@+id/ivPublicationCover"
             android:layout_width="@dimen/size_0"
             android:layout_height="@dimen/size_0"
+            android:importantForAccessibility="no"
             android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="h,16:9"
             app:layout_constraintEnd_toEndOf="parent"
@@ -101,7 +102,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/ivProjectLogo"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Мой стартап Мой стартап Мой стартапМой стартап Мой стартап Мой стартап Мой стартап" />
+                tools:text="Мой стартап" />
 
             <TextView
                 android:id="@+id/tvProjectDirection"
@@ -115,7 +116,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tvProjectName"
                 app:layout_constraintTop_toBottomOf="@id/tvProjectName"
-                tools:text="Искусственный интеллект Искусственный интеллект Искусственный интеллект Искусственный интеллект" />
+                tools:text="Искусственный интеллект" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -131,14 +132,16 @@
             app:layout_constraintTop_toBottomOf="@+id/projectCard"
             app:layout_goneMarginBottom="@dimen/margin_16" />
 
-        <com.innoprog.android.uikit.InnoProgAvatarView
+        <TextView
             android:id="@+id/publicationAuthorAvatar"
             android:layout_width="@dimen/size_28"
             android:layout_height="@dimen/size_28"
+            android:background="@drawable/shape_avatar"
+            android:gravity="center"
+            tools:text="JA"
             app:layout_constraintBottom_toBottomOf="@+id/tvPublicationAuthorName"
             app:layout_constraintStart_toStartOf="@+id/leftGuideline"
-            app:layout_constraintTop_toTopOf="@+id/tvPublicationAuthorName"
-            tools:src="@drawable/avatar_test_img" />
+            app:layout_constraintTop_toTopOf="@+id/tvPublicationAuthorName" />
 
         <TextView
             android:id="@+id/tvPublicationAuthorName"
@@ -155,7 +158,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tvCommentsCount"
             app:layout_constraintStart_toEndOf="@+id/publicationAuthorAvatar"
-            tools:text="Julia_Anisimova Julia_Anisimova Julia_Anisimova" />
+            tools:text="Julia Anisimova" />
 
         <TextView
             android:id="@+id/tvCommentsCount"

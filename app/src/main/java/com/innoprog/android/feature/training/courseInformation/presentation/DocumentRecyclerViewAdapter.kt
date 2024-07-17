@@ -4,12 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.innoprog.android.databinding.ItemTrainingDocumentBinding
-import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformationDocumentModel
 
-class DocumentRecyclerViewAdapter(private val onDocumentClickListener: (url: String) -> Unit) :
-    Adapter<DocumentViewHolder>() {
-
-    var items = listOf<CourseInformationDocumentModel>()
+class DocumentRecyclerViewAdapter(
+    private val onDocumentClickListener: (url: String) -> Unit
+) : Adapter<DocumentViewHolder>() {
+    private val items = mutableListOf<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DocumentViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -19,17 +18,22 @@ class DocumentRecyclerViewAdapter(private val onDocumentClickListener: (url: Str
                 parent,
                 false
             )
-        )
+        ).apply {
+            itemView.setOnClickListener {
+                onDocumentClickListener(items[bindingAdapterPosition])
+            }
+        }
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: DocumentViewHolder, position: Int) {
-        holder.bind(items[position])
-        holder.itemView.setOnClickListener {
-            onDocumentClickListener(items[position].documentURL)
-        }
+        holder.bind(position)
+    }
+
+    fun setDocumentList(documentList: List<String>) {
+        items.clear()
+        items.addAll(documentList)
+        notifyDataSetChanged()
     }
 }

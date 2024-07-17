@@ -6,27 +6,36 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.os.bundleOf
 import com.bumptech.glide.Glide
 import com.innoprog.android.base.BaseFragment
 import com.innoprog.android.base.BaseViewModel
 import com.innoprog.android.databinding.FragmentCourseInformationBinding
+import com.innoprog.android.di.AppComponentHolder
 import com.innoprog.android.di.ScreenComponent
 import com.innoprog.android.feature.training.common.VerticalSpaceDecorator
 import com.innoprog.android.feature.training.courseInformation.di.DaggerCourseInformationComponent
-import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformationModel
-import com.innoprog.android.uikit.ImageLoadingType
+import com.innoprog.android.feature.training.courseInformation.domain.model.CourseInformation
+import com.innoprog.android.uikit.InnoProgButtonView
 import com.innoprog.android.uikit.R
+import com.innoprog.android.util.ErrorScreenState
 
 class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding, BaseViewModel>() {
-
     override val viewModel by injectViewModel<CourseInformationViewModel>()
-    override fun diComponent(): ScreenComponent = DaggerCourseInformationComponent.builder().build()
+
+    override fun diComponent(): ScreenComponent {
+        val appComponent = AppComponentHolder.getComponent()
+        return DaggerCourseInformationComponent.builder()
+            .appComponent(appComponent)
+            .build()
+    }
 
     private val courseId by lazy {
         arguments?.let { args ->
             CourseInformationFragmentArgs.fromBundle(args).courseId
-        }
+        } ?: ""
     }
 
     private var videoAdapter: VideoAdapter? = null
@@ -54,13 +63,16 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
 
         initVideoRecyclerView()
         initDocumentsRecyclerView()
-        courseId?.let { viewModel.getCourseInformation(it) }
+        if (courseId.isNotEmpty()) {
+            viewModel.getCourseInformation(courseId)
+        }
     }
 
     private fun initVideoRecyclerView() {
-        videoAdapter = VideoAdapter(requireContext()) {
+        videoAdapter = VideoAdapter {
             viewModel.navigateTo(
-                com.innoprog.android.R.id.videoPlayerFragment, bundleOf(VIDEO_PLAYER_KEY to it)
+                com.innoprog.android.R.id.videoPlayerFragment,
+                bundleOf(VIDEO_PLAYER_KEY to it)
             )
         }
         binding.courseInformationVideoRV.addItemDecoration(decorator)
@@ -77,42 +89,81 @@ class CourseInformationFragment : BaseFragment<FragmentCourseInformationBinding,
 
     private fun render(state: CourseInformationState) {
         when (state) {
-            is CourseInformationState.Content -> showContent(state.courseInformation)
-            is CourseInformationState.Error -> Unit
-            is CourseInformationState.Load -> Unit
+            is CourseInformationState.Content -> {
+                binding.progress.hide()
+                binding.courseInformation.visibility = View.VISIBLE
+                binding.errorScreen.visibility = View.GONE
+                installAttributes(state.courseInformation)
+            }
+
+            is CourseInformationState.Error -> renderError(state.errorType)
+            is CourseInformationState.Load -> {
+                binding.progress.show()
+                binding.errorScreen.visibility = View.GONE
+                binding.courseInformation.visibility = View.INVISIBLE
+            }
         }
     }
 
-    private fun showContent(courseInformation: CourseInformationModel) {
-        Glide.with(requireContext()).load(courseInformation.courseLogoURL).into(binding.courseLogo)
-        val avatarUrl = courseInformation.courseAuthorAvatarURL
-        val placeholderResId = R.drawable.ic_person
-        val imageType =
-            ImageLoadingType.ImageNetwork(avatarUrl, placeholderResId = placeholderResId)
-        binding.courseInformationAuthorAvatar.loadImage(imageType)
-        binding.courseInformationAuthorName.text = courseInformation.courseAuthorName
-        binding.courseInformationAuthorPosition.text = courseInformation.courseAuthorPosition
-        binding.courseInformationDate.text = courseInformation.courseDate
-        binding.courseInformationDirection.text = courseInformation.courseDirection
-        binding.courseInformationTitle.text = courseInformation.courseTitle
-        binding.courseInformationDescription.text = courseInformation.courseDescription
-
-        if (courseInformation.videos != null) {
-            binding.courseInformationVideoTitle.visibility = View.VISIBLE
-            binding.courseInformationVideoRV.visibility = View.VISIBLE
-            videoAdapter?.items = courseInformation.videos
+    private fun installAttributes(courseInformation: CourseInformation) {
+        if (courseInformation.imageList.isEmpty()) {
+            binding.courseLogo.visibility = View.GONE
         } else {
-            binding.courseInformationVideoTitle.visibility = View.INVISIBLE
-            binding.courseInformationVideoRV.visibility = View.INVISIBLE
+            binding.courseLogo.visibility = View.VISIBLE
+            Glide.with(requireContext())
+                .load(courseInformation.imageList)
+                .into(binding.courseLogo)
         }
 
-        if (courseInformation.documents != null) {
+        binding.courseInformationTitle.text = courseInformation.title
+        binding.courseInformationDescription.text = courseInformation.description
+        binding.courseInformationAuthorAvatar.text =
+            viewModel.formatAuthorName(courseInformation.authorName)
+        binding.courseInformationAuthorName.text = courseInformation.authorName
+        binding.courseInformationDate.text = courseInformation.createdDate
+        binding.courseInformationDirection.text = courseInformation.direction
+
+        if (courseInformation.videoList.isNotEmpty()) {
+            binding.courseInformationVideoTitle.visibility = View.VISIBLE
+            binding.courseInformationVideoRV.visibility = View.VISIBLE
+            videoAdapter?.setVideoList(courseInformation.videoList)
+        } else {
+            binding.courseInformationVideoTitle.visibility = View.GONE
+            binding.courseInformationVideoRV.visibility = View.GONE
+        }
+
+        if (courseInformation.documentList.isNotEmpty()) {
             binding.courseInformationDocumentsTitle.visibility = View.VISIBLE
             binding.courseInformationDocumentsRV.visibility = View.VISIBLE
-            documentAdapter?.items = courseInformation.documents
+            documentAdapter?.setDocumentList(courseInformation.documentList)
         } else {
-            binding.courseInformationDocumentsTitle.visibility = View.INVISIBLE
-            binding.courseInformationDocumentsRV.visibility = View.INVISIBLE
+            binding.courseInformationDocumentsTitle.visibility = View.GONE
+            binding.courseInformationDocumentsRV.visibility = View.GONE
+        }
+    }
+
+    private fun renderError(errorState: ErrorScreenState) = with(binding) {
+        courseInformation.visibility = View.GONE
+        progress.visibility = View.GONE
+        if (errorState == ErrorScreenState.UNAUTHORIZED) {
+            viewModel.clearBackStackAndNavigateToAuthorization()
+        } else {
+            fetchErrorScreen(errorState)
+            errorScreen.visibility = View.VISIBLE
+        }
+    }
+
+    private fun fetchErrorScreen(errorState: ErrorScreenState) {
+        val errorImageRes = errorState.imageResource
+        val errorTextRes = errorState.messageResource
+        binding.errorScreen.apply {
+            findViewById<ImageView>(R.id.iv_error_image)
+                .setImageResource(errorImageRes)
+            findViewById<TextView>(R.id.tv_error_message)
+                .setText(errorTextRes)
+            findViewById<InnoProgButtonView>(R.id.ipbtn_repeat_request).setOnClickListener {
+                viewModel.getCourseInformation(courseId)
+            }
         }
     }
 

@@ -58,6 +58,7 @@ class FeedViewModel @Inject constructor(private val feedInteractor: FeedInteract
                 feedInteractor.getNewsFeed(queryPage).collect { acceptResponse(isPagination, it) }
             }.onFailure { exception ->
                 if (BuildConfig.DEBUG) {
+                    Log.v(TAG, "error -> ${exception.localizedMessage}")
                     exception.printStackTrace()
                 }
                 setState(FeedScreenState.Error(ErrorScreenState.NOT_FOUND))
@@ -68,9 +69,8 @@ class FeedViewModel @Inject constructor(private val feedInteractor: FeedInteract
     private fun acceptResponse(isPagination: Boolean, response: Resource<List<NewsWithProject>>) {
         when (response) {
             is Resource.Success -> {
-                if (isPagination) {
-                    response.data.lastOrNull()?.let { lastId = it.news.id }
-                } else {
+                response.data.lastOrNull()?.let { lastId = it.news.id }
+                if (isPagination.not()) {
                     currentListNews.clear()
                 }
                 response.data.forEach { currentListNews.add(it) }
